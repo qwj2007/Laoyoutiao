@@ -1,0 +1,12 @@
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Configuration\bin\Debug\net6.0\Laoyoutiao.Configuration.deps.json
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Configuration\bin\Debug\net6.0\Laoyoutiao.Configuration.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Configuration\bin\Debug\net6.0\Laoyoutiao.Configuration.pdb
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Configuration\obj\Debug\net6.0\Laoyoutiao.Configuration.csproj.AssemblyReference.cache
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Configuration\obj\Debug\net6.0\Laoyoutiao.Configuration.GeneratedMSBuildEditorConfig.editorconfig
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Configuration\obj\Debug\net6.0\Laoyoutiao.Configuration.AssemblyInfoInputs.cache
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Configuration\obj\Debug\net6.0\Laoyoutiao.Configuration.AssemblyInfo.cs
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Configuration\obj\Debug\net6.0\Laoyoutiao.Configuration.csproj.CoreCompileInputs.cache
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Configuration\obj\Debug\net6.0\Laoyoutiao.Configuration.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Configuration\obj\Debug\net6.0\refint\Laoyoutiao.Configuration.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Configuration\obj\Debug\net6.0\Laoyoutiao.Configuration.pdb
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Configuration\obj\Debug\net6.0\ref\Laoyoutiao.Configuration.dll

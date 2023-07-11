@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "YYz0VGfrospoM67DvV15X8nhut2UbpgvAyMmF+lSM9zmWwiD5KoOP53K5VWCcIaPKchM0/AaJQK7db9dehAFqw==",
+  "success": true,
+  "projectFilePath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.enums.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1803",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "正在通过 “HTTP” 源“http://a.gyxx.net.cn:1111/v3/index.json”运行“restore”操作。将来的版本中将删除非 HTTPS 访问权限。请考虑迁移到 “HTTPS” 源。"
+    }
+  ]
+}

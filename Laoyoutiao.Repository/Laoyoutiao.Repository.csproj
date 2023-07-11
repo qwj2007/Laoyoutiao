@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SqlSugar.IOC" Version="2.0.0" />
+    <PackageReference Include="SqlSugarCore" Version="5.1.4.86" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Laoyoutiao.Entities\Laoyoutiao.Models.csproj" />
+    <ProjectReference Include="..\Laoyoutiao.IRespository\Laoyoutiao.IRespository.csproj" />
+  </ItemGroup>
+
+</Project>
