@@ -72,7 +72,7 @@ const handleDelete = async (index: number, row: MenuModel) => {
 //批量删除
 const Del = async () => {
     let arr: any[] = multipleTableRef.value?.getSelectionRows()
-    let ids: string = arr.map(item => { return "'" + item.id + "'" }).join(',')
+    let ids: string = arr.map(item => { return "" + item.id + "" }).join(',')
     const res = await batchDelMenu(ids) as any as boolean
     if (res) {
         ElMessage({

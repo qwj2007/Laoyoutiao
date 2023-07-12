@@ -1,10 +1,11 @@
 ﻿
-using demo.Model.Dto.Menu;
+using Laoyoutiao.Models.Dto.Menu;
 using Laoyoutiao.Models.Common;
+using Laoyoutiao.Models.Entitys;
 
 namespace Laoyoutiao.IService
 {
-    public interface IMenuService
+    public interface IMenuService:IBaseService<Menu>
     {
         /// <summary>
         /// 添加
@@ -12,32 +13,32 @@ namespace Laoyoutiao.IService
         /// <param name="role"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        bool Add(MenuAdd role, long userId);
-        /// <summary>
-        /// 修改
-        /// </summary>
-        /// <param name="role"></param>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        bool Edit(MenuEdit role, long userId);
-        /// <summary>
-        /// 删除
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        bool Del(long id);
-        /// <summary>
-        /// 批量删除
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns></returns>
-        bool BatchDel(string ids);
+        //bool Add(MenuAdd role, long userId);
+        ///// <summary>
+        ///// 修改
+        ///// </summary>
+        ///// <param name="role"></param>
+        ///// <param name="userId"></param>
+        ///// <returns></returns>
+        //bool Edit(MenuEdit role, long userId);
+        ///// <summary>
+        ///// 删除
+        ///// </summary>
+        ///// <param name="id"></param>
+        ///// <returns></returns>
+        //bool Del(long id);
+        ///// <summary>
+        ///// 批量删除
+        ///// </summary>
+        ///// <param name="ids"></param>
+        ///// <returns></returns>
+        //bool BatchDel(string ids);
         /// <summary>
         /// 获取列表
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        PageInfo GetMenus(MenuReq req);
+        //PageInfo GetMenus(MenuReq req);
         /// <summary>
         /// 设置菜单
         /// </summary>

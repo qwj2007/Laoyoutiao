@@ -130,3 +130,4 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\Laoyoutia
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Debug\net6.0\Laoyoutiao.webapi.MvcApplicationPartsAssemblyInfo.cs

@@ -65,12 +65,13 @@ const handleDelete = async (index: number, row: Role) => {
       message: '删除成功！',
       type: 'success',
     })
+    LoadTableData();
   }
 }
 //批量删除
 const Del = async () => {
   let arr: any[] = multipleTableRef.value?.getSelectionRows()
-  let ids: string = arr.map(item => { return "'" + item.id + "'" }).join(',')
+  let ids: string = arr.map(item => { return "" + item.id + "" }).join(',')
   const res = await batchDelRole(ids) as any as boolean
   if (res) {
     ElMessage({

@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using demo.Model.Dto.Menu;
 using Laoyoutiao.Common;
 using Laoyoutiao.IService;
 using Laoyoutiao.Models.Common;
-using Laoyoutiao.Models.Dto;
+using Laoyoutiao.Models.Dto.Menu;
 using Laoyoutiao.Models.Entitys;
 using Laoyoutiao.Service;
 using SqlSugar;
@@ -14,48 +13,92 @@ namespace demo.Service
     public class MenuService : BaseService<Menu>, IMenuService
     {
         private readonly IMapper _mapper;
-       
-        public MenuService(IMapper mapper):base(mapper)
-        {
-            _mapper = mapper;          
-        }
-        public bool Add(MenuAdd input, long MenuId)
-        {
-            Menu info = _mapper.Map<Menu>(input);
-            info.CreateUserId = MenuId;
-            info.CreateDate = DateTime.Now;
-            info.IsDeleted = 0;
-            return _db.Insertable(info).ExecuteCommand() > 0;
-        }
 
-        public bool Edit(MenuEdit input, long userId)
+        public MenuService(IMapper mapper) : base(mapper)
         {
-            var info = _db.Queryable<Menu>().First(p => p.Id == input.Id);
-            _mapper.Map(input, info);
-            info.ModifyUserId = userId;
-            info.ModifyDate = DateTime.Now;
-            return _db.Updateable(info).ExecuteCommand() > 0;
+            _mapper = mapper;
         }
+        //public bool Add(MenuAdd input, long userId)
+        //{
+        //    Menu info = _mapper.Map<Menu>(input);
+        //    info.CreateUserId = userId;
+        //    info.CreateDate = DateTime.Now;
+        //    info.IsDeleted = 0;
+        //    return _db.Insertable(info).ExecuteCommand() > 0;
+        //}
 
-        public bool Del(long id)
-        {
-            var info = _db.Queryable<Menu>().First(p => p.Id == id);
-            return _db.Deleteable(info).ExecuteCommand() > 0;
-        }
+        //public bool Edit(MenuEdit input, long userId)
+        //{
+        //    var info = _db.Queryable<Menu>().First(p => p.Id == input.Id);
+        //    _mapper.Map(input, info);
+        //    info.ModifyUserId = userId;
+        //    info.ModifyDate = DateTime.Now;
+        //    return _db.Updateable(info).ExecuteCommand() > 0;
+        //}
 
-        public bool BatchDel(string ids)
-        {
-            return _db.Ado.ExecuteCommand($"DELETE Menu WHERE Id IN({ids})") > 0;
-        }
+        //public bool Del(long id)
+        //{
+        //    var info = _db.Queryable<Menu>().First(p => p.Id == id);
+        //    return _db.Deleteable(info).ExecuteCommand() > 0;
+        //}
 
-        public PageInfo GetMenus(MenuReq req)
+        //public bool BatchDel(string ids)
+        //{
+        //    return _db.Ado.ExecuteCommand($"DELETE Menu WHERE Id IN({ids})") > 0;
+        //}
+
+        //public PageInfo GetMenus(MenuReq req)
+        //{
+        //    PageInfo pageInfo = new PageInfo();
+        //    var exp = _db.Queryable<Menu>()
+        //        .WhereIF(!string.IsNullOrEmpty(req.Name), u => u.Name.Contains(req.Name))
+        //        .WhereIF(!string.IsNullOrEmpty(req.Index), u => u.Index.Contains(req.Index))
+        //        .OrderBy((u) => u.Order)
+        //        .Select((u) => new MenuRes
+        //        {
+        //            Id = u.Id
+        //        ,
+        //            Name = u.Name
+        //        ,
+        //            Index = u.Index
+        //        ,
+        //            FilePath = u.FilePath
+        //        ,
+        //            ParentId = u.ParentId
+        //        //,
+        //        //ParentName = SqlFunc.Subqueryable<Menu>().Where(p => p.Id == u.ParentId).Select(s => s.Name)
+        //        ,
+        //            Order = u.Order
+        //        ,
+        //            IsEnable = u.IsEnable
+        //        ,
+        //            Description = u.Description
+        //        ,
+        //            CreateDate = u.CreateDate
+        //        }).ToTree(it => it.Children, it => it.ParentId, 0);
+        //    var res = exp
+        //        .Skip((req.PageIndex - 1) * req.PageSize)
+        //        .Take(req.PageSize)
+        //        .ToList();
+        //    pageInfo.data = _mapper.Map<List<MenuRes>>(res);
+        //    pageInfo.total = exp.Count();
+        //    return pageInfo;
+        //}
+        //public MenuRes GetMenuById(long id)
+        //{
+        //    var info = _db.Queryable<Menu>().First(p => p.Id == id);
+        //    return _mapper.Map<MenuRes>(info);
+        //}
+
+        public override async Task<PageInfo> GetPagesAsync<MenuReq, MenuRes>(MenuReq req)
         {
+            var menuReq = req as Laoyoutiao.Models.Dto.Menu.MenuReq;
             PageInfo pageInfo = new PageInfo();
-            var exp = _db.Queryable<Menu>()
-                .WhereIF(!string.IsNullOrEmpty(req.Name), u => u.Name.Contains(req.Name))
-                .WhereIF(!string.IsNullOrEmpty(req.Index), u => u.Index.Contains(req.Index))
+            var exp = await _db.Queryable<Menu>()
+                .WhereIF(!string.IsNullOrEmpty(menuReq.Name), u => u.Name.Contains(menuReq.Name))
+                .WhereIF(!string.IsNullOrEmpty(menuReq.Index), u => u.Index.Contains(menuReq.Index))
                 .OrderBy((u) => u.Order)
-                .Select((u) => new MenuRes
+                .Select((u) => new Laoyoutiao.Models.Dto.Menu.MenuRes
                 {
                     Id = u.Id
                 ,
@@ -66,8 +109,6 @@ namespace demo.Service
                     FilePath = u.FilePath
                 ,
                     ParentId = u.ParentId
-                //,
-                    //ParentName = SqlFunc.Subqueryable<Menu>().Where(p => p.Id == u.ParentId).Select(s => s.Name)
                 ,
                     Order = u.Order
                 ,
@@ -76,7 +117,7 @@ namespace demo.Service
                     Description = u.Description
                 ,
                     CreateDate = u.CreateDate
-                }).ToTree(it => it.Children, it => it.ParentId, 0);
+                }).ToTreeAsync(it => it.Children, it => it.ParentId, 0);
             var res = exp
                 .Skip((req.PageIndex - 1) * req.PageSize)
                 .Take(req.PageSize)
@@ -84,11 +125,6 @@ namespace demo.Service
             pageInfo.data = _mapper.Map<List<MenuRes>>(res);
             pageInfo.total = exp.Count();
             return pageInfo;
-        }
-        public MenuRes GetMenuById(long id)
-        {
-            var info = _db.Queryable<Menu>().First(p => p.Id == id);
-            return _mapper.Map<MenuRes>(info);
         }
 
         public bool SettingMenu(long rid, string mids)
@@ -103,6 +139,7 @@ namespace demo.Service
             _db.Ado.ExecuteCommand($"DELETE MenuRoleRelation WHERE MenuId = {rid}");
             return _db.Insertable(list).ExecuteCommand() > 0;
         }
+
         #region 查询当前角色所拥有的菜单
         public List<MenuRes> GetMenusByUserId(long userId)
         {
@@ -154,7 +191,7 @@ namespace demo.Service
             //通过递归获取子级
             GetChildren(list, newlist);
             return newlist.Distinct(new DisComparer<MenuRes>("Name")).ToList();
-           
+
         }
         private static void GetChildren(List<MenuRes> all, List<MenuRes> res)
         {

@@ -9,16 +9,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace Laoyoutiao.webapi.Controllers
 {
 
-    [ApiController]
+  
     [Authorize]
     public class BaseController<T, TRes, TReq, TEdit> : ControllerBase where T : BaseEntity, new()
-          where TRes : class where TReq : class where TEdit : class
+          where TRes : class where TReq : Pagination where TEdit : class
     {
         private readonly IBaseService<T> _baseService;
+        private IMenuService menuService;
+
         public BaseController(IBaseService<T> baseService)
         {
             this._baseService = baseService;
-        }
+        }     
 
 
         /// <summary>
@@ -70,6 +72,19 @@ namespace Laoyoutiao.webapi.Controllers
         public ApiResult BatchDel(string ids)
         {
             return ResultHelper.Success(_baseService.BatchDel(ids.Split(',')));
+        }
+
+        /// <summary>
+        /// 获取用户信息
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public virtual async Task<ApiResult> GetPages(TReq req)
+        {
+            long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);           
+            var result = await _baseService.GetPagesAsync<TReq, TRes>(req);
+            return ResultHelper.Success(result);
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿using demo.Model.Dto.Menu;
-using Laoyoutiao.Common;
+﻿using Laoyoutiao.Common;
 using Laoyoutiao.IService;
 using Laoyoutiao.Models.Common;
+using Laoyoutiao.Models.Dto.Menu;
+using Laoyoutiao.Models.Dto.User;
+using Laoyoutiao.Models.Entitys;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,44 +12,45 @@ namespace Laoyoutiao.webapi.Controllers
     [Route("api/[controller]/[action]")]
     [ApiController]
     [Authorize]
-    public class MenuController : ControllerBase
+    public class MenuController : BaseController<Menu, MenuRes, MenuReq, MenuEdit>
     {
         private readonly IMenuService _Menu;
-        public MenuController(IMenuService Menu)
+       
+        public MenuController(IMenuService menuService):base(menuService)
         {
-            _Menu = Menu;
+            _Menu = menuService;
         }
-        [HttpPost]
-        public ApiResult Add(MenuAdd req)
-        {
-            long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
-            //获取当前登录人信息 
-            return ResultHelper.Success(_Menu.Add(req, userId));
-        }
-        [HttpPost]
-        public ApiResult Edit(MenuEdit req)
-        {
-            long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
-            //获取当前登录人信息
-            return ResultHelper.Success(_Menu.Edit(req, userId));
-        }
-        [HttpGet]
-        public ApiResult Del(long id)
-        {
-            //获取当前登录人信息 
-            return ResultHelper.Success(_Menu.Del(id));
-        }
-        [HttpGet]
-        public ApiResult BatchDel(string ids)
-        {
-            //获取当前登录人信息 
-            return ResultHelper.Success(_Menu.BatchDel(ids));
-        }
-        [HttpPost]
-        public ApiResult GetMenus(MenuReq req)
-        {
-            return ResultHelper.Success(_Menu.GetMenus(req));
-        }
+        //[HttpPost]
+        //public ApiResult Add(MenuAdd req)
+        //{
+        //    long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
+        //    //获取当前登录人信息 
+        //    return ResultHelper.Success(_Menu.Add(req, userId));
+        //}
+        //[HttpPost]
+        //public ApiResult Edit(MenuEdit req)
+        //{
+        //    long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
+        //    //获取当前登录人信息
+        //    return ResultHelper.Success(_Menu.Edit(req, userId));
+        //}
+        //[HttpGet]
+        //public ApiResult Del(long id)
+        //{
+        //    //获取当前登录人信息 
+        //    return ResultHelper.Success(_Menu.Del(id));
+        //}
+        //[HttpGet]
+        //public ApiResult BatchDel(string ids)
+        //{
+        //    //获取当前登录人信息 
+        //    return ResultHelper.Success(_Menu.BatchDel(ids));
+        //}
+        //[HttpPost]
+        //public ApiResult GetMenus(MenuReq req)
+        //{
+        //    return ResultHelper.Success(_Menu.GetMenus(req));
+        //}
         [HttpGet]
         public ApiResult SettingMenu(long rid, string mids)
         {

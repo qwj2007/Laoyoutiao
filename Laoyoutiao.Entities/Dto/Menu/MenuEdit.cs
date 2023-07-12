@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace demo.Model.Dto.Menu
+namespace Laoyoutiao.Models.Dto.Menu
 {
-    public class MenuEdit
-    {
-        public long Id { get; set; }
+    public class MenuEdit: BaseDto
+    {       
         public string Name { get; set; }
         public string Index { get; set; }
         public string? FilePath { get; set; }

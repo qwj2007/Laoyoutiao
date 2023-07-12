@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Laoyoutiao.Models.Dto.Role
 {
-    public class RoleEdit
-    {
-        public long Id { get; set; }
+    public class RoleEdit: BaseDto
+    {       
         public string Name { get; set; }
         public int Order { get; set; }
         public bool IsEnable { get; set; }

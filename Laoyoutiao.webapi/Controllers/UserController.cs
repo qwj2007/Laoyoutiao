@@ -9,8 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Laoyoutiao.webapi.Controllers
 {
     [Route("api/[controller]/[action]")]
-    [ApiController]
-    [Authorize]
+    [ApiController] 
     public class UserController : BaseController<Users,UserRes,UserReq,UserEdit>
     {
         private readonly IUserService _users;

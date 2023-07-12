@@ -13,15 +13,15 @@ const http = "/api";
 export const getMenuDataNew = async (parms: {}) => {
     //instance.defaults.headers.common['Authorization'] = "Bearer " + localStorage["token"];
 
-    return instance.post(http + "/Menu/GetMenus", parms);
+    return instance.post(http + "/Menu/GetPages", parms);
 }
-export const addMenu = async (params: {}) => {
+export const addMenu =async (params: {}) => {
     //instance.defaults.headers.common['Authorization'] = "Bearer " + localStorage["token"];
     return instance.post(http + "/Menu/Add", params);
 }
 export const editMenu = async (params: {}) => {
     //instance.defaults.headers.common['Authorization'] = "Bearer " + localStorage["token"];
-    return instance.post(http + "/Menu/Edit", params);
+    return instance.post(http + "/Menu/Add", params);
 }
 
 //删除菜单
@@ -43,7 +43,7 @@ return instance.get(`${http}/Menu/SettingMenu?rid=${rid}&mids=${mids}`)}
 //获取列表
 export const getRoleData = async (parms: {}) => {
     //instance.defaults.headers.common['Authorization'] = "Bearer " + localStorage["token"];
-    return instance.post(http + "/Role/GetRoles", parms)
+    return instance.post(http + "/Role/GetPages", parms)
 }
 //添加
 export const addRole = async (parms: {}) => {
@@ -53,7 +53,7 @@ export const addRole = async (parms: {}) => {
 //修改
 export const editRole = async (parms: {}) => {
     //instance.defaults.headers.common['Authorization'] = "Bearer " + localStorage["token"];
-    return instance.post(http + "/Role/Edit", parms)
+    return instance.post(http + "/Role/Add", parms)
 }
 //删除
 export const delRole = async (id: number) => {
@@ -70,7 +70,8 @@ export const batchDelRole = async (ids: string) => {
 //获取列表
 export const getUserData = async (parms: {}) => {
     //instance.defaults.headers.common['Authorization'] = "Bearer " + localStorage["token"];
-    return instance.post(http + "/User/GetUsers", parms)
+    //return instance.post(http + "/User/GetUsers", parms)
+     return instance.post(http + "/User/GetPages", parms)    
 }
 //添加
 export const addUsers = async (parms: {}) => {
