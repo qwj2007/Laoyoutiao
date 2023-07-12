@@ -13,7 +13,7 @@ namespace Laoyoutiao.Repository
     /// <typeparam name="T"></typeparam>
     public class BaseServiceRepository<T> : SimpleClient<T>,IBaseServiceRepository<T> where T : BaseEntity, new()
     {
-        public ITenant itenant = null;//多租户事务
+        public ITenant? itenant = null;//多租户事务
         public ISqlSugarClient _db
         {
 
