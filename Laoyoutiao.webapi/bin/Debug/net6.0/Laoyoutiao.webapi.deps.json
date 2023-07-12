@@ -18,8 +18,8 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.19",
           "Microsoft.Build": "17.6.3",
           "Microsoft.Extensions.Configuration.Binder": "7.0.4",
-          "SqlSugar": "5.1.4.88",
           "SqlSugar.IOC": "2.0.0",
+          "SqlSugarCore": "5.1.4.89",
           "Swashbuckle.AspNetCore": "6.5.0",
           "System.Data.SqlClient": "4.8.5",
           "System.Linq.Dynamic.Core": "1.3.3"
@@ -580,14 +580,6 @@
           }
         }
       },
-      "SqlSugar/5.1.4.88": {
-        "runtime": {
-          "lib/SqlSugar.dll": {
-            "assemblyVersion": "5.1.4.87",
-            "fileVersion": "5.1.4.87"
-          }
-        }
-      },
       "SqlSugar.IOC/2.0.0": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0",
@@ -600,7 +592,7 @@
           }
         }
       },
-      "SqlSugarCore/5.1.4.86": {
+      "SqlSugarCore/5.1.4.89": {
         "dependencies": {
           "Microsoft.Data.SqlClient": "2.1.4",
           "Microsoft.Data.Sqlite": "5.0.5",
@@ -612,6 +604,12 @@
           "SqlSugarCore.Kdbndp": "7.3.0",
           "System.Data.Common": "4.3.0",
           "System.Reflection.Emit.Lightweight": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard2.1/SqlSugar.dll": {
+            "assemblyVersion": "5.1.4.89",
+            "fileVersion": "5.1.4.89"
+          }
         }
       },
       "SqlSugarCore.Dm/1.2.0": {
@@ -1118,7 +1116,7 @@
       },
       "Laoyoutiao.Models/1.0.0": {
         "dependencies": {
-          "SqlSugarCore": "5.1.4.86"
+          "SqlSugarCore": "5.1.4.89"
         },
         "runtime": {
           "Laoyoutiao.Models.dll": {}
@@ -1129,7 +1127,7 @@
           "Laoyoutiao.IRespository": "1.0.0",
           "Laoyoutiao.Models": "1.0.0",
           "SqlSugar.IOC": "2.0.0",
-          "SqlSugarCore": "5.1.4.86"
+          "SqlSugarCore": "5.1.4.89"
         },
         "runtime": {
           "Laoyoutiao.Repository.dll": {}
@@ -1485,13 +1483,6 @@
       "path": "sqlitepclraw.provider.dynamic_cdecl/2.0.4",
       "hashPath": "sqlitepclraw.provider.dynamic_cdecl.2.0.4.nupkg.sha512"
     },
-    "SqlSugar/5.1.4.88": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-fEFm/8+7QVms0OnXBumIzX2kQeSYFn2FXcnzYETCQDpLinZtosoGZ4Wxo9GcPjf3cwkDoX3vg7l2OHOayyav9Q==",
-      "path": "sqlsugar/5.1.4.88",
-      "hashPath": "sqlsugar.5.1.4.88.nupkg.sha512"
-    },
     "SqlSugar.IOC/2.0.0": {
       "type": "package",
       "serviceable": true,
@@ -1499,12 +1490,12 @@
       "path": "sqlsugar.ioc/2.0.0",
       "hashPath": "sqlsugar.ioc.2.0.0.nupkg.sha512"
     },
-    "SqlSugarCore/5.1.4.86": {
+    "SqlSugarCore/5.1.4.89": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-UlTeW1zZBxDdgkPGYBXvDdYvZZtzMsMjXzc1TdgG/Zp2ciZxM/zTjoJwwD1S6oMO52Q1EI3OlarJyktcif1m/Q==",
-      "path": "sqlsugarcore/5.1.4.86",
-      "hashPath": "sqlsugarcore.5.1.4.86.nupkg.sha512"
+      "sha512": "sha512-ddlZSZTvuqpTSpy7ROl/qE02qiJ9LY9hX5lx7WgcT7Q7UCCG4ljIk97gnWJV+pdWeHpTprF9xWLSCZKquYlEnw==",
+      "path": "sqlsugarcore/5.1.4.89",
+      "hashPath": "sqlsugarcore.5.1.4.89.nupkg.sha512"
     },
     "SqlSugarCore.Dm/1.2.0": {
       "type": "package",

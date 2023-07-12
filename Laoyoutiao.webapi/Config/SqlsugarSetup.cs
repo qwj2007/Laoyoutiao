@@ -66,7 +66,7 @@ namespace Laoyoutiao.webapi.Config
         private static void SetQueryFilter(SqlSugarProvider provider)
         {
             //添加全局过滤器
-            var files = System.IO.Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "Sqlsugar.Business.dll");
+            var files = System.IO.Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "Laoyoutiao.Service.dll");
             if (files.Length > 0)
             {
                 Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(it => it.BaseType == typeof(BaseEntity)).ToArray();
