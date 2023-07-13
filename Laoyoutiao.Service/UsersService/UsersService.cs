@@ -3,6 +3,7 @@ using Laoyoutiao.IService;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.User;
 using Laoyoutiao.Models.Entitys;
+using Microsoft.Extensions.Configuration;
 using SqlSugar;
 
 namespace Laoyoutiao.Service
@@ -33,10 +34,9 @@ namespace Laoyoutiao.Service
         }
 
         public override async Task<PageInfo> GetPagesAsync<UserReq, UserRes>(UserReq req)
-        {
+        {        
             var userReq = req as Laoyoutiao.Models.Dto.User.UserReq;
             PageInfo pageInfo = new PageInfo();
-
             var exp = await _db.Queryable<Users>()
                 //默认只查询非炒鸡管理员的用户
                 .Where(u => u.UserType == 1)
@@ -76,7 +76,7 @@ namespace Laoyoutiao.Service
             return pageInfo;
 
         }
-    
+
         private string GetRolesByUserId(long uid)
         {
             return _db.Ado.SqlQuery<string>($@"SELECT STUFF((SELECT ','+R.Name FROM dbo.Role R

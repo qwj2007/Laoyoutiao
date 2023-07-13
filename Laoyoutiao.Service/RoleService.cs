@@ -1,12 +1,7 @@
 ﻿using AutoMapper;
 using Laoyoutiao.IService;
-using Laoyoutiao.Models.Common;
-using Laoyoutiao.Models.Dto;
-using Laoyoutiao.Models.Dto.Role;
 using Laoyoutiao.Models.Entitys;
-using Laoyoutiao.Models.Role;
 using Laoyoutiao.Service;
-using SqlSugar;
 
 namespace demo.Service
 {
