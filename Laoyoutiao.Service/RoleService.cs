@@ -67,19 +67,19 @@ namespace demo.Service
         //    return pageInfo;
         //}
 
-        public override async Task<PageInfo> GetPagesAsync<RoleReq, RoleRes>(RoleReq req)
-        {
-            var roleReq = req as Laoyoutiao.Models.Role.RoleReq;
-            PageInfo pageInfo = new PageInfo();
-            var exp =  await _db.Queryable<Role>().WhereIF(!string.IsNullOrEmpty(roleReq.Name), p => p.Name.Contains(roleReq.Name))
-                 .OrderBy(p => p.Order)
-                .Skip((req.PageIndex - 1) * req.PageSize)
-                .Take(req.PageSize)
-                .ToListAsync();
+        //public override async Task<PageInfo> GetPagesAsync<RoleReq, RoleRes>(RoleReq req)
+        //{
+        //    var roleReq = req as Laoyoutiao.Models.Role.RoleReq;
+        //    PageInfo pageInfo = new PageInfo();
+        //    var exp =  await _db.Queryable<Role>().WhereIF(!string.IsNullOrEmpty(roleReq.Name), p => p.Name.Contains(roleReq.Name))
+        //         .OrderBy(p => p.Order)
+        //        .Skip((req.PageIndex - 1) * req.PageSize)
+        //        .Take(req.PageSize)
+        //        .ToListAsync();
 
-            pageInfo.data = _mapper.Map<List<RoleRes>>(exp);
-            pageInfo.total = exp.Count();
-            return pageInfo;
-        }
+        //    pageInfo.data = _mapper.Map<List<RoleRes>>(exp);
+        //    pageInfo.total = exp.Count();
+        //    return pageInfo;
+        //}
     }
 }

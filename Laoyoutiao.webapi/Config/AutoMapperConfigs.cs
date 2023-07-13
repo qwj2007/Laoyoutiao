@@ -11,17 +11,17 @@ namespace Laoyoutiao.webapi.Config
         public AutoMapperConfigs()
         {
             //角色
-            CreateMap<Role, RoleRes>();
+            CreateMap<Role, RoleRes>().ReverseMap();
             //CreateMap<RoleAdd, Role>();
-            CreateMap<RoleEdit, Role>();
+            CreateMap<RoleEdit, Role>().ReverseMap();
             //用户
-            CreateMap<Users, UserRes>();
+            CreateMap<Users, UserRes>().ReverseMap();
            // CreateMap<UserAdd, Users>();
-            CreateMap<UserEdit, Users>();
+            CreateMap<UserEdit, Users>().ReverseMap();
             //菜单
-            CreateMap<Menu, MenuRes>();
+            CreateMap<Menu, MenuRes>().ReverseMap();
             //CreateMap<MenuAdd, Menu>();
-            CreateMap<MenuEdit, Menu>();
+            CreateMap<MenuEdit, Menu>().ReverseMap();
 
         }
     }

@@ -51,6 +51,22 @@
           }
         }
       },
+      "AutoMapper.Extensions.ExpressionMapping/6.0.4": {
+        "type": "package",
+        "dependencies": {
+          "AutoMapper": "[12.0.0, 13.0.0)"
+        },
+        "compile": {
+          "lib/netstandard2.1/AutoMapper.Extensions.ExpressionMapping.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/AutoMapper.Extensions.ExpressionMapping.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "AutoMapper.Extensions.Microsoft.DependencyInjection/12.0.1": {
         "type": "package",
         "dependencies": {
@@ -1738,6 +1754,7 @@
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "AutoMapper": "12.0.1",
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
           "Laoyoutiao.Common": "1.0.0",
           "Laoyoutiao.IService": "1.0.0",
           "Laoyoutiao.Repository": "1.0.0",
@@ -1808,6 +1825,20 @@
         "icon.png",
         "lib/netstandard2.1/AutoMapper.dll",
         "lib/netstandard2.1/AutoMapper.xml"
+      ]
+    },
+    "AutoMapper.Extensions.ExpressionMapping/6.0.4": {
+      "sha512": "scgLSSt/Ju2Fhg5xn8Ckdebg+mh8MQ9bQpTBvxj9jQP0kinGmtcsg9BxppnKffYVaec16GvbrKmWI6z1Ce6TPg==",
+      "type": "package",
+      "path": "automapper.extensions.expressionmapping/6.0.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "automapper.extensions.expressionmapping.6.0.4.nupkg.sha512",
+        "automapper.extensions.expressionmapping.nuspec",
+        "icon.png",
+        "lib/netstandard2.1/AutoMapper.Extensions.ExpressionMapping.dll",
+        "lib/netstandard2.1/AutoMapper.Extensions.ExpressionMapping.xml"
       ]
     },
     "AutoMapper.Extensions.Microsoft.DependencyInjection/12.0.1": {
@@ -5193,6 +5224,7 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "AutoMapper >= 12.0.1",
+      "AutoMapper.Extensions.ExpressionMapping >= 6.0.4",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.1",
       "Autofac >= 7.0.1",
       "Autofac.Extensions.DependencyInjection >= 8.0.0",
@@ -5269,6 +5301,10 @@
           "AutoMapper": {
             "target": "Package",
             "version": "[12.0.1, )"
+          },
+          "AutoMapper.Extensions.ExpressionMapping": {
+            "target": "Package",
+            "version": "[6.0.4, )"
           },
           "AutoMapper.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",

@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
 using Laoyoutiao.IService;
 using Laoyoutiao.Models.Common;
-using Laoyoutiao.Models.Dto;
 using Laoyoutiao.Models.Dto.User;
 using Laoyoutiao.Models.Entitys;
 using SqlSugar;
-using System.Linq.Expressions;
-using System.Linq;
 
 namespace Laoyoutiao.Service
 {
@@ -35,52 +32,11 @@ namespace Laoyoutiao.Service
             return new UserRes();
         }
 
-
-        //public override async Task<bool> Add<UserAdd>(UserAdd input, long userId)
-        //{
-        //    Users info = _mapper.Map<Users>(input);
-        //    info.CreateUserId = userId;
-        //    info.CreateDate = DateTime.Now;
-        //    info.UserType = 1;//0=炒鸡管理员，系统内置的
-        //    info.IsDeleted = 0;
-        //    return await _db.Insertable(info).ExecuteCommandAsync() > 0;
-        //    //return base.Add(input, userId);
-        //}
-        //public bool Add(UserAdd input, long userId)
-        //{
-        //    Users info = _mapper.Map<Users>(input);
-        //    info.CreateUserId = userId;
-        //    info.CreateDate = DateTime.Now;
-        //    info.UserType = 1;//0=炒鸡管理员，系统内置的
-        //    info.IsDeleted = 0;
-        //    return _db.Insertable(info).ExecuteCommand() > 0;
-        //}
-
-        //public bool Edit(UserEdit input, long userId)
-        //{
-        //    var info = _db.Queryable<Users>().First(p => p.Id == input.Id);
-        //    _mapper.Map(input, info);
-        //    info.ModifyUserId = userId;
-        //    info.ModifyDate = DateTime.Now;
-        //    return _db.Updateable(info).ExecuteCommand() > 0;
-        //}
-
-        //public bool Del(long id)
-        //{
-        //    var info = _db.Queryable<Users>().First(p => p.Id == id);
-        //    return _db.Deleteable(info).ExecuteCommand() > 0;
-        //}
-
-        //public bool BatchDel(string ids)
-        //{
-        //    return Delete(ids.Split(','));
-        //}
-
         public override async Task<PageInfo> GetPagesAsync<UserReq, UserRes>(UserReq req)
         {
             var userReq = req as Laoyoutiao.Models.Dto.User.UserReq;
             PageInfo pageInfo = new PageInfo();
-            // _db.Queryable<Users>().LeftJoin<UserRoleRelation>((u, ur) =>  u.Id == ur.UserId && u.CreateUserId==ur.UserId );
+
             var exp = await _db.Queryable<Users>()
                 //默认只查询非炒鸡管理员的用户
                 .Where(u => u.UserType == 1)
@@ -118,54 +74,9 @@ namespace Laoyoutiao.Service
             pageInfo.data = _mapper.Map<List<UserRes>>(res);
             pageInfo.total = exp.Count();
             return pageInfo;
-            //return base.GetPagesAsync<UserReq, UserRes>(req);
+
         }
-
-
-        //public PageInfo GetUsers(UserReq req)
-        //{
-        //    PageInfo pageInfo = new PageInfo();
-        //    // _db.Queryable<Users>().LeftJoin<UserRoleRelation>((u, ur) =>  u.Id == ur.UserId && u.CreateUserId==ur.UserId );
-        //    var exp = _db.Queryable<Users>()
-        //        //默认只查询非炒鸡管理员的用户
-        //        .Where(u => u.UserType == 1)
-        //        .WhereIF(!string.IsNullOrEmpty(req.Name), u => u.Name.Contains(req.Name))
-        //        .WhereIF(!string.IsNullOrEmpty(req.NickName), u => u.NickName.Contains(req.NickName))
-        //        .OrderBy((u) => u.CreateDate, OrderByType.Desc)
-        //        .Select((u) => new UserRes
-        //        {
-        //            Id = u.Id
-        //        ,
-        //            Name = u.Name
-        //        ,
-        //            NickName = u.NickName
-        //        ,
-        //            Password = u.Password
-        //        ,
-        //            UserType = u.UserType
-        //        //,
-        //        //    RoleName = GetRolesByUserId(u.Id)
-        //        ,
-        //            CreateDate = u.CreateDate
-        //        ,
-        //            IsEnable = u.IsEnable
-        //        ,
-        //            Description = u.Description
-        //        }).Skip((req.PageIndex - 1) * req.PageSize)
-        //        .Take(req.PageSize)
-        //        .ToList();
-        //    //var res = exp
-        //    //    .Skip((req.PageIndex - 1) * req.PageSize)
-        //    //    .Take(req.PageSize)
-        //    //    .ToList();
-        //    exp.ForEach(p =>
-        //    {
-        //        p.RoleName = GetRolesByUserId(p.Id);
-        //    });
-        //    pageInfo.data = _mapper.Map<List<UserRes>>(exp);
-        //    pageInfo.total = exp.Count();
-        //    return pageInfo;
-        //}
+    
         private string GetRolesByUserId(long uid)
         {
             return _db.Ado.SqlQuery<string>($@"SELECT STUFF((SELECT ','+R.Name FROM dbo.Role R
@@ -203,9 +114,6 @@ namespace Laoyoutiao.Service
             }
             return _db.Updateable(info).ExecuteCommand() > 0;
         }
-
-
-
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿
 using Laoyoutiao.Models.Common;
 using SqlSugar;
+using System.ComponentModel.DataAnnotations;
 
 namespace Laoyoutiao.Models.Entitys
 {
@@ -34,7 +35,7 @@ namespace Laoyoutiao.Models.Entitys
         /// <summary>
         /// 是否启用（0=未启用，1=启用）
         /// </summary>
-        [SugarColumn(IsNullable = false)]
+        [SugarColumn(IsNullable = false,ColumnDataType ="boolean")]
         public bool IsEnable { get; set; }
 
         [SugarColumn(IsNullable = false)]

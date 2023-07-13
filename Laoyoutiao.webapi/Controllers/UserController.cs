@@ -1,4 +1,5 @@
-﻿using Laoyoutiao.Common;
+﻿using AutoMapper;
+using Laoyoutiao.Common;
 using Laoyoutiao.IService;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.User;
@@ -25,6 +26,7 @@ namespace Laoyoutiao.webapi.Controllers
         [HttpPost]
         public async Task<ApiResult>  GetUsers(UserReq req)
         {
+          
             long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
 
             //return ResultHelper.Success(_users.GetUsers(req));

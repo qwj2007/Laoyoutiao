@@ -90,6 +90,7 @@ namespace demo.Service
         //    return _mapper.Map<MenuRes>(info);
         //}
 
+
         public override async Task<PageInfo> GetPagesAsync<MenuReq, MenuRes>(MenuReq req)
         {
             var menuReq = req as Laoyoutiao.Models.Dto.Menu.MenuReq;

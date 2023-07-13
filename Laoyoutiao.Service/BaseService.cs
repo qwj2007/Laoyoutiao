@@ -8,6 +8,7 @@ using Laoyoutiao.Repository;
 using Microsoft.AspNetCore.Http;
 using SqlSugar;
 using System.ComponentModel.Design;
+using System.Linq.Expressions;
 using System.Net.Http;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -42,7 +43,7 @@ namespace Laoyoutiao.Service
         {
             return await DeleteByIdAsync(id);
         }
-        public virtual bool Edit<TEdit>(TEdit input, long userId) where TEdit :BaseDto
+        public virtual bool Edit<TEdit>(TEdit input, long userId) where TEdit : BaseDto
         {
             var info = _db.Queryable<T>().First(p => p.Id == input.Id);
             _mapper.Map(input, info);
@@ -70,11 +71,12 @@ namespace Laoyoutiao.Service
                 info.IsDeleted = 0;
                 return await _db.Insertable(info).ExecuteCommandAsync() > 0;
             }
-            else {
+            else
+            {
                 info.ModifyUserId = userId;
                 info.ModifyDate = DateTime.Now;
                 return await _db.Updateable(info).ExecuteCommandAsync() > 0;
-            }   
+            }
         }
 
         /// <summary>
@@ -94,21 +96,18 @@ namespace Laoyoutiao.Service
             var info = await GetEntityByIdAsync(id);
             return _mapper.Map<TRes>(info);
         }
-
+        /// <summary>
+        /// 分页列表
+        /// </summary>
+        /// <typeparam name="TReq"></typeparam>
+        /// <typeparam name="TRes"></typeparam>
+        /// <param name="req"></param>
+        /// <returns></returns>
         public virtual async Task<PageInfo> GetPagesAsync<TReq, TRes>(TReq req) where TReq : Pagination where TRes : class
         {
             PageInfo pageInfo = new PageInfo();
             var exp = _db.Queryable<T>();
-            //查找automapper的映射关系
-            //FindTypeMapFor
-            //Type t = typeof(TReq);
-            //PropertyInfo[] propertyInfos = t.GetProperties();
-            //foreach (var property in propertyInfos)
-            //{
-            //    switch (property.PropertyType) {
-            //        case Type.GetType("string")
-            //    }
-            //}
+            exp = getMappingExpression(req, exp);
             var res = await exp
                 .Skip((req.PageIndex - 1) * req.PageSize)
                 .Take(req.PageSize)
@@ -116,6 +115,59 @@ namespace Laoyoutiao.Service
             pageInfo.data = _mapper.Map<List<TRes>>(res);
             pageInfo.total = exp.Count();
             return pageInfo;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TReq"></typeparam>
+        /// <param name="req"></param>
+        /// <param name="exp"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        private static ISugarQueryable<T> getMappingExpression<TReq>(TReq req, ISugarQueryable<T> exp) where TReq : Pagination
+        {
+            PropertyInfo[] propertyInfos = req.GetType().GetProperties();
+            PropertyInfo[] propertyInfosSource = typeof(T).GetProperties();
+            foreach (var property in propertyInfos)
+            {
+                //判断是否有这个属性
+                var ty = propertyInfosSource.Where(a => a.Name == property.Name).FirstOrDefault();
+                if (ty != null)
+                {
+                    var values = property.GetValue(req);
+                    switch (property.PropertyType.Name.ToLower())
+                    {
+                        case "string":
+                            exp = exp.WhereIF(!string.IsNullOrWhiteSpace(Convert.ToString(values)), $"{typeof(T).Name}.{property.Name} like '%{values}%' ");
+                            break;
+                        case "int32":
+                        case "int64":
+                        case "decimal":
+                            exp = exp.Where($"{typeof(T).Name}.{property.Name} = {values} ");
+                            break;
+                        case "boolean":
+                            exp = exp.Where($"{typeof(T).Name}.{property.Name} = {Convert.ToInt16(values)} ");
+                            break;
+                        case "datetime":
+                            if (property.Name.StartsWith("begin".ToLower()) || property.Name.EndsWith("begin".ToLower())
+                                || property.Name.StartsWith("start".ToLower()) || property.Name.EndsWith("start".ToLower())
+                                )
+                            {
+                                exp = exp.Where($"{typeof(T).Name}.{property.Name} >= {values} ");
+                            }
+                            else if (property.Name.StartsWith("end".ToLower()) || property.Name.EndsWith("end".ToLower()))
+                            {
+                                exp = exp.Where($"{typeof(T).Name}.{property.Name} <= {values} ");
+                            }
+                            break;
+                        default:
+                            throw new Exception("类型不存在，请联系管理员");
+                    }
+                    exp = exp.OrderBy((u) => u.CreateDate,OrderByType.Desc);//根据创建时间
+                }
+            }
+
+            return exp;
         }
 
         public PageInfo GetPages<TReq, TRes>(TReq req) where TReq : Pagination

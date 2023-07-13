@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "wDwoZxRsA+EvHwOMpQ5Cn74EaOEF7qnW2dbKIF21jlXpO4i/NCT44RMgTwepCTECOoDLGF2YFzjTujgjbHOaFQ==",
+  "dgSpecHash": "81udwz/24egnByAUvrq4u9K3T9Py6wBzTZXrCEsx5Nx9zPvFhWl8B4ynxaIvI7udUAEybm7sVh4l3pVSeh+c+g==",
   "success": true,
   "projectFilePath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Service\\Laoyoutiao.Service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\齐文杰\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\齐文杰\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
