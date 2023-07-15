@@ -8,6 +8,10 @@ namespace Laoyoutiao.webapi.Filter
     /// </summary>
     public class SysExceptionFilter : ExceptionFilterAttribute
     {
+        /// <summary>
+        /// OnException
+        /// </summary>
+        /// <param name="context"></param>
         public override void OnException(ExceptionContext context)
         {
             string? name = context.ActionDescriptor.DisplayName;
@@ -25,6 +29,11 @@ namespace Laoyoutiao.webapi.Filter
             }
             context.ExceptionHandled = true; //异常已处理了
         }
+        /// <summary>
+        /// OnExceptionAsync
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public override Task OnExceptionAsync(ExceptionContext context)
         {
             //string? name = context.ActionDescriptor.DisplayName;

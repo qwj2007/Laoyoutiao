@@ -15,7 +15,7 @@ namespace Laoyoutiao.Models.Entitys
         /// 名称
         /// </summary>
         [SugarColumn(IsNullable = false)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         /// <summary>
         /// 排序
         /// </summary>

@@ -12,7 +12,7 @@ namespace Laoyoutiao.webapi.Controllers
     [ApiController]
     public class ToolController : ControllerBase
     {
-        private ISqlSugarClient _db = null;
+        private ISqlSugarClient? _db = null;
         public ToolController()
         {
 

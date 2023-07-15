@@ -4,6 +4,8 @@ using Laoyoutiao.IService;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.User;
 using Laoyoutiao.Models.Entitys;
+using Laoyoutiao.webapi.Notifaction;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,25 +16,28 @@ namespace Laoyoutiao.webapi.Controllers
     public class UserController : BaseController<Users,UserRes,UserReq,UserEdit>
     {
         private readonly IUserService _users;
-        public UserController(IUserService Users):base(Users)
+        private readonly IMediator _mediator;
+
+        public UserController(IUserService Users, IMediator mediator) : base(Users)
         {
             _users = Users;
+            _mediator = mediator;
         }
         /// <summary>
         /// 获取用户信息
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        [HttpPost]
-        public async Task<ApiResult>  GetUsers(UserReq req)
-        {
-          
-            long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
+        // [HttpPost]
+        // public async Task<ApiResult>  GetUsers(UserReq req)
+        // {
 
-            //return ResultHelper.Success(_users.GetUsers(req));
-            var result = await _users.GetPagesAsync<UserReq, UserRes>(req);
-            return ResultHelper.Success(result);
-        }
+        //     long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
+
+        //     //return ResultHelper.Success(_users.GetUsers(req));
+        //     var result = await _users.GetPagesAsync<UserReq, UserRes>(req);
+        //     return ResultHelper.Success(result);
+        // }
 
         #region
         //[HttpGet]
@@ -56,10 +61,13 @@ namespace Laoyoutiao.webapi.Controllers
         //    long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
         //    return ResultHelper.Success(_users.Edit(req, userId));
         //}
-        
+
         [HttpGet]
         public ApiResult SettingRole(string pid, string rids)
         {
+            #region  MediatR 事件总线
+            _mediator.Publish(new BodyNotification("dfdfsd"));
+            #endregion
             return ResultHelper.Success(_users.SettingRole(pid, rids));
         }
         [HttpGet]

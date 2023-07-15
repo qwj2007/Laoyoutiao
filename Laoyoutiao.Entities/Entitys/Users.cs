@@ -16,17 +16,17 @@ namespace Laoyoutiao.Models.Entitys
         /// 用户名
         /// </summary>
         [SugarColumn(IsNullable = false)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         /// <summary>
         /// 昵称
         /// </summary>
         [SugarColumn(IsNullable = false)]
-        public string NickName { get; set; }
+        public string? NickName { get; set; }
         /// <summary>
         /// 密码
         /// </summary>
         [SugarColumn(IsNullable = false)]
-        public string Password { get; set; }
+        public string? Password { get; set; }
         /// <summary>
         /// 用户类型（0=超级管理员，1=普通用户）
         /// </summary>
@@ -39,7 +39,7 @@ namespace Laoyoutiao.Models.Entitys
         public bool IsEnable { get; set; }
 
         [SugarColumn(IsNullable = false)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
     }   
 }

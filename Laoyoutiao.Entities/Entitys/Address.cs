@@ -10,41 +10,37 @@ namespace Laoyoutiao.Models.Entitys
         /// <summary>
         /// 用户ID
         /// </summary>
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
         /// <summary>
         /// 收件人姓名
         /// </summary>
-        public string Name { get; set; }
+        public string? Name { get; set; }
         /// <summary>
         /// 收件人手机号
         /// </summary>
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
         /// <summary>
         /// 省份
         /// </summary>
-        public string Province { get; set; }
+        public string? Province { get; set; }
         /// <summary>
         /// 城市
         /// </summary>
-        public string City { get; set; }
+        public string? City { get; set; }
         /// <summary>
         /// 区域
         /// </summary>
-        public string Area { get; set; }
+        public string? Area { get; set; }
         /// <summary>
         /// 详细地址
         /// </summary>
-        public string Detail { get; set; }
+        public string? Detail { get; set; }
         /// <summary>
         /// 是否是默认地址
         /// </summary>
         public bool IsDefault { get; set; }
 
-        public string CreateUserId
-        {
-            get; set;
-        }
-        public string Content { get; set; } = "描述";
+        public string Content { get; set; } = "";
 
     }
 

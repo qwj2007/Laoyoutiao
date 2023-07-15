@@ -121,7 +121,7 @@
           "dependencies": {
             "SqlSugarCore": {
               "target": "Package",
-              "version": "[5.1.4.86, )"
+              "version": "[5.1.4.91, )"
             }
           },
           "imports": [
@@ -329,7 +329,7 @@
             },
             "SqlSugarCore": {
               "target": "Package",
-              "version": "[5.1.4.86, )"
+              "version": "[5.1.4.91, )"
             }
           },
           "imports": [
@@ -496,10 +496,6 @@
               "target": "Package",
               "version": "[12.0.1, )"
             },
-            "AutoMapper.Extensions.ExpressionMapping": {
-              "target": "Package",
-              "version": "[6.0.4, )"
-            },
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[12.0.1, )"
@@ -511,6 +507,10 @@
             "Autofac.Extensions.DependencyInjection": {
               "target": "Package",
               "version": "[8.0.0, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.1.0, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
@@ -530,7 +530,7 @@
             },
             "SqlSugarCore": {
               "target": "Package",
-              "version": "[5.1.4.89, )"
+              "version": "[5.1.4.91, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

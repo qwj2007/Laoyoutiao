@@ -8,10 +8,10 @@ namespace Laoyoutiao.Models.Dto.User
 {
     public class UserAdd:BaseDto
     {
-        public string Name { get; set; }
-        public string NickName { get; set; }
-        public string Password { get; set; }
+        public string? Name { get; set; }
+        public string? NickName { get; set; }
+        public string? Password { get; set; }
         public bool IsEnable { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
     }
 }

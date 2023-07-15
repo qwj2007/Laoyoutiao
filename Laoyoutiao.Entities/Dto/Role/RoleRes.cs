@@ -13,7 +13,7 @@ namespace Laoyoutiao.Models.Dto.Role
         /// <summary>
         /// 名称
         /// </summary> 
-        public string Name { get; set; }
+        public string? Name { get; set; }
         /// <summary>
         /// 排序
         /// </summary> 
@@ -25,11 +25,11 @@ namespace Laoyoutiao.Models.Dto.Role
         /// <summary>
         /// 描述
         /// </summary> 
-        public string Description { get; set; }
+        public string? Description { get; set; }
         /// <summary>
         /// 创建人Id
         /// </summary> 
-        public string CreateUserId { get; set; }
+        public string? CreateUserId { get; set; }
         /// <summary>
         /// 创建日期
         /// </summary> 
@@ -37,7 +37,7 @@ namespace Laoyoutiao.Models.Dto.Role
         /// <summary>
         /// 修改人Id
         /// </summary> 
-        public string ModifyUserId { get; set; }
+        public string? ModifyUserId { get; set; }
         /// <summary>
         /// 修改日期
         /// </summary> 

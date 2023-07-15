@@ -16,17 +16,17 @@ namespace Laoyoutiao.Models.Entitys
         /// 名称
         /// </summary>
         [SugarColumn(IsNullable = false)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         /// <summary>
         /// 路由地址
         /// </summary>
         [SugarColumn(IsNullable = false)]
-        public string Index { get; set; }
+        public string? Index { get; set; }
         /// <summary>
         /// 项目中的页面路径
         /// </summary>
         [SugarColumn(IsNullable = false)]
-        public string FilePath { get; set; }
+        public string? FilePath { get; set; }
         /// <summary>
         /// 父级
         /// </summary>
@@ -50,6 +50,6 @@ namespace Laoyoutiao.Models.Entitys
         public string CMP { get; set; } = "123";
 
         [SugarColumn(IsNullable = true)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
     }
 }

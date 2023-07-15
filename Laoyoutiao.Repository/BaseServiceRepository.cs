@@ -22,7 +22,7 @@ namespace Laoyoutiao.Repository
                 return Context;
             }
         }
-        public BaseServiceRepository(ISqlSugarClient context = null) : base(context)
+        public BaseServiceRepository(ISqlSugarClient? context = null) : base(context)
         {
             //通过特性拿到ConfigId
             var configId = typeof(T).GetCustomAttribute<TenantAttribute>()?.configId;
@@ -47,7 +47,8 @@ namespace Laoyoutiao.Repository
 
                 //Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(it => it.BaseType == typeof(BaseEntity)).ToArray();
                 //更新数据库字段，如果有修改就更新
-                Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(it => it.BaseType == typeof(BaseEntity) && it.GetCustomAttribute<TenantAttribute>().configId.ToString() == configID).ToArray();
+                Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(it => it.BaseType == typeof(BaseEntity) 
+                && it.GetCustomAttribute<TenantAttribute>().configId.ToString() == configID).ToArray();
                 client.CodeFirst.SetStringDefaultLength(200).InitTables(types);
 
                 // foreach (var entityType in types)
@@ -130,7 +131,7 @@ namespace Laoyoutiao.Repository
         /// <param name="iClumns"></param>
         /// <param name="ignoreNull"></param>
         /// <returns></returns>
-        public virtual async Task<bool> InsertAsync(T parm, Expression<Func<T, object>> iClumns = null, bool ignoreNull = true)
+        public virtual async Task<bool> InsertAsync(T parm, Expression<Func<T, object>>? iClumns = null, bool ignoreNull = true)
         {
 
             int rowsAffect = await Context.Insertable(parm).InsertColumns(iClumns).IgnoreColumns(ignoreNullColumn: ignoreNull).ExecuteCommandAsync();

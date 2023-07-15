@@ -26,12 +26,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-#region ¼øÈ¨ÊÚÈ¨
+#region ï¿½ï¿½È¨ï¿½ï¿½È¨
 app.UseAuthentication();
 app.UseAuthorization();
 #endregion
 
-#region Ê¹ÓÃ¿çÓò²ßÂÔ,Ò»¶¨Òª·ÅÔÚUseAuthorizationºóÃæ
+#region Ê¹ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,Ò»ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½UseAuthorizationï¿½ï¿½ï¿½ï¿½
 app.UseCors("CorsPolicy");
 #endregion
 

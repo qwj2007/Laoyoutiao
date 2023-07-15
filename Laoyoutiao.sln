@@ -5,7 +5,7 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Laoyoutiao.webapi", "Laoyoutiao.webapi\Laoyoutiao.webapi.csproj", "{CB4A83EF-30A9-4CA8-94B6-5A97F84B8448}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Laoyoutiao.enums", "Laoyoutiao.enums\Laoyoutiao.enums.csproj", "{2118A0D5-785F-4F40-BBF7-748C9713BA27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Laoyoutiao.Enums", "Laoyoutiao.enums\Laoyoutiao.Enums.csproj", "{2118A0D5-785F-4F40-BBF7-748C9713BA27}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Laoyoutiao.Models", "Laoyoutiao.Entities\Laoyoutiao.Models.csproj", "{85C87C8F-E0F3-4810-8892-274DFBAF17F6}"
 EndProject

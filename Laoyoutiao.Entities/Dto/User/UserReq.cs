@@ -9,11 +9,11 @@ namespace Laoyoutiao.Models.Dto.User
 {
     public class UserReq: Pagination
     {
-        public string Name { get; set; }
-        public string NickName { get; set; }
+        public string? Name { get; set; }
+        public string? NickName { get; set; }
         public int UserType { get; set; }
         public bool IsEnable { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
        
     }
 }

@@ -1,39 +1,108 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>demo.webapi</name>
+        <name>Laoyoutiao.webapi</name>
     </assembly>
     <members>
-        <member name="M:demo.webapi.Controllers.MenuController.GetUserMenus">
+        <member name="T:Laoyoutiao.webapi.Config.AutofacModuleRegister">
             <summary>
-            根据当前登录用户获取用户菜单
+            用autofac实现依赖注入
             </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Config.SqlsugarSetup.SetQueryFilter(SqlSugar.SqlSugarProvider)">
+            <summary>
+            添加全局过滤器
+            </summary>
+            <param name="provider"></param>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.GetModelById(System.Int64)">
+            <summary>
+            根据Id查找一条数据
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:demo.webapi.Controllers.RoleController.Add(demo.Model.Dto.Role.RoleAdd)">
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.Add(`3)">
             <summary>
-            新增角色
+            插入或修改一条数据
             </summary>
             <param name="req"></param>
             <returns></returns>
         </member>
-        <member name="M:demo.webapi.Controllers.UserController.GetUsers(demo.Model.Dto.User.UserReq)">
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.Del(System.Int64)">
+            <summary>
+            根据Id删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.BatchDel(System.String)">
+            <summary>
+            批量删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.GetPages(`2)">
             <summary>
             获取用户信息
             </summary>
             <param name="req"></param>
             <returns></returns>
         </member>
-        <member name="M:demo.webapi.Controllers.WeatherForecastController.Get">
+        <member name="M:Laoyoutiao.webapi.Controllers.LoginController.GetApollo">
             <summary>
-            获取天气信息
+            测试一下Apollo配置中心
             </summary>
             <returns></returns>
         </member>
-        <member name="T:demo.webapi.Filter.SysExceptionFilter">
+        <member name="M:Laoyoutiao.webapi.Controllers.MenuController.GetUserMenus">
+            <summary>
+            根据当前登录用户获取用户菜单
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.ToolController.InitDataBase(System.String)">
+            <summary>
+            自动创建表
+            </summary>
+            <param name="ConnectionConfigs">连接数据库配置的名称</param>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.UserController.SettingRole(System.String,System.String)">
+            <summary>
+            获取用户信息
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Filter.SysExceptionFilter">
             <summary>
             全局异常处理
             </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Filter.SysExceptionFilter.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            OnException
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Filter.SysExceptionFilter.OnExceptionAsync(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            OnExceptionAsync
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Laoyoutiao.webapi.NotifactionHandler.BodyNotifactionHandler">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.NotifactionHandler.BodyNotifactionHandler.Handle(Laoyoutiao.webapi.Notifaction.BodyNotification)">
+            <summary>
+            
+            </summary>
+            <param name="notification"></param>
         </member>
     </members>
 </doc>

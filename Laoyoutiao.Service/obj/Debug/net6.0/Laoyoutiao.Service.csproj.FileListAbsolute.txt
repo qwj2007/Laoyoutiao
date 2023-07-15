@@ -21,3 +21,4 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyouti
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyoutiao.IRespository.pdb
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyoutiao.Common.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyoutiao.Common.pdb
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\obj\Debug\net6.0\Laoyoutiao.Service.sourcelink.json

@@ -14,8 +14,7 @@ namespace Laoyoutiao.webapi.Controllers
     public class BaseController<T, TRes, TReq, TEdit> : ControllerBase where T : BaseEntity, new()
           where TRes : class where TReq : Pagination where TEdit : class
     {
-        private readonly IBaseService<T> _baseService;
-        private IMenuService menuService;
+        private readonly IBaseService<T> _baseService;      
 
         public BaseController(IBaseService<T> baseService)
         {

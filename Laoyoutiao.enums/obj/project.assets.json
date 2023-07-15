@@ -15,9 +15,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.enums.csproj",
-      "projectName": "Laoyoutiao.enums",
-      "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.enums.csproj",
+      "projectUniqueName": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj",
+      "projectName": "Laoyoutiao.Enums",
+      "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj",
       "packagesPath": "C:\\Users\\齐文杰\\.nuget\\packages\\",
       "outputPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\obj\\",
       "projectStyle": "PackageReference",

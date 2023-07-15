@@ -6,15 +6,15 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "Laoyoutiao.enums/1.0.0": {
+      "Laoyoutiao.Enums/1.0.0": {
         "runtime": {
-          "Laoyoutiao.enums.dll": {}
+          "Laoyoutiao.Enums.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "Laoyoutiao.enums/1.0.0": {
+    "Laoyoutiao.Enums/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

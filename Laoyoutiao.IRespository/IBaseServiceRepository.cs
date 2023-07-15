@@ -1,11 +1,6 @@
 ﻿using Laoyoutiao.Models.Common;
 using SqlSugar;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace Laoyoutiao.IRespository
@@ -46,7 +41,7 @@ namespace Laoyoutiao.IRespository
         /// <param name="iClumns"></param>
         /// <param name="ignoreNull"></param>
         /// <returns></returns>
-        bool Insert(T parm, Expression<Func<T, object>> iClumns = null, bool ignoreNull = true);
+        bool Insert(T parm, Expression<Func<T, object>>? iClumns=null, bool ignoreNull = true);
 
         /// <summary>
         /// 插入设置列数据
@@ -55,7 +50,7 @@ namespace Laoyoutiao.IRespository
         /// <param name="iClumns"></param>
         /// <param name="ignoreNull"></param>
         /// <returns></returns>
-        Task<bool> InsertAsync(T parm, Expression<Func<T, object>> iClumns = null, bool ignoreNull = true);
+        Task<bool> InsertAsync(T parm, Expression<Func<T, object>>? iClumns = null, bool ignoreNull = true);
         /// <summary>
         /// 更新
         /// </summary>

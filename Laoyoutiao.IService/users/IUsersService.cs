@@ -35,6 +35,6 @@ namespace Laoyoutiao.IService
         /// <param name="nickName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        bool EditNickNameOrPassword(long userId, string nickName, string password);
+        bool EditNickNameOrPassword(long? userId, string? nickName, string? password);
     }
 }

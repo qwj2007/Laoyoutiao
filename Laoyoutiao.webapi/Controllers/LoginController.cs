@@ -21,11 +21,15 @@ namespace Laoyoutiao.webapi.Controllers
             _configuration = configuration;
         }
 
+/// <summary>
+/// 测试一下Apollo配置中心
+/// </summary>
+/// <returns></returns>
         [HttpGet]
         public async Task<ApiResult> GetApollo()
         {
-            string name = _configuration.GetSection("JWTTokenOptions:SecurityKey").Value;
-            return ResultHelper.Success(_configuration.GetSection("JWTTokenOptions:SecurityKey"));
+            string name =  _configuration.GetSection("JWTTokenOptions:SecurityKey").Value;
+            return ResultHelper.Success( _configuration.GetSection("JWTTokenOptions:SecurityKey"));
         }
 
             [HttpGet]
