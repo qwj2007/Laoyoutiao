@@ -34,7 +34,8 @@ namespace Laoyoutiao.Service
         }
 
         public override async Task<PageInfo> GetPagesAsync<UserReq, UserRes>(UserReq req)
-        {        
+        {
+
             var userReq = req as Laoyoutiao.Models.Dto.User.UserReq;
             PageInfo pageInfo = new PageInfo();
             var exp = await _db.Queryable<Users>()
