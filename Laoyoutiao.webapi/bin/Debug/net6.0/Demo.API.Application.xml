@@ -75,6 +75,14 @@
             <param name="req"></param>
             <returns></returns>
         </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.UserController.EditNickNameOrPassword(System.String,System.String)">
+            <summary>
+                                                                                                                                                                                                                                           /// 
+            </summary>
+            <param name="nickName"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
         <member name="T:Laoyoutiao.webapi.Filter.SysExceptionFilter">
             <summary>
             全局异常处理

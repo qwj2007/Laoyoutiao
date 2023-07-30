@@ -66,10 +66,16 @@ namespace Laoyoutiao.webapi.Controllers
         public ApiResult SettingRole(string pid, string rids)
         {
             #region  MediatR 事件总线
-            _mediator.Publish(new BodyNotification("dfdfsd"));
+            _mediator.Publish(new BodyNotification("MediatR 事件总线"));
             #endregion
             return ResultHelper.Success(_users.SettingRole(pid, rids));
         }
+        /// <summary>
+        ///                                                                                                                                                                                                                                /// 
+        /// </summary>
+        /// <param name="nickName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [HttpGet]
         public ApiResult EditNickNameOrPassword(string nickName, string? password)
         {

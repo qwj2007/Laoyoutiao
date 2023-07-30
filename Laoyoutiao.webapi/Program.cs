@@ -14,7 +14,6 @@ builder.Services.Configure<MvcOptions>(opt => { opt.Filters.Add<SysExceptionFilt
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Register();
 
 var app = builder.Build();

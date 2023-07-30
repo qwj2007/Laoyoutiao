@@ -5,4 +5,8 @@ using MediatR;
 // {
 //     public string body{get;set;}
 // }
+/// <summary>
+/// 
+/// </summary>
+/// <param name="body"></param>
 public record BodyNotification(string body):INotification;

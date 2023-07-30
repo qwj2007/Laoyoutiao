@@ -142,7 +142,6 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\runtimes\
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\runtimes\linux\lib\net6.0\System.DirectoryServices.Protocols.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\runtimes\osx\lib\net6.0\System.DirectoryServices.Protocols.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.DirectoryServices.Protocols.dll
-E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Debug\net6.0\Laoyoutiao.webapi.sourcelink.json
 E:\学习程序代码等\Laoyoutiao\laoyoutiao.webapi\bin\Debug\net6.0\MediatR.dll
 E:\学习程序代码等\Laoyoutiao\laoyoutiao.webapi\bin\Debug\net6.0\MediatR.Contracts.dll
 E:\学习程序代码等\Laoyoutiao\laoyoutiao.webapi\bin\Debug\net6.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
