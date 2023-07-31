@@ -48,12 +48,6 @@ if (localStorage["nickname"] != undefined) {
         }
     }
 }
-//创建路由
-const router = createRouter({
-    history: createWebHistory(),
-    routes: route
-});
-
 //递归查找到所有路由的children，并添加到路由中去
 const getChildMenuToRouter = async (item: MenuModel) => {
     if (item.children != null && item.children != undefined && item.children != '[]') {
@@ -70,6 +64,12 @@ const getChildMenuToRouter = async (item: MenuModel) => {
         }
     }
 }
+
+//创建路由
+const router = createRouter({
+    history: createWebHistory(),
+    routes: route
+});
 // //路由守卫
 router.beforeEach(async (to, form) => {
     //判断是否已经加上路由了,如果没有把路由加上

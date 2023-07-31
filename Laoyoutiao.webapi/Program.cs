@@ -25,12 +25,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-#region ��Ȩ��Ȩ
+#region 鉴权
 app.UseAuthentication();
 app.UseAuthorization();
 #endregion
 
-#region ʹ�ÿ������,һ��Ҫ����UseAuthorization����
+#region 跨域设置
 app.UseCors("CorsPolicy");
 #endregion
 

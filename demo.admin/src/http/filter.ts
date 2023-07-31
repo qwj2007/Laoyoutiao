@@ -24,6 +24,7 @@ instance.interceptors.response.use(
     response => {
         //拦截请求，统一相应
         if (response.data.isSuccess) {
+            debugger
             return response.data.result
         } else {
             ElMessage.error(response.data.msg)

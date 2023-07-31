@@ -98,11 +98,14 @@ const onSubmit = async (ruleFormRef: FormInstance | undefined) => {
   if (!ruleFormRef) return;
   ruleFormRef.validate(async (valid, fields) => {
     if (valid) {
+      debugger
+      const re=await getToken(form.userName,
+        form.passWord);
       const token = (await getToken(
         form.userName,
         form.passWord
       )) as any as string;
-      console.log("token开始解析token");
+      console.log("token开始解析token",token);
       //用户登录信息
       const user: UserInfo = JSON.parse(new Tool().FormatToken(token));
       localStorage["token"] = token;

@@ -52,5 +52,26 @@ namespace Laoyoutiao.webapi.Controllers
             });
             return await result;
         }
+
+        [HttpGet]
+        public async Task<ApiResult> GetTokens(string account, string password)
+        {
+            var result = Task.Run(() =>
+            {
+
+                if (string.IsNullOrEmpty(account) || string.IsNullOrEmpty(password))
+                {
+                    return ResultHelper.Error("参数不能为空");
+                }
+                UserRes users = _userService.GetUser(account, password) as UserRes;
+                if (string.IsNullOrEmpty(users.Name))
+                {
+                    return ResultHelper.Error("账号不存在，用户名或密码错误！");
+                }
+
+                return ResultHelper.Success(_jwtService.GetToken(users));
+            });
+            return await result;
+        }
     }
 }

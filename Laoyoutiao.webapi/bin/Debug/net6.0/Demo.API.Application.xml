@@ -112,5 +112,20 @@
             </summary>
             <param name="notification"></param>
         </member>
+        <member name="T:Laoyoutiao.webapi.Notifaction.BodyNotification">
+            <summary>
+            
+            </summary>
+            <param name="body"></param>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Notifaction.BodyNotification.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="body"></param>
+        </member>
+        <member name="P:Laoyoutiao.webapi.Notifaction.BodyNotification.body">
+            <summary></summary>
+        </member>
     </members>
 </doc>

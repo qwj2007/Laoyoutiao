@@ -121,8 +121,9 @@ export const getToken = (name: string, password: string) => {
     /**
      * 登录不需要拦截器，所以用axios
      */
-    
-    return instance.get(http + "/Login/GetToken?name=" + name + "&password=" + password);
+    debugger
+    const re=instance.get(http + "/Login/GetToken?name=" + name + "&password=" + password);
+    return re;
     //return instance.get(http + "/Login/GetToken?name=" + name + "&password=" + password);
     
 }

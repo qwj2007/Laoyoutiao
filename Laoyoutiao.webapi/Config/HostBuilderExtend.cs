@@ -115,7 +115,7 @@ namespace Laoyoutiao.Configuration
                      ValidateIssuerSigningKey = true,//是否验证SecurityKey
                      ValidAudience = tokenOptions.Audience,//
                      ValidIssuer = tokenOptions.Issuer,//Issuer，这两项和前面签发jwt的设置一致
-                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.SecurityKey??""))//拿到SecurityKey 
+                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.SecurityKey ?? ""))//拿到SecurityKey 
                  };
              });//*/
             #endregion
@@ -142,9 +142,9 @@ namespace Laoyoutiao.Configuration
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "核心API", Version = "v1.0", Description = "", });
                 var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);//获取应用程序所在目录
-                var xmlPath = Path.Combine(basePath??"", $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");//接口action显示注释
-                options.IncludeXmlComments(Path.Combine(basePath??"", "Demo.WebAPI.xml"), true);//接口注释
-                options.IncludeXmlComments(Path.Combine(basePath??"", "Demo.API.Application.xml"), true);//实体类注释
+                var xmlPath = Path.Combine(basePath ?? "", $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");//接口action显示注释
+                options.IncludeXmlComments(Path.Combine(basePath ?? "", "Demo.WebAPI.xml"), true);//接口注释
+                options.IncludeXmlComments(Path.Combine(basePath ?? "", "Demo.API.Application.xml"), true);//实体类注释
 
 
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
