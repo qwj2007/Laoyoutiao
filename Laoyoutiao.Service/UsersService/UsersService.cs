@@ -87,7 +87,8 @@ namespace Laoyoutiao.Service
         public UserRes GetUsersById(long id)
         {
             var info = GetEntityById(id);// _db.Queryable<Users>().First(p => p.Id == id);
-            return _mapper.Map<UserRes>(info);
+            var use= _mapper.Map<UserRes>(info);
+            return use;
         }
         public bool SettingRole(string pid, string rids)
         {

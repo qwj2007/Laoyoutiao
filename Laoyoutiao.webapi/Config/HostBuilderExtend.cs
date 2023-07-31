@@ -92,7 +92,9 @@ namespace Laoyoutiao.Configuration
             //});
             #endregion
             //注册autuomapper
-            buil.Services.AddAutoMapper(typeof(AutoMapperConfigs));
+          //  buil.Services.AddAutoMapper(typeof(AutoMapperConfigs),typeof(BatchMapperProfile));
+
+            buil.Services.AddAutoMapper( typeof(BatchMapperProfile));
 
 
 

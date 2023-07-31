@@ -24,5 +24,6 @@ namespace Laoyoutiao.webapi.Config
             CreateMap<MenuEdit, Menu>().ReverseMap();
 
         }
+        
     }
 }

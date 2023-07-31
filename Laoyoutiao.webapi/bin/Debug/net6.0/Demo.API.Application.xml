@@ -9,6 +9,11 @@
             用autofac实现依赖注入
             </summary>
         </member>
+        <member name="T:Laoyoutiao.webapi.Config.BatchMapperProfile">
+            <summary>
+            批量映射
+            </summary>
+        </member>
         <member name="M:Laoyoutiao.webapi.Config.SqlsugarSetup.SetQueryFilter(SqlSugar.SqlSugarProvider)">
             <summary>
             添加全局过滤器
