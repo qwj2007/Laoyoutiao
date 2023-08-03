@@ -33,50 +33,50 @@ namespace Laoyoutiao.Service
             return new UserRes();
         }
 
-        public override async Task<PageInfo> GetPagesAsync<UserReq, UserRes>(UserReq req)
-        {
+        //public override async Task<PageInfo> GetPagesAsync<UserReq, UserRes>(UserReq req)
+        //{
 
-            var userReq = req as Laoyoutiao.Models.Dto.User.UserReq;
-            PageInfo pageInfo = new PageInfo();
-            var exp = await _db.Queryable<Users>()
-                //默认只查询非炒鸡管理员的用户
-                .Where(u => u.UserType == 1)
-                .WhereIF(!string.IsNullOrEmpty(userReq.Name), u => u.Name.Contains(userReq.Name))
-                .WhereIF(!string.IsNullOrEmpty(userReq.NickName), u => u.NickName.Contains(userReq.NickName))
-                .OrderBy((u) => u.CreateDate, OrderByType.Desc)
-                .Select((u) => new Laoyoutiao.Models.Dto.User.UserRes
-                {
-                    Id = u.Id
-                ,
-                    Name = u.Name
-                ,
-                    NickName = u.NickName
-                ,
-                    Password = u.Password
-                ,
-                    UserType = u.UserType
-                //,
-                //    RoleName = GetRolesByUserId(u.Id)
-                ,
-                    CreateDate = u.CreateDate
-                ,
-                    IsEnable = u.IsEnable
-                ,
-                    Description = u.Description
-                }).ToListAsync();
-            var res = exp
-                .Skip((req.PageIndex - 1) * req.PageSize)
-                .Take(req.PageSize)
-                .ToList();
-            res.ForEach(p =>
-            {
-                p.RoleName = GetRolesByUserId(p.Id);
-            });
-            pageInfo.data = _mapper.Map<List<UserRes>>(res);
-            pageInfo.total = exp.Count();
-            return pageInfo;
+        //    var userReq = req as Laoyoutiao.Models.Dto.User.UserReq;
+        //    PageInfo pageInfo = new PageInfo();
+        //    var exp = await _db.Queryable<Users>()
+        //        //默认只查询非炒鸡管理员的用户
+        //        .Where(u => u.UserType == 1)
+        //        .WhereIF(!string.IsNullOrEmpty(userReq.Name), u => u.Name.Contains(userReq.Name))
+        //        .WhereIF(!string.IsNullOrEmpty(userReq.NickName), u => u.NickName.Contains(userReq.NickName))
+        //        .OrderBy((u) => u.CreateDate, OrderByType.Desc)
+        //        .Select((u) => new Laoyoutiao.Models.Dto.User.UserRes
+        //        {
+        //            Id = u.Id
+        //        ,
+        //            Name = u.Name
+        //        ,
+        //            NickName = u.NickName
+        //        ,
+        //            Password = u.Password
+        //        ,
+        //            UserType = u.UserType
+        //        //,
+        //        //    RoleName = GetRolesByUserId(u.Id)
+        //        ,
+        //            CreateDate = u.CreateDate
+        //        ,
+        //            IsEnable = u.IsEnable
+        //        ,
+        //            Description = u.Description
+        //        }).ToListAsync();
+        //    var res = exp
+        //        .Skip((req.PageIndex - 1) * req.PageSize)
+        //        .Take(req.PageSize)
+        //        .ToList();
+        //    res.ForEach(p =>
+        //    {
+        //        p.RoleName = GetRolesByUserId(p.Id);
+        //    });
+        //    pageInfo.data = _mapper.Map<List<UserRes>>(res);
+        //    pageInfo.total = exp.Count();
+        //    return pageInfo;
 
-        }
+        //}
 
         private string GetRolesByUserId(long uid)
         {

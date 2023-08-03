@@ -14,6 +14,11 @@
             批量映射
             </summary>
         </member>
+        <member name="M:Laoyoutiao.webapi.Config.BatchMapperProfile.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:Laoyoutiao.webapi.Config.SqlsugarSetup.SetQueryFilter(SqlSugar.SqlSugarProvider)">
             <summary>
             添加全局过滤器

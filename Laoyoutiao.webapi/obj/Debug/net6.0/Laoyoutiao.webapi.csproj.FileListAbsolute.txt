@@ -145,3 +145,4 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\runtimes\
 E:\学习程序代码等\Laoyoutiao\laoyoutiao.webapi\bin\Debug\net6.0\MediatR.dll
 E:\学习程序代码等\Laoyoutiao\laoyoutiao.webapi\bin\Debug\net6.0\MediatR.Contracts.dll
 E:\学习程序代码等\Laoyoutiao\laoyoutiao.webapi\bin\Debug\net6.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Debug\net6.0\Laoyoutiao.webapi.sourcelink.json

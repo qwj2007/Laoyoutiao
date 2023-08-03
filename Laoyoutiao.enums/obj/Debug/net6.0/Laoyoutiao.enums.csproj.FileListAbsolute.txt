@@ -1,7 +1,6 @@
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.enums\bin\Debug\net6.0\Laoyoutiao.enums.deps.json
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.enums\bin\Debug\net6.0\Laoyoutiao.enums.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.enums\bin\Debug\net6.0\Laoyoutiao.enums.pdb
-E:\学习程序代码等\Laoyoutiao\Laoyoutiao.enums\obj\Debug\net6.0\Laoyoutiao.enums.csproj.AssemblyReference.cache
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.enums\obj\Debug\net6.0\Laoyoutiao.enums.GeneratedMSBuildEditorConfig.editorconfig
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.enums\obj\Debug\net6.0\Laoyoutiao.enums.AssemblyInfoInputs.cache
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.enums\obj\Debug\net6.0\Laoyoutiao.enums.AssemblyInfo.cs
@@ -10,3 +9,4 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.enums\obj\Debug\net6.0\Laoyoutiao
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.enums\obj\Debug\net6.0\refint\Laoyoutiao.enums.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.enums\obj\Debug\net6.0\Laoyoutiao.enums.pdb
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.enums\obj\Debug\net6.0\ref\Laoyoutiao.enums.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.enums\obj\Debug\net6.0\Laoyoutiao.Enums.sourcelink.json

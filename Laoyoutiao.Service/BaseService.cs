@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Laoyoutiao.IService;
 using Laoyoutiao.Models.Common;
+using Laoyoutiao.Models.CustomAttribute;
 using Laoyoutiao.Models.Dto;
 using Laoyoutiao.Models.Dto.User;
 using Laoyoutiao.Models.Entitys;
@@ -127,46 +128,71 @@ namespace Laoyoutiao.Service
         private static ISugarQueryable<T> getMappingExpression<TReq>(TReq req, ISugarQueryable<T> exp) where TReq : Pagination
         {
             PropertyInfo[] propertyInfos = req.GetType().GetProperties();
+
             PropertyInfo[] propertyInfosSource = typeof(T).GetProperties();
             foreach (var property in propertyInfos)
             {
-                //判断是否有这个属性
-                var ty = propertyInfosSource.Where(a => a.Name == property.Name).FirstOrDefault();
-                if (ty != null)
+                //判断这个字段是否有【PropertyMapperAttribute】标记，如果有就以标记的属性名为准，
+                var properMaapered = property.IsDefined(typeof(PropertyMapperAttribute));
+                var propertyName = "";
+                var values = property.GetValue(req);//得到值
+                if (properMaapered)
                 {
-                    var values = property.GetValue(req);
+                    var propertyAttribute = (PropertyMapperAttribute)property.GetCustomAttributes(typeof(PropertyMapperAttribute)).FirstOrDefault();
+                    //得到
+                    propertyName = propertyAttribute.SourceName;
+                }
+                else
+                {
+                    //如果没有，就检测源T是否有这个属性。
+                    var souceType = propertyInfosSource.Where(a => a.Name == property.Name).FirstOrDefault();
+                    if (souceType != null)
+                    {
+                        propertyName = property.Name;
+                    }
+                    else {
+                        continue;
+                    }
+                }
+
+                //判断是否有这个属性
+                //var ty = propertyInfosSource.Where(a => a.Name == property.Name).FirstOrDefault();
+                //if (ty != null)
+                //{
+                //    var values = property.GetValue(req);
                     switch (property.PropertyType.Name.ToLower())
                     {
                         case "string":
-                            exp = exp.WhereIF(!string.IsNullOrWhiteSpace(Convert.ToString(values)), $"{typeof(T).Name}.{property.Name} like '%{values}%' ");
+                            exp = exp.WhereIF(!string.IsNullOrWhiteSpace(Convert.ToString(values)), $"{typeof(T).Name}.{propertyName} like '%{values}%' ");
                             break;
                         case "int32":
                         case "int64":
                         case "decimal":
-                            exp = exp.Where($"{typeof(T).Name}.{property.Name} = {values} ");
+                            exp = exp.Where($"{typeof(T).Name}.{propertyName} = {values} ");
                             break;
                         case "boolean":
-                            exp = exp.Where($"{typeof(T).Name}.{property.Name} = {Convert.ToInt16(values)} ");
+                            exp = exp.Where($"{typeof(T).Name}.{propertyName} = {Convert.ToInt16(values)} ");
                             break;
                         case "datetime":
-                            if (property.Name.StartsWith("begin".ToLower()) || property.Name.EndsWith("begin".ToLower())
-                                || property.Name.StartsWith("start".ToLower()) || property.Name.EndsWith("start".ToLower())
+                            if (propertyName.StartsWith("begin".ToLower()) || propertyName.EndsWith("begin".ToLower())
+                                || propertyName.StartsWith("start".ToLower()) || propertyName.EndsWith("start".ToLower())
                                 )
                             {
-                                exp = exp.Where($"{typeof(T).Name}.{property.Name} >= {values} ");
+                                exp = exp.Where($"{typeof(T).Name}.{propertyName} >= {values} ");
                             }
-                            else if (property.Name.StartsWith("end".ToLower()) || property.Name.EndsWith("end".ToLower()))
+                            else if (propertyName.StartsWith("end".ToLower()) || propertyName.EndsWith("end".ToLower()))
                             {
-                                exp = exp.Where($"{typeof(T).Name}.{property.Name} <= {values} ");
+                                exp = exp.Where($"{typeof(T).Name}.{propertyName} <= {values} ");
                             }
                             break;
                         default:
                             throw new Exception("类型不存在，请联系管理员");
                     }
-                    exp = exp.OrderBy((u) => u.CreateDate,OrderByType.Desc);//根据创建时间
+                   
                 }
-            }
-
+            // }
+            exp = exp.OrderBy((u) => u.CreateDate, OrderByType.Desc);//根据创建时间
+            
             return exp;
         }
 

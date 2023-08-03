@@ -10,6 +10,9 @@ namespace Laoyoutiao.webapi.Config
     /// </summary>
     public class BatchMapperProfile:Profile
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public BatchMapperProfile() {
             InitMapper();
         }

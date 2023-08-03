@@ -19,7 +19,7 @@ namespace Laoyoutiao.Models.Dto.User
         /// <summary>
         /// 用户名
         /// </summary> 
-        [PropertyMapper(SourceName = "Name")]
+        [PropertyMapper(SourceName = "NickName")]
         public string? Name { get; set; }
         /// <summary>
         /// 昵称
@@ -32,7 +32,7 @@ namespace Laoyoutiao.Models.Dto.User
         /// <summary>
         /// 用户类型
         /// </summary>
-        public int UserType { get; set; }
+        public int UserType { get; set; } = 1;
         /// <summary>
         /// 角色名
         /// </summary>
@@ -48,6 +48,7 @@ namespace Laoyoutiao.Models.Dto.User
         /// <summary>
         /// 描述
         /// </summary>
+        
         public string? Description { get; set; }
     }
 }
