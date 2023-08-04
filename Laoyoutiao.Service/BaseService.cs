@@ -3,22 +3,15 @@ using Laoyoutiao.IService;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.CustomAttribute;
 using Laoyoutiao.Models.Dto;
-using Laoyoutiao.Models.Dto.User;
-using Laoyoutiao.Models.Entitys;
 using Laoyoutiao.Repository;
-using Microsoft.AspNetCore.Http;
 using SqlSugar;
-using System.ComponentModel.Design;
-using System.Linq.Expressions;
-using System.Net.Http;
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 namespace Laoyoutiao.Service
 {
     public class BaseService<T> : BaseServiceRepository<T>, IBaseService<T> where T : BaseEntity, new()
     {
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
         public BaseService(IMapper mapper)
         {
             this._mapper = mapper;
@@ -106,13 +99,14 @@ namespace Laoyoutiao.Service
         /// <returns></returns>
         public virtual async Task<PageInfo> GetPagesAsync<TReq, TRes>(TReq req) where TReq : Pagination where TRes : class
         {
-            PageInfo pageInfo = new PageInfo();
+
             var exp = _db.Queryable<T>();
-            exp = getMappingExpression(req, exp);
+            exp = GetMappingExpression(req, exp);
             var res = await exp
                 .Skip((req.PageIndex - 1) * req.PageSize)
                 .Take(req.PageSize)
                 .ToListAsync();
+            PageInfo pageInfo = new PageInfo();
             pageInfo.data = _mapper.Map<List<TRes>>(res);
             pageInfo.total = exp.Count();
             return pageInfo;
@@ -125,7 +119,7 @@ namespace Laoyoutiao.Service
         /// <param name="exp"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        private static ISugarQueryable<T> getMappingExpression<TReq>(TReq req, ISugarQueryable<T> exp) where TReq : Pagination
+        private static ISugarQueryable<T> GetMappingExpression<TReq>(TReq req, ISugarQueryable<T> exp) where TReq : Pagination
         {
             PropertyInfo[] propertyInfos = req.GetType().GetProperties();
 
@@ -138,9 +132,13 @@ namespace Laoyoutiao.Service
                 var values = property.GetValue(req);//得到值
                 if (properMaapered)
                 {
-                    var propertyAttribute = (PropertyMapperAttribute)property.GetCustomAttributes(typeof(PropertyMapperAttribute)).FirstOrDefault();
+                    var propertyAttribute = property.GetCustomAttributes(typeof(PropertyMapperAttribute)).FirstOrDefault() as PropertyMapperAttribute;
                     //得到
-                    propertyName = propertyAttribute.SourceName;
+                    propertyName = propertyAttribute?.SourceName;
+                    if (propertyName == null)
+                    {
+                        propertyName = property.Name;
+                    }
                 }
                 else
                 {
@@ -150,7 +148,8 @@ namespace Laoyoutiao.Service
                     {
                         propertyName = property.Name;
                     }
-                    else {
+                    else
+                    {
                         continue;
                     }
                 }
@@ -160,39 +159,39 @@ namespace Laoyoutiao.Service
                 //if (ty != null)
                 //{
                 //    var values = property.GetValue(req);
-                    switch (property.PropertyType.Name.ToLower())
-                    {
-                        case "string":
-                            exp = exp.WhereIF(!string.IsNullOrWhiteSpace(Convert.ToString(values)), $"{typeof(T).Name}.{propertyName} like '%{values}%' ");
-                            break;
-                        case "int32":
-                        case "int64":
-                        case "decimal":
-                            exp = exp.Where($"{typeof(T).Name}.{propertyName} = {values} ");
-                            break;
-                        case "boolean":
-                            exp = exp.Where($"{typeof(T).Name}.{propertyName} = {Convert.ToInt16(values)} ");
-                            break;
-                        case "datetime":
-                            if (propertyName.StartsWith("begin".ToLower()) || propertyName.EndsWith("begin".ToLower())
-                                || propertyName.StartsWith("start".ToLower()) || propertyName.EndsWith("start".ToLower())
-                                )
-                            {
-                                exp = exp.Where($"{typeof(T).Name}.{propertyName} >= {values} ");
-                            }
-                            else if (propertyName.StartsWith("end".ToLower()) || propertyName.EndsWith("end".ToLower()))
-                            {
-                                exp = exp.Where($"{typeof(T).Name}.{propertyName} <= {values} ");
-                            }
-                            break;
-                        default:
-                            throw new Exception("类型不存在，请联系管理员");
-                    }
-                   
+                switch (property.PropertyType.Name.ToLower())
+                {
+                    case "string":
+                        exp = exp.WhereIF(!string.IsNullOrWhiteSpace(Convert.ToString(values)), $"{typeof(T).Name}.{propertyName} like '%{values}%' ");
+                        break;
+                    case "int32":
+                    case "int64":
+                    case "decimal":
+                        exp = exp.Where($"{typeof(T).Name}.{propertyName} = {values} ");
+                        break;
+                    case "boolean":
+                        exp = exp.Where($"{typeof(T).Name}.{propertyName} = {Convert.ToInt16(values)} ");
+                        break;
+                    case "datetime":
+                        if (propertyName.StartsWith("begin".ToLower()) || propertyName.EndsWith("begin".ToLower())
+                            || propertyName.StartsWith("start".ToLower()) || propertyName.EndsWith("start".ToLower()))
+
+                        {
+                            exp = exp.Where($"{typeof(T).Name}.{propertyName} >= {values} ");
+                        }
+                        else if (propertyName.StartsWith("end".ToLower()) || propertyName.EndsWith("end".ToLower()))
+                        {
+                            exp = exp.Where($"{typeof(T).Name}.{propertyName} <= {values} ");
+                        }
+                        break;
+                    default:
+                        throw new Exception("类型不存在，请联系管理员");
                 }
+
+            }
             // }
             exp = exp.OrderBy((u) => u.CreateDate, OrderByType.Desc);//根据创建时间
-            
+
             return exp;
         }
 

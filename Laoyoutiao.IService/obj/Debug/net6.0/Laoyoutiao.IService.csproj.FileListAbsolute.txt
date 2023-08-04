@@ -15,4 +15,3 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\obj\Debug\net6.0\Laoyout
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\obj\Debug\net6.0\ref\Laoyoutiao.IService.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\bin\Debug\net6.0\Laoyoutiao.IRespository.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\bin\Debug\net6.0\Laoyoutiao.IRespository.pdb
-E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\obj\Debug\net6.0\Laoyoutiao.IService.sourcelink.json

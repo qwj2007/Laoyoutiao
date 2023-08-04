@@ -6,14 +6,24 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Laoyoutiao.webapi.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
+    
     public class LoginController : ControllerBase
     {
         private readonly IUserService _userService;
         private readonly ICustomJWTService _jwtService;
         private readonly IConfiguration _configuration;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userService"></param>
+        /// <param name="customJWTService"></param>
+        /// <param name="configuration"></param>
         public LoginController(IUserService userService, ICustomJWTService customJWTService,IConfiguration configuration)
         {
             _userService = userService;
@@ -26,12 +36,17 @@ namespace Laoyoutiao.webapi.Controllers
 /// </summary>
 /// <returns></returns>
         [HttpGet]
-        public async Task<ApiResult> GetApollo()
+        public  ApiResult GetApollo()
         {
-            string name =  _configuration.GetSection("JWTTokenOptions:SecurityKey").Value;
+            //string name = _configuration.GetSection("JWTTokenOptions:SecurityKey").Value;
             return ResultHelper.Success( _configuration.GetSection("JWTTokenOptions:SecurityKey"));
         }
-
+        /// <summary>
+        /// 获取token值
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
             [HttpGet]
         public async Task<ApiResult> GetToken(string name, string password)
         {
@@ -52,6 +67,12 @@ namespace Laoyoutiao.webapi.Controllers
             });
             return await result;
         }
+        /// <summary>
+        /// 获取token
+        /// </summary>
+        /// <param name="account"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
 
         [HttpGet]
         public async Task<ApiResult> GetTokens(string account, string password)

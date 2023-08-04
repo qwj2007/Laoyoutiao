@@ -516,10 +516,6 @@
               "target": "Package",
               "version": "[6.0.19, )"
             },
-            "Microsoft.Build": {
-              "target": "Package",
-              "version": "[17.6.3, )"
-            },
             "Microsoft.Extensions.Configuration.Binder": {
               "target": "Package",
               "version": "[7.0.4, )"

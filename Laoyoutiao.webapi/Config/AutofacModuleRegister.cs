@@ -11,6 +11,10 @@ namespace Laoyoutiao.webapi.Config
     /// </summary>
     public class AutofacModuleRegister : Autofac.Module
     {
+        /// <summary>
+        /// 用autofac实现依赖注入
+        /// </summary>
+        /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder)
         {
 

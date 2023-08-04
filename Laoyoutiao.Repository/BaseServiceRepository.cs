@@ -116,7 +116,7 @@ namespace Laoyoutiao.Repository
         /// <param name="iClumns"></param>
         /// <param name="ignoreNull"></param>
         /// <returns></returns>
-        public virtual bool Insert(T parm, Expression<Func<T, object>> iClumns = null, bool ignoreNull = true)
+        public virtual bool Insert(T parm, Expression<Func<T, object>>? iClumns = null, bool ignoreNull = true)
         {
 
             int rowsAffect = Context.Insertable(parm).InsertColumns(iClumns).IgnoreColumns(ignoreNullColumn: ignoreNull).ExecuteCommand();

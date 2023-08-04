@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Laoyoutiao.IService;
-using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.User;
 using Laoyoutiao.Models.Entitys;
-using Microsoft.Extensions.Configuration;
 using SqlSugar;
 
 namespace Laoyoutiao.Service
@@ -78,12 +76,12 @@ namespace Laoyoutiao.Service
 
         //}
 
-        private string GetRolesByUserId(long uid)
-        {
-            return _db.Ado.SqlQuery<string>($@"SELECT STUFF((SELECT ','+R.Name FROM dbo.Role R
-                    LEFT JOIN dbo.UserRoleRelation UR ON R.Id=UR.RoleId
-                    WHERE UR.UserId={uid} FOR XML PATH('')),1,1,'') RoleNames")[0];
-        }
+        // private string GetRolesByUserId(long uid)
+        // {
+        //     return _db.Ado.SqlQuery<string>($@"SELECT STUFF((SELECT ','+R.Name FROM dbo.Role R
+        //             LEFT JOIN dbo.UserRoleRelation UR ON R.Id=UR.RoleId
+        //             WHERE UR.UserId={uid} FOR XML PATH('')),1,1,'') RoleNames")[0];
+        // }
         public UserRes GetUsersById(long id)
         {
             var info = GetEntityById(id);// _db.Queryable<Users>().First(p => p.Id == id);

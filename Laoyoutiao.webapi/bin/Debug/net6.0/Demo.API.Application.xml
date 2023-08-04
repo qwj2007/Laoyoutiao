@@ -19,6 +19,11 @@
             
             </summary>
         </member>
+        <member name="M:Laoyoutiao.webapi.Config.BatchMapperProfile.InitMapper">
+            <summary>
+            动态创建automapper
+            </summary>
+        </member>
         <member name="M:Laoyoutiao.webapi.Config.SqlsugarSetup.SetQueryFilter(SqlSugar.SqlSugarProvider)">
             <summary>
             添加全局过滤器

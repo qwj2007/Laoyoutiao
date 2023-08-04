@@ -16,6 +16,9 @@ namespace Laoyoutiao.webapi.Config
         public BatchMapperProfile() {
             InitMapper();
         }
+        /// <summary>
+        /// 动态创建automapper
+        /// </summary>
         public void InitMapper()
         {
             //获取所有需要依据特性进行映射的DTO类
@@ -23,8 +26,7 @@ namespace Laoyoutiao.webapi.Config
             typeList.ForEach(type =>
             {
                 //获取类指定的特性
-                var attribute = (TypeMapperAttribute)type.GetCustomAttributes(typeof(TypeMapperAttribute)).FirstOrDefault();
-                if (attribute == null || attribute.SourceType == null)
+                if (type.GetCustomAttributes(typeof(TypeMapperAttribute)).FirstOrDefault() is not TypeMapperAttribute attribute || attribute.SourceType == null)
                     return;
                 //类映射
                 var mapper = CreateMap(attribute.SourceType, type).ReverseMap();
