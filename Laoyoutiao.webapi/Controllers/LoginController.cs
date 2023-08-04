@@ -1,6 +1,8 @@
 ﻿using Laoyoutiao.Common;
 using Laoyoutiao.IService;
+using Laoyoutiao.IService.Sys;
 using Laoyoutiao.Models.Common;
+using Laoyoutiao.Models.Dto.Sys;
 using Laoyoutiao.Models.Dto.User;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +19,7 @@ namespace Laoyoutiao.webapi.Controllers
         private readonly IUserService _userService;
         private readonly ICustomJWTService _jwtService;
         private readonly IConfiguration _configuration;
+        private readonly ISysUserService _sysUserService;
 
         /// <summary>
         /// 
@@ -24,11 +27,16 @@ namespace Laoyoutiao.webapi.Controllers
         /// <param name="userService"></param>
         /// <param name="customJWTService"></param>
         /// <param name="configuration"></param>
-        public LoginController(IUserService userService, ICustomJWTService customJWTService,IConfiguration configuration)
+        public LoginController(IUserService userService, 
+            ICustomJWTService customJWTService,
+            IConfiguration configuration,
+            ISysUserService sysUserService
+            )
         {
             _userService = userService;
             _jwtService = customJWTService;
             _configuration = configuration;
+            _sysUserService = sysUserService;
         }
 
 /// <summary>
@@ -68,7 +76,7 @@ namespace Laoyoutiao.webapi.Controllers
             return await result;
         }
         /// <summary>
-        /// 获取token
+        /// 获取SysUser用户token
         /// </summary>
         /// <param name="account"></param>
         /// <param name="password"></param>
@@ -84,8 +92,8 @@ namespace Laoyoutiao.webapi.Controllers
                 {
                     return ResultHelper.Error("参数不能为空");
                 }
-                UserRes users = _userService.GetUser(account, password) as UserRes;
-                if (string.IsNullOrEmpty(users.Name))
+                var users = _sysUserService.GetUser(account, password) as SysUserRes;
+                if (string.IsNullOrEmpty(users.UserName))
                 {
                     return ResultHelper.Error("账号不存在，用户名或密码错误！");
                 }

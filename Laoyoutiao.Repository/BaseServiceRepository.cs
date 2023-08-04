@@ -48,7 +48,8 @@ namespace Laoyoutiao.Repository
                 //Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(it => it.BaseType == typeof(BaseEntity)).ToArray();
                 //更新数据库字段，如果有修改就更新
                 Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(it => it.BaseType == typeof(BaseEntity) 
-                && it.GetCustomAttribute<TenantAttribute>().configId.ToString() == configID).ToArray();
+                && it.GetCustomAttribute<TenantAttribute>().configId
+                .ToString() == configID).ToArray();
                 client.CodeFirst.SetStringDefaultLength(200).InitTables(types);
 
                 // foreach (var entityType in types)
@@ -273,9 +274,9 @@ namespace Laoyoutiao.Repository
         /// <returns></returns>
         public virtual bool Delete(object[] ids, bool IsDelete = true)
         {
-            int rowsAffect = 0;
             try
             {
+                int rowsAffect;
                 if (IsDelete)
                 {
                     rowsAffect = Context.Deleteable<T>().In(ids).ExecuteCommand();
@@ -301,9 +302,9 @@ namespace Laoyoutiao.Repository
         /// <returns></returns>
         public virtual async Task<bool> DeleteAsync(object[] ids, bool IsDelete = false)
         {
-            int rowsAffect = 0;
             try
             {
+                int rowsAffect;
                 if (IsDelete)
                 {
                     rowsAffect = await Context.Deleteable<T>().In(ids).ExecuteCommandAsync();
@@ -426,9 +427,11 @@ namespace Laoyoutiao.Repository
         {
             int totalCount = 0;
             var result = Context.Queryable<T>().Where(expression).ToPageList(pageIndex, PageSize, ref totalCount);
-            var pageResult = new PageInfo();
-            pageResult.data = result;
-            pageResult.total = totalCount;
+            var pageResult = new PageInfo
+            {
+                data = result,
+                total = totalCount
+            };
             return pageResult;
         }
         /// <summary>
@@ -442,9 +445,11 @@ namespace Laoyoutiao.Repository
         {
             RefAsync<int> totalCount = 0;
             var result = await Context.Queryable<T>().Where(expression).ToPageListAsync(pageIndex, PageSize, totalCount);
-            var pageResult = new PageInfo();
-            pageResult.data = result;
-            pageResult.total = totalCount;
+            var pageResult = new PageInfo
+            {
+                data = result,
+                total = totalCount
+            };
             return pageResult;
         }
         /// <summary>
@@ -461,9 +466,11 @@ namespace Laoyoutiao.Repository
             int totalCount = 0;
             var result = Context.Queryable<T>().Where(expression).OrderByIF(orderEnum == OrderByType.Asc, orderFiled, OrderByType.Asc).OrderByIF(orderEnum == OrderByType.Desc, orderFiled, OrderByType.Desc)
                 .ToPageList(pageIndex, PageSize, ref totalCount);
-            var pageResult = new PageInfo();
-            pageResult.data = result;
-            pageResult.total = totalCount;
+            var pageResult = new PageInfo
+            {
+                data = result,
+                total = totalCount
+            };
             return pageResult;
         }
         /// <summary>
@@ -480,9 +487,11 @@ namespace Laoyoutiao.Repository
             RefAsync<int> totalCount = 0;
             var result = await Context.Queryable<T>().Where(expression).OrderByIF(orderEnum == OrderByType.Asc, orderFiled, OrderByType.Asc).OrderByIF(orderEnum == OrderByType.Desc, orderFiled, OrderByType.Desc)
                 .ToPageListAsync(pageIndex, PageSize, totalCount);
-            var pageResult = new PageInfo();
-            pageResult.data = result;
-            pageResult.total = totalCount;
+            var pageResult = new PageInfo
+            {
+                data = result,
+                total = totalCount
+            };
             return pageResult;
         }
 

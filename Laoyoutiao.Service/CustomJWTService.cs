@@ -1,6 +1,7 @@
 ﻿
 using Laoyoutiao.IService;
 using Laoyoutiao.Models.Common;
+using Laoyoutiao.Models.Dto.Sys;
 using Laoyoutiao.Models.Dto.User;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -35,6 +36,23 @@ namespace Laoyoutiao.Service
             SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_JWTTokenOptions.SecurityKey));
             SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
            
+            JwtSecurityToken token = new JwtSecurityToken(issuer: _JWTTokenOptions.Issuer, audience: _JWTTokenOptions.Audience, claims: claims, expires: DateTime.Now.AddMinutes(30), signingCredentials: credentials);
+            string returnToken = new JwtSecurityTokenHandler().WriteToken(token);
+            return returnToken;
+        }
+
+        public string GetToken(SysUserRes user)
+        {
+            var claims = new[] {
+           new Claim("Id",user.Id.ToString()),
+           new Claim("Account",user.Account),
+           new Claim("UserName",user.UserName),          
+           new Claim("Password",user.Password.ToString())
+           };
+            //需要加密key
+            SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_JWTTokenOptions.SecurityKey));
+            SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
             JwtSecurityToken token = new JwtSecurityToken(issuer: _JWTTokenOptions.Issuer, audience: _JWTTokenOptions.Audience, claims: claims, expires: DateTime.Now.AddMinutes(30), signingCredentials: credentials);
             string returnToken = new JwtSecurityTokenHandler().WriteToken(token);
             return returnToken;

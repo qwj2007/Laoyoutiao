@@ -24,7 +24,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseRouting();
 #region 鉴权
 app.UseAuthentication();
 app.UseAuthorization();
@@ -34,6 +34,29 @@ app.UseAuthorization();
 app.UseCors("CorsPolicy");
 #endregion
 
-app.MapControllers();
+
+//app.UseEndpoints(routes =>
+//{
+//    routes.MapControllerRoute(
+//        name: "TurntableRoute",
+//        pattern: "{area:exists}/{controller=Activity}/{action=Turntable}/{id}.html");
+
+//    routes.MapControllerRoute(
+//        name: "areaRoute",
+//        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+//    routes.MapControllerRoute(
+//        name: "default",
+//        pattern: "{controller=Home}/{action=Index}/{id?}");
+//});
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+      name: "areas",
+      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
+});
+//app.MapControllers();
 
 app.Run();

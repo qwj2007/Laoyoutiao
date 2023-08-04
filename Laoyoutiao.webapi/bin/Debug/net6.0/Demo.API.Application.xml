@@ -4,10 +4,22 @@
         <name>Laoyoutiao.webapi</name>
     </assembly>
     <members>
+        <member name="T:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserController">
+            <summary>
+            
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserController._userService" -->
         <member name="T:Laoyoutiao.webapi.Config.AutofacModuleRegister">
             <summary>
             用autofac实现依赖注入
             </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Config.AutofacModuleRegister.Load(Autofac.ContainerBuilder)">
+            <summary>
+            用autofac实现依赖注入
+            </summary>
+            <param name="builder"></param>
         </member>
         <member name="T:Laoyoutiao.webapi.Config.BatchMapperProfile">
             <summary>
@@ -65,10 +77,39 @@
             <param name="req"></param>
             <returns></returns>
         </member>
+        <member name="T:Laoyoutiao.webapi.Controllers.LoginController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.LoginController.#ctor(Laoyoutiao.IService.IUserService,Laoyoutiao.IService.ICustomJWTService,Microsoft.Extensions.Configuration.IConfiguration,Laoyoutiao.IService.Sys.ISysUserService)">
+            <summary>
+            
+            </summary>
+            <param name="userService"></param>
+            <param name="customJWTService"></param>
+            <param name="configuration"></param>
+        </member>
         <member name="M:Laoyoutiao.webapi.Controllers.LoginController.GetApollo">
             <summary>
             测试一下Apollo配置中心
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.LoginController.GetToken(System.String,System.String)">
+            <summary>
+            获取token值
+            </summary>
+            <param name="name"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.LoginController.GetTokens(System.String,System.String)">
+            <summary>
+            获取SysUser用户token
+            </summary>
+            <param name="account"></param>
+            <param name="password"></param>
             <returns></returns>
         </member>
         <member name="M:Laoyoutiao.webapi.Controllers.MenuController.GetUserMenus">
@@ -76,6 +117,17 @@
             根据当前登录用户获取用户菜单
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Controllers.RoleController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.RoleController.#ctor(Laoyoutiao.IService.IRoleService)">
+            <summary>
+            
+            </summary>
+            <param name="roleService"></param>
         </member>
         <member name="M:Laoyoutiao.webapi.Controllers.ToolController.InitDataBase(System.String)">
             <summary>

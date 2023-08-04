@@ -10,14 +10,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Laoyoutiao.webapi.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class RoleController : BaseController<Role, RoleRes, RoleReq, RoleEdit>
     {
-        private readonly IRoleService _roleService;
+        //private readonly IRoleService _roleService;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roleService"></param>
         public RoleController(IRoleService roleService):base(roleService)
         {
-            _roleService = roleService;
+           // _roleService = roleService;
         }
         //[HttpPost]
         //public ApiResult GetRoles(RoleReq req)
