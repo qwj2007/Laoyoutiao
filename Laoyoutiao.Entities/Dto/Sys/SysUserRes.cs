@@ -34,4 +34,7 @@ public class SysUserRes
     /// </summary>
     /// <value></value>
     public string? HeadImg { get; set; }
+
+    public DateTime CreateDate { get; set; }
+    public string Status { get; set; }
 }

@@ -1,7 +1,5 @@
 using Autofac;
 using Laoyoutiao.Configuration;
-using Laoyoutiao.IService;
-using Laoyoutiao.Service;
 using Laoyoutiao.webapi.Filter;
 using Microsoft.AspNetCore.Mvc;
 

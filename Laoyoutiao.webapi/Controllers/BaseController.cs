@@ -67,10 +67,20 @@ namespace Laoyoutiao.webapi.Controllers
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]        
         public ApiResult BatchDel(string ids)
         {
             return ResultHelper.Success(_baseService.BatchDel(ids.Split(',')));
+        }
+        /// <summary>
+        ///  批量删除
+        /// </summary>
+        /// <param name="ids">主键数组</param>
+        /// <returns></returns>
+        [HttpPost]
+        public ApiResult BatchDelByIdArray(string[] ids)
+        {
+            return ResultHelper.Success(_baseService.BatchDel(ids));
         }
 
         /// <summary>

@@ -70,6 +70,13 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.BatchDelByIdArray(System.String[])">
+            <summary>
+             批量删除
+            </summary>
+            <param name="ids">主键数组</param>
+            <returns></returns>
+        </member>
         <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.GetPages(`2)">
             <summary>
             获取用户信息
