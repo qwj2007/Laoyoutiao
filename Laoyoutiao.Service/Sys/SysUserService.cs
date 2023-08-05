@@ -39,7 +39,7 @@ public class SysUserService : BaseService<SysUser>, ISysUserService
         var exp = await _db.Queryable<SysUser>()
             .WhereIF(!string.IsNullOrEmpty(reqs.UserName), u => u.UserName.Contains(reqs.UserName))
             .WhereIF(reqs.IsDeleted > -1, u => u.IsDeleted == reqs.IsDeleted)
-            .OrderBy((u) => u.CreateDate)
+            .OrderByDescending((u) => u.CreateDate)
             .Select((u) => new SysUserRes
             {
                 Id = u.Id,
