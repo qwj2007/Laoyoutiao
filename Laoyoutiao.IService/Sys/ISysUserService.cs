@@ -1,7 +1,6 @@
 namespace Laoyoutiao.IService.Sys;
 
 using Laoyoutiao.Models.Dto.Sys;
-
 using Laoyoutiao.Models.Entitys.Sys;
 
 public interface ISysUserService : IBaseService<SysUser>

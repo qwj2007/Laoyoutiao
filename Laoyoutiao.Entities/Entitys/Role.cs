@@ -7,8 +7,8 @@ namespace Laoyoutiao.Models.Entitys
     /// <summary>
     /// 角色表
     /// </summary>
-    [SugarTable("Role")]
-    [Tenant("1")]
+    //[SugarTable("Role")]
+    //[Tenant("1")]
     public class Role : BaseEntity
     {
         /// <summary>

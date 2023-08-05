@@ -31,7 +31,7 @@ public class SysUser : BaseEntity
     /// </summary>
     /// <value></value>
     public string? Password { get; set; }
-    [SugarColumn(IsNullable = false, Length = 200)]
+    [SugarColumn(IsNullable = true, Length = 200)]
     /// <summary>
     /// 头像
     /// </summary>

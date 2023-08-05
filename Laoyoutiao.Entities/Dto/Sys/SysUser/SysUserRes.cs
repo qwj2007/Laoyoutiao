@@ -22,7 +22,7 @@ public class SysUserRes
     /// </summary>
     /// <value></value>
     public string? JobNumber { get; set; }
- 
+
     /// <summary>
     /// µÇÂ¼ÃÜÂë
     /// </summary>

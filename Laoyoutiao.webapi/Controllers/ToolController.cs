@@ -35,8 +35,9 @@ namespace Laoyoutiao.webapi.Controllers
 
                 if (files.Length > 0)
                 {
+                    Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(a=> a.BaseType == typeof(BaseEntity) && a.IsDefined(typeof(TenantAttribute))&& a.GetCustomAttribute<TenantAttribute>().configId.ToString() == item.ConfigId).ToArray();
                     //更新数据库字段，如果有修改就更新
-                    Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(it => it.BaseType == typeof(BaseEntity) && it.GetCustomAttribute<TenantAttribute>().configId.ToString() == item.ConfigId).ToArray();
+                    //Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(it => it.BaseType == typeof(BaseEntity) && it.GetCustomAttribute<TenantAttribute>().configId.ToString() == item.ConfigId).ToArray();
                     _db.CodeFirst.SetStringDefaultLength(200).InitTables(types);
                 }
             }

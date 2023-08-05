@@ -4,6 +4,17 @@
         <name>Laoyoutiao.webapi</name>
     </assembly>
     <members>
+        <member name="T:Laoyoutiao.webapi.Area.Sys.Controllers.SysRoleController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.SysRoleController.#ctor(Laoyoutiao.IService.IBaseService{Laoyoutiao.Models.Entitys.Sys.SysRole})">
+            <summary>
+            
+            </summary>
+            <param name="baseService"></param>
+        </member>
         <member name="T:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserController">
             <summary>
             

@@ -7,8 +7,8 @@ namespace Laoyoutiao.Models.Entitys
     /// <summary>
     /// 菜单角色关系
     /// </summary>
-    [SugarTable("MenuRoleRelation")]
-    [Tenant("1")]
+    //[SugarTable("MenuRoleRelation")]
+    //[Tenant("1")]
     public class MenuRoleRelation : BaseKey
     {
  
