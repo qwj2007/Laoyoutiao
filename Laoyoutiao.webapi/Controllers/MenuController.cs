@@ -13,6 +13,7 @@ namespace Laoyoutiao.webapi.Controllers
     [ApiController]
     [Authorize]
     public class MenuController : BaseController<Menu, MenuRes, MenuReq, MenuEdit>
+      
     {
         private readonly IMenuService _Menu;
        

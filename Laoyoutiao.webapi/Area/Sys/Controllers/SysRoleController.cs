@@ -13,6 +13,7 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers
     [Area("Sys")]
     [Route("api/[controller]/[action]")]
     public class SysRoleController : BaseController<SysRole, SysRoleRes, SysRoleReq, SysRoleEdit>
+   
     {
         /// <summary>
         /// 

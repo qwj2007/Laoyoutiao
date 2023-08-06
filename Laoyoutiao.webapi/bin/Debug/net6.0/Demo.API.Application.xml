@@ -20,7 +20,12 @@
             
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "F:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserController._userService" -->
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserController.#ctor(Laoyoutiao.IService.Sys.ISysUserService)">
+            <summary>
+            
+            </summary>
+            <param name="sysUserService"></param>
+        </member>
         <member name="T:Laoyoutiao.webapi.Config.AutofacModuleRegister">
             <summary>
             用autofac实现依赖注入
@@ -52,6 +57,15 @@
             添加全局过滤器
             </summary>
             <param name="provider"></param>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Controllers.BaseController`4">
+            <summary>
+            控制器基类
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TRes"></typeparam>
+            <typeparam name="TReq"></typeparam>
+            <typeparam name="TEdit"></typeparam>
         </member>
         <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.GetModelById(System.Int64)">
             <summary>

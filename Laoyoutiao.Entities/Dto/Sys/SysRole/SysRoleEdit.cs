@@ -13,7 +13,7 @@ namespace Laoyoutiao.Models.Dto.Sys
     public class SysRoleEdit:BaseDto
     {
         public string RoleName { get; set; }
-        public long SystemId { get; set; }
+        //public long SystemId { get; set; }
         public string Memo { get; set; }
 
     }

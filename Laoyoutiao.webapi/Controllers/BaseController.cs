@@ -8,18 +8,24 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Laoyoutiao.webapi.Controllers
 {
+    /// <summary>
+    /// 控制器基类
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TRes"></typeparam>
+    /// <typeparam name="TReq"></typeparam>
+    /// <typeparam name="TEdit"></typeparam>
 
-  
     [Authorize]
     public class BaseController<T, TRes, TReq, TEdit> : ControllerBase where T : BaseEntity, new()
           where TRes : class where TReq : Pagination where TEdit : class
     {
-        private readonly IBaseService<T> _baseService;      
+        private readonly IBaseService<T> _baseService;
 
         public BaseController(IBaseService<T> baseService)
         {
             this._baseService = baseService;
-        }     
+        }
 
 
         /// <summary>
@@ -42,7 +48,7 @@ namespace Laoyoutiao.webapi.Controllers
         {
             //获取当前登录人信息 
             long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
-            return ResultHelper.Success( await _baseService.Add(req, userId));
+            return ResultHelper.Success(await _baseService.Add(req, userId));
         }
 
         //[HttpPost]
@@ -67,7 +73,7 @@ namespace Laoyoutiao.webapi.Controllers
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        [HttpPost]        
+        [HttpPost]
         public ApiResult BatchDel(string ids)
         {
             return ResultHelper.Success(_baseService.BatchDel(ids.Split(',')));
@@ -91,9 +97,11 @@ namespace Laoyoutiao.webapi.Controllers
         [HttpPost]
         public virtual async Task<ApiResult> GetPages(TReq req)
         {
-            long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);           
+            long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
             var result = await _baseService.GetPagesAsync<TReq, TRes>(req);
             return ResultHelper.Success(result);
         }
     }
 }
+
+

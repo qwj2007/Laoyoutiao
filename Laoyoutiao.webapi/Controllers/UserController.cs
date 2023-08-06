@@ -13,7 +13,7 @@ namespace Laoyoutiao.webapi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController] 
-    public class UserController : BaseController<Users,UserRes,UserReq,UserEdit>
+    public class UserController : BaseController<Users,UserRes,UserReq,UserEdit>   
     {
         private readonly IUserService _users;
         private readonly IMediator _mediator;

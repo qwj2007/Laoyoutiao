@@ -16,6 +16,7 @@ namespace Laoyoutiao.webapi.Controllers
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class RoleController : BaseController<Role, RoleRes, RoleReq, RoleEdit>
+  
     {
         //private readonly IRoleService _roleService;
         /// <summary>

@@ -11,7 +11,7 @@ namespace Laoyoutiao.Models.Entitys.Sys
         /// 系统Id
         /// </summary>
         [SugarColumn(IsNullable = false)]
-        public long SystemId { get; set; }
+        public long SystemId { get; set; } = 0;
         [SugarColumn(IsNullable = false, Length = 50)]
         /// <summary>
         /// 角色名称
