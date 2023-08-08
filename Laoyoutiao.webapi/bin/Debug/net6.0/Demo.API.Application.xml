@@ -9,11 +9,24 @@
             
             </summary>
         </member>
-        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.SysRoleController.#ctor(Laoyoutiao.IService.IBaseService{Laoyoutiao.Models.Entitys.Sys.SysRole})">
+        <member name="F:Laoyoutiao.webapi.Area.Sys.Controllers.SysRoleController._sysRoleService">
             <summary>
             
             </summary>
             <param name="baseService"></param>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.SysRoleController.GetRolesByUserId(System.Int64)">
+            <summary>
+            获取已经存在的用户角色
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.SysRoleController.GetAll">
+            <summary>
+            获取所有的角色
+            </summary>
+            <returns></returns>
+                  
         </member>
         <member name="T:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserController">
             <summary>
@@ -25,6 +38,18 @@
             
             </summary>
             <param name="sysUserService"></param>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserRoleController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserRoleController.SaveUserRoles(System.Collections.Generic.List{Laoyoutiao.Models.Dto.Sys.SysUserRoleEdit})">
+            <summary>
+            保存
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
         </member>
         <member name="T:Laoyoutiao.webapi.Config.AutofacModuleRegister">
             <summary>
@@ -67,6 +92,12 @@
             <typeparam name="TReq"></typeparam>
             <typeparam name="TEdit"></typeparam>
         </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.#ctor(Laoyoutiao.IService.IBaseService{`0})">
+            <summary>
+            基础controller
+            </summary>
+            <param name="baseService"></param>
+        </member>
         <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.GetModelById(System.Int64)">
             <summary>
             根据Id查找一条数据
@@ -86,6 +117,12 @@
             根据Id删除
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.GetAll">
+            <summary>
+              ///获取所有信息
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.BatchDel(System.String)">

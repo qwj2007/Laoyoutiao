@@ -3,8 +3,8 @@ using SqlSugar;
 
 namespace Laoyoutiao.Models.Entitys
 {
-    //[SugarTable("address")]
-    //[Tenant("0")]
+    [SugarTable("address")]
+    [Tenant("0")]
     public class Address : BaseEntity
     {
         /// <summary>

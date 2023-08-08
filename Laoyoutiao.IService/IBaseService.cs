@@ -2,11 +2,15 @@
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.User;
 using Laoyoutiao.Models.Entitys;
+using System.Linq.Expressions;
 
 namespace Laoyoutiao.IService
 {
     public interface IBaseService<T> : IBaseServiceRepository<T> where T : BaseEntity, new()
     {
+
+        
+
         /// <summary>
         /// 添加或修改一条记录
         /// </summary>
@@ -44,6 +48,20 @@ namespace Laoyoutiao.IService
 
         PageInfo GetPages<TReq>(TReq req) where TReq : class;
 
+        /// <summary>
+        /// 获取所有的数据
+        /// </summary>
+        /// <typeparam name="TRes"></typeparam>
+        /// <returns></returns>
+        Task<List<TRes>> GetListAllAsync<TRes>() where TRes : class;
+        List<TRes> GetListAll<TRes>() where TRes : class;
+        /// <summary>
+        /// 条件查找数据
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        List<TRes> GetListByQuery<TRes>(Expression<Func<T, bool>> expression) where  TRes : class;
+        Task<List<TRes>> GetListByQueryAsync<TRes>(Expression<Func<T, bool>> expression) where  TRes : class;
         /// <summary>
         /// 根据Id获取一个实体异步方法
         /// </summary>

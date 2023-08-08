@@ -5,6 +5,7 @@ using Laoyoutiao.Models.CustomAttribute;
 using Laoyoutiao.Models.Dto;
 using Laoyoutiao.Repository;
 using SqlSugar;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Laoyoutiao.Service
@@ -46,6 +47,8 @@ namespace Laoyoutiao.Service
             return _db.Updateable(info).ExecuteCommand() > 0;
         }
 
+      
+
         /// <summary>
         /// 添加或修改一条数据
         /// </summary>
@@ -63,7 +66,7 @@ namespace Laoyoutiao.Service
                 info.CreateDate = DateTime.Now;
                 //info.UserType = 1;//0=炒鸡管理员，系统内置的
                 info.IsDeleted = 0;
-                return await _db.Insertable(info).ExecuteCommandAsync() > 0;
+                return await _db.Insertable(info).ExecuteCommandAsync() > 0;                
             }
             else
             {
@@ -72,6 +75,7 @@ namespace Laoyoutiao.Service
                 return await _db.Updateable(info).ExecuteCommandAsync() > 0;
             }
         }
+        
 
         /// <summary>
         /// 根据id查找实体
@@ -211,6 +215,30 @@ namespace Laoyoutiao.Service
         public PageInfo GetPages<TReq>(TReq req) where TReq : class
         {
             throw new NotImplementedException();
+        }
+
+        public virtual async Task<List<TRes>> GetListAllAsync<TRes>() where TRes : class
+        {
+            var exp = await base.GetAllAsync();
+            return _mapper.Map<List<TRes>>(exp);           
+        }
+
+        public List<TRes> GetListAll<TRes>() where TRes : class
+        {
+            var exp =  base.GetAll();
+            return _mapper.Map<List<TRes>>(exp);
+        }
+
+        public List<TRes> GetListByQuery<TRes>(Expression<Func<T, bool>> expression) where TRes:class
+        {
+            var exp = base.GetListByWhere(expression);
+            return _mapper.Map<List<TRes>>(exp);
+        }
+
+        public async Task<List<TRes>> GetListByQueryAsync<TRes>(Expression<Func<T, bool>> expression) where TRes:class
+        {
+            var exp = await base.GetListByWhereAsync(expression);
+            return _mapper.Map<List<TRes>>(exp);
         }
     }
 }

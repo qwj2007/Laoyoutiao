@@ -9,7 +9,7 @@ namespace Laoyoutiao.Models.Dto.Sys
 {
     public class SysUserRoleReq:Pagination
     {
-        public string? RoleName { get; set; }
+        public string? RoleName { get; set; }      
       
     }
 }

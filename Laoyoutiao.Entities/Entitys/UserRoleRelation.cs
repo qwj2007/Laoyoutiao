@@ -3,8 +3,8 @@ using SqlSugar;
 
 namespace Laoyoutiao.Models.Entitys
 {
-    //[SugarTable("UserRoleRelation")]
-    //[Tenant("1")]
+    [SugarTable("UserRoleRelation")]
+    [Tenant("1")]
     /// <summary>
     /// 用户角色关系
     /// </summary>

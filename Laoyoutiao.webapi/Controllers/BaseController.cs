@@ -5,6 +5,7 @@ using Laoyoutiao.Models.Dto.User;
 using Laoyoutiao.Models.Entitys;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 namespace Laoyoutiao.webapi.Controllers
 {
@@ -21,7 +22,10 @@ namespace Laoyoutiao.webapi.Controllers
           where TRes : class where TReq : Pagination where TEdit : class
     {
         private readonly IBaseService<T> _baseService;
-
+        /// <summary>
+        /// 基础controller
+        /// </summary>
+        /// <param name="baseService"></param>
         public BaseController(IBaseService<T> baseService)
         {
             this._baseService = baseService;
@@ -64,9 +68,20 @@ namespace Laoyoutiao.webapi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public ApiResult Del(long id)
+        public virtual ApiResult Del(long id)
         {
             return ResultHelper.Success(_baseService.Del(id));
+        }
+
+        /// <summary>
+        ///   ///获取所有信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]      
+        public virtual async Task<ApiResult> GetAll()
+        {
+            Expression<Func<T, bool>> expression = a => a.IsDeleted == 0;           
+            return ResultHelper.Success(await _baseService.GetListByQueryAsync<TRes>(expression));
         }
         /// <summary>
         /// 批量删除
@@ -74,7 +89,7 @@ namespace Laoyoutiao.webapi.Controllers
         /// <param name="ids"></param>
         /// <returns></returns>
         [HttpPost]
-        public ApiResult BatchDel(string ids)
+        public virtual ApiResult BatchDel(string ids)
         {
             return ResultHelper.Success(_baseService.BatchDel(ids.Split(',')));
         }
@@ -84,7 +99,7 @@ namespace Laoyoutiao.webapi.Controllers
         /// <param name="ids">主键数组</param>
         /// <returns></returns>
         [HttpPost]
-        public ApiResult BatchDelByIdArray(string[] ids)
+        public virtual ApiResult BatchDelByIdArray(string[] ids)
         {
             return ResultHelper.Success(_baseService.BatchDel(ids));
         }

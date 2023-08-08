@@ -12,5 +12,7 @@ namespace Laoyoutiao.Models.Dto.Sys
     [TypeMapper(SourceType = typeof(SysUserRole))]
     public class SysUserRoleEdit:BaseDto
     {
+        public long UserId { get; set; }
+        public long RoleId { get; set; }
     }
 }

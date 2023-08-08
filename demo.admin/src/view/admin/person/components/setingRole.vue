@@ -45,6 +45,7 @@ const props = defineProps({
 const emits = defineEmits(["CloseSetingRole"])
 const multipleTableRef = ref<InstanceType<typeof ElTable>>() 
 const handleClose = (done: () => void) => { 
+    emits("CloseSetingRole")
 }
 
 //表格
@@ -57,8 +58,10 @@ onMounted(async () => {
         PageIndex: 1,
         PageSize: 10
     }
+    console.log('这是加载设置角色页面。。。。。。')
     let res = await getRoleData(parms) as any
     tableData.value = res.data
+    console.log(res.data)
     
 })
 
@@ -92,7 +95,7 @@ const submit = async () => {
     }
 }
 const close = () => {
- 
+    emits("CloseSetingRole")
 }
 
 

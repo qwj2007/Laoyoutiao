@@ -117,6 +117,7 @@ const queryDialogClose = () => {
 //表格
 const tableData = ref<Array<PersonModel>>()
 onMounted(async () => {
+    console.log('这是加载主页面。。。。。。')
     LoadTableData()
 })
 const LoadTableData = async (name: string = "") => {
@@ -133,6 +134,7 @@ const LoadTableData = async (name: string = "") => {
     console.log(res)
     form.Total = res.total
     tableData.value = res.data as PersonModel[]
+    console.log("加载人员主页面。。。。。。。。。。。。")
 }
 //分页
 const handleCurrentChange = (val: number) => {

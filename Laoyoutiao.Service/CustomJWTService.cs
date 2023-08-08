@@ -47,7 +47,7 @@ namespace Laoyoutiao.Service
            new Claim("Id",user.Id.ToString()),
            new Claim("Account",user.Account),
            new Claim("UserName",user.UserName),          
-           new Claim("Password",user.Password.ToString())
+           //new Claim("Password",user.Password.ToString())
            };
             //需要加密key
             SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_JWTTokenOptions.SecurityKey));

@@ -5,8 +5,8 @@ using SqlSugar;
 
 namespace Laoyoutiao.Models.Entitys
 {
-//    [SugarTable("Menu")]
-//    [Tenant("1")]
+    [SugarTable("Menu")]
+    [Tenant("1")]
     /// <summary>
     /// 菜单表
     /// </summary>
