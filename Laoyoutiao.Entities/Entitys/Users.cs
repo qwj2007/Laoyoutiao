@@ -5,8 +5,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Laoyoutiao.Models.Entitys
 {
-    [SugarTable("Users")]
-    [Tenant("1")]
+    //[SugarTable("Users")]
+    //[Tenant("1")]
     /// <summary>
     /// 用户
     /// </summary>

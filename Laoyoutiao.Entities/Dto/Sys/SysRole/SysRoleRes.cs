@@ -34,6 +34,7 @@ namespace Laoyoutiao.Models.Dto.Sys
         /// <summary>
         /// 状态
         /// </summary>
-        public string? Status { get; set; }
+        public string Status { get; set; }
+
     }
 }

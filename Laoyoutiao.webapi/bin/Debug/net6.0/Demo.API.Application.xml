@@ -4,6 +4,13 @@
         <name>Laoyoutiao.webapi</name>
     </assembly>
     <members>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.DeptMentController.IsExitChildList(System.Int64)">
+            <summary>
+            判断是不存在子部门
+            </summary>
+            <returns></returns>
+                  
+        </member>
         <member name="T:Laoyoutiao.webapi.Area.Sys.Controllers.SysRoleController">
             <summary>
             
@@ -141,7 +148,14 @@
         </member>
         <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.GetPages(`2)">
             <summary>
-            获取用户信息
+            获取列表信息
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.GetTree(`2)">
+            <summary>
+            数列表
             </summary>
             <param name="req"></param>
             <returns></returns>

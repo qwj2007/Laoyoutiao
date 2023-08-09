@@ -105,7 +105,7 @@ namespace Laoyoutiao.webapi.Controllers
         }
 
         /// <summary>
-        /// 获取用户信息
+        /// 获取列表信息
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
@@ -114,6 +114,18 @@ namespace Laoyoutiao.webapi.Controllers
         {
             long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
             var result = await _baseService.GetPagesAsync<TReq, TRes>(req);
+            return ResultHelper.Success(result);
+        }
+        /// <summary>
+        /// 数列表
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public virtual async Task<ApiResult> GetTree(TReq req)
+        {
+            long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
+            var result = await _baseService.GetTreeAsync<TReq, TRes>(req);
             return ResultHelper.Success(result);
         }
     }

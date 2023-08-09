@@ -3,8 +3,11 @@ using Laoyoutiao.IService;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.CustomAttribute;
 using Laoyoutiao.Models.Dto;
+using Laoyoutiao.Models.Dto.Sys;
+using Laoyoutiao.Models.Entitys.Sys;
 using Laoyoutiao.Repository;
 using SqlSugar;
+using System.ComponentModel.Design;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -47,7 +50,7 @@ namespace Laoyoutiao.Service
             return _db.Updateable(info).ExecuteCommand() > 0;
         }
 
-      
+
 
         /// <summary>
         /// 添加或修改一条数据
@@ -66,7 +69,7 @@ namespace Laoyoutiao.Service
                 info.CreateDate = DateTime.Now;
                 //info.UserType = 1;//0=炒鸡管理员，系统内置的
                 info.IsDeleted = 0;
-                return await _db.Insertable(info).ExecuteCommandAsync() > 0;                
+                return await _db.Insertable(info).ExecuteCommandAsync() > 0;
             }
             else
             {
@@ -75,7 +78,7 @@ namespace Laoyoutiao.Service
                 return await _db.Updateable(info).ExecuteCommandAsync() > 0;
             }
         }
-        
+
 
         /// <summary>
         /// 根据id查找实体
@@ -126,6 +129,14 @@ namespace Laoyoutiao.Service
         private static ISugarQueryable<T> GetMappingExpression<TReq>(TReq req, ISugarQueryable<T> exp) where TReq : Pagination
         {
             PropertyInfo[] propertyInfos = req.GetType().GetProperties();
+            //判断是否加SugarTable属性，如果加就以SugarTable标记的表名
+            string tableName = typeof(T).Name;
+            bool tabAtrr = typeof(T).IsDefined(typeof(SugarTable));
+            if (tabAtrr)
+            {
+                var sugarTableAttr = typeof(T).GetCustomAttribute<SugarTable>();
+                tableName = sugarTableAttr.TableName;
+            }
 
             PropertyInfo[] propertyInfosSource = typeof(T).GetProperties();
             foreach (var property in propertyInfos)
@@ -166,26 +177,26 @@ namespace Laoyoutiao.Service
                 switch (property.PropertyType.Name.ToLower())
                 {
                     case "string":
-                        exp = exp.WhereIF(!string.IsNullOrWhiteSpace(Convert.ToString(values)), $"{typeof(T).Name}.{propertyName} like '%{values}%' ");
+                        exp = exp.WhereIF(!string.IsNullOrWhiteSpace(Convert.ToString(values)), $"{tableName}.{propertyName} like '%{values}%' ");
                         break;
                     case "int32":
                     case "int64":
                     case "decimal":
-                        exp = exp.Where($"{typeof(T).Name}.{propertyName} = {values} ");
+                        exp = exp.Where($"{tableName}.{propertyName} = {values} ");
                         break;
                     case "boolean":
-                        exp = exp.Where($"{typeof(T).Name}.{propertyName} = {Convert.ToInt16(values)} ");
+                        exp = exp.Where($"{tableName}.{propertyName} = {Convert.ToInt16(values)} ");
                         break;
                     case "datetime":
                         if (propertyName.StartsWith("begin".ToLower()) || propertyName.EndsWith("begin".ToLower())
                             || propertyName.StartsWith("start".ToLower()) || propertyName.EndsWith("start".ToLower()))
 
                         {
-                            exp = exp.Where($"{typeof(T).Name}.{propertyName} >= {values} ");
+                            exp = exp.Where($"{tableName}.{propertyName} >= {values} ");
                         }
                         else if (propertyName.StartsWith("end".ToLower()) || propertyName.EndsWith("end".ToLower()))
                         {
-                            exp = exp.Where($"{typeof(T).Name}.{propertyName} <= {values} ");
+                            exp = exp.Where($"{tableName}.{propertyName} <= {values} ");
                         }
                         break;
                     default:
@@ -198,6 +209,7 @@ namespace Laoyoutiao.Service
 
             return exp;
         }
+
 
         public PageInfo GetPages<TReq, TRes>(TReq req) where TReq : Pagination
         {
@@ -220,25 +232,44 @@ namespace Laoyoutiao.Service
         public virtual async Task<List<TRes>> GetListAllAsync<TRes>() where TRes : class
         {
             var exp = await base.GetAllAsync();
-            return _mapper.Map<List<TRes>>(exp);           
+            return _mapper.Map<List<TRes>>(exp);
         }
 
         public List<TRes> GetListAll<TRes>() where TRes : class
         {
-            var exp =  base.GetAll();
+            var exp = base.GetAll();
             return _mapper.Map<List<TRes>>(exp);
         }
 
-        public List<TRes> GetListByQuery<TRes>(Expression<Func<T, bool>> expression) where TRes:class
+        public List<TRes> GetListByQuery<TRes>(Expression<Func<T, bool>> expression) where TRes : class
         {
             var exp = base.GetListByWhere(expression);
             return _mapper.Map<List<TRes>>(exp);
         }
 
-        public async Task<List<TRes>> GetListByQueryAsync<TRes>(Expression<Func<T, bool>> expression) where TRes:class
+        public async Task<List<TRes>> GetListByQueryAsync<TRes>(Expression<Func<T, bool>> expression) where TRes : class
         {
             var exp = await base.GetListByWhereAsync(expression);
             return _mapper.Map<List<TRes>>(exp);
+        }
+
+        public virtual async Task<PageInfo> GetTreeAsync<TReq, TRes>(TReq req)
+            where TReq : Pagination
+            where TRes : class
+        {
+            PageInfo pageInfo = new PageInfo();
+            //影响构造树的条件过滤
+            var exp = _db.Queryable<T>();
+            exp = GetMappingExpression(req, exp);
+            var res = await exp.ToListAsync();
+            object[] inIds = (await exp.Select(it => it.Id).ToListAsync()).Cast<object>().ToArray();
+
+            //查找到所有数据转换成树形结构
+            var listTree = _db.Queryable<DeptMent>().Where(a => a.IsDeleted == 0).ToTree(it => it.Children, it => it.ParentId, 0, inIds);
+            var parentList = _mapper.Map<List<DeptRes>>(listTree);
+            pageInfo.total = res.Count;
+            pageInfo.data = parentList;
+            return pageInfo;
         }
     }
 }

@@ -91,5 +91,7 @@ namespace Laoyoutiao.IService
 
         Task<PageInfo> GetPagesAsync<TReq, TRes>(TReq req) where TReq : Pagination where TRes:class;
 
+        Task<PageInfo> GetTreeAsync<TReq, TRes>(TReq req) where TReq : Pagination where TRes : class;
+
     }
 }
