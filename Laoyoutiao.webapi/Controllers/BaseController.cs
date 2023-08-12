@@ -18,6 +18,8 @@ namespace Laoyoutiao.webapi.Controllers
     /// <typeparam name="TEdit"></typeparam>
 
     [Authorize]
+    [ApiController]    
+    [Route("api/[controller]/[action]")]
     public class BaseController<T, TRes, TReq, TEdit> : ControllerBase where T : BaseEntity, new()
           where TRes : class where TReq : Pagination where TEdit : class
     {
