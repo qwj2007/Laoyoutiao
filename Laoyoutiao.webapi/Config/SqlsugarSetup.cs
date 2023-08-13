@@ -66,19 +66,19 @@ namespace Laoyoutiao.webapi.Config
         private static void SetQueryFilter(SqlSugarProvider provider)
         {
             //添加全局过滤器
-            var files = System.IO.Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "Laoyoutiao.Service.dll");
-            if (files.Length > 0)
-            {
-                Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(it => it.BaseType == typeof(BaseEntity)).ToArray();
-                foreach (var entityType in types)
-                {
-                    var lambda = System.Linq.Dynamic.Core.DynamicExpressionParser.ParseLambda(
-                        new[] { Expression.Parameter(entityType, "it") },
-                        typeof(bool), $"{nameof(BaseEntity.IsDeleted)} ==  @0",
-                        false);
-                    provider.QueryFilter.Add(new TableFilterItem<object>(entityType, lambda, true)); //将Lambda传入过滤器
-                }
-            }
+            //var files = System.IO.Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "Laoyoutiao.Service.dll");
+            //if (files.Length > 0)
+            //{
+            //    Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(it => it.BaseType == typeof(BaseEntity<>)).ToArray();
+            //    foreach (var entityType in types)
+            //    {
+            //        var lambda = System.Linq.Dynamic.Core.DynamicExpressionParser.ParseLambda(
+            //            new[] { Expression.Parameter(entityType, "it") },
+            //            typeof(bool), $"{nameof(BaseEntity<>.IsDeleted)} ==  @0",
+            //            false);
+            //        provider.QueryFilter.Add(new TableFilterItem<object>(entityType, lambda, true)); //将Lambda传入过滤器
+            //    }
+            //}
         }
     }
 }

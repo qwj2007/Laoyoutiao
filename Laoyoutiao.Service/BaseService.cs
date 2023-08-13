@@ -265,11 +265,14 @@ namespace Laoyoutiao.Service
             object[] inIds = (await exp.Select(it => it.Id).ToListAsync()).Cast<object>().ToArray();
 
             //查找到所有数据转换成树形结构
-            var listTree = _db.Queryable<DeptMent>().Where(a => a.IsDeleted == 0).ToTree(it => it.Children, it => it.ParentId, 0, inIds);
-            var parentList = _mapper.Map<List<DeptRes>>(listTree);
-            pageInfo.total = res.Count;
-            pageInfo.data = parentList;
-            return pageInfo;
+         
+                var listTree = await _db.Queryable<T>().Where(a => a.IsDeleted == 0).ToTreeAsync(it => it.Children, it => it.ParentId, 0, inIds);
+                var parentList = _mapper.Map<List<TRes>>(listTree);
+                pageInfo.total = res.Count;
+                pageInfo.data = parentList;
+                return pageInfo;
+            
+           
         }
     }
 }

@@ -35,5 +35,9 @@ namespace Laoyoutiao.Models.Common
         /// </summary>
         public int IsDeleted { get; set; }
 
+        [SugarColumn(IsIgnore =true)]
+        public List<BaseEntity> Children { get; set; }
+        [SugarColumn(IsIgnore = true)]
+        public long ParentId { get; set; }
     }
 }

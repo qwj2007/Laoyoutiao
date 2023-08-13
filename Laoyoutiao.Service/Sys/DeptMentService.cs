@@ -20,12 +20,26 @@ namespace Laoyoutiao.Service.Sys
 
         public override async Task<PageInfo> GetTreeAsync<TReq, TRes>(TReq req)
         {
-            PageInfo pageInfo = await base.GetTreeAsync<TReq, TRes>(req);
-            List<DeptRes> list = pageInfo.data as List<DeptRes>;
-            foreach (var item in list) {
+            //PageInfo pageInfo = await base.GetTreeAsync<TReq, TRes>(req);
+            PageInfo pageInfo = new PageInfo();
+            var serchInfo = req as DeptReq;
+            //影响构造树的条件过滤
+            var exp = _db.Queryable<DeptMent>().WhereIF(!string.IsNullOrEmpty(serchInfo.DeptName),a=>a.DeptName.Contains(serchInfo.DeptName));
+           
+            var res = await exp.ToListAsync();
+            object[] inIds = (await exp.Select(it => it.Id).ToListAsync()).Cast<object>().ToArray();
+            //查找到所有数据转换成树形结构
+            var listTree = await _db.Queryable<DeptMent>().Where(a => a.IsDeleted == 0).ToTreeAsync(it => it.Children, it => it.ParentId, 0, inIds);
+            var parentList = _mapper.Map<List<DeptRes>>(listTree);
+            pageInfo.total = res.Count;
+            pageInfo.data = parentList;
+
+            //List<DeptRes> list = pageInfo.data as List<DeptRes>;
+            foreach (var item in parentList) {
                 item.StatusName = item.Status == 1 ? "启用" : "禁用";
                 GetStatusName(item);
             }
+          
             return pageInfo;
         }
 

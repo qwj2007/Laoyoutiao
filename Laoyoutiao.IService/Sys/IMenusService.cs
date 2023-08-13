@@ -9,5 +9,6 @@ namespace Laoyoutiao.IService.Sys
 {
     public interface IMenusService:IBaseService<Menus>
     {
+        Task<bool> IsExitChildList(long Id);
     }
 }

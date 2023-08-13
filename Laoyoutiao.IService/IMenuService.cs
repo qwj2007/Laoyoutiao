@@ -2,6 +2,7 @@
 using Laoyoutiao.Models.Dto.Menu;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Entitys;
+using Laoyoutiao.Models.Entitys.Sys;
 
 namespace Laoyoutiao.IService
 {
