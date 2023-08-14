@@ -15,7 +15,7 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers
     [ApiController]
     [Area("Sys")]
     [Route("api/[controller]/[action]")]
-    public class DeptMentController : BaseController<DeptMent, DeptRes, DeptReq, DeptEdit>
+    public class DeptMentController : BaseTreeController<DeptMent, DeptRes, DeptReq, DeptEdit>
     {
         private readonly IDeptMentService _deptMentService;
         public DeptMentController(IDeptMentService deptMentService) : base(deptMentService)

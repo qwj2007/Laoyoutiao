@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace Laoyoutiao.IService
 {
-    public interface IBaseService<T> : IBaseServiceRepository<T> where T : BaseEntity, new()
+    public interface IBaseService<T> : IBaseServiceRepository<T> where T : BaseKey, new()
     {
 
         
@@ -91,7 +91,7 @@ namespace Laoyoutiao.IService
 
         Task<PageInfo> GetPagesAsync<TReq, TRes>(TReq req) where TReq : Pagination where TRes:class;
 
-        Task<PageInfo> GetTreeAsync<TReq, TRes>(TReq req) where TReq : Pagination where TRes : class;
+        //Task<PageInfo> GetTreeAsync<TReq, TRes>(TReq req) where TReq : Pagination where TRes : class;
 
     }
 }

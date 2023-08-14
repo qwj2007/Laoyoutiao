@@ -11,6 +11,11 @@
             <returns></returns>
                   
         </member>
+        <member name="T:Laoyoutiao.webapi.Area.Sys.Controllers.MenusController">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:Laoyoutiao.webapi.Area.Sys.Controllers.SysRoleController">
             <summary>
             
@@ -153,7 +158,16 @@
             <param name="req"></param>
             <returns></returns>
         </member>
-        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.GetTree(`2)">
+        <member name="T:Laoyoutiao.webapi.Controllers.BaseTreeController`4">
+            <summary>
+            列表为树形列表的要继承这个controller
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TRes"></typeparam>
+            <typeparam name="TReq"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseTreeController`4.GetTree(`2)">
             <summary>
             数列表
             </summary>

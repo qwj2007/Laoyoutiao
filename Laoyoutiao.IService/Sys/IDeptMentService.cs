@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Laoyoutiao.IService.Sys
 {
-    public interface IDeptMentService:IBaseService<DeptMent>
+    public interface IDeptMentService:IBaseTreeService<DeptMent>
     {
         Task<bool> IsExitChildList(long Id);
     }

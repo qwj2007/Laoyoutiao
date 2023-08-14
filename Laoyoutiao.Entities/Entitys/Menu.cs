@@ -10,7 +10,7 @@ namespace Laoyoutiao.Models.Entitys
     /// <summary>
     /// 菜单表
     /// </summary>
-    public class Menu : BaseEntity
+    public class Menu : BaseTreeEntity<Menu>
     {
         /// <summary>
         /// 名称

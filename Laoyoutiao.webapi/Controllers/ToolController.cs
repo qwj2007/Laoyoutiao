@@ -26,6 +26,7 @@ namespace Laoyoutiao.webapi.Controllers
         {
             var files = System.IO.Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "Laoyoutiao.Models.dll");
             List<IocConfig> connectionConfigs = AppSettings.App<IocConfig>(new string[] { ConnectionConfigs });
+            Type[] typeall = Assembly.LoadFrom(files[0]).GetTypes();
             foreach (var item in connectionConfigs)
             {
                 _db = DbScoped.SugarScope.GetConnection(item.ConfigId ?? "0");
@@ -35,10 +36,14 @@ namespace Laoyoutiao.webapi.Controllers
 
                 if (files.Length > 0)
                 {
-                    Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(a=> a.BaseType == typeof(BaseEntity) && a.IsDefined(typeof(TenantAttribute))&& a.GetCustomAttribute<TenantAttribute>().configId.ToString() == item.ConfigId).ToArray();
+                    Type[] types = typeall.Where(a=> a.IsDefined(typeof(TenantAttribute))&&a.IsDefined(typeof(SugarTable))&& a.GetCustomAttribute<TenantAttribute>().configId.ToString() == item.ConfigId).ToArray();
                     //更新数据库字段，如果有修改就更新
                     //Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(it => it.BaseType == typeof(BaseEntity) && it.GetCustomAttribute<TenantAttribute>().configId.ToString() == item.ConfigId).ToArray();
                     _db.CodeFirst.SetStringDefaultLength(200).InitTables(types);
+                 
+                    //Type[] typetree = typeall.Where(a => a.BaseType == typeof(BaseTreeEntity<>) && a.IsDefined(typeof(TenantAttribute)) 
+                    //&& a.GetCustomAttribute<TenantAttribute>().configId.ToString() == item.ConfigId).ToArray();
+                    //_db.CodeFirst.SetStringDefaultLength(200).InitTables(typetree);
                 }
             }
         }
@@ -54,21 +59,21 @@ namespace Laoyoutiao.webapi.Controllers
 
                 //Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(it => it.BaseType == typeof(BaseEntity)).ToArray();
                 //更新数据库字段，如果有修改就更新
-                Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(it => it.BaseType == typeof(BaseEntity) && it.GetCustomAttribute<TenantAttribute>().configId.ToString() == configID).ToArray();
+                Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(it => it.BaseType == typeof(BaseKey) && it.GetCustomAttribute<TenantAttribute>().configId.ToString() == configID).ToArray();
                 client.CodeFirst.SetStringDefaultLength(200).InitTables(types);
 
-                // foreach (var entityType in types)
-                // {
-                //     //创建数据表
-                //     string tableName = entityType.GetCustomAttribute<SugarTable>().TableName;//根据特性获取表名称
-                //     //var configid = entityType.GetCustomAttribute<TenantAttribute>()?.configId;//根据特性获取租户id
-                //     //configid = configid == null ? "0" : configid.ToString();
-                //     if (!tableLists.Any(p => p.Name == tableName))
-                //     {
-                //         //创建数据表包括字段更新
-                //         client.CodeFirst.SetStringDefaultLength(200).InitTables(entityType);
-                //     }
-                // }
+                //foreach (var entityType in types)
+                //{
+                //    //创建数据表
+                //    string tableName = entityType.GetCustomAttribute<SugarTable>().TableName;//根据特性获取表名称
+                //    var configid = entityType.GetCustomAttribute<TenantAttribute>()?.configId;//根据特性获取租户id
+                //    configid = configid == null ? "0" : configid.ToString();
+                //    if (!tableLists.Any(p => p.Name == tableName))
+                //    {
+                //        //创建数据表包括字段更新
+                //        client.CodeFirst.SetStringDefaultLength(200).InitTables(entityType);
+                //    }
+                //}
             }
         }
     }

@@ -2,7 +2,7 @@
 
 namespace Laoyoutiao.Models.Common
 {
-    public class BaseEntity : BaseKey
+    public class BaseEntity: BaseKey
     {
         public BaseEntity()
         {
@@ -34,10 +34,7 @@ namespace Laoyoutiao.Models.Common
         /// 是否删除
         /// </summary>
         public int IsDeleted { get; set; }
-
-        [SugarColumn(IsIgnore =true)]
-        public List<BaseEntity> Children { get; set; }
-        [SugarColumn(IsIgnore = true)]
-        public long ParentId { get; set; }
+      
+      
     }
 }

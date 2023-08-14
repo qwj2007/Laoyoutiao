@@ -3,11 +3,8 @@ using Laoyoutiao.IService;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.CustomAttribute;
 using Laoyoutiao.Models.Dto;
-using Laoyoutiao.Models.Dto.Sys;
-using Laoyoutiao.Models.Entitys.Sys;
 using Laoyoutiao.Repository;
 using SqlSugar;
-using System.ComponentModel.Design;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -126,7 +123,7 @@ namespace Laoyoutiao.Service
         /// <param name="exp"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        private static ISugarQueryable<T> GetMappingExpression<TReq>(TReq req, ISugarQueryable<T> exp) where TReq : Pagination
+        public static ISugarQueryable<T> GetMappingExpression<TReq>(TReq req, ISugarQueryable<T> exp) where TReq : Pagination
         {
             PropertyInfo[] propertyInfos = req.GetType().GetProperties();
             //判断是否加SugarTable属性，如果加就以SugarTable标记的表名
@@ -253,26 +250,23 @@ namespace Laoyoutiao.Service
             return _mapper.Map<List<TRes>>(exp);
         }
 
-        public virtual async Task<PageInfo> GetTreeAsync<TReq, TRes>(TReq req)
-            where TReq : Pagination
-            where TRes : class
-        {
-            PageInfo pageInfo = new PageInfo();
-            //影响构造树的条件过滤
-            var exp = _db.Queryable<T>();
-            exp = GetMappingExpression(req, exp);
-            var res = await exp.ToListAsync();
-            object[] inIds = (await exp.Select(it => it.Id).ToListAsync()).Cast<object>().ToArray();
+        //public virtual async Task<PageInfo> GetTreeAsync<TReq, TRes>(TReq req)
+        //    where TReq : Pagination
+        //    where TRes : class
+        //{
+        //    PageInfo pageInfo = new PageInfo();
+        //    //影响构造树的条件过滤
+        //    var exp = _db.Queryable<T>();
+        //    exp = GetMappingExpression(req, exp);
+        //    var res = await exp.ToListAsync();
+        //    object[] inIds = (await exp.Select(it => it.Id).ToListAsync()).Cast<object>().ToArray();
 
-            //查找到所有数据转换成树形结构
-         
-                var listTree = await _db.Queryable<T>().Where(a => a.IsDeleted == 0).ToTreeAsync(it => it.Children, it => it.ParentId, 0, inIds);
-                var parentList = _mapper.Map<List<TRes>>(listTree);
-                pageInfo.total = res.Count;
-                pageInfo.data = parentList;
-                return pageInfo;
-            
-           
-        }
+        //    //查找到所有数据转换成树形结构
+        //    var listTree = _db.Queryable<T>().Where(a => a.IsDeleted == 0).ToTree(it => it.Children, it => it.ParentId, 0, inIds);
+        //    var parentList = _mapper.Map<List<TRes>>(listTree);
+        //    pageInfo.total = res.Count;
+        //    pageInfo.data = parentList;
+        //    return pageInfo;
+        //}
     }
 }

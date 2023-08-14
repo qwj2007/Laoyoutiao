@@ -11,7 +11,7 @@ namespace Laoyoutiao.Models.Entitys.Sys
 {
     [SugarTable("sys_dept")]
     [Tenant("0")]
-    public class DeptMent:BaseEntity
+    public class DeptMent: BaseTreeEntity<DeptMent>
     {
     
         [SugarColumn(IsNullable = false, Length = 100)]
@@ -33,7 +33,8 @@ namespace Laoyoutiao.Models.Entitys.Sys
         /// </summary>
 
         [SugarColumn(IsNullable = false)]
-        public long ParentId { get; set; }
+        // public long ParentId { get; set; }
+        public override long ParentId { get => base.ParentId; set => base.ParentId = value; }
 
         /// <summary>
         /// 部门所属所有部门，包括自己
@@ -51,7 +52,6 @@ namespace Laoyoutiao.Models.Entitys.Sys
         /// </summary>
         [SugarColumn(IsNullable = true, Length = 200)]
         public string Memo { get; set; }
-        [SugarColumn(IsIgnore = true)]
-       public List<DeptMent> Children { get; set; }
+     
     }
 }

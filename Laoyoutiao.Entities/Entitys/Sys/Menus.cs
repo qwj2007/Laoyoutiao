@@ -3,17 +3,19 @@ using SqlSugar;
 
 namespace Laoyoutiao.Models.Entitys.Sys
 {
-
     [SugarTable("sys_menu")]
     [Tenant("0")]
-    public class Menus : BaseEntity
+    public class Menus : BaseTreeEntity<Menus>
     {
         [SugarColumn(IsNullable = false, Length = 50, ColumnDescription = "菜单名称")]
         public string MenuName { get; set; }
         [SugarColumn(IsNullable = false, ColumnDescription = "所属系统")]
         public long SystemId { get; set; }
         [SugarColumn(IsNullable = false, ColumnDescription = "上级菜单")]
-        new public long ParentId { get; set; }
+        //new public long ParentId { get; set; }
+
+        public override long ParentId { get => base.ParentId; set => base.ParentId = value; }
+
         [SugarColumn(IsNullable = false, ColumnDescription = "路由地址")]
         public string MenuUrl { get; set; }
         [SugarColumn(IsNullable = false, ColumnDescription = "排序")]
@@ -29,8 +31,9 @@ namespace Laoyoutiao.Models.Entitys.Sys
         public int IsButton { get; set; }
         [SugarColumn(IsNullable = false, ColumnDescription = "全路径")]
         public string Path { get; set; }
-        [SugarColumn(IsNullable = false, ColumnDescription = "组件路径")]
+        [SugarColumn(IsNullable = false, ColumnDescription = "页面路径")]
         public string ComponentUrl { get; set; }
+       
 
     }
 }
