@@ -740,6 +740,11 @@
           }
         }
       },
+      "Laoyoutiao.Enums/1.0.0": {
+        "runtime": {
+          "Laoyoutiao.Enums.dll": {}
+        }
+      },
       "Laoyoutiao.IRespository/1.0.0": {
         "dependencies": {
           "Laoyoutiao.Models": "1.0.0"
@@ -750,6 +755,7 @@
       },
       "Laoyoutiao.Models/1.0.0": {
         "dependencies": {
+          "Laoyoutiao.Enums": "1.0.0",
           "SqlSugarCore": "5.1.4.91"
         },
         "runtime": {
@@ -1183,6 +1189,11 @@
       "sha512": "sha512-IXoJOXIqc39AIe+CIR7koBtRGMiCt/LPM3lI+PELtDIy9XdyeSrwXFdWV9dzJ2Awl0paLWUaknLxFQ5HpHZUog==",
       "path": "system.windows.extensions/6.0.0",
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
+    },
+    "Laoyoutiao.Enums/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Laoyoutiao.IRespository/1.0.0": {
       "type": "project",

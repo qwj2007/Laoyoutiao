@@ -3,8 +3,10 @@ using Laoyoutiao.IService.Sys;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.Menu;
 using Laoyoutiao.Models.Dto.Sys;
+
 using Laoyoutiao.Models.Entitys.Sys;
 using System.Collections;
+using System.Linq;
 
 namespace Laoyoutiao.Service.Sys
 {
@@ -21,7 +23,7 @@ namespace Laoyoutiao.Service.Sys
         //    MenusReq menusReq = req as MenusReq;
         //    //影响构造树的条件过滤
         //    var exp =  _db.Queryable<Menus>().WhereIF(!string.IsNullOrEmpty(menusReq.MenuName),a=>a.MenuName.Contains(menusReq.MenuName));
-           
+
         //    var res = await exp.ToListAsync();
         //    object[] inIds = (await exp.Select(it => it.Id).ToListAsync()).Cast<object>().ToArray();
 
@@ -32,21 +34,36 @@ namespace Laoyoutiao.Service.Sys
         //    pageInfo.data = parentList;
         //    return pageInfo;
         //}
+        public override async Task<PageInfo> GetTreeAsync<TReq, TRes>(TReq req)
+        {
+            PageInfo pageInfo = await base.GetTreeAsync<TReq, TRes>(req);
+            if (pageInfo.data != null)
+            {
+                List<MenusRes> list = pageInfo.data as List<MenusRes>;
+                foreach (var item in list)
+                {
+
+                    item.IsButton = item.IsButton == "1" ? "是" : "否";
+                    item.IsShow = item.IsShow == "1" ? "是" : "否";
+                }
+            }
+            return pageInfo;
+        }
 
         private void GetStatusName(MenusRes item)
         {
             foreach (var it in item.Children)
             {
-               // it.StatusName = it.Status == 1 ? "启用" : "禁用";
+                // it.StatusName = it.Status == 1 ? "启用" : "禁用";
                 GetStatusName(it);
             }
         }
 
 
-       
+
         public override async Task<bool> Add<TEdit>(TEdit input, long userId)
         {
-           
+
             Menus info = _mapper.Map<Menus>(input);
             string path = "";
             //查找父组件传值过来
@@ -113,6 +130,43 @@ namespace Laoyoutiao.Service.Sys
             {
                 await GetDeptPath(model.ParentId, ids);
             }
+        }
+
+        public async Task<List<MenuButton>> GetChildButtons(long parentId)
+        {
+            if (parentId > 0)
+            {
+                var btnList = await _db.Queryable<Menus>().Where(a => a.IsButton == 1 && a.IsDeleted == 0 && a.ParentId == parentId).ToListAsync();
+                if (btnList != null && btnList.Count > 0)
+                {
+
+                    return _mapper.Map<List<MenuButton>>(btnList);
+                }
+            }
+            else
+            {
+                //加载系统默认的按钮信息
+                var sysbtnList = await _db.Queryable<SysButton>().Where(a => a.IsDeleted == 0).ToListAsync();
+                if (sysbtnList != null && sysbtnList.Count > 0)
+                {
+                    List<MenuButton> btnsList = new List<MenuButton>();
+                    foreach (var (item, btn) in from item in sysbtnList
+                                                let btn = new MenuButton()
+                                                select (item, btn))
+                    {
+                        btn.ButtonClass = "";
+                        btn.IsButton = 1;
+                        btn.BtnName = item.BtnName;
+                        btn.Code = item.BtnCode;
+                        btn.BtnType = item.BtnType.ToString();
+                        btn.Icon = item.Icon;
+                        btnsList.Add(btn);
+                    }
+                    return btnsList;
+                }
+
+            }
+            return null;
         }
     }
 }

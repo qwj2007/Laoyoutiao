@@ -1286,6 +1286,16 @@
           "bin/placeholder/Laoyoutiao.Common.dll": {}
         }
       },
+      "Laoyoutiao.Enums/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Laoyoutiao.Enums.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Laoyoutiao.Enums.dll": {}
+        }
+      },
       "Laoyoutiao.IRespository/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -1317,6 +1327,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "Laoyoutiao.Enums": "1.0.0",
           "SqlSugarCore": "5.1.4.91"
         },
         "compile": {
@@ -3781,6 +3792,11 @@
       "type": "project",
       "path": "../Laoyoutiao.Common/Laoyoutiao.Common.csproj",
       "msbuildProject": "../Laoyoutiao.Common/Laoyoutiao.Common.csproj"
+    },
+    "Laoyoutiao.Enums/1.0.0": {
+      "type": "project",
+      "path": "../Laoyoutiao.enums/Laoyoutiao.Enums.csproj",
+      "msbuildProject": "../Laoyoutiao.enums/Laoyoutiao.Enums.csproj"
     },
     "Laoyoutiao.IRespository/1.0.0": {
       "type": "project",

@@ -29,7 +29,7 @@ namespace Laoyoutiao.webapi.Config
                 if (type.GetCustomAttributes(typeof(TypeMapperAttribute)).FirstOrDefault() is not TypeMapperAttribute attribute || attribute.SourceType == null)
                     return;
                 //类映射
-                var mapper = CreateMap(attribute.SourceType, type).ReverseMap();
+                var mapper = CreateMap(attribute.SourceType, type);
 
                 //处理类中映射规则不同的属性
                 var propertyAttributes = type.GetProperties().Where(p => p.GetCustomAttributes(typeof(PropertyMapperAttribute)).Any()).ToList();

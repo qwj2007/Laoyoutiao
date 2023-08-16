@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Laoyoutiao.Enums;
 using Laoyoutiao.IService.Sys;
 using Laoyoutiao.Models.Entitys.Sys;
 using System;
@@ -14,6 +15,11 @@ namespace Laoyoutiao.Service.Sys
         public BtnService(IMapper mapper) : base(mapper)
         {
 
+        }
+        public override Task<bool> AddAsync(SysButton t)
+        {
+            t.BtnType = BtnEnum.SysButton;
+            return base.AddAsync(t);
         }
     }
 }

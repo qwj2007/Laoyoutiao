@@ -15,3 +15,5 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Repository\obj\Debug\net6.0\Laoyo
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Repository\obj\Debug\net6.0\ref\Laoyoutiao.Repository.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Repository\bin\Debug\net6.0\Laoyoutiao.IRespository.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Repository\bin\Debug\net6.0\Laoyoutiao.IRespository.pdb
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Repository\bin\Debug\net6.0\Laoyoutiao.Enums.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Repository\bin\Debug\net6.0\Laoyoutiao.Enums.pdb

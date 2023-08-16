@@ -1050,6 +1050,16 @@
             "rid": "win"
           }
         }
+      },
+      "Laoyoutiao.Enums/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Laoyoutiao.Enums.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Laoyoutiao.Enums.dll": {}
+        }
       }
     }
   },
@@ -3200,10 +3210,16 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "Laoyoutiao.Enums/1.0.0": {
+      "type": "project",
+      "path": "../Laoyoutiao.enums/Laoyoutiao.Enums.csproj",
+      "msbuildProject": "../Laoyoutiao.enums/Laoyoutiao.Enums.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Laoyoutiao.Enums >= 1.0.0",
       "SqlSugarCore >= 5.1.4.91"
     ]
   },
@@ -3238,7 +3254,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj": {
+              "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

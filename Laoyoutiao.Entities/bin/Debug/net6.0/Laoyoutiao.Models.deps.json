@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "Laoyoutiao.Models/1.0.0": {
         "dependencies": {
+          "Laoyoutiao.Enums": "1.0.0",
           "SqlSugarCore": "5.1.4.91"
         },
         "runtime": {
@@ -709,6 +710,11 @@
             "fileVersion": "6.0.21.52210"
           }
         }
+      },
+      "Laoyoutiao.Enums/1.0.0": {
+        "runtime": {
+          "Laoyoutiao.Enums.dll": {}
+        }
       }
     }
   },
@@ -1116,6 +1122,11 @@
       "sha512": "sha512-IXoJOXIqc39AIe+CIR7koBtRGMiCt/LPM3lI+PELtDIy9XdyeSrwXFdWV9dzJ2Awl0paLWUaknLxFQ5HpHZUog==",
       "path": "system.windows.extensions/6.0.0",
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
+    },
+    "Laoyoutiao.Enums/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

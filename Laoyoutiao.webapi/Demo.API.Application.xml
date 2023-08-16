@@ -16,6 +16,13 @@
             
             </summary>
         </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.MenusController.GetChildButtons(System.Int64)">
+            <summary>
+            获取页面的按钮信息
+            </summary>
+            <returns></returns>
+                  
+        </member>
         <member name="T:Laoyoutiao.webapi.Area.Sys.Controllers.SysRoleController">
             <summary>
             
