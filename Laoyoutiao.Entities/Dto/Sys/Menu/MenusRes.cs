@@ -18,7 +18,7 @@ namespace Laoyoutiao.Models.Dto.Sys
         //public string SystemName { get; set; }        
         public long ParentId { get; set; }        
         public string MenuUrl { get; set; }
-        public string ButtonClass { get; set; }      
+        public string? ButtonClass { get; set; }      
         public string Icon { get; set; }
         public string IsShow { get; set; }       
         public string IsButton { get; set; } 

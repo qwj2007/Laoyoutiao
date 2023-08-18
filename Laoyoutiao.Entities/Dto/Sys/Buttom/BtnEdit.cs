@@ -12,5 +12,6 @@ namespace Laoyoutiao.Models.Dto.Sys
         public string? Memo { get; set; }
 
         public string? Icon { get; set; }
+        public string? BtnCode { get; set; }
     }
 }
