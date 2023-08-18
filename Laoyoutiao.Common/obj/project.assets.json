@@ -533,7 +533,7 @@
           "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         }
       },
-      "SqlSugarCore/5.1.4.91": {
+      "SqlSugarCore/5.1.4.99": {
         "type": "package",
         "dependencies": {
           "Microsoft.Data.SqlClient": "2.1.4",
@@ -1146,7 +1146,7 @@
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "Laoyoutiao.Enums": "1.0.0",
-          "SqlSugarCore": "5.1.4.91"
+          "SqlSugarCore": "5.1.4.99"
         },
         "compile": {
           "bin/placeholder/Laoyoutiao.Models.dll": {}
@@ -1876,15 +1876,15 @@
         "sqlitepclraw.provider.e_sqlite3.nuspec"
       ]
     },
-    "SqlSugarCore/5.1.4.91": {
-      "sha512": "e1Mx5bd8Qfi+zt0sP6Kko9QyvTaCnjzlfzWkm7E12oQiKfQQ+NIC+LL1DMNZc4zGqax6KBTwCL5DaaAAz+xplw==",
+    "SqlSugarCore/5.1.4.99": {
+      "sha512": "wVx2Y3VHn75ybtsS6TUUaIYDlRkGwPtwZGPgKXcS+lEJDTInQ8z4tt56/a0a6rx/XdGUTDi2jli/UxRJk8eAaw==",
       "type": "package",
-      "path": "sqlsugarcore/5.1.4.91",
+      "path": "sqlsugarcore/5.1.4.99",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.1/SqlSugar.dll",
-        "sqlsugarcore.5.1.4.91.nupkg.sha512",
+        "sqlsugarcore.5.1.4.99.nupkg.sha512",
         "sqlsugarcore.nuspec"
       ]
     },

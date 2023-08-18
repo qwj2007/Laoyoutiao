@@ -17,6 +17,6 @@ namespace Laoyoutiao.IService.Sys
         /// </summary>
         /// <param name="parentId"></param>
         /// <returns></returns>
-        Task<List<MenuButton>> GetChildButtons(long parentId);
+        Task<List<MenusRes>> GetChildButtons(long parentId);
     }
 }

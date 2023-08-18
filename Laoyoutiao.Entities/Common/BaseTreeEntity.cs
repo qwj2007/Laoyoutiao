@@ -11,6 +11,7 @@ namespace Laoyoutiao.Models.Common
     {        
         [SugarColumn(IsIgnore = true)]
         public virtual List<T> Children { get; set; }
+        [SugarColumn(IsNullable = false, ColumnDescription = "上级")]
         public virtual long ParentId { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.CustomAttribute;
 using Laoyoutiao.Models.Dto;
 using System.Reflection;
@@ -29,7 +30,7 @@ namespace Laoyoutiao.webapi.Config
                 if (type.GetCustomAttributes(typeof(TypeMapperAttribute)).FirstOrDefault() is not TypeMapperAttribute attribute || attribute.SourceType == null)
                     return;
                 //类映射
-                var mapper = CreateMap(attribute.SourceType, type);
+                var mapper = CreateMap(attribute.SourceType, type).ReverseMap();
 
                 //处理类中映射规则不同的属性
                 var propertyAttributes = type.GetProperties().Where(p => p.GetCustomAttributes(typeof(PropertyMapperAttribute)).Any()).ToList();
@@ -42,7 +43,7 @@ namespace Laoyoutiao.webapi.Config
                     if (!string.IsNullOrEmpty(propertyAttribute.SourceName))
                     {
                         //属性名称自定义映射
-                        mapper.ForMember(property.Name, src => src.MapFrom(propertyAttribute.SourceName));
+                        mapper.ForMember(property.Name, src => src.MapFrom(propertyAttribute.SourceName)).ReverseMap();
                     }
                     if (propertyAttribute.SourceDataType != null && propertyAttribute.SourceDataType == typeof(DateTime))
                     {

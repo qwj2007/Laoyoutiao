@@ -17,23 +17,7 @@ namespace Laoyoutiao.Service.Sys
         {
             _mapper = mapper;
         }
-        //public override async Task<PageInfo> GetTreeAsync<TReq, TRes>(TReq req)
-        //{
-        //    PageInfo pageInfo = new PageInfo();
-        //    MenusReq menusReq = req as MenusReq;
-        //    //影响构造树的条件过滤
-        //    var exp =  _db.Queryable<Menus>().WhereIF(!string.IsNullOrEmpty(menusReq.MenuName),a=>a.MenuName.Contains(menusReq.MenuName));
 
-        //    var res = await exp.ToListAsync();
-        //    object[] inIds = (await exp.Select(it => it.Id).ToListAsync()).Cast<object>().ToArray();
-
-        //    //查找到所有数据转换成树形结构
-        //    var listTree = _db.Queryable<Menus>().Where(a => a.IsDeleted == 0).ToTree(it => it.Children, it => it.ParentId, 0, inIds);
-        //    var parentList = _mapper.Map<List<Menus>>(listTree);
-        //    pageInfo.total = res.Count;
-        //    pageInfo.data = parentList;
-        //    return pageInfo;
-        //}
         public override async Task<PageInfo> GetTreeAsync<TReq, TRes>(TReq req)
         {
             PageInfo pageInfo = await base.GetTreeAsync<TReq, TRes>(req);
@@ -45,6 +29,7 @@ namespace Laoyoutiao.Service.Sys
 
                     item.IsButton = item.IsButton == "1" ? "是" : "否";
                     item.IsShow = item.IsShow == "1" ? "是" : "否";
+                    GetStatusName(item);
                 }
             }
             return pageInfo;
@@ -54,6 +39,8 @@ namespace Laoyoutiao.Service.Sys
         {
             foreach (var it in item.Children)
             {
+                it.IsButton = it.IsButton == "1" ? "是" : "否";
+                it.IsShow = it.IsShow == "1" ? "是" : "否";
                 // it.StatusName = it.Status == 1 ? "启用" : "禁用";
                 GetStatusName(it);
             }
@@ -63,47 +50,70 @@ namespace Laoyoutiao.Service.Sys
 
         public override async Task<bool> Add<TEdit>(TEdit input, long userId)
         {
-
-            Menus info = _mapper.Map<Menus>(input);
+            var edit = input as MenusEdit;
+            Menus info = _mapper.Map<Menus>(edit);
             string path = "";
             //查找父组件传值过来
             long pid = info.ParentId;
             if (pid > 0)
             {
                 var ids = new ArrayList();
-                await GetDeptPath(pid, ids);
+                await GetPath(pid, ids);//找到一共有几个上级节点
                 path = string.Join(":", ids.ToArray().Reverse());
             }
 
-            if (info.Id == 0)
+            using (var tran = _db.AsTenant().UseTran())
             {
-                info.CreateUserId = userId;
-                info.CreateDate = DateTime.Now;
-                info.Path = path;
-                //info.UserType = 1;//0=炒鸡管理员，系统内置的
-                info.IsDeleted = 0;
-                long id = await _db.Insertable(info).ExecuteReturnBigIdentityAsync();
-                if (pid > 0)
+                if (info.Id == 0)
                 {
-                    info.Path = path + ":" + id;
+                    info.CreateUserId = userId;
+                    info.CreateDate = DateTime.Now;
+                    info.Path = path;
+                    //info.UserType = 1;//0=炒鸡管理员，系统内置的
+                    info.IsDeleted = 0;
+                    long id = await _db.Insertable(info).ExecuteReturnBigIdentityAsync();
+                    if (pid > 0)
+                    {
+                        info.Path = path + ":" + id;//更新path字段
+
+                    }
+                    else
+                    {
+                        info.Path = id + "";
+                    }
+                    info.Id = id;
+                    await _db.Updateable(info).ExecuteCommandAsync();
 
                 }
                 else
                 {
-                    info.Path = id + "";
+                    info.ModifyUserId = userId;
+                    info.ModifyDate = DateTime.Now;
+                    info.Path = path;
+                    await _db.Updateable(info).ExecuteCommandAsync();
                 }
-                info.Id = id;
-                return await _db.Updateable(info).ExecuteCommandAsync() > 0;
 
-            }
-            else
-            {
-                info.ModifyUserId = userId;
-                info.ModifyDate = DateTime.Now;
-                info.Path = path;
-                return await _db.Updateable(info).ExecuteCommandAsync() > 0;
-            }
-
+                //按钮，先删除在添加
+                await _db.Deleteable<Menus>().Where(a => a.ParentId == info.Id && a.IsButton == 1).ExecuteCommandAsync();
+                info.Children.ForEach((a) =>
+                {
+                    a.ParentId = info.Id;
+                    a.MenuUrl = " ";
+                    a.ComponentUrl = " ";
+                    a.CreateDate = DateTime.Now;
+                    a.Path = "0";
+                    a.CreateUserId = info.CreateUserId??info.ModifyUserId;
+                });
+                //再添加
+                await _db.Insertable<Menus>(info.Children).ExecuteCommandAsync();
+                //await _db.Insertable<>
+                var updateList = await _db.Queryable<Menus>().Where(a => a.ParentId == info.Id).ToListAsync();
+                updateList.ForEach(a => a.Path = info.Path + ":" + a.Id);
+                await _db.Fastest<Menus>().BulkUpdateAsync(updateList);
+                tran.CommitTran();
+                return true;
+            };
+            
         }
 
         /// <summary>
@@ -122,17 +132,17 @@ namespace Laoyoutiao.Service.Sys
             return false;
         }
 
-        private async Task GetDeptPath(long pid, ArrayList ids)
+        private async Task GetPath(long pid, ArrayList ids)
         {
             ids.Add(pid);
             var model = await _db.Queryable<Menus>().Where(a => a.Id == pid).FirstAsync();
             if (model != null && model.ParentId > 0)
             {
-                await GetDeptPath(model.ParentId, ids);
+                await GetPath(model.ParentId, ids);
             }
         }
 
-        public async Task<List<MenuButton>> GetChildButtons(long parentId)
+        public async Task<List<MenusRes>> GetChildButtons(long parentId)
         {
             if (parentId > 0)
             {
@@ -140,7 +150,7 @@ namespace Laoyoutiao.Service.Sys
                 if (btnList != null && btnList.Count > 0)
                 {
 
-                    return _mapper.Map<List<MenuButton>>(btnList);
+                    return _mapper.Map<List<MenusRes>>(btnList);
                 }
             }
             else
@@ -149,17 +159,24 @@ namespace Laoyoutiao.Service.Sys
                 var sysbtnList = await _db.Queryable<SysButton>().Where(a => a.IsDeleted == 0).ToListAsync();
                 if (sysbtnList != null && sysbtnList.Count > 0)
                 {
-                    List<MenuButton> btnsList = new List<MenuButton>();
+                    List<MenusRes> btnsList = new List<MenusRes>();
+                    // return _mapper.Map<List<MenusRes>>(sysbtnList);
+                    // List<MenuButton> btnsList = new List<MenuButton>();
                     foreach (var (item, btn) in from item in sysbtnList
-                                                let btn = new MenuButton()
+                                                let btn = new MenusRes()
                                                 select (item, btn))
                     {
                         btn.ButtonClass = "";
-                        btn.IsButton = 1;
-                        btn.BtnName = item.BtnName;
+                        btn.IsButton = "1";
+                        btn.Name = item.BtnName;
                         btn.Code = item.BtnCode;
                         btn.BtnType = item.BtnType.ToString();
                         btn.Icon = item.Icon;
+                        btn.Id = item.Id;
+                        btn.IsShow = "0";
+                        btn.ComponentUrl = "0";
+                        btn.MenuUrl = "0";
+                        btn.Memo = item.Memo;
                         btnsList.Add(btn);
                     }
                     return btnsList;

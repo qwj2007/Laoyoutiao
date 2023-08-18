@@ -54,7 +54,8 @@ namespace Laoyoutiao.webapi.Controllers
         {
             //获取当前登录人信息 
             long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
-            return ResultHelper.Success(await _baseService.Add(req, userId));
+            var result = await _baseService.Add(req, userId);
+            return ResultHelper.Success(result);
         }
 
         //[HttpPost]

@@ -31,5 +31,16 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers
         {
             return ResultHelper.Success(await _menuService.GetChildButtons(parentId));
         }
+
+        /// <summary>
+        /// 判断是不存在子菜单
+        /// </summary>
+        /// <returns></returns>
+        ///       
+        [HttpGet]
+        public async Task<ApiResult> IsExitChildList(long Id)
+        {
+            return ResultHelper.Success(await _menuService.IsExitChildList(Id));
+        }
     }
 }

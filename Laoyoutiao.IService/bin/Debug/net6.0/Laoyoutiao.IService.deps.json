@@ -372,7 +372,7 @@
           }
         }
       },
-      "SqlSugarCore/5.1.4.91": {
+      "SqlSugarCore/5.1.4.99": {
         "dependencies": {
           "Microsoft.Data.SqlClient": "2.1.4",
           "Microsoft.Data.Sqlite": "7.0.5",
@@ -387,8 +387,8 @@
         },
         "runtime": {
           "lib/netstandard2.1/SqlSugar.dll": {
-            "assemblyVersion": "5.1.4.91",
-            "fileVersion": "5.1.4.91"
+            "assemblyVersion": "5.1.4.99",
+            "fileVersion": "5.1.4.99"
           }
         }
       },
@@ -727,7 +727,7 @@
       "Laoyoutiao.Models/1.0.0": {
         "dependencies": {
           "Laoyoutiao.Enums": "1.0.0",
-          "SqlSugarCore": "5.1.4.91"
+          "SqlSugarCore": "5.1.4.99"
         },
         "runtime": {
           "Laoyoutiao.Models.dll": {}
@@ -902,12 +902,12 @@
       "path": "sqlitepclraw.provider.e_sqlite3/2.1.4",
       "hashPath": "sqlitepclraw.provider.e_sqlite3.2.1.4.nupkg.sha512"
     },
-    "SqlSugarCore/5.1.4.91": {
+    "SqlSugarCore/5.1.4.99": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-e1Mx5bd8Qfi+zt0sP6Kko9QyvTaCnjzlfzWkm7E12oQiKfQQ+NIC+LL1DMNZc4zGqax6KBTwCL5DaaAAz+xplw==",
-      "path": "sqlsugarcore/5.1.4.91",
-      "hashPath": "sqlsugarcore.5.1.4.91.nupkg.sha512"
+      "sha512": "sha512-wVx2Y3VHn75ybtsS6TUUaIYDlRkGwPtwZGPgKXcS+lEJDTInQ8z4tt56/a0a6rx/XdGUTDi2jli/UxRJk8eAaw==",
+      "path": "sqlsugarcore/5.1.4.99",
+      "hashPath": "sqlsugarcore.5.1.4.99.nupkg.sha512"
     },
     "SqlSugarCore.Dm/1.2.0": {
       "type": "package",

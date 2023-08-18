@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "PdlOy1zEn8E42+KwdeqAyPgo8b8TlGc3B5atU+bnpFwvZsmi/Uu4B53siWRZSHT06HabSnFtvd4+okgzOJI5Iw==",
+  "dgSpecHash": "rGOiiqQGeiCNiUfz2SYhRrI4zbql4YpugKqcbSRVkR14WtvvQ3CJFd28DU/+gXvszx/YFxaG7vnNQHdPDu7lng==",
   "success": true,
   "projectFilePath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.webapi\\Laoyoutiao.webapi.csproj",
   "expectedPackageFiles": [
@@ -156,7 +156,7 @@
     "C:\\Users\\齐文杰\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.1.4\\sqlitepclraw.lib.e_sqlite3.2.1.4.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\sqlitepclraw.provider.e_sqlite3\\2.1.4\\sqlitepclraw.provider.e_sqlite3.2.1.4.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\sqlsugar.ioc\\2.0.0\\sqlsugar.ioc.2.0.0.nupkg.sha512",
-    "C:\\Users\\齐文杰\\.nuget\\packages\\sqlsugarcore\\5.1.4.91\\sqlsugarcore.5.1.4.91.nupkg.sha512",
+    "C:\\Users\\齐文杰\\.nuget\\packages\\sqlsugarcore\\5.1.4.99\\sqlsugarcore.5.1.4.99.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\sqlsugarcore.dm\\1.2.0\\sqlsugarcore.dm.1.2.0.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\sqlsugarcore.kdbndp\\7.4.0\\sqlsugarcore.kdbndp.7.4.0.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",

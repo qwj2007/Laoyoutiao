@@ -8,18 +8,24 @@ using System.Threading.Tasks;
 
 namespace Laoyoutiao.Models.Dto.Sys
 {
-    [TypeMapper(SourceType = typeof(Menus))]
+    //[TypeMapper(SourceType = typeof(Menus))]
     public class MenuButton
     {
         public long Id { get; set; }
         
         [PropertyMapper(SourceName = "MenuName")]       
-        public string BtnName { get; set; }       
-        public long ParentId { get; set; }    
+        public string BtnName { get; set; }
+        [PropertyMapper(SourceName = "ParentId")]
+        public long ParentId { get; set; }
+        [PropertyMapper(SourceName = "ButtonClass")]
         public string ButtonClass { get; set; } = "";
+        [PropertyMapper(SourceName = "Icon")]
         public string Icon { get; set; }
+        [PropertyMapper(SourceName = "IsButton")]
         public int IsButton { get; set; } = 1;
-        public string BtnType { get; set; }   
+        [PropertyMapper(SourceName = "BtnType")]
+        public string BtnType { get; set; }
+        [PropertyMapper(SourceName = "Code")]
         public string Code { get; set; }
     }
 }

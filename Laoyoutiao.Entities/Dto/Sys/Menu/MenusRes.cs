@@ -14,8 +14,8 @@ namespace Laoyoutiao.Models.Dto.Sys
     public class MenusRes
     {
         public long Id { get; set; }      
-        public string MenuName { get; set; }     
-        public string SystemName { get; set; }        
+        public string Name { get; set; }     
+        //public string SystemName { get; set; }        
         public long ParentId { get; set; }        
         public string MenuUrl { get; set; }
         public string ButtonClass { get; set; }      
@@ -23,6 +23,10 @@ namespace Laoyoutiao.Models.Dto.Sys
         public string IsShow { get; set; }       
         public string IsButton { get; set; } 
         public string ComponentUrl { get; set; }
+        public string Code { get; set; }
+        public string BtnType { get; set; }
+        public int Sort { get; set; }
+        public string Memo { get; set; }
        public List<MenusRes> Children { get; set; }
     }
 }
