@@ -27,6 +27,7 @@ namespace Laoyoutiao.Models.Dto.Sys
         public string BtnType { get; set; }
         public int Sort { get; set; }
         public string Memo { get; set; }
+        public bool spread { get; set; } = true;
        public List<MenusRes> Children { get; set; }
     }
 }
