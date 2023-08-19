@@ -77,6 +77,13 @@
             <param name="list"></param>
             <returns></returns>
         </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.UserDeptController.GetSelectDeptIdByUserId(System.Int64)">
+            <summary>
+            获取用户的部门Id
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Laoyoutiao.webapi.Config.AutofacModuleRegister">
             <summary>
             用autofac实现依赖注入
