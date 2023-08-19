@@ -10,5 +10,6 @@ namespace Laoyoutiao.Models.Dto.Sys
     public class MenusReq: Pagination
     {
         public string? Name { get; set; }
+        public string? IsButton { get; set; }
     }
 }
