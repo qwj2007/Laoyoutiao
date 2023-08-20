@@ -70,11 +70,25 @@
             
             </summary>
         </member>
-        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserRoleController.SaveUserRoles(System.Collections.Generic.List{Laoyoutiao.Models.Dto.Sys.SysUserRoleEdit})">
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserRoleController.SaveUserRoles(System.Collections.Generic.List{Laoyoutiao.Models.Dto.Sys.SysUserRoleEdit},System.Int64)">
             <summary>
-            保存
+            保存，用户一对多
             </summary>
             <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserRoleController.SaveUserRoleByRoles(System.Collections.Generic.List{Laoyoutiao.Models.Dto.Sys.SysUserRoleEdit},System.Int64)">
+            <summary>
+            保存,角色一对多
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserRoleController.GetExistUserByRoleId(System.Int64)">
+            <summary>
+            根据角色Id查找用户信息
+            </summary>
+            <param name="roleId"></param>
             <returns></returns>
         </member>
         <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.UserDeptController.GetSelectDeptIdByUserId(System.Int64)">

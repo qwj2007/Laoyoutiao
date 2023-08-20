@@ -11,6 +11,6 @@ namespace Laoyoutiao.IService.Sys
     public interface IUserDeptService : IBaseService<UserDept>
     {
         Task<List<long>> GetSelectDeptIdByUserId(long userid);
-        Task<bool> SaveUserDept(List<UserDeptEdit> list, long operatorId);
+        Task<bool> SaveUserDept(List<UserDeptEdit> list,long userId, long operatorId);
     }
 }

@@ -27,17 +27,44 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers
             _sysUserRoleService = sysUserRoleService;
         }
         /// <summary>
-        /// 保存
+        /// 保存，用户一对多
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ApiResult> SaveUserRoles(List<SysUserRoleEdit> list)
+        public async Task<ApiResult> SaveUserRoles(List<SysUserRoleEdit> list,long userId)
         {
-            long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);           
-            var result = await _sysUserRoleService.SaveSysUserRole(list, userId);
+            long uId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);           
+            var result = await _sysUserRoleService.SaveSysUserRole(list, userId, uId);
             return ResultHelper.Success(result);
         }
+        /// <summary>
+        /// 保存,角色一对多
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<ApiResult> SaveUserRoleByRoles(List<SysUserRoleEdit> list,long roleId)
+        {
+            long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
+            var result = await _sysUserRoleService.SaveUserRoleByRoles(list, roleId,userId);
+            return ResultHelper.Success(result);
+        }
+
+        
+
+        /// <summary>
+        /// 根据角色Id查找用户信息
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<ApiResult> GetExistUserByRoleId(long roleId)
+        {          
+            var result = await _sysUserRoleService.GetExistUserByRoleId(roleId);
+            return ResultHelper.Success(result);
+        }
+
 
     }
 }

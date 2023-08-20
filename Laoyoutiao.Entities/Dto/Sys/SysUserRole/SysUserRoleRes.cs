@@ -14,6 +14,8 @@ namespace Laoyoutiao.Models.Dto.Sys
     {
         public long Id { get; set; }
         public string? RoleName { get; set; }
+        public long UserId { get; set; }
+        public long RoleId { get; set; }
       
     }
 }

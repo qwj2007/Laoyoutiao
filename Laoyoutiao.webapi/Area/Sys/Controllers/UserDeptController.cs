@@ -35,10 +35,10 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers
      
 
         [HttpPost]
-        public async Task<ApiResult> SaveUserDepts(List<UserDeptEdit> list)
+        public async Task<ApiResult> SaveUserDepts(List<UserDeptEdit> list,long userId)
         {
-            long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
-            var result = await _userDeptService.SaveUserDept(list, userId);
+            long uid = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
+            var result = await _userDeptService.SaveUserDept(list, userId,uid);
             return ResultHelper.Success(result);
         }
 
