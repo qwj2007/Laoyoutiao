@@ -16,7 +16,7 @@ namespace Laoyoutiao.webapi.Controllers
     
     public class LoginController : ControllerBase
     {
-        private readonly IUserService _userService;
+        //private readonly IUserService _userService;
         private readonly ICustomJWTService _jwtService;
         private readonly IConfiguration _configuration;
         private readonly ISysUserService _sysUserService;
@@ -27,13 +27,13 @@ namespace Laoyoutiao.webapi.Controllers
         /// <param name="userService"></param>
         /// <param name="customJWTService"></param>
         /// <param name="configuration"></param>
-        public LoginController(IUserService userService, 
+        public LoginController(//IUserService userService, 
             ICustomJWTService customJWTService,
             IConfiguration configuration,
             ISysUserService sysUserService
             )
         {
-            _userService = userService;
+            //_userService = userService;
             _jwtService = customJWTService;
             _configuration = configuration;
             _sysUserService = sysUserService;
@@ -56,25 +56,25 @@ namespace Laoyoutiao.webapi.Controllers
         /// <param name="password"></param>
         /// <returns></returns>
             [HttpGet]
-        public async Task<ApiResult> GetToken(string name, string password)
-        {
-            var result = Task.Run(() =>
-            {
+        //public async Task<ApiResult> GetToken(string name, string password)
+        //{
+        //    var result = Task.Run(() =>
+        //    {
 
-                if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(password))
-                {
-                    return ResultHelper.Error("参数不能为空");
-                }
-                UserRes users = _userService.GetUser(name, password) as UserRes;
-                if (string.IsNullOrEmpty(users.Name))
-                {
-                    return ResultHelper.Error("账号不存在，用户名或密码错误！");
-                }
+        //        if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(password))
+        //        {
+        //            return ResultHelper.Error("参数不能为空");
+        //        }
+        //        SysUserRes users = _sysUserService.GetUser(name, password) as SysUserRes;
+        //        if (string.IsNullOrEmpty(users.UserName))
+        //        {
+        //            return ResultHelper.Error("账号不存在，用户名或密码错误！");
+        //        }
 
-                return ResultHelper.Success(_jwtService.GetToken(users));
-            });
-            return await result;
-        }
+        //        return ResultHelper.Success(_jwtService.GetToken(users));
+        //    });
+        //    return await result;
+        //}
         /// <summary>
         /// 获取SysUser用户token
         /// </summary>

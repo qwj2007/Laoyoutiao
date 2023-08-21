@@ -228,7 +228,7 @@
             
             </summary>
         </member>
-        <member name="M:Laoyoutiao.webapi.Controllers.LoginController.#ctor(Laoyoutiao.IService.IUserService,Laoyoutiao.IService.ICustomJWTService,Microsoft.Extensions.Configuration.IConfiguration,Laoyoutiao.IService.Sys.ISysUserService)">
+        <member name="M:Laoyoutiao.webapi.Controllers.LoginController.#ctor(Laoyoutiao.IService.ICustomJWTService,Microsoft.Extensions.Configuration.IConfiguration,Laoyoutiao.IService.Sys.ISysUserService)">
             <summary>
             
             </summary>
@@ -242,19 +242,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Laoyoutiao.webapi.Controllers.LoginController.GetToken(System.String,System.String)">
+        <member name="M:Laoyoutiao.webapi.Controllers.LoginController.GetTokens(System.String,System.String)">
             <summary>
             获取token值
             </summary>
             <param name="name"></param>
-            <param name="password"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Laoyoutiao.webapi.Controllers.LoginController.GetTokens(System.String,System.String)">
-            <summary>
-            获取SysUser用户token
-            </summary>
-            <param name="account"></param>
             <param name="password"></param>
             <returns></returns>
         </member>
