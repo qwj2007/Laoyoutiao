@@ -30,6 +30,20 @@
             <returns></returns>
                   
         </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.RoleMenuController.SaveRoleMenu(System.Collections.Generic.List{Laoyoutiao.Models.Dto.Sys.RoleMenuEdit},System.Int64)">
+            <summary>
+            保存
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.RoleMenuController.GetExistMenuByRoleId(System.Int64)">
+            <summary>
+            根据角色Id查找信息
+            </summary>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Laoyoutiao.webapi.Area.Sys.Controllers.SysRoleController">
             <summary>
             

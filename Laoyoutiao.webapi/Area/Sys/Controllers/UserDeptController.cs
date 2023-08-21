@@ -41,7 +41,5 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers
             var result = await _userDeptService.SaveUserDept(list, userId,uid);
             return ResultHelper.Success(result);
         }
-
-
     }
 }
