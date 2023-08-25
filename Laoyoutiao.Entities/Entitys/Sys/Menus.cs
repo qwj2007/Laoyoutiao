@@ -50,6 +50,10 @@ namespace Laoyoutiao.Models.Entitys.Sys
         //public List<MenuButton> MenuBtns { get; set; }
         [SugarColumn(IsIgnore =true)]
         public override List<Menus> Children { get => base.Children; set => base.Children = value; }
+        [SugarColumn(IsIgnore = true)]
+        public string Component { get; set; }
+        [SugarColumn(IsIgnore = true)]
+        public string Title { get; set; }
 
 
     }

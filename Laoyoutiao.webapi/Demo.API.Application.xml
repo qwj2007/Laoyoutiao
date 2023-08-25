@@ -30,6 +30,13 @@
             <returns></returns>
                   
         </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.PromiseController.GetPromise(System.Int64)">
+            <summary>
+            获得菜单权限
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
         <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.RoleMenuController.SaveRoleMenu(System.Collections.Generic.List{Laoyoutiao.Models.Dto.Sys.RoleMenuEdit},System.Int64)">
             <summary>
             保存

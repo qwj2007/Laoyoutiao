@@ -44,6 +44,7 @@ namespace Laoyoutiao.webapi.Config
                     {
                         //属性名称自定义映射
                         mapper.ForMember(property.Name, src => src.MapFrom(propertyAttribute.SourceName)).ReverseMap();
+                        //mapper.ForMember(property.Name, src => src.MapFrom(propertyAttribute.SourceName));
                     }
                     if (propertyAttribute.SourceDataType != null && propertyAttribute.SourceDataType == typeof(DateTime))
                     {
