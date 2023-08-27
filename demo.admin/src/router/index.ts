@@ -108,7 +108,7 @@ router.beforeEach(async (to, form) => {
             if (expDate >= currDate) {
                 return { path: "/desktop" }
             } else {
-                toolObj.ClearLocalStorage()
+                toolObj.ClearLocalStorage()                
             }
         } else {
             if (expDate < currDate) {

@@ -30,7 +30,7 @@
             <returns></returns>
                   
         </member>
-        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.PromiseController.GetPromise(System.Int64)">
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.PromiseController.GetPromise(System.Int64,System.Int32)">
             <summary>
             获得菜单权限
             </summary>

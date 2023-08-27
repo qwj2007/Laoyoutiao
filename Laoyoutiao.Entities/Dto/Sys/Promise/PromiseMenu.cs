@@ -19,6 +19,7 @@ namespace Laoyoutiao.Models.Dto.Sys
         public string Icon { get; set; }
         public long ParentId { get; set; }
         public int IsButton { get; set; }
+        public string Code { get; set; }
         public List<PromiseMenu> Children { get; set; } = null;
     }
 }

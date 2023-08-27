@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Internal;
 using Laoyoutiao.IService.Sys;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.Sys;
@@ -27,34 +28,28 @@ namespace Laoyoutiao.Service.Sys
         /// <exception cref="NotImplementedException"></exception>
         public async Task<List<PromiseMenu>> GetPromiseMenus(long userId, int isButton = 0)
         {
-            //throw new NotImplementedException();
-            //PageInfo pageInfo = new PageInfo();
-            ////影响构造树的条件过滤
-            //var exp = _db.Queryable<Menus>();
-            //exp = GetMappingExpression(req, exp);
-            //var res = await exp.ToListAsync();
-            //object[] inIds = (await exp.Select(it => it.Id).ToListAsync()).Cast<object>().ToArray();
+            string sql = @"select sr.RoleName from sys_user us inner join sys_user_role role on us.Id=role.UserId
+inner JOIN sys_role sr on sr.Id=role.RoleId where us.IsDeleted=0 and us.Id=" + userId;
+            string?[] roleInfos = await _db.SqlQueryable<SysRole>(sql).Select(a => a.RoleName).ToArrayAsync();
 
-
-            string sql = @"";
-            //1为超级管理员的账号
-            if (userId > 1)
+            //超级管理员的账号
+            if (roleInfos != null && roleInfos.Contains("超级管理员"))
             {
-                sql = @"select menu.Id, Path , Component,Icon,ParentId, Title,IsButton from view_menu  menu where userid>0";
-                sql += " and  userId=" + userId;
+                sql = @"select menu.Id,menu.MenuUrl Path ,menu.ComponentUrl Component,menu.Icon,menu.ParentId,menu.Name Title,menu.IsButton,menu.Code 
+from sys_menu menu where menu.isdeleted=0  ";
             }
             else
             {
-                sql = @"select menu.Id,menu.MenuUrl Path ,menu.ComponentUrl Component,menu.Icon,menu.ParentId,menu.Name Title,menu.IsButton from sys_menu menu where menu.isdeleted=0 ";
+                sql = @"select menu.Id, Path , Component,Icon,ParentId, Title,IsButton,Code from view_menu  menu where userid>0 ";
+                sql += " and  userId=" + userId;
             }
-            sql += " and IsButton=" + isButton;
-            //var exp = await _db.SqlQueryable<Menus>(sql).ToListAsync();
-            //object[] inIds = (exp.Select(it => it.Id).ToList()).Cast<object>().ToArray();
+            if (isButton >= 0)
+            {
+                sql += " and IsButton=" + isButton;
+            }
             var listTree = await _db.SqlQueryable<Menus>(sql).ToTreeAsync(it => it.Children, it => it.ParentId, 0);
-
             var list = _mapper.Map<List<PromiseMenu>>(listTree);
             return list;
-
         }
     }
 }

@@ -35,7 +35,6 @@ namespace Laoyoutiao.Service
             //需要加密key
             SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_JWTTokenOptions.SecurityKey));
             SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-           
             JwtSecurityToken token = new JwtSecurityToken(issuer: _JWTTokenOptions.Issuer, audience: _JWTTokenOptions.Audience, claims: claims, expires: DateTime.Now.AddMinutes(30), signingCredentials: credentials);
             string returnToken = new JwtSecurityTokenHandler().WriteToken(token);
             return returnToken;
@@ -46,8 +45,8 @@ namespace Laoyoutiao.Service
             var claims = new[] {
            new Claim("Id",user.Id.ToString()),
            new Claim("Account",user.Account),
-           new Claim("UserName",user.UserName),          
-           //new Claim("Password",user.Password.ToString())
+           new Claim("UserName",user.UserName),
+           new Claim("Password",user.Password.ToString())
            };
             //需要加密key
             SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_JWTTokenOptions.SecurityKey));
