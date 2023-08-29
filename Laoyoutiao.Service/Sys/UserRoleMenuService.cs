@@ -35,12 +35,12 @@ inner JOIN sys_role sr on sr.Id=role.RoleId where us.IsDeleted=0 and us.Id=" + u
             //超级管理员的账号
             if (roleInfos != null && roleInfos.Contains("超级管理员"))
             {
-                sql = @"select menu.Id,menu.MenuUrl Path ,menu.ComponentUrl Component,menu.Icon,menu.ParentId,menu.Name Title,menu.IsButton,menu.Code 
+                sql = @"select menu.Id,menu.MenuUrl Path ,menu.ComponentUrl Component,menu.Icon,menu.ParentId,menu.Name Title,menu.IsButton,menu.Code,menu.ButtonClass 
 from sys_menu menu where menu.isdeleted=0  ";
             }
             else
             {
-                sql = @"select menu.Id, Path , Component,Icon,ParentId, Title,IsButton,Code from view_menu  menu where userid>0 ";
+                sql = @"select menu.Id, Path , Component,Icon,ParentId, Title,IsButton,Code,ButtonClass from view_menu  menu where userId>0 ";
                 sql += " and  userId=" + userId;
             }
             if (isButton >= 0)
