@@ -32,5 +32,10 @@ namespace Laoyoutiao.Models.Dto.Sys
         /// </summary>
         public bool spread { get; set; } = true;
        public List<MenusRes> Children { get; set; }
+        /// <summary>
+        /// 按钮操作
+        /// </summary>
+       public List<MenusRes> btnOperates { get; set; }
+       
     }
 }

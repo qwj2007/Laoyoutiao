@@ -24,8 +24,8 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers
         /// <param name="userId"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ApiResult> GetPromise(long userId,int isButton=0) {
-            var ser = await _userRoleMenuService.GetPromiseMenus(userId,isButton);
+        public async Task<ApiResult> GetPromise(long userId,int isButton=0,int isShow=-1) {
+            var ser = await _userRoleMenuService.GetPromiseMenus(userId,isButton,isShow);
             return  ResultHelper.Success(ser);
         }
     }

@@ -18,5 +18,6 @@ namespace Laoyoutiao.IService.Sys
         /// <param name="parentId"></param>
         /// <returns></returns>
         Task<List<MenusRes>> GetChildButtons(long parentId);
+        Task GetButtonOprate(List<MenusRes> list,List<Menus> allMenus);
     }
 }

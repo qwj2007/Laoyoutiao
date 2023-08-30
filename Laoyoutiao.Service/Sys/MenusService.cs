@@ -21,18 +21,36 @@ namespace Laoyoutiao.Service.Sys
         public override async Task<PageInfo> GetTreeAsync<TReq, TRes>(TReq req)
         {
             PageInfo pageInfo = await base.GetTreeAsync<TReq, TRes>(req);
+            //所有的菜单项目
+            var allMenus = await _db.Queryable<Menus>().Where(a => a.IsDeleted == 0).ToListAsync();
             if (pageInfo.data != null)
             {
                 List<MenusRes> list = pageInfo.data as List<MenusRes>;
-                foreach (var item in list)
-                {
+                await GetButtonOprate(list, allMenus);              
 
-                    item.IsButton = item.IsButton == "1" ? "是" : "否";
-                    item.IsShow = item.IsShow == "1" ? "是" : "否";
-                    GetStatusName(item);
-                }
             }
             return pageInfo;
+        }
+
+        public async Task GetButtonOprate(List<MenusRes> list,List<Menus> allMenus)
+        {
+            
+            foreach (var item in list)
+            {
+                var btnList = allMenus.FindAll(a => a.ParentId == item.Id && a.IsButton == 1);
+                if (btnList != null && btnList.Any())
+                {
+                    item.btnOperates = _mapper.Map<List<MenusRes>>(btnList);
+                }
+                var noBtnList = item.Children.FindAll(a => a.ParentId == item.Id && a.IsButton == "0");               
+                if (noBtnList != null && noBtnList.Count > 0)
+                {
+                    List<MenusRes> listChild = _mapper.Map<List<MenusRes>>(noBtnList);
+                    await GetButtonOprate(listChild,allMenus);
+
+                }
+            }
+
         }
 
         private void GetStatusName(MenusRes item)
@@ -102,7 +120,7 @@ namespace Laoyoutiao.Service.Sys
                     a.ComponentUrl = " ";
                     a.CreateDate = DateTime.Now;
                     a.Path = "0";
-                    a.CreateUserId = info.CreateUserId??info.ModifyUserId;
+                    a.CreateUserId = info.CreateUserId ?? info.ModifyUserId;
                 });
                 //再添加
                 await _db.Insertable<Menus>(info.Children).ExecuteCommandAsync();
@@ -113,7 +131,7 @@ namespace Laoyoutiao.Service.Sys
                 tran.CommitTran();
                 return true;
             };
-            
+
         }
 
         /// <summary>

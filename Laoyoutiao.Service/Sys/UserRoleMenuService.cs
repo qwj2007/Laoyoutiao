@@ -26,7 +26,7 @@ namespace Laoyoutiao.Service.Sys
         /// <param name="UserId"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<List<PromiseMenu>> GetPromiseMenus(long userId, int isButton = 0)
+        public async Task<List<PromiseMenu>> GetPromiseMenus(long userId, int isButton = 0,int isShow=-1)
         {
             string sql = @"select sr.RoleName from sys_user us inner join sys_user_role role on us.Id=role.UserId
 inner JOIN sys_role sr on sr.Id=role.RoleId where us.IsDeleted=0 and us.Id=" + userId;
@@ -46,6 +46,10 @@ from sys_menu menu where menu.isdeleted=0  ";
             if (isButton >= 0)
             {
                 sql += " and IsButton=" + isButton;
+            }
+            if (isShow >= 0)
+            {
+                sql += " and IsShow=" + isShow;
             }
             var listTree = await _db.SqlQueryable<Menus>(sql).ToTreeAsync(it => it.Children, it => it.ParentId, 0);
             var list = _mapper.Map<List<PromiseMenu>>(listTree);

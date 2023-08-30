@@ -14,6 +14,6 @@ namespace Laoyoutiao.IService.Sys
         /// </summary>
         /// <param name="UserId"></param>
         /// <returns></returns>
-        Task< List<PromiseMenu>> GetPromiseMenus(long userId,int isButton=0);
+        Task<List<PromiseMenu>> GetPromiseMenus(long userId, int isButton = 0, int isShow = -1);
     }
 }

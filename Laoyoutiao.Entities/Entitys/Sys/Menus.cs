@@ -54,7 +54,8 @@ namespace Laoyoutiao.Models.Entitys.Sys
         public string Component { get; set; }
         [SugarColumn(IsIgnore = true)]
         public string Title { get; set; }
-
+        //[SugarColumn(IsIgnore = true)]
+        //public List<Menus> btnOperate { get; set; }
 
     }
 
