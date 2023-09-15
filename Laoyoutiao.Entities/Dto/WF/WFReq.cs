@@ -9,5 +9,6 @@ namespace Laoyoutiao.Models.Dto.WF
 {
     public class WFReq: Pagination
     {
+        public string? FlowName { get; set; }
     }
 }
