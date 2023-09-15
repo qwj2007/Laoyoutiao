@@ -10,4 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Laoyoutiao.enums\Laoyoutiao.Enums.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entitys\OA\" />
+  </ItemGroup>
 </Project>

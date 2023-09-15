@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -7,5 +7,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Laoyoutiao.Entities\Laoyoutiao.Models.csproj" />
     <ProjectReference Include="..\Laoyoutiao.IRespository\Laoyoutiao.IRespository.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="OA\" />
   </ItemGroup>
 </Project>
