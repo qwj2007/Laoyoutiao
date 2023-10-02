@@ -19,13 +19,13 @@ namespace Laoyoutiao.Models.Entitys.WF
         public string FlowCode { get; set; }
         [SugarColumn(IsNullable = true, Length = 50, ColumnDescription = "类别Id")]
 
-        public string CategoryId { get; set; }
+        public int CategoryId { get; set; }
         [SugarColumn(IsNullable = true, Length = 50, ColumnDescription = "表单Id")]
 
-        public string FormId { get; set; }
+        public long FormId { get; set; }
         [SugarColumn(IsNullable = true, Length = 50, ColumnDescription = "流程名称")]
         public string FlowName { get; set; }
-        [SugarColumn(IsNullable = true, Length = 500, ColumnDescription = "流程JSON")]
+        [SugarColumn(IsNullable = true, Length = 4000, ColumnDescription = "流程JSON")]
         public string FlowContent { get; set; }
         [SugarColumn(IsNullable = true, Length = 500, ColumnDescription = "备注")]
         public string Memo { get; set; }
