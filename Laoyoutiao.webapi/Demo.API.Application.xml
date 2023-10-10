@@ -274,6 +274,13 @@
             </summary>
             <param name="roleService"></param>
         </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.SubscriberController.ChangeTableStatusAsync(Laoyoutiao.WorkFlow.Core.WorkFlowStatusChange)">
+            <summary>
+            CAP 改变OA系统表单流程状态
+            </summary>
+            <param name="statusChange"></param>
+            <returns></returns>
+        </member>
         <member name="M:Laoyoutiao.webapi.Controllers.ToolController.InitDataBase(System.String)">
             <summary>
             自动创建表
