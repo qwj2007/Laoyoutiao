@@ -96,7 +96,17 @@ namespace Laoyoutiao.Configuration
 
             buil.Services.AddAutoMapper( typeof(BatchMapperProfile));
 
+            buil.Services.AddCap(x =>
+            {
+                x.UseRabbitMQ(opt =>
+                {                 
 
+                    opt.HostName = buil.Configuration.GetSection("RabbitMQ:HostName").Value;
+                    opt.UserName = buil.Configuration.GetSection("RabbitMQ:UserName").Value; 
+                    opt.Password = buil.Configuration.GetSection("RabbitMQ:Password").Value;
+                });
+                x.UseMySql(buil.Configuration.GetSection("ConnectionConfigs:ConnectionConfig").Value);
+            });
 
             #region JWT校验
 

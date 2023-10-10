@@ -56,4 +56,33 @@ namespace Laoyoutiao.WorkFlow.Core
         [Description("通知节点")]
         ViewNode
     }
+
+    public static class FlowNodeExtension
+    {
+        //
+        // 摘要:
+        //     判断节点是否结束
+        //
+        // 参数:
+        //   nodeType:
+        public static int ToIsFinish(this WorkFlowInstanceNodeType nodeType)
+        {
+            return (nodeType == WorkFlowInstanceNodeType.End) ? 1 : 0;
+        }
+    }
+
+    //
+    // 摘要:
+    //     流程流转状态
+    public enum WorkFlowTransitionStateType
+    {
+        //
+        // 摘要:
+        //     正常通过
+        Normal,
+        //
+        // 摘要:
+        //     节点拒绝
+        Reject
+    }
 }

@@ -23,15 +23,16 @@ namespace Laoyoutiao.Models.Entitys.WF
         public string? NodeId { get; set; }
         [SugarColumn(IsNullable = false, Length = 50, ColumnDescription = "审批节点名称")]
       
-        public int NodeName { get; set; }
+        public string NodeName { get; set; }
         [SugarColumn(IsNullable = false, Length = 50, ColumnDescription = "审批意见")]
         
-        public int Content { get; set; }
+        public string Content { get; set; }
         [SugarColumn(IsNullable = false, Length = 50, ColumnDescription = "创建人")]
         public string CreateUserName { get; set; }
 
-        [SugarColumn(IsNullable = false, ColumnDescription = "操作按钮类型")]
-        public int TransitonType { get; set; }
-      
+        [SugarColumn(IsNullable = true, ColumnDescription = "操作按钮类型")]
+        public int? TransitionType { get; set; }
+        
+
     }
 }

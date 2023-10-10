@@ -10,7 +10,7 @@ namespace Laoyoutiao.WorkFlow.Core
     /// 
     /// </summary>
     public class EdgeProperties
-    {     
+    {
         /// <summary>
         /// 条件
         /// </summary>
@@ -20,5 +20,17 @@ namespace Laoyoutiao.WorkFlow.Core
         /// </summary>
         public double conditionalValue { get; set; }
 
+    }
+
+    /// <summary>
+    /// 条件判断
+    /// </summary>
+    public enum EdgeConditionEnum
+    {
+        大于,
+        大于等于,
+        小于,
+        小于等于,
+        等于
     }
 }

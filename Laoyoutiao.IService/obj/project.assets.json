@@ -1087,6 +1087,16 @@
         "runtime": {
           "bin/placeholder/Laoyoutiao.Models.dll": {}
         }
+      },
+      "Laoyoutiao.WorkFlow.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Laoyoutiao.WorkFlow.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Laoyoutiao.WorkFlow.Core.dll": {}
+        }
       }
     }
   },
@@ -3252,12 +3262,18 @@
       "type": "project",
       "path": "../Laoyoutiao.Entities/Laoyoutiao.Models.csproj",
       "msbuildProject": "../Laoyoutiao.Entities/Laoyoutiao.Models.csproj"
+    },
+    "Laoyoutiao.WorkFlow.Core/1.0.0": {
+      "type": "project",
+      "path": "../Laoyoutiao.WorkFlow.Core/Laoyoutiao.WorkFlow.Core.csproj",
+      "msbuildProject": "../Laoyoutiao.WorkFlow.Core/Laoyoutiao.WorkFlow.Core.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "Laoyoutiao.IRespository >= 1.0.0",
-      "Laoyoutiao.Models >= 1.0.0"
+      "Laoyoutiao.Models >= 1.0.0",
+      "Laoyoutiao.WorkFlow.Core >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3297,6 +3313,9 @@
             },
             "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IRespository\\Laoyoutiao.IRespository.csproj": {
               "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IRespository\\Laoyoutiao.IRespository.csproj"
+            },
+            "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj": {
+              "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj"
             }
           }
         }

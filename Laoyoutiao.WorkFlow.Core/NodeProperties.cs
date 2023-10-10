@@ -31,5 +31,37 @@ namespace Laoyoutiao.WorkFlow.Core
         /// </summary>
         public string users { get; set; }
 
+        public ChatData ChatData { get; set; }
+
+    }
+    /// <summary>
+    /// 审批人员类型，指定人员或角色
+    /// </summary>
+    public class ApproveType
+    {
+        //
+        // 摘要:
+        //     指定用户
+        public const string SPECIAL_USER = "USERS";
+
+        //
+        // 摘要:
+        //     所有用户
+        public const string ALL_USER = "ALL_USER";
+
+        //
+        // 摘要:
+        //     制定角色
+        public const string SPECIAL_ROLE = "ROLES";
+
+        //
+        // 摘要:
+        //     SQL自动获取
+        public const string SQL = "SQL";
+
+        //
+        // 摘要:
+        //     流程发起人
+        public const string CREATEUSER = "CREATEUSER";
     }
 }

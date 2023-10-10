@@ -39,7 +39,7 @@ namespace Laoyoutiao.Models.Entitys.WF
         [SugarColumn(IsNullable = true, Length = 50, ColumnDescription = "审批人集合")]
         public string? MakerList { get; set; }
         [SugarColumn(IsNullable = true, ColumnDescription = "流程是否结束")]
-        public int IsFinish { get; set; } = 0;
+        public int? IsFinish { get; set; } = 0;
 
         [SugarColumn(IsNullable = true, ColumnDescription = "流程是否结束")]
         public int Status { get; set; }

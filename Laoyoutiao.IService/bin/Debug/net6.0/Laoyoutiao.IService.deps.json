@@ -9,7 +9,8 @@
       "Laoyoutiao.IService/1.0.0": {
         "dependencies": {
           "Laoyoutiao.IRespository": "1.0.0",
-          "Laoyoutiao.Models": "1.0.0"
+          "Laoyoutiao.Models": "1.0.0",
+          "Laoyoutiao.WorkFlow.Core": "1.0.0"
         },
         "runtime": {
           "Laoyoutiao.IService.dll": {}
@@ -732,6 +733,11 @@
         "runtime": {
           "Laoyoutiao.Models.dll": {}
         }
+      },
+      "Laoyoutiao.WorkFlow.Core/1.0.0": {
+        "runtime": {
+          "Laoyoutiao.WorkFlow.Core.dll": {}
+        }
       }
     }
   },
@@ -1151,6 +1157,11 @@
       "sha512": ""
     },
     "Laoyoutiao.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Laoyoutiao.WorkFlow.Core/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

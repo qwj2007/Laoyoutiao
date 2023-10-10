@@ -24,17 +24,19 @@ namespace Laoyoutiao.Models.Entitys.WF
         [SugarColumn(IsNullable = false, Length = 50, ColumnDescription = "节点类型")]
         public int FromNodeType { get; set; }
         [SugarColumn(IsNullable = false, Length = 50, ColumnDescription = "来源节点名称")]
-        public int FromNodeName { get; set; }
+        public string FromNodeName { get; set; }
         [SugarColumn(IsNullable = false, Length = 50, ColumnDescription = "目标节点")]
-        public int ToNodeId { get; set; }
+        public string ToNodeId { get; set; }
         [SugarColumn(IsNullable = false, Length = 50, ColumnDescription = "目标节点类型")]
         public int ToNodeType { get; set; }
         [SugarColumn(IsNullable = false, Length = 50, ColumnDescription = "目标节点名称")]
-        public int ToNodeName { get; set; }
+        public string ToNodeName { get; set; }
         [SugarColumn(IsNullable = false, Length = 50, ColumnDescription = "创建人")]
         public string CreateUserName { get; set; }
         [SugarColumn(IsNullable = false,  ColumnDescription = "是否完成")]
         public int IsFinish { get; set; }
 
+        [SugarColumn(IsNullable = false, ColumnDescription = "流程流转的状态")]
+        public int TransitionState { get; set; } = 0;
     }
 }
