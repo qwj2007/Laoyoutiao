@@ -330,3 +330,4 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\Microsoft
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\RabbitMQ.Client.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\System.Threading.Channels.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Debug\net6.0\Laoyoutiao.webapi.MvcApplicationPartsAssemblyInfo.cs

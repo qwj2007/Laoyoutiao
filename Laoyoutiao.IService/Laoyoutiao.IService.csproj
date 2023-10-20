@@ -9,7 +9,4 @@
     <ProjectReference Include="..\Laoyoutiao.IRespository\Laoyoutiao.IRespository.csproj" />
     <ProjectReference Include="..\Laoyoutiao.WorkFlow.Core\Laoyoutiao.WorkFlow.Core.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="OA\" />
-  </ItemGroup>
 </Project>

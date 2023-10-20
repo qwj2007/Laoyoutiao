@@ -1349,9 +1349,9 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "Laoyoutiao.Models": "1.0.0",
           "Microsoft.Extensions.Configuration": "7.0.0",
-          "Microsoft.Extensions.Configuration.Binder": "7.0.4"
+          "Microsoft.Extensions.Configuration.Binder": "7.0.4",
+          "Newtonsoft.Json": "13.0.2"
         },
         "compile": {
           "bin/placeholder/Laoyoutiao.Common.dll": {}
@@ -1363,6 +1363,9 @@
       "Laoyoutiao.Enums/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Laoyoutiao.Common": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Laoyoutiao.Enums.dll": {}
         },
@@ -1402,7 +1405,9 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "Laoyoutiao.Common": "1.0.0",
           "Laoyoutiao.Enums": "1.0.0",
+          "Laoyoutiao.WorkFlow.Core": "1.0.0",
           "SqlSugarCore": "5.1.4.99"
         },
         "compile": {

@@ -8,9 +8,8 @@
     <PackageReference Include="SqlSugarCore" Version="5.1.4.99" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Laoyoutiao.Common\Laoyoutiao.Common.csproj" />
     <ProjectReference Include="..\Laoyoutiao.enums\Laoyoutiao.Enums.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Entitys\OA\" />
+    <ProjectReference Include="..\Laoyoutiao.WorkFlow.Core\Laoyoutiao.WorkFlow.Core.csproj" />
   </ItemGroup>
 </Project>

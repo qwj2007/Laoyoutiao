@@ -896,15 +896,18 @@
       },
       "Laoyoutiao.Common/1.0.0": {
         "dependencies": {
-          "Laoyoutiao.Models": "1.0.0",
           "Microsoft.Extensions.Configuration": "7.0.0",
-          "Microsoft.Extensions.Configuration.Binder": "7.0.4"
+          "Microsoft.Extensions.Configuration.Binder": "7.0.4",
+          "Newtonsoft.Json": "13.0.2"
         },
         "runtime": {
           "Laoyoutiao.Common.dll": {}
         }
       },
       "Laoyoutiao.Enums/1.0.0": {
+        "dependencies": {
+          "Laoyoutiao.Common": "1.0.0"
+        },
         "runtime": {
           "Laoyoutiao.Enums.dll": {}
         }
@@ -929,7 +932,9 @@
       },
       "Laoyoutiao.Models/1.0.0": {
         "dependencies": {
+          "Laoyoutiao.Common": "1.0.0",
           "Laoyoutiao.Enums": "1.0.0",
+          "Laoyoutiao.WorkFlow.Core": "1.0.0",
           "SqlSugarCore": "5.1.4.99"
         },
         "runtime": {

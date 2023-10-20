@@ -19,8 +19,8 @@ namespace Laoyoutiao.webapi.Controllers
         /// </summary>
         /// <param name="statusChange"></param>
         /// <returns></returns>
-        [Microsoft.AspNetCore.Mvc.NonAction]
-        [CapSubscribe("WorkFlowStatusChangedOA")]
+        //[Microsoft.AspNetCore.Mvc.NonAction]
+        //[CapSubscribe("WorkFlowStatusChangedOA")]
         public async Task ChangeTableStatusAsync(WorkFlowStatusChange statusChange)
         {
             await workFlowService.ChangeTableStatusAsync(statusChange);

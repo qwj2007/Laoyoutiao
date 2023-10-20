@@ -19,3 +19,5 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\bin\Debug\net6.0\Laoyout
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\bin\Debug\net6.0\Laoyoutiao.Enums.pdb
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\bin\Debug\net6.0\Laoyoutiao.WorkFlow.Core.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\bin\Debug\net6.0\Laoyoutiao.WorkFlow.Core.pdb
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\bin\Debug\net6.0\Laoyoutiao.Common.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\bin\Debug\net6.0\Laoyoutiao.Common.pdb
