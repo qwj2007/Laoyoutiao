@@ -72,7 +72,7 @@ namespace Laoyoutiao.WorkFlow.Core
         //
         // 摘要:
         //     参数信息 用于节点获取、条件判断
-        public Dictionary<string, object> OptionParams { get; set; }
+        public Dictionary<string, object>? OptionParams { get; set; }
 
         //
         // 摘要:

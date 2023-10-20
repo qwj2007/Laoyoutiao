@@ -64,6 +64,19 @@
           "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
+      "Consul/1.6.10.9": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/Consul.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Consul.dll": {}
+        }
+      },
       "DotNetCore.CAP/7.2.1": {
         "type": "package",
         "dependencies": {
@@ -81,6 +94,26 @@
             "related": ".pdb;.xml"
           }
         }
+      },
+      "DotNetCore.CAP.Dashboard/7.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Consul": "1.6.10.9",
+          "DotNetCore.CAP": "7.2.1"
+        },
+        "compile": {
+          "lib/net6.0/DotNetCore.CAP.Dashboard.dll": {
+            "related": ".pdb"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/DotNetCore.CAP.Dashboard.dll": {
+            "related": ".pdb"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "DotNetCore.CAP.MySql/7.2.1": {
         "type": "package",
@@ -4786,6 +4819,19 @@
         "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
       ]
     },
+    "Consul/1.6.10.9": {
+      "sha512": "c4y+f7ACAeluSSUxC5TsWjgqMnTQeWGTS92JZfEZk10FK/yi/ANp7QfUIWP7sla1QaijnVDQy9p1t2iv6zLyYA==",
+      "type": "package",
+      "path": "consul/1.6.10.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "consul.1.6.10.9.nupkg.sha512",
+        "consul.nuspec",
+        "lib/net461/Consul.dll",
+        "lib/netstandard2.0/Consul.dll"
+      ]
+    },
     "DotNetCore.CAP/7.2.1": {
       "sha512": "R14lrHxuYXTlvqQ5y3n9BF/JsR7XZXwBfDED4ZcS+MvE9zSyrPHzY93nK8KI1Nbmxh4/ArFFbUeF2tuufq06Qg==",
       "type": "package",
@@ -4799,6 +4845,20 @@
         "lib/net6.0/DotNetCore.CAP.dll",
         "lib/net6.0/DotNetCore.CAP.pdb",
         "lib/net6.0/DotNetCore.CAP.xml",
+        "logo.png"
+      ]
+    },
+    "DotNetCore.CAP.Dashboard/7.2.1": {
+      "sha512": "btRSA7e5SZP4kLZFQ4HwtHAn0tZyUSywjKajuXyIBCUBZ8iFTQrbBAfgwRzG3XD4fri5S4z8JnJGTrKBlUVr0w==",
+      "type": "package",
+      "path": "dotnetcore.cap.dashboard/7.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "dotnetcore.cap.dashboard.7.2.1.nupkg.sha512",
+        "dotnetcore.cap.dashboard.nuspec",
+        "lib/net6.0/DotNetCore.CAP.Dashboard.dll",
+        "lib/net6.0/DotNetCore.CAP.Dashboard.pdb",
         "logo.png"
       ]
     },
@@ -13034,6 +13094,7 @@
       "Autofac >= 7.0.1",
       "Autofac.Extensions.DependencyInjection >= 8.0.0",
       "DotNetCore.CAP >= 7.2.1",
+      "DotNetCore.CAP.Dashboard >= 7.2.1",
       "DotNetCore.CAP.MySql >= 7.2.1",
       "DotNetCore.CAP.RabbitMQ >= 7.2.1",
       "Laoyoutiao.Common >= 1.0.0",
@@ -13121,6 +13182,10 @@
             "version": "[8.0.0, )"
           },
           "DotNetCore.CAP": {
+            "target": "Package",
+            "version": "[7.2.1, )"
+          },
+          "DotNetCore.CAP.Dashboard": {
             "target": "Package",
             "version": "[7.2.1, )"
           },

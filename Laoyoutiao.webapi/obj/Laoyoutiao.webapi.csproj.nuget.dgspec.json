@@ -587,6 +587,10 @@
               "target": "Package",
               "version": "[7.2.1, )"
             },
+            "DotNetCore.CAP.Dashboard": {
+              "target": "Package",
+              "version": "[7.2.1, )"
+            },
             "DotNetCore.CAP.MySql": {
               "target": "Package",
               "version": "[7.2.1, )"

@@ -13,6 +13,7 @@
           "Autofac": "7.0.1",
           "Autofac.Extensions.DependencyInjection": "8.0.0",
           "DotNetCore.CAP": "7.2.1",
+          "DotNetCore.CAP.Dashboard": "7.2.1",
           "DotNetCore.CAP.MySql": "7.2.1",
           "DotNetCore.CAP.RabbitMQ": "7.2.1",
           "Laoyoutiao.Common": "1.0.0",
@@ -78,6 +79,18 @@
           }
         }
       },
+      "Consul/1.6.10.9": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "Newtonsoft.Json": "13.0.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Consul.dll": {
+            "assemblyVersion": "1.6.10.9",
+            "fileVersion": "1.6.10.9"
+          }
+        }
+      },
       "DotNetCore.CAP/7.2.1": {
         "dependencies": {
           "Microsoft.Extensions.Hosting.Abstractions": "7.0.0",
@@ -86,6 +99,18 @@
         },
         "runtime": {
           "lib/net6.0/DotNetCore.CAP.dll": {
+            "assemblyVersion": "7.2.1.0",
+            "fileVersion": "7.2.1.0"
+          }
+        }
+      },
+      "DotNetCore.CAP.Dashboard/7.2.1": {
+        "dependencies": {
+          "Consul": "1.6.10.9",
+          "DotNetCore.CAP": "7.2.1"
+        },
+        "runtime": {
+          "lib/net6.0/DotNetCore.CAP.Dashboard.dll": {
             "assemblyVersion": "7.2.1.0",
             "fileVersion": "7.2.1.0"
           }
@@ -3248,12 +3273,26 @@
       "path": "automapper.extensions.microsoft.dependencyinjection/12.0.1",
       "hashPath": "automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512"
     },
+    "Consul/1.6.10.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-c4y+f7ACAeluSSUxC5TsWjgqMnTQeWGTS92JZfEZk10FK/yi/ANp7QfUIWP7sla1QaijnVDQy9p1t2iv6zLyYA==",
+      "path": "consul/1.6.10.9",
+      "hashPath": "consul.1.6.10.9.nupkg.sha512"
+    },
     "DotNetCore.CAP/7.2.1": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-R14lrHxuYXTlvqQ5y3n9BF/JsR7XZXwBfDED4ZcS+MvE9zSyrPHzY93nK8KI1Nbmxh4/ArFFbUeF2tuufq06Qg==",
       "path": "dotnetcore.cap/7.2.1",
       "hashPath": "dotnetcore.cap.7.2.1.nupkg.sha512"
+    },
+    "DotNetCore.CAP.Dashboard/7.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-btRSA7e5SZP4kLZFQ4HwtHAn0tZyUSywjKajuXyIBCUBZ8iFTQrbBAfgwRzG3XD4fri5S4z8JnJGTrKBlUVr0w==",
+      "path": "dotnetcore.cap.dashboard/7.2.1",
+      "hashPath": "dotnetcore.cap.dashboard.7.2.1.nupkg.sha512"
     },
     "DotNetCore.CAP.MySql/7.2.1": {
       "type": "package",

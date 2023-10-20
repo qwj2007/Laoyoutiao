@@ -34,6 +34,11 @@ namespace Laoyoutiao.Models.Common
         /// 是否删除
         /// </summary>
         public int IsDeleted { get; set; }
+    
+        [SugarColumn(IsNullable = true, ColumnDescription = "数据状态")]
+        public int Status { get; set; } = 1;
+        [SugarColumn(IsNullable = true, ColumnDescription = "流程状态,99没有流程")]
+        public int FlowStatus { set; get; } = 99;
       
       
     }

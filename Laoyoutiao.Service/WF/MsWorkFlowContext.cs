@@ -32,7 +32,7 @@ namespace Laoyoutiao.Service.WF
             //获取节点
             this.WorkFlow.Nodes = this.GetNodes(jsonobj.nodes);
             //获取连线
-            this.WorkFlow.Edges = this.GetFromLines(jsonobj.lines);
+            this.WorkFlow.Edges = this.GetFromLines(jsonobj.edges);
 
             this.WorkFlow.ActivityNodeId = workFlow.ActivityNodeId == default(Guid) ? this.WorkFlow.StartNodeId : workFlow.ActivityNodeId;
 

@@ -9,7 +9,7 @@ namespace Laoyoutiao.IService
     public interface IBaseService<T> : IBaseServiceRepository<T> where T : BaseKey, new()
     {
 
-        
+        Task<long> AddOneRerunKeyValue<TEdit>(TEdit input, long userId);
 
         /// <summary>
         /// 添加或修改一条记录

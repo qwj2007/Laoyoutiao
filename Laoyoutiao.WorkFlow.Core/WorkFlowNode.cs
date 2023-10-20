@@ -94,6 +94,7 @@ namespace Laoyoutiao.WorkFlow.Core
                 "chat" => WorkFlowInstanceNodeType.ChatNode,//会签节点
                 "node" => WorkFlowInstanceNodeType.ConditionNode,//条件节点
                 "view" => WorkFlowInstanceNodeType.ViewNode,//通知节点
+                "approve"=> WorkFlowInstanceNodeType.Normal,//正常节点
                 _ => WorkFlowInstanceNodeType.NotRun,//无法运行
             };
         }

@@ -9,7 +9,9 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
 using MediatR;
-
+using SqlSugar;
+using SqlSugar.IOC;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Laoyoutiao.Configuration
 {
@@ -92,20 +94,33 @@ namespace Laoyoutiao.Configuration
             //});
             #endregion
             //注册autuomapper
-          //  buil.Services.AddAutoMapper(typeof(AutoMapperConfigs),typeof(BatchMapperProfile));
+            //  buil.Services.AddAutoMapper(typeof(AutoMapperConfigs),typeof(BatchMapperProfile));
 
-            buil.Services.AddAutoMapper( typeof(BatchMapperProfile));
+            buil.Services.AddAutoMapper(typeof(BatchMapperProfile));
 
+            //开启cap
             buil.Services.AddCap(x =>
             {
+                List<IocConfig> connectionConfigs = AppSettings.App<IocConfig>(new string[] { "ConnectionConfigs" });
+                var conn = connectionConfigs.Where(a => a.DbType == IocDbType.MySql).FirstOrDefault();
+                x.UseMySql(conn.ConnectionString);                
                 x.UseRabbitMQ(opt =>
-                {                 
-
+                {
                     opt.HostName = buil.Configuration.GetSection("RabbitMQ:HostName").Value;
-                    opt.UserName = buil.Configuration.GetSection("RabbitMQ:UserName").Value; 
+                    opt.UserName = buil.Configuration.GetSection("RabbitMQ:UserName").Value;
                     opt.Password = buil.Configuration.GetSection("RabbitMQ:Password").Value;
+                    opt.Port = int.Parse(buil.Configuration.GetSection("RabbitMQ:Port").Value);//端口
+                    //opt.VirtualHost = buil.Configuration.GetSection("RabbitMQ:VirtualHost").Value;
+
                 });
-                x.UseMySql(buil.Configuration.GetSection("ConnectionConfigs:ConnectionConfig").Value);
+                x.FailedRetryCount = 10;//重试次数
+                x.FailedRetryInterval = 20;//多久重试一次，以秒为单位
+
+                x.FailedThresholdCallback = failed =>
+                {
+                    //写入失败发起通知
+                };
+
             });
 
             #region JWT校验

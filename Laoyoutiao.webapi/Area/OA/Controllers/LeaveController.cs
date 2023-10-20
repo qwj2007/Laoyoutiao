@@ -1,16 +1,33 @@
 ﻿using Laoyoutiao.IService;
+using Laoyoutiao.IService.OA;
+using Laoyoutiao.IService.WF;
+using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.OA.Leave;
 using Laoyoutiao.Models.Entitys.OA;
+using Laoyoutiao.Service.OA;
 using Laoyoutiao.webapi.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Laoyoutiao.webapi.Area.OA.Controllers
 {
     [Area("OA")]
-    public class LeaveController : BaseController<OALeave, LeaveRes, LeaveReq, LeaveEdit>
+    //[Authorize]
+    //[ApiController]
+    //[Route("api/[controller]/[action]")]
+    public class LeaveController : BaseWorkFlowController<OALeave, LeaveRes, LeaveReq, LeaveEdit>
     {
-        public LeaveController(IBaseService<OALeave> baseService) : base(baseService)
+        private readonly ILeaveService _leaveService;
+        private readonly IWorkFlowInstanceService _workFlowInstanceService;
+        public LeaveController(ILeaveService leaveService,IWorkFlowInstanceService workFlowInstanceService) : base(leaveService,workFlowInstanceService)
         {
+            this._leaveService = leaveService;
+            this._workFlowInstanceService = workFlowInstanceService;
         }
+        //[HttpPost]
+        //public override Task<ApiResult> GetPages(LeaveReq req)
+        //{
+        //    return base.GetPages(req);
+        //}
     }
 }

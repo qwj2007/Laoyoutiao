@@ -39,11 +39,11 @@ namespace Laoyoutiao.WorkFlow.Core
         /// 流程操作时间
         /// </summary>
        
-        public long FlowTime { get; set; }
+        public DateTime? FlowTime { get; set; }
 
         /// <summary>
         ///  CAP订阅名称
         /// </summary>        
-        public string TargetName { get; set; }
+        public string TargetName { get; set; } = "WorkFlowStatusChanged";
     }
 }

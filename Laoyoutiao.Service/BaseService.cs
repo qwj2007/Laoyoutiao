@@ -75,7 +75,26 @@ namespace Laoyoutiao.Service
                 return await _db.Updateable(info).ExecuteCommandAsync() > 0;
             }
         }
-
+        public virtual async Task<long> AddOneRerunKeyValue<TEdit>(TEdit input, long userId)
+        {
+            T info = _mapper.Map<T>(input);
+            if (info.Id == 0)
+            {
+                info.CreateUserId = userId;
+                info.CreateDate = DateTime.Now;
+                //info.UserType = 1;//0=炒鸡管理员，系统内置的
+                info.IsDeleted = 0;
+                return await _db.Insertable(info).ExecuteReturnIdentityAsync();
+                
+            }
+            else
+            {
+                info.ModifyUserId = userId;
+                info.ModifyDate = DateTime.Now;
+                var result= await _db.Updateable(info).ExecuteCommandAsync();
+                return info.Id;
+            }
+        }
 
         /// <summary>
         /// 根据id查找实体

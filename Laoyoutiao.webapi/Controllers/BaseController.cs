@@ -1,8 +1,12 @@
-﻿using Laoyoutiao.Common;
+﻿using AutoMapper;
+using DotNetCore.CAP;
+using Laoyoutiao.Common;
 using Laoyoutiao.IService;
+using Laoyoutiao.IService.WF;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.User;
 using Laoyoutiao.Models.Entitys;
+using Laoyoutiao.Service.WF;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
@@ -18,12 +22,16 @@ namespace Laoyoutiao.webapi.Controllers
     /// <typeparam name="TEdit"></typeparam>
 
     [Authorize]
-    [ApiController]    
+    [ApiController]
     [Route("api/[controller]/[action]")]
     public class BaseController<T, TRes, TReq, TEdit> : ControllerBase where T : BaseEntity, new()
           where TRes : class where TReq : Pagination where TEdit : class
     {
         private readonly IBaseService<T> _baseService;
+        private readonly IWorkFlowInstanceService _workFlowInstanceService;
+        //private readonly IMapper _mapper;
+        //private readonly ICapPublisher capPublisher;
+
         /// <summary>
         /// 基础controller
         /// </summary>
@@ -31,6 +39,7 @@ namespace Laoyoutiao.webapi.Controllers
         public BaseController(IBaseService<T> baseService)
         {
             this._baseService = baseService;
+            //this._workFlowInstanceService = new WorkFlowInstanceService(_mapper, capPublisher);
         }
 
 
@@ -80,10 +89,10 @@ namespace Laoyoutiao.webapi.Controllers
         ///   ///获取所有信息
         /// </summary>
         /// <returns></returns>
-        [HttpPost]      
+        [HttpPost]
         public virtual async Task<ApiResult> GetAll()
         {
-            Expression<Func<T, bool>> expression = a => a.IsDeleted == 0;           
+            Expression<Func<T, bool>> expression = a => a.IsDeleted == 0;
             return ResultHelper.Success(await _baseService.GetListByQueryAsync<TRes>(expression));
         }
         /// <summary>
@@ -119,7 +128,9 @@ namespace Laoyoutiao.webapi.Controllers
             var result = await _baseService.GetPagesAsync<TReq, TRes>(req);
             return ResultHelper.Success(result);
         }
-       
+
+        
+
     }
 }
 

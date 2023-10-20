@@ -20,7 +20,8 @@ namespace Laoyoutiao.IService.WF
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<bool> CreateInstanceAsync(WorkFlowProcessTransition model);       
+        Task<bool> CreateInstanceAsync(WorkFlowProcessTransition model);
+        Task<bool> CreateInstanceAsync(string url, long userId, string instanceId, string SourceTable, long KeyValue);
         Task<WorkFlowProcess> GetProcessAsync(WorkFlowProcess process);
         Task<WorkFlowProcess> GetProcessForSystemAsync(SystemFlowDto model);
         Task<bool> ProcessTransitionFlowAsync(WorkFlowProcessTransition model);

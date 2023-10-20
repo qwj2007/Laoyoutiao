@@ -230,6 +230,20 @@
             <param name="req"></param>
             <returns></returns>
         </member>
+        <member name="T:Laoyoutiao.webapi.Controllers.BaseWorkFlowController`4">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseWorkFlowController`4.Commit(`3,System.String,System.Int64,System.String,System.Int64)">
+            <summary>
+            提交审批
+            </summary>
+            <param name="req">请求参数</param>
+             /// <param name="url">路由地址</param>
+              /// <param name="userId">当前用户Id</param>
+            <returns></returns>(string url,long userId,string instanceId,string SourceTable,long KeyValue)
+        </member>
         <member name="T:Laoyoutiao.webapi.Controllers.LoginController">
             <summary>
             

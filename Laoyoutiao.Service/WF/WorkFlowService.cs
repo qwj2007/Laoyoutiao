@@ -66,6 +66,7 @@ namespace Laoyoutiao.Service.WF
         {
             try
             {
+                
                 string sql = $" UPDATE {statusChange.TableName} SET FlowStatus='{(int)statusChange.Status}',FlowTime='{statusChange.FlowTime}' WHERE {statusChange.KeyName} = '{statusChange.KeyValue}'";
 
                 int res = await _db.Ado.ExecuteCommandAsync(sql);
