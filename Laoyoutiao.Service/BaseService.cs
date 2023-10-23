@@ -85,6 +85,7 @@ namespace Laoyoutiao.Service
                 //info.UserType = 1;//0=炒鸡管理员，系统内置的
                 info.IsDeleted = 0;
                 return await _db.Insertable(info).ExecuteReturnIdentityAsync();
+               
                 
             }
             else
@@ -93,6 +94,26 @@ namespace Laoyoutiao.Service
                 info.ModifyDate = DateTime.Now;
                 var result= await _db.Updateable(info).ExecuteCommandAsync();
                 return info.Id;
+            }
+        }
+
+        public virtual async Task<T> AddOrUpdateReturnEntity<TEdit>(TEdit input, long userId)
+        {
+            T info = _mapper.Map<T>(input);
+            if (info.Id == 0)
+            {
+                info.CreateUserId = userId;
+                info.CreateDate = DateTime.Now;
+                //info.UserType = 1;//0=炒鸡管理员，系统内置的
+                info.IsDeleted = 0;
+                return await _db.Insertable(info).ExecuteReturnEntityAsync();
+            }
+            else
+            {
+                info.ModifyUserId = userId;
+                info.ModifyDate = DateTime.Now;
+                var result = await _db.Updateable(info).ExecuteCommandAsync();
+                return info;
             }
         }
 

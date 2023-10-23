@@ -13099,6 +13099,7 @@
       "DotNetCore.CAP.RabbitMQ >= 7.2.1",
       "Laoyoutiao.Common >= 1.0.0",
       "Laoyoutiao.IService >= 1.0.0",
+      "Laoyoutiao.Models >= 1.0.0",
       "Laoyoutiao.Service >= 1.0.0",
       "MediatR.Extensions.Microsoft.DependencyInjection >= 11.1.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.19",
@@ -13145,6 +13146,9 @@
           "projectReferences": {
             "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj": {
               "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj"
+            },
+            "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj": {
+              "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj"
             },
             "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IService\\Laoyoutiao.IService.csproj": {
               "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IService\\Laoyoutiao.IService.csproj"

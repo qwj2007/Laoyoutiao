@@ -39,6 +39,9 @@ namespace Laoyoutiao.Models.Common
         public int Status { get; set; } = 1;
         [SugarColumn(IsNullable = true, ColumnDescription = "流程状态,99没有流程")]
         public int FlowStatus { set; get; } = 99;
+
+        [SugarColumn(IsNullable = true, Length = 50, ColumnDescription = "编码")]
+        public string? Code { get; set; }
       
       
     }

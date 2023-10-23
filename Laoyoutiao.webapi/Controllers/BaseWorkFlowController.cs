@@ -5,6 +5,7 @@ using Laoyoutiao.IService;
 using Laoyoutiao.IService.WF;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Service.WF;
+using Laoyoutiao.WorkFlow.Core;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Laoyoutiao.webapi.Controllers
@@ -37,21 +38,65 @@ namespace Laoyoutiao.webapi.Controllers
         ///   /// <param name="userId">当前用户Id</param>
         /// <returns></returns>(string url,long userId,string instanceId,string SourceTable,long KeyValue)
         [HttpPost]
-        public virtual async Task<ApiResult> Commit(TEdit req, string url, long userId,string SourceTable,long keyValue)
+        public virtual async Task<ApiResult> Commit(TEdit req, string url, long userId,string sourceTable,long keyValue,string businessName)
         {
             //提交先保存，在提交
-            var result = await _baseService.AddOneRerunKeyValue(req, userId);
+            var result = await _baseService.AddOrUpdateReturnEntity(req, userId);
             bool isOk = false;
-            if (result>0)
+            if (result.Id>0)
             {
                 if (keyValue == 0) {
-                    keyValue = result;
+                    keyValue = result.Id;
                 }
                 //提交操作
-                isOk = await _workFlowInstanceService.CreateInstanceAsync(url, userId, default(Guid).ToString(), SourceTable, keyValue);
+                isOk = await _workFlowInstanceService.CreateInstanceAsync(url, userId, sourceTable, keyValue,businessName,result.Code);
             }
             return ResultHelper.Success(isOk);
         }
+
+        /// <summary>
+        /// 撤销
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public virtual async Task<ApiResult> WorkFlowWithdrawAsync(WorkFlowProcessTransition model)
+        {
+            //提交先保存，在提交
+            var result = await _workFlowInstanceService.WorkFlowWithdrawAsync(model);           
+            return ResultHelper.Success(result);
+        }
+
+        
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="req"></param>
+        /// <param name="url"></param>
+        /// <param name="userId"></param>
+        /// <param name="sourceTable"></param>
+        /// <param name="keyValue"></param>
+        /// <param name="businessName"></param>
+        /// <returns></returns>
+        #region 撤回操作，只有本人才能撤回没有被审核的数据
+        //public virtual async Task<ApiResult> WithDraw(string url, long userId, string sourceTable, long keyValue, string businessName)
+        //{
+        //    //提交先保存，在提交
+        //    var result = await _baseService.AddOneRerunKeyValue(req, userId);
+        //    bool isOk = false;
+        //    if (result > 0)
+        //    {
+        //        if (keyValue == 0)
+        //        {
+        //            keyValue = result;
+        //        }
+        //        //提交操作
+        //        isOk = await _workFlowInstanceService.CreateInstanceAsync(url, userId, sourceTable, keyValue, businessName);
+        //    }
+        //    return ResultHelper.Success(isOk);
+        //}
         #endregion
     }
 }

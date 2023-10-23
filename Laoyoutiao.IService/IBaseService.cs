@@ -8,7 +8,7 @@ namespace Laoyoutiao.IService
 {
     public interface IBaseService<T> : IBaseServiceRepository<T> where T : BaseKey, new()
     {
-
+        Task<T> AddOrUpdateReturnEntity<TEdit>(TEdit input, long userId);
         Task<long> AddOneRerunKeyValue<TEdit>(TEdit input, long userId);
 
         /// <summary>

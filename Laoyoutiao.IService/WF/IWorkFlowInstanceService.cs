@@ -20,13 +20,14 @@ namespace Laoyoutiao.IService.WF
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Task<bool> CreateInstanceAsync(WorkFlowProcessTransition model);
-        Task<bool> CreateInstanceAsync(string url, long userId, string instanceId, string SourceTable, long KeyValue);
+        //Task<bool> CreateInstanceAsync(WorkFlowProcessTransition model);
+        Task<bool> CreateInstanceAsync(string url, long userId,  string sourceTable, long keyValue, string businessName = "",string businessCode="");
         Task<WorkFlowProcess> GetProcessAsync(WorkFlowProcess process);
         Task<WorkFlowProcess> GetProcessForSystemAsync(SystemFlowDto model);
         Task<bool> ProcessTransitionFlowAsync(WorkFlowProcessTransition model);
         Task<IEnumerable<WF_WorkFlow_Operation_History>> GetFlowApprovalAsync(WorkFlowProcessTransition model);
         Task<WorkFlowImageDto> GetFlowImageAsync(string flowid, string? instanceId);
         Task<bool> UrgeAsync(UrgeEdit urge);
+        Task<bool> WorkFlowWithdrawAsync(WorkFlowProcessTransition model);
     }
 }

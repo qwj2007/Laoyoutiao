@@ -45,7 +45,7 @@ namespace Laoyoutiao.Configuration
 
             buil.Services.AddSingleton(new AppSettings(buil.Configuration));
             SqlsugarSetup.AddSqlsugarSetup();
-
+            SnowFlakeSingle.WorkId = Convert.ToInt32(buil.Configuration.GetSection("SnowFlake:workId").Value);
             #endregion
 
             #region 使用autofac
@@ -122,7 +122,7 @@ namespace Laoyoutiao.Configuration
                 };
 
             });
-
+            
             #region JWT校验
 
             //第一步，注册JWT

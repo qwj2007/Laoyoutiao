@@ -6,11 +6,15 @@ using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.OA.Leave;
 using Laoyoutiao.Models.Entitys.OA;
 using Laoyoutiao.Models.Entitys.Sys;
+using Laoyoutiao.Models.Entitys.WF;
+using Laoyoutiao.Models.Views;
 using Laoyoutiao.WorkFlow.Core;
 using Newtonsoft.Json.Linq;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -20,32 +24,76 @@ namespace Laoyoutiao.Service.OA
 {
     public class LeaveService : BaseService<OALeave>, ILeaveService
     {
+        private readonly IMapper _mapper;
         public LeaveService(IMapper mapper) : base(mapper)
         {
+            this._mapper = mapper;
         }
         public override Task<bool> Add<TEdit>(TEdit input, long userId)
         {
 
             LeaveEdit leaveEdit = input as LeaveEdit;
-            if (leaveEdit.Id == 0) {
-                leaveEdit.LeaveCode = DateTime.Now.Ticks.ToString();
+            if (leaveEdit.Id == 0)
+            {
+                //雪花算法
+                leaveEdit.Code = SnowFlakeSingle.Instance.NextId().ToString();// DateTime.Now.Ticks.ToString();
             }
             leaveEdit.UserId = userId;
-            leaveEdit.Days =Convert.ToDecimal( new TimeSpan(leaveEdit.EndTime.Ticks-leaveEdit.StartTime.Ticks).Days)+1;
+            leaveEdit.Days = Convert.ToDecimal(new TimeSpan(leaveEdit.EndTime.Ticks - leaveEdit.StartTime.Ticks).Days) + 1;
             return base.Add(input, userId);
         }
-        public override async  Task<PageInfo> GetPagesAsync<TReq, TRes>(TReq req)
+
+        /// <summary>
+        /// 查找数据
+        /// </summary>
+        /// <typeparam name="TReq"></typeparam>
+        /// <typeparam name="TRes"></typeparam>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        public override async Task<PageInfo> GetPagesAsync<TReq, TRes>(TReq req)
         {
-            var pageinfo=await base.GetPagesAsync<TReq, TRes>(req);
-            var datas = pageinfo.data as List<LeaveRes> ;
-            
-            foreach (var item in datas)
-            {
+
+            //查找
+            LeaveReq leaveReq = req as LeaveReq;
+            var list = _db.Queryable<OALeave>()
+                .LeftJoin<V_WorkFlow>((oa, win) => oa.Id.ToString() == win.BusinessId && oa.Code == win.BusinessCode)
+                .Where(oa => oa.IsDeleted == 0).WhereIF(!string.IsNullOrEmpty(leaveReq.Title), oa => oa.Title.Contains(leaveReq.Title))
+                .Select<LeaveRes>((oa, win) => new LeaveRes //转换成dto
+                {
+                     Id = oa.Id,
+                     Code = oa.Code,
+                     Title = oa.Title,
+                     UserId = oa.UserId,
+                     LeaveType = oa.LeaveType,
+                     Reason = oa.Reason,
+                     Days = oa.Days,
+                     StartTime = oa.StartTime,
+                     EndTime = oa.EndTime,
+                     FlowStatus = oa.FlowStatus,
+                     FlowTime = oa.FlowTime,
+                     Url = win.MenuUrl,
+                     InstanceId = win.InstanceId,
+                     FlowId = win.FlowId,
+                     FormId = win.FormId,
+                     FlowStatusName = "",
+                     CreateDate = oa.CreateDate
+
+                 });
+
+            var queryList = await list.Skip((leaveReq.PageIndex - 1) * leaveReq.PageSize)
+            .Take(leaveReq.PageSize)
+            .ToListAsync();
+            PageInfo pageInfo = new PageInfo();
+            pageInfo.data = queryList;// _mapper.Map<List<LeaveRes>>(queryList);
+            pageInfo.total = list.Count();
+            foreach (var item in queryList)
+            {              
+               
                 item.FlowStatusName = EnumHelper.EnumToDescription<WorkFlowStatus>(item.FlowStatus);
-               // GetEnumDesctiption(item);
-                //item.FlowStatusName = EnumHelper.GetEnumDescription<WorkFlowStatus>(item.FlowStatus);
             }
-            return pageinfo;
+
+            return pageInfo;
+           
         }
 
         private static void GetEnumDesctiption(LeaveRes item)

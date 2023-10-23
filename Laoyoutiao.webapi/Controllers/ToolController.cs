@@ -1,6 +1,6 @@
 ﻿using Laoyoutiao.Common;
 using Laoyoutiao.Models.Common;
-using Laoyoutiao.Models.Entitys;
+using Laoyoutiao.Models.CustomAttribute;
 using Microsoft.AspNetCore.Mvc;
 using SqlSugar;
 using SqlSugar.IOC;
@@ -36,10 +36,14 @@ namespace Laoyoutiao.webapi.Controllers
 
                 if (files.Length > 0)
                 {
-                    Type[] types = typeall.Where(a=> a.IsDefined(typeof(TenantAttribute))&&a.IsDefined(typeof(SugarTable))&& a.GetCustomAttribute<TenantAttribute>().configId.ToString() == item.ConfigId).ToArray();
+                    Type[] types = typeall.Where(a=> a.IsDefined(typeof(TenantAttribute))&&a.IsDefined(typeof(SugarTable))&&!a.IsDefined(typeof(Laoyoutiao.Models.CustomAttribute.IgnoreCreateAttribute))
+                    && a.GetCustomAttribute<TenantAttribute>().configId.ToString() == item.ConfigId).ToArray();
                     //更新数据库字段，如果有修改就更新
                     //Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(it => it.BaseType == typeof(BaseEntity) && it.GetCustomAttribute<TenantAttribute>().configId.ToString() == item.ConfigId).ToArray();
-                    _db.CodeFirst.SetStringDefaultLength(200).InitTables(types);
+                    if (types.Length > 0) {
+                        _db.CodeFirst.SetStringDefaultLength(200).InitTables(types);
+                    }
+                   
                  
                     //Type[] typetree = typeall.Where(a => a.BaseType == typeof(BaseTreeEntity<>) && a.IsDefined(typeof(TenantAttribute)) 
                     //&& a.GetCustomAttribute<TenantAttribute>().configId.ToString() == item.ConfigId).ToArray();
@@ -59,7 +63,10 @@ namespace Laoyoutiao.webapi.Controllers
 
                 //Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(it => it.BaseType == typeof(BaseEntity)).ToArray();
                 //更新数据库字段，如果有修改就更新
-                Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(it => it.BaseType == typeof(BaseKey) && it.GetCustomAttribute<TenantAttribute>().configId.ToString() == configID).ToArray();
+                Type[] types = Assembly.LoadFrom(files[0]).GetTypes().Where(
+                    it => it.BaseType == typeof(BaseKey)
+                && it.GetCustomAttribute<TenantAttribute>().configId.ToString() == configID 
+                && !it.IsDefined(typeof(Laoyoutiao.Models.CustomAttribute.IgnoreCreateAttribute))).ToArray();
                 client.CodeFirst.SetStringDefaultLength(200).InitTables(types);
 
                 //foreach (var entityType in types)

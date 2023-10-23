@@ -235,7 +235,7 @@
             
             </summary>
         </member>
-        <member name="M:Laoyoutiao.webapi.Controllers.BaseWorkFlowController`4.Commit(`3,System.String,System.Int64,System.String,System.Int64)">
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseWorkFlowController`4.Commit(`3,System.String,System.Int64,System.String,System.Int64,System.String)">
             <summary>
             提交审批
             </summary>
@@ -243,6 +243,13 @@
              /// <param name="url">路由地址</param>
               /// <param name="userId">当前用户Id</param>
             <returns></returns>(string url,long userId,string instanceId,string SourceTable,long KeyValue)
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseWorkFlowController`4.WorkFlowWithdrawAsync(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
+            <summary>
+            撤销
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
         </member>
         <member name="T:Laoyoutiao.webapi.Controllers.LoginController">
             <summary>

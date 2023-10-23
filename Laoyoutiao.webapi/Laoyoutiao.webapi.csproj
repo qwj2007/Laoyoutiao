@@ -27,6 +27,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Laoyoutiao.Common\Laoyoutiao.Common.csproj" />
+    <ProjectReference Include="..\Laoyoutiao.Entities\Laoyoutiao.Models.csproj" />
     <ProjectReference Include="..\Laoyoutiao.IService\Laoyoutiao.IService.csproj" />
     <ProjectReference Include="..\Laoyoutiao.Service\Laoyoutiao.Service.csproj" />
   </ItemGroup>

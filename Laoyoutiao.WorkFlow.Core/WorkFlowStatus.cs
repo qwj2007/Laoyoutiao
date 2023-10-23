@@ -17,6 +17,11 @@ namespace Laoyoutiao.WorkFlow.Core
         //     未提交
         [Description("未提交")]
         UnSubmit = -1,
+        /// <summary>
+        /// 提交
+        /// </summary>
+        [Description("提交")]
+        Submit = 0,
         //
         // 摘要:
         //     审核中

@@ -47,6 +47,7 @@ namespace Laoyoutiao.webapi.Config
                     SetLog(db, item.ConfigId);
                 });
             });
+           
         }
         //日志
         private static void SetLog(SqlSugarClient db, string configid)

@@ -16,24 +16,24 @@ namespace Laoyoutiao.WorkFlow.Core
         /// <summary>
         /// 主键名称
         /// </summary>
-        
-        public string KeyName { get; set; }
+
+        public string? KeyName { get; set; } = "Id";
         /// <summary>
         /// 主键值
         /// </summary>
       
-        public string KeyValue { get; set; }
+        public string? KeyValue { get; set; }
         /// <summary>
         /// 流程状态
         /// </summary>
         
-        public WorkFlowStatus Status { get; set; }
+        public WorkFlowStatus? Status { get; set; }
 
         /// <summary>
         /// 表名称
         /// </summary>
        
-        public string TableName { get; set; }
+        public string? TableName { get; set; }
 
         /// <summary>
         /// 流程操作时间
@@ -44,6 +44,6 @@ namespace Laoyoutiao.WorkFlow.Core
         /// <summary>
         ///  CAP订阅名称
         /// </summary>        
-        public string TargetName { get; set; } = "WorkFlowStatusChanged";
+        public string? TargetName { get; set; } = "WorkFlowStatusChanged";
     }
 }

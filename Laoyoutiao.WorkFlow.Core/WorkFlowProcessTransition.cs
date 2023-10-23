@@ -22,32 +22,32 @@ namespace Laoyoutiao.WorkFlow.Core
         //
         // 摘要:
         //     流程id
-        public Guid FlowId { get; set; }
+        public Guid FlowId { get; set; } = default(Guid);
 
         //
         // 摘要:
         //     实例id
-        public Guid InstanceId { get; set; }
+        public Guid? InstanceId { get; set; }
 
         //
         // 摘要:
         //     用户id
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
 
         //
         // 摘要:
         //     用户姓名
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
 
         //
         // 摘要:
         //     菜单类型 操作类型
-        public WorkFlowMenu MenuType { get; set; }
+        public WorkFlowMenu? MenuType { get; set; }
 
         //
         // 摘要:
         //     内容
-        public string ProcessContent { get; set; }
+        public string? ProcessContent { get; set; }
 
         //
         // 摘要:
@@ -62,12 +62,12 @@ namespace Laoyoutiao.WorkFlow.Core
         //
         // 摘要:
         //     流程状态改变实体
-        public WorkFlowStatusChange StatusChange { get; set; }
+        public WorkFlowStatusChange? StatusChange { get; set; }
 
         //
         // 摘要:
         //     流程委托实体
-        public FlowAssign Assign { get; set; }
+        public FlowAssign? Assign { get; set; }
 
         //
         // 摘要:
@@ -77,7 +77,7 @@ namespace Laoyoutiao.WorkFlow.Core
         //
         // 摘要:
         //     扩展字段
-        public object Extend { get; set; }
+        public object? Extend { get; set; }
 
 
     }

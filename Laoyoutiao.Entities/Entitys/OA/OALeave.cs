@@ -13,8 +13,8 @@ namespace Laoyoutiao.Models.Entitys.OA
     [Tenant("0")]
     public class OALeave : BaseEntity
     {
-        [SugarColumn(IsNullable = false, Length = 50,ColumnDescription ="请假编码")]
-        public string LeaveCode { get; set; }
+        //[SugarColumn(IsNullable = false, Length = 50,ColumnDescription ="请假编码")]
+        //public string LeaveCode { get; set; }
         [SugarColumn(IsNullable = false, Length = 50, ColumnDescription = "请假标题")]
         public string Title { get; set; }
         [SugarColumn(IsNullable = false, ColumnDescription = "请假人")]

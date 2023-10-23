@@ -8,7 +8,7 @@ namespace Laoyoutiao.Models.Dto.OA.Leave
     public class LeaveEdit:BaseDto
     {
      
-        public string LeaveCode { get; set; }
+        public string Code { get; set; }
 
         public string Title { get; set; }
 

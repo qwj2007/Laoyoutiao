@@ -9,7 +9,7 @@ namespace Laoyoutiao.Models.Dto.OA.Leave
     public class LeaveRes
     {
        public long Id { get; set; }
-        public string LeaveCode { get; set; }
+        public string? Code { get; set; }
         
         public string Title { get; set; }
         
@@ -29,7 +29,7 @@ namespace Laoyoutiao.Models.Dto.OA.Leave
       
         public int FlowStatus { get; set; }
        
-        public string FlowStatusName { get; set; }
+        public string? FlowStatusName { get; set; }
         
         //public string FlowStatusName { get {
         //        return EnumHelper.GetEnumDescription<WorkFlowStatus>(FlowStatus);
@@ -37,5 +37,10 @@ namespace Laoyoutiao.Models.Dto.OA.Leave
     
         public DateTime FlowTime { get; set; }
         public DateTime CreateDate { get; set; }
+        public string? FlowId { get; set; }
+        public string? Url { get; set; }
+
+        public string FormId { get; set; }
+        public string InstanceId { get; set; }
     }
 }

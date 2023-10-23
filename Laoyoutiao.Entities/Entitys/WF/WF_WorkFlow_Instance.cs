@@ -13,7 +13,7 @@ namespace Laoyoutiao.Models.Entitys.WF
     /// </summary>
     [SugarTable("wf_workflow_instance")]
     [Tenant("0")]
-    public class WF_WorkFlow_Instance:BaseEntity
+    public class WF_WorkFlow_Instance : BaseEntity
     {
         [SugarColumn(IsNullable = false, Length = 50, ColumnDescription = "流程实例Id")]
         public string? InstanceId { get; set; }
@@ -41,8 +41,22 @@ namespace Laoyoutiao.Models.Entitys.WF
         [SugarColumn(IsNullable = true, ColumnDescription = "流程是否结束")]
         public int? IsFinish { get; set; } = 0;
 
-        [SugarColumn(IsNullable = true, ColumnDescription = "流程是否结束")]
+        [SugarColumn(IsNullable = true, ColumnDescription = "状态")]
         public int Status { get; set; }
 
+        /// <summary>
+        /// 业务来源Id
+        /// </summary>
+        [SugarColumn(IsNullable = true, ColumnDescription = "业务Id",Length =50)]
+        public string? BusinessId { get; set; }
+        /// <summary>
+        /// 业务名称
+        /// </summary>
+        [SugarColumn(IsNullable = true, ColumnDescription = "业务名称",Length =50)]
+        public string? BusinessName { get; set; }
+        [SugarColumn(IsNullable = true, ColumnDescription = "业务来源表",Length =20)]
+        public string? BusinessFromTable { get; set; }
+        [SugarColumn(IsNullable = true, ColumnDescription = "业务来源Code",Length =50)]
+        public string? BusinessCode { get; set; }
     }
 }
