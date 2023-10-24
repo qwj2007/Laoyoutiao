@@ -53,6 +53,7 @@ namespace Laoyoutiao.webapi.Controllers
         {
             return ResultHelper.Success(_baseService.GetModelById<TRes>(id));
         }
+
         /// <summary>
         /// 插入或修改一条数据
         /// </summary>
@@ -66,6 +67,34 @@ namespace Laoyoutiao.webapi.Controllers
             var result = await _baseService.Add(req, userId);
             return ResultHelper.Success(result);
         }
+
+        /// <summary>
+        /// 保存修改返回主键
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public virtual async Task<ApiResult> AddOneRerunKeyValue(TEdit req)
+        {
+            //获取当前登录人信息 
+            long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
+            var result = await _baseService.AddOneRerunKeyValue(req, userId);
+            return ResultHelper.Success(result);
+        }
+        /// <summary>
+        /// 保存并返回实体
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public virtual async Task<ApiResult> AddOrUpdateReturnEntity(TEdit req)
+        {
+            //获取当前登录人信息 
+            long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
+            var result = await _baseService.AddOrUpdateReturnEntity(req, userId);
+            return ResultHelper.Success(result);
+        }
+        
 
         //[HttpPost]
         //public async Task<ApiResult> Edit(UserEdit req)

@@ -31,16 +31,31 @@ namespace Laoyoutiao.Service.OA
         }
         public override Task<bool> Add<TEdit>(TEdit input, long userId)
         {
-
-            LeaveEdit leaveEdit = input as LeaveEdit;
-            if (leaveEdit.Id == 0)
-            {
-                //雪花算法
-                leaveEdit.Code = SnowFlakeSingle.Instance.NextId().ToString();// DateTime.Now.Ticks.ToString();
-            }
+            LeaveEdit leaveEdit = input as LeaveEdit;           
             leaveEdit.UserId = userId;
             leaveEdit.Days = Convert.ToDecimal(new TimeSpan(leaveEdit.EndTime.Ticks - leaveEdit.StartTime.Ticks).Days) + 1;
             return base.Add(input, userId);
+        }
+        public override Task<long> AddOneRerunKeyValue<TEdit>(TEdit input, long userId)
+        {
+            LeaveEdit leaveEdit = input as LeaveEdit;            
+            leaveEdit.UserId = userId;
+            leaveEdit.Days = Convert.ToDecimal(new TimeSpan(leaveEdit.EndTime.Ticks - leaveEdit.StartTime.Ticks).Days) + 1;
+            return base.AddOneRerunKeyValue(input, userId);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TEdit"></typeparam>
+        /// <param name="input"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public override Task<OALeave> AddOrUpdateReturnEntity<TEdit>(TEdit input, long userId)
+        {
+            LeaveEdit leaveEdit = input as LeaveEdit;           
+            leaveEdit.UserId = userId;
+            leaveEdit.Days = Convert.ToDecimal(new TimeSpan(leaveEdit.EndTime.Ticks - leaveEdit.StartTime.Ticks).Days) + 1;
+            return base.AddOrUpdateReturnEntity(input, userId);           
         }
 
         /// <summary>

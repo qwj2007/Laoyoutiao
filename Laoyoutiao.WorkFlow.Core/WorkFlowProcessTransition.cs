@@ -11,6 +11,17 @@ namespace Laoyoutiao.WorkFlow.Core
     //     流程流转实体
     public class WorkFlowProcessTransition
     {
+        public string? BusinessId { get; set; }
+
+        public string? Code { get; set; }
+
+        public string? BusinessName { get; set; }
+
+        /// <summary>
+        /// 页面地址
+        /// </summary>
+        public string url { get; set; }
+
         /// <summary>
         /// 流程实例Id，真正的主键
         /// </summary>

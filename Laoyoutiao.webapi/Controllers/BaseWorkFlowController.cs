@@ -54,6 +54,19 @@ namespace Laoyoutiao.webapi.Controllers
             return ResultHelper.Success(isOk);
         }
 
+
+        /// <summary>
+        /// 工作流程提交
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public virtual async Task<ApiResult> WrokFlowCommit(WorkFlowProcessTransition model)
+        {
+            //提交先保存，在提交
+            var result = await _workFlowInstanceService.CreateInstanceAsync(model);
+            return ResultHelper.Success(result);
+        }
         /// <summary>
         /// 撤销
         /// </summary>

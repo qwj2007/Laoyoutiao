@@ -180,6 +180,20 @@
             <param name="req"></param>
             <returns></returns>
         </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.AddOneRerunKeyValue(`3)">
+            <summary>
+            保存修改返回主键
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.AddOrUpdateReturnEntity(`3)">
+            <summary>
+            保存并返回实体
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
         <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.Del(System.Int64)">
             <summary>
             根据Id删除
@@ -243,6 +257,13 @@
              /// <param name="url">路由地址</param>
               /// <param name="userId">当前用户Id</param>
             <returns></returns>(string url,long userId,string instanceId,string SourceTable,long KeyValue)
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseWorkFlowController`4.WrokFlowCommit(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
+            <summary>
+            工作流程提交
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
         </member>
         <member name="M:Laoyoutiao.webapi.Controllers.BaseWorkFlowController`4.WorkFlowWithdrawAsync(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
             <summary>

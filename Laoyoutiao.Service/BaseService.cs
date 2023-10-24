@@ -62,6 +62,7 @@ namespace Laoyoutiao.Service
             T info = _mapper.Map<T>(input);
             if (info.Id == 0)
             {
+                info.Code= SnowFlakeSingle.Instance.NextId().ToString();
                 info.CreateUserId = userId;
                 info.CreateDate = DateTime.Now;
                 //info.UserType = 1;//0=炒鸡管理员，系统内置的
@@ -75,11 +76,19 @@ namespace Laoyoutiao.Service
                 return await _db.Updateable(info).ExecuteCommandAsync() > 0;
             }
         }
+        /// <summary>
+        /// 保存并返回主键
+        /// </summary>
+        /// <typeparam name="TEdit"></typeparam>
+        /// <param name="input"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public virtual async Task<long> AddOneRerunKeyValue<TEdit>(TEdit input, long userId)
         {
             T info = _mapper.Map<T>(input);
             if (info.Id == 0)
             {
+                info.Code = SnowFlakeSingle.Instance.NextId().ToString();
                 info.CreateUserId = userId;
                 info.CreateDate = DateTime.Now;
                 //info.UserType = 1;//0=炒鸡管理员，系统内置的
@@ -96,12 +105,19 @@ namespace Laoyoutiao.Service
                 return info.Id;
             }
         }
-
+        /// <summary>
+        /// 保存并返回实体
+        /// </summary>
+        /// <typeparam name="TEdit"></typeparam>
+        /// <param name="input"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public virtual async Task<T> AddOrUpdateReturnEntity<TEdit>(TEdit input, long userId)
         {
             T info = _mapper.Map<T>(input);
             if (info.Id == 0)
             {
+                info.Code = SnowFlakeSingle.Instance.NextId().ToString();
                 info.CreateUserId = userId;
                 info.CreateDate = DateTime.Now;
                 //info.UserType = 1;//0=炒鸡管理员，系统内置的
@@ -112,7 +128,7 @@ namespace Laoyoutiao.Service
             {
                 info.ModifyUserId = userId;
                 info.ModifyDate = DateTime.Now;
-                var result = await _db.Updateable(info).ExecuteCommandAsync();
+                await _db.Updateable(info).ExecuteCommandAsync();
                 return info;
             }
         }
