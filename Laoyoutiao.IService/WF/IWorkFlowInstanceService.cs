@@ -1,4 +1,6 @@
-﻿using Laoyoutiao.Models.Dto.WF;
+﻿using Laoyoutiao.Models.Common;
+using Laoyoutiao.Models.Dto.WF;
+using Laoyoutiao.Models.Dto.WF.Instance;
 using Laoyoutiao.Models.Dto.WF.Urge;
 using Laoyoutiao.Models.Entitys.Sys;
 using Laoyoutiao.Models.Entitys.WF;
@@ -30,5 +32,11 @@ namespace Laoyoutiao.IService.WF
         Task<WorkFlowImageDto> GetFlowImageAsync(string flowid, string? instanceId);
         Task<bool> UrgeAsync(UrgeEdit urge);
         Task<bool> WorkFlowWithdrawAsync(WorkFlowProcessTransition model);
+        /// <summary>
+        /// 获取用户待办事项
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        Task<PageInfo> GetUserTodoListAsync(WorkFlowInstanceReq req);
     }
 }

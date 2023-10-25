@@ -119,6 +119,18 @@
             <param name="userId"></param>
             <returns></returns>
         </member>
+        <member name="T:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController.GetUserTodoListAsync(Laoyoutiao.Models.Dto.WF.Instance.WorkFlowInstanceReq)">
+            <summary>
+            获取用户的待办信息
+            </summary>
+            <param name="req">传递的参数</param>
+            <returns></returns>
+        </member>
         <member name="T:Laoyoutiao.webapi.Config.AutofacModuleRegister">
             <summary>
             用autofac实现依赖注入

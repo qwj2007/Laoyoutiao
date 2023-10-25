@@ -2,10 +2,13 @@
 using DotNetCore.CAP;
 using Laoyoutiao.Common;
 using Laoyoutiao.IService.WF;
+using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.WF;
+using Laoyoutiao.Models.Dto.WF.Instance;
 using Laoyoutiao.Models.Dto.WF.Urge;
 using Laoyoutiao.Models.Entitys.Sys;
 using Laoyoutiao.Models.Entitys.WF;
+using Laoyoutiao.Models.Views;
 using Laoyoutiao.WorkFlow.Core;
 using System.Data;
 using System.Security.Policy;
@@ -31,7 +34,7 @@ namespace Laoyoutiao.Service.WF
         /// <param name="userid">当前人</param>
         /// <param name="optionParams"></param>
         /// <returns></returns>
-        private async Task<string> GetMakerListAsync(WorkFlowNode node, string userid, Dictionary<string, object> optionParams=null)
+        private async Task<string> GetMakerListAsync(WorkFlowNode node, string userid, Dictionary<string, object> optionParams = null)
         {
             if (node.properties.IsNull())
             {
@@ -86,14 +89,36 @@ namespace Laoyoutiao.Service.WF
         }
 
         /// <summary>
-        /// 我的待办
+        /// 我的待办事项
         /// </summary>
-        /// <param name="searchDto"></param>
+        /// <param name="req"></param>
         /// <returns></returns>
-        //public async Task<Page<UserWorkFlowDto>> GetUserTodoListAsync(WorkFlowTodoSearchDto searchDto)
-        //{
-        //    return await databaseFixture.Db.WorkflowInstance.GetUserTodoListAsync(searchDto);
-        //}
+        public async Task<PageInfo> GetUserTodoListAsync(WorkFlowInstanceReq req)
+        {
+            PageInfo pageInfo = new PageInfo();
+            var query1 = _db.Queryable<V_WorkFlow>().Where(a => a.MakerList.Contains(req.LoginUserId.ToString() + ','));
+            var query2 = _db.Queryable<V_WorkFlow>()
+                .LeftJoin<WF_WorkFlow_Notice>((vf, wn) => vf.InstanceId == wn.InstanceId)
+                .Where((vf, wn) => wn.IsDeleted == 0 && wn.IsRead == 0 && wn.IsTransition == 1
+                && wn.Status == 1 && wn.Maker == req.LoginUserId.ToString());
+
+            var allQuery = _db.Union(query1, query2)
+                .WhereIF(!string.IsNullOrEmpty(req.UserName), a => a.CreateUserName.Contains(req.UserName))
+                .WhereIF(!string.IsNullOrEmpty(req.FlowName), a => a.BusinessName.Contains(req.FlowName))
+                .WhereIF(!string.IsNullOrEmpty(req.BusinessName), a => a.BusinessName.Contains(req.BusinessName));
+            var res = await allQuery.Skip((req.PageIndex - 1) * req.PageSize)
+               .Take(req.PageSize)
+               .ToListAsync();
+            pageInfo.data = _mapper.Map<List<WorkFlowInstanceRes>>(res);
+            foreach (var item in pageInfo.data as List<WorkFlowInstanceRes>)
+            {
+                item.FlowStatusName = EnumHelper.EnumToDescription<WorkFlowStatus>(item.FlowStatus);
+            }
+            pageInfo.total = allQuery.Count();
+            return pageInfo;
+
+        }
+       
 
         /// <summary>
         /// 获取用户流程操作历史记录
@@ -128,23 +153,7 @@ namespace Laoyoutiao.Service.WF
         //{
         //    return await databaseFixture.Db.WorkflowInstance.GetMyApprovalHistoryAsync(pageIndex, pageSize, userId);
         //}
-
-
-        /// <summary>
-        /// CAP发布订阅
-        /// </summary>
-        /// <param name="statusChange"></param>
-        /// <param name="flowStatus">要改变成的状态</param>
-        /// <returns></returns>
-        //private async Task FlowStatusChangePublisher(WorkFlowStatusChange statusChange, WorkFlowStatus flowStatus)
-        //{
-        //    if (statusChange != null)
-        //    {
-        //        statusChange.Status = flowStatus;
-        //        statusChange.FlowTime = DateTime.Now.ToTimeStamp();
-        //        await capPublisher.PublishAsync(statusChange.TargetName, statusChange);
-        //    }
-        //}
+       
 
         #region 流程过程流转处理
 
@@ -214,136 +223,8 @@ namespace Laoyoutiao.Service.WF
         //    }
         //}
 
-        /// <summary>
-        /// 创建实例
-        /// 注意事项：
-        /// 1、流程开始节点不可添加任何条件分支（不符合逻辑，故人为规定）,即开始节点之后必须只能有一个任务节点，否则整个逻辑就错误了
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        #region
-        //public async Task<bool> CreateInstanceAsync(WorkFlowProcessTransition model)
-        //{
-        //    //先删除再添加
-        //    var result = await _db.Ado.UseTranAsync(async () =>
-        //    {
-        //        WF_WorkFlow workflow = await _db.Queryable<WF_WorkFlow>().FirstAsync(a => a.FlowId == model.FlowId.ToString());
-        //        MsWorkFlowContext context = new MsWorkFlowContext(new WorkFlow.Core.WorkFlow
-        //        {
-        //            FlowId = Guid.Parse(workflow.FlowId),
-        //            FlowJson = workflow.FlowContent,
-        //            ActivityNodeId = default(Guid)
-        //        });
-
-        //        #region 创建/修改实例
-        //        WF_WorkFlow_Instance workflowInstance;
-        //        //创建
-        //        if (model.InstanceId == default(Guid))
-        //        {
-        //            workflowInstance = new WF_WorkFlow_Instance
-        //            {
-        //                InstanceId = Guid.NewGuid().ToString(),
-        //                FlowId = model.FlowId.ToString(),
-        //                Code = DateTime.Now.Ticks + string.Empty.CreateNumberNonce(),
-        //                ActivityId = context.WorkFlow.NextNodeId.ToString(),
-        //                ActivityName = context.WorkFlow.NextNode.text.value,
-        //                ActivityType = (int)context.WorkFlow.NextNodeType,
-        //                PreviousId = context.WorkFlow.ActivityNodeId.ToString(),
-        //                MakerList = await this.GetMakerListAsync(context.WorkFlow.Nodes[context.WorkFlow.NextNodeId], model.UserId, model.OptionParams),
-        //                CreateUserId = long.Parse(model.UserId),
-        //                //CreateUserName = model.UserName,
-        //                FlowContent = workflow.FlowContent,
-        //                IsFinish = context.WorkFlow.NextNodeType.ToIsFinish(),
-        //                Status = (int)WorkFlowStatus.Running,
-        //                FormId = workflow.FormId.ToString()
-        //            };
-        //            await _db.Insertable(workflowInstance).ExecuteCommandAsync();
-        //        }
-        //        else
-        //        {
-
-        //            //修改                    
-        //            workflowInstance = await _db.Queryable<WF_WorkFlow_Instance>().FirstAsync(a => a.InstanceId == model.InstanceId.ToString());
-        //            workflowInstance.ActivityId = context.WorkFlow.NextNodeId.ToString();
-        //            workflowInstance.ActivityName = context.WorkFlow.NextNode.text.value;
-        //            workflowInstance.ActivityType = (int)context.WorkFlow.NextNodeType;
-        //            workflowInstance.PreviousId = context.WorkFlow.ActivityNodeId.ToString();
-        //            workflowInstance.MakerList = await this.GetMakerListAsync(context.WorkFlow.Nodes[context.WorkFlow.NextNodeId], model.UserId, model.OptionParams);
-        //            workflowInstance.FlowContent = workflow.FlowContent;
-        //            workflowInstance.IsFinish = context.WorkFlow.NextNodeType.ToIsFinish();
-        //            workflowInstance.Status = (int)WorkFlowStatus.Running;
-        //            workflowInstance.ModifyDate = DateTime.Now;
-        //            await _db.Updateable(workflowInstance).ExecuteCommandAsync();
-        //        }
-        //        #endregion
-
-        //        #region 创建流程实例表单关联记录
-        //        //var dbform = await databaseFixture.Db.WorkflowForm.FindByIdAsync(dbflow.FormId);
-        //        //if ((WorkFlowFormType)dbform.FormType == WorkFlowFormType.System)
-        //        //{
-        //        //    WfWorkflowInstanceForm instanceForm = new WfWorkflowInstanceForm
-        //        //    {
-        //        //        Id = Guid.NewGuid(),
-        //        //        CreateUserId = model.UserId,
-        //        //        FormContent = model.StatusChange.KeyValue,//保存对应表单主键
-        //        //        FormData = model.StatusChange.KeyValue,
-        //        //        InstanceId = workflowInstance.InstanceId,
-        //        //        FormId = dbform.FormId,
-        //        //        FormType = dbform.FormType,
-        //        //        FormUrl = dbform.FormUrl
-        //        //    };
-        //        //    await databaseFixture.Db.WorkflowInstanceForm.InsertAsync(instanceForm, tran);
-        //        //}
-        //        //else
-        //        //{
-        //        //    //强制修改为null
-        //        //    model.StatusChange = null;
-        //        //}
-        //        #endregion
-
-        //        #region 创建流程操作记录
-        //        WF_WorkFlow_Operation_History operationHistory = new WF_WorkFlow_Operation_History
-        //        {
-        //            OperationId = Guid.NewGuid().ToString(),
-        //            InstanceId = workflowInstance.InstanceId,
-        //            CreateUserId = long.Parse(model.UserId),
-        //            CreateUserName = model.UserName,
-        //            Content = "提交流程",
-        //            NodeName = context.WorkFlow.ActivityNode.text.value,
-        //            NodeId = context.WorkFlow.ActivityNodeId.ToString(),
-        //            TransitionType = (int)WorkFlowMenu.Submit
-        //        };
-        //        await _db.Insertable(operationHistory).ExecuteCommandAsync();
-        //        #endregion
-
-        //        #region 创建流程流转记录
-
-        //        WF_WorkFlow_Transition_History transitionHistory = new WF_WorkFlow_Transition_History
-        //        {
-        //            transitionId = Guid.NewGuid().ToString(),
-        //            InstanceId = workflowInstance.InstanceId,
-        //            FromNodeId = context.WorkFlow.ActivityNodeId.ToString(),
-        //            FromNodeType = (int)context.WorkFlow.ActivityNodeType,
-
-        //            FromNodeName = context.WorkFlow.ActivityNode.text.value,
-        //            ToNodeId = context.WorkFlow.NextNodeId.ToString(),
-        //            ToNodeType = (int)context.WorkFlow.NextNodeType,
-        //            ToNodeName = context.WorkFlow.NextNode.text.value,
-        //            CreateUserId = long.Parse(model.UserId),
-        //            CreateUserName = model.UserName,
-        //            //TransitionState = (int)WorkFlowTransitionStateType.Normal,
-        //            IsFinish = context.WorkFlow.NextNodeType.ToIsFinish(),
-        //        };
-        //        await _db.Insertable(transitionHistory).ExecuteCommandAsync();
-        //        #endregion
-
-        //        //改变表单状态,哪个表单订阅了这个就触发改变状态的值。
-        //        await FlowStatusChangePublisher(model.StatusChange, WorkFlowStatus.Running);
-        //    });
-        //    return result.IsSuccess;
-
-        //}
-        #endregion
+  
+      
         #endregion
 
         /// <summary>
@@ -358,25 +239,27 @@ namespace Laoyoutiao.Service.WF
         /// <param name="keyValue">来源表主键的值</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public async Task<bool> CreateInstanceAsync(string url,long userId,string sourceTable,long keyValue,string businessName="",string businessCode="")
+        public async Task<bool> CreateInstanceAsync(string url, long userId, string sourceTable, long keyValue, string businessName = "", string businessCode = "")
         {
             //string instanceId = default(Guid).ToString();
             //先删除再添加
             var result = await _db.Ado.UseTranAsync(async () =>
             {
-               var userInfo=await _db.Queryable<SysUser>().FirstAsync(a => a.Id == userId && a.IsDeleted == 0);
+                var userInfo = await _db.Queryable<SysUser>().FirstAsync(a => a.Id == userId && a.IsDeleted == 0);
                 //根据url查找到flowId
-                var menu = await _db.Queryable<Menus>().FirstAsync(a=>a.MenuUrl==url&&a.IsDeleted==0&&a.IsButton==0);
-                if (menu == null) {
+                var menu = await _db.Queryable<Menus>().FirstAsync(a => a.MenuUrl == url && a.IsDeleted == 0 && a.IsButton == 0);
+                if (menu == null)
+                {
                     throw new ArgumentException("菜单的URL", "菜单的url为配置");
                 }
                 long fromId = menu.Id;
                 //根据FormId查找到workflow
                 WF_WorkFlow workflow = await _db.Queryable<WF_WorkFlow>().FirstAsync(a => a.FormId == fromId);
-                if (workflow == null||workflow.FlowContent.Length==0) {
+                if (workflow == null || workflow.FlowContent.Length == 0)
+                {
                     throw new ArgumentException("未配置流程", "未配置流程，请联系管理员");
                 }
-               
+
                 WorkFlowStatusChange StatusChange = new WorkFlowStatusChange
                 {
                     KeyName = "Id",
@@ -385,9 +268,9 @@ namespace Laoyoutiao.Service.WF
                     // TargetName = SourceTable + "_ChangeStatus"
                 };
                 //查找是否已经有流程实例
-                var flowInstance =await _db.Queryable<WF_WorkFlow_Instance>().FirstAsync(a => a.FlowId == workflow.FlowId && a.FormId == fromId.ToString()
-                &&a.IsDeleted==0&a.BusinessId==keyValue.ToString()&a.BusinessFromTable==sourceTable);              
-               
+                var flowInstance = await _db.Queryable<WF_WorkFlow_Instance>().FirstAsync(a => a.FlowId == workflow.FlowId && a.FormId == fromId.ToString()
+                && a.IsDeleted == 0 & a.BusinessId == keyValue.ToString() & a.BusinessFromTable == sourceTable);
+
                 MsWorkFlowContext context = new MsWorkFlowContext(new WorkFlow.Core.WorkFlow
                 {
                     FlowId = Guid.Parse(workflow.FlowId),
@@ -397,7 +280,7 @@ namespace Laoyoutiao.Service.WF
 
                 #region 创建/修改实例               
                 //创建
-                if (flowInstance ==null)
+                if (flowInstance == null)
                 {
                     flowInstance = new WF_WorkFlow_Instance
                     {
@@ -416,10 +299,10 @@ namespace Laoyoutiao.Service.WF
                         FlowStatus = (int)WorkFlowStatus.Running,
                         Status = 1,// (int)WorkFlowStatus.Running,
                         FormId = workflow.FormId.ToString(),
-                        BusinessFromTable=sourceTable,
-                        BusinessName=businessName,
-                        BusinessId=keyValue.ToString(),
-                        BusinessCode= businessCode
+                        BusinessFromTable = sourceTable,
+                        BusinessName = businessName,
+                        BusinessId = keyValue.ToString(),
+                        BusinessCode = businessCode
 
                     };
                     await _db.Insertable(flowInstance).ExecuteCommandAsync();
@@ -474,7 +357,7 @@ namespace Laoyoutiao.Service.WF
                 {
                     OperationId = Guid.NewGuid().ToString(),
                     InstanceId = flowInstance.InstanceId,
-                    CreateUserId =userId,
+                    CreateUserId = userId,
                     CreateUserName = userInfo.UserName,
                     Content = "提交流程",
                     NodeName = context.WorkFlow.ActivityNode.text.value,
@@ -572,7 +455,7 @@ namespace Laoyoutiao.Service.WF
                         PreviousId = context.WorkFlow.ActivityNodeId.ToString(),
                         MakerList = await this.GetMakerListAsync(context.WorkFlow.Nodes[context.WorkFlow.NextNodeId], model.UserId.ToString()),
                         CreateUserId = long.Parse(model.UserId),
-                        //CreateUserName = model.UserName,
+                        CreateUserName = model.UserName,
                         FlowContent = workflow.FlowContent,
                         IsFinish = context.WorkFlow.NextNodeType.ToIsFinish(),
                         FlowStatus = (int)WorkFlowStatus.Running,
@@ -636,7 +519,7 @@ namespace Laoyoutiao.Service.WF
                 {
                     OperationId = Guid.NewGuid().ToString(),
                     InstanceId = flowInstance.InstanceId,
-                    CreateUserId =long.Parse(model.UserId),
+                    CreateUserId = long.Parse(model.UserId),
                     CreateUserName = userInfo.UserName,
                     Content = "提交流程",
                     NodeName = context.WorkFlow.ActivityNode.text.value,
@@ -1374,7 +1257,7 @@ namespace Laoyoutiao.Service.WF
 
                 MsWorkFlowContext context = new MsWorkFlowContext(new WorkFlow.Core.WorkFlow
                 {
-                    FlowId =model.FlowId,
+                    FlowId = model.FlowId,
                     FlowJson = dbflowinstance.FlowContent,
                     ActivityNodeId = Guid.Parse(dbflowinstance.ActivityId),
                     PreviousId = Guid.Parse(dbflowinstance.PreviousId)
@@ -1454,7 +1337,7 @@ namespace Laoyoutiao.Service.WF
                     }
                     else
                     {
-                        //下个节点是会签节点
+                        //下个节点不是会签节点
                         if (context.WorkFlow.NextNode.NodeType() != WorkFlowInstanceNodeType.ChatNode)
                         {
                             //修改流程实例
@@ -1463,7 +1346,7 @@ namespace Laoyoutiao.Service.WF
                             dbflowinstance.ActivityName = context.WorkFlow.NextNode.text.value;
                             dbflowinstance.ActivityType = (int)context.WorkFlow.NextNodeType;
                             dbflowinstance.ModifyDate = DateTime.Now;
-                            dbflowinstance.MakerList = context.WorkFlow.NextNodeType == WorkFlowInstanceNodeType.End ? "" : 
+                            dbflowinstance.MakerList = context.WorkFlow.NextNodeType == WorkFlowInstanceNodeType.End ? "" :
                             await this.GetMakerListAsync(context.WorkFlow.NextNode, model.UserId, model.OptionParams);
 
                             dbflowinstance.IsFinish = context.WorkFlow.NextNodeType.ToIsFinish();
@@ -1476,7 +1359,7 @@ namespace Laoyoutiao.Service.WF
                             {
                                 dbflowinstance.Status = (int)WorkFlowStatus.Running;
                             }
-                           await _db.Updateable(dbflowinstance).ExecuteCommandAsync();                          
+                            await _db.Updateable(dbflowinstance).ExecuteCommandAsync();
 
                             //流程结束情况
                             if ((int)WorkFlowInstanceStatus.Finish == dbflowinstance.IsFinish)
@@ -1622,7 +1505,7 @@ namespace Laoyoutiao.Service.WF
                 }
                 MsWorkFlowContext context = new MsWorkFlowContext(new WorkFlow.Core.WorkFlow
                 {
-                    FlowId =model.FlowId,
+                    FlowId = model.FlowId,
                     FlowJson = dbflowinstance.FlowContent,
                     ActivityNodeId = Guid.Parse(dbflowinstance.ActivityId),
                     PreviousId = Guid.Parse(dbflowinstance.PreviousId)
@@ -1787,7 +1670,7 @@ namespace Laoyoutiao.Service.WF
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        
+
         public async Task<bool> WorkFlowWithdrawAsync(WorkFlowProcessTransition model)
         {
             var result = await _db.Ado.UseTranAsync(async () =>
@@ -1813,9 +1696,9 @@ namespace Laoyoutiao.Service.WF
                 //删除流程实例
                 await _db.Deleteable(dbflowinstance).ExecuteCommandAsync();
                 //await databaseFixture.Db.WorkflowInstance.DeleteAsync(dbflowinstance, tran);
-                
+
                 //改变表单状态
-                await FlowStatusChangePublisher(model.StatusChange, WorkFlowStatus.Withdraw);              
+                await FlowStatusChangePublisher(model.StatusChange, WorkFlowStatus.Withdraw);
                 //}
                 //else
                 //{
@@ -2106,6 +1989,6 @@ namespace Laoyoutiao.Service.WF
             return res > 0;
         }
 
-        
+
     }
 }
