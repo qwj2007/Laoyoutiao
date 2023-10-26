@@ -38,5 +38,11 @@ namespace Laoyoutiao.IService.WF
         /// <param name="req"></param>
         /// <returns></returns>
         Task<PageInfo> GetUserTodoListAsync(WorkFlowInstanceReq req);
+        /// <summary>
+        /// 同意操作
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task<bool> WorkFlowAgreeAsync(WorkFlowProcessTransition model);
     }
 }

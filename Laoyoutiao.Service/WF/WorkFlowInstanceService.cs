@@ -1432,6 +1432,200 @@ namespace Laoyoutiao.Service.WF
             return result.IsSuccess;
 
         }
+        /// <summary>
+        /// 同意操作
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<bool> WorkFlowAgreeAsync(WorkFlowProcessTransition model)
+        {
+            var result = await _db.Ado.UseTranAsync(async () =>
+            {
+                WorkFlowStatus publishFlowStatus = WorkFlowStatus.Running;
+                var dbflowinstance = await _db.Queryable<WF_WorkFlow_Instance>().FirstAsync(a => a.InstanceId == model.InstanceId.ToString());
+                if (dbflowinstance.IsFinish == (int)WorkFlowInstanceStatus.Finish)
+                {
+                    return;
+                }
+
+                MsWorkFlowContext context = new MsWorkFlowContext(new WorkFlow.Core.WorkFlow
+                {
+                    FlowId = model.FlowId,
+                    FlowJson = dbflowinstance.FlowContent,
+                    ActivityNodeId = Guid.Parse(dbflowinstance.ActivityId),
+                    PreviousId = Guid.Parse(dbflowinstance.PreviousId)
+                });
+                //正常节点
+                if (context.WorkFlow.ActivityNode.NodeType() == WorkFlowInstanceNodeType.Normal)
+                {
+                    if (context.IsMultipleNextNode())
+                    {
+                        var nextLines = context.GetLinesForTo(context.WorkFlow.ActivityNodeId);
+                        /*
+                         * 多条连线条件必须都存在情况判断
+                         * 注：一个节点下多个连线，则连线必须有SQL判断
+                         * **/
+
+                        bool isOk = nextLines.Any(m => m.properties == null || string.IsNullOrEmpty(m.properties.conditional) || m.properties.conditionalValue == null);
+                        if (isOk)
+                        {
+                            throw new Exception("流程线路条件判断设置出错，请检查！");
+                        }
+                        else
+                        {
+                            //获取确定最终要执行的唯一节点
+                            Guid? finalid = await GetFinalNodeId(nextLines, Convert.ToDouble(model.Extend));
+                            WorkFlowNode reallynode = context.WorkFlow.Nodes[finalid.Value];
+                            dbflowinstance.IsFinish = reallynode.NodeType().ToIsFinish();
+                            if (reallynode.NodeType() == WorkFlowInstanceNodeType.End)
+                            {
+                                dbflowinstance.Status = (int)WorkFlowStatus.IsFinish;
+                            }
+                            else
+                            {
+                                dbflowinstance.Status = (int)WorkFlowStatus.Running;
+                            }
+                            dbflowinstance.ActivityId = reallynode.Id.ToString();
+                            dbflowinstance.ActivityName = reallynode.text.value;
+                            dbflowinstance.ActivityType = (int)reallynode.NodeType();
+                            dbflowinstance.ModifyDate = DateTime.Now;
+                            dbflowinstance.MakerList = reallynode.NodeType() == WorkFlowInstanceNodeType.End ? "" : await this.GetMakerListAsync(reallynode, model.UserId, model.OptionParams);
+                            //await databaseFixture.Db.WorkflowInstance.UpdateAsync(dbflowinstance, tran);
+                            await _db.Updateable(dbflowinstance).ExecuteCommandAsync();
+
+                            //流程结束情况
+                            if ((int)WorkFlowInstanceStatus.Finish == dbflowinstance.IsFinish)
+                            {
+                                publishFlowStatus = WorkFlowStatus.IsFinish;
+                            }
+
+                            #region 添加流转记录
+
+                            WF_WorkFlow_Transition_History transitionHistory = new WF_WorkFlow_Transition_History
+                            {
+                                transitionId = Guid.NewGuid().ToString(),
+                                InstanceId = dbflowinstance.InstanceId,
+                                FromNodeId = context.WorkFlow.ActivityNodeId.ToString(),
+                                FromNodeName = context.WorkFlow.ActivityNode.text.value,
+                                FromNodeType = (int)context.WorkFlow.ActivityNodeType,
+                                ToNodeId = reallynode.Id.ToString(),
+                                ToNodeType = (int)reallynode.NodeType(),
+                                ToNodeName = reallynode.text.value,
+                                //TransitionState = (int)WorkFlowTransitionStateType.Normal,
+                                IsFinish = reallynode.NodeType().ToIsFinish(),
+                                CreateUserId = long.Parse(model.UserId),
+                                CreateUserName = model.UserName
+                            };
+                            await _db.Insertable<WF_WorkFlow_Transition_History>(transitionHistory).ExecuteCommandAsync();
+                            // await databaseFixture.Db.WorkflowTransitionHistory.InsertAsync(transitionHistory, tran);
+                            #endregion
+
+                            #region 通知节点信息添加
+
+                            var viewNodes = context.GetNextNodes(null, WorkFlowInstanceNodeType.ViewNode);
+                            await AddFlowNotice(viewNodes, dbflowinstance.CreateUserId.ToString(), model);
+
+                            #endregion
+                        }
+                    }
+                    else
+                    {
+                        //下个节点不是会签节点
+                        if (context.WorkFlow.NextNode.NodeType() != WorkFlowInstanceNodeType.ChatNode)
+                        {
+                            //修改流程实例
+                            dbflowinstance.PreviousId = dbflowinstance.ActivityId;
+                            dbflowinstance.ActivityId = context.WorkFlow.NextNodeId.ToString();
+                            dbflowinstance.ActivityName = context.WorkFlow.NextNode.text.value;
+                            dbflowinstance.ActivityType = (int)context.WorkFlow.NextNodeType;
+                            dbflowinstance.ModifyDate = DateTime.Now;
+                            dbflowinstance.MakerList = context.WorkFlow.NextNodeType == WorkFlowInstanceNodeType.End ? "" :
+                            await this.GetMakerListAsync(context.WorkFlow.NextNode, model.UserId, model.OptionParams);
+
+                            dbflowinstance.IsFinish = context.WorkFlow.NextNodeType.ToIsFinish();
+
+                            if (context.WorkFlow.NextNodeType == WorkFlowInstanceNodeType.End)
+                            {
+                                dbflowinstance.Status = (int)WorkFlowStatus.IsFinish;
+                            }
+                            else
+                            {
+                                dbflowinstance.Status = (int)WorkFlowStatus.Running;
+                            }
+                            await _db.Updateable(dbflowinstance).ExecuteCommandAsync();
+
+                            //流程结束情况
+                            if ((int)WorkFlowInstanceStatus.Finish == dbflowinstance.IsFinish)
+                            {
+                                publishFlowStatus = WorkFlowStatus.IsFinish;
+                            }
+
+                            #region 通知节点信息添加
+
+                            var viewNodes = context.GetNextNodes(null, WorkFlowInstanceNodeType.ViewNode);
+                            await AddFlowNotice(viewNodes, dbflowinstance.CreateUserId.ToString(), model);
+
+                            #endregion
+                        }
+                        else
+                        {
+                            throw new Exception("当前不支持会签功能");
+                            //await NextChatLogic(tran, context, dbflowinstance, WorkFlowInstanceStatus.Running);
+                        }
+
+                        #region 添加流转记录
+
+                        WF_WorkFlow_Transition_History transitionHistory = new WF_WorkFlow_Transition_History
+                        {
+                            transitionId = Guid.NewGuid().ToString(),
+                            InstanceId = dbflowinstance.InstanceId,
+                            FromNodeId = context.WorkFlow.ActivityNodeId.ToString(),
+                            FromNodeName = context.WorkFlow.ActivityNode.text.value,
+                            FromNodeType = (int)context.WorkFlow.ActivityNodeType,
+                            ToNodeId = context.WorkFlow.NextNodeId.ToString(),
+                            ToNodeType = (int)context.WorkFlow.NextNodeType,
+                            ToNodeName = context.WorkFlow.NextNode.text.value,
+                            //TransitionState = (int)WorkFlowTransitionStateType.Normal,
+                            IsFinish = context.WorkFlow.NextNodeType.ToIsFinish(),
+                            CreateUserId = long.Parse(model.UserId),
+                            CreateUserName = model.UserName
+                        };
+                        await _db.Insertable<WF_WorkFlow_Transition_History>(transitionHistory).ExecuteCommandAsync();
+                        //await databaseFixture.Db.WorkflowTransitionHistory.InsertAsync(transitionHistory, tran);
+
+                        #endregion
+                    }
+                }
+                else
+                {
+                    throw new Exception("当前只支持正常节点功能");
+                    //await ChatLogic(tran, context, dbflowinstance, model, WorkFlowInstanceStatus.Running);
+                }
+
+                #region 添加操作记录
+
+                WF_WorkFlow_Operation_History operationHistory = new WF_WorkFlow_Operation_History
+                {
+                    OperationId = Guid.NewGuid().ToString(),
+                    InstanceId = dbflowinstance.InstanceId,
+                    CreateUserId = long.Parse(model.UserId),
+                    CreateUserName = model.UserName,
+                    Content = model.ProcessContent,
+                    NodeId = context.WorkFlow.ActivityNodeId.ToString(),
+                    NodeName = context.WorkFlow.ActivityNode.text.value,
+                    TransitionType = (int)WorkFlowMenu.Agree
+                };
+                //await databaseFixture.Db.WorkflowOperationHistory.InsertAsync(operationHistory, tran);
+                await _db.Insertable<WF_WorkFlow_Operation_History>(operationHistory).ExecuteCommandAsync();
+                #endregion
+
+                await FlowStatusChangePublisher(model.StatusChange, publishFlowStatus);
+            }
+            );
+            return result.IsSuccess;
+
+        }
 
         /// <summary>
         /// 通知
@@ -1726,67 +1920,7 @@ namespace Laoyoutiao.Service.WF
             return result.IsSuccess;
         }
 
-        /// <summary>
-        /// 流程取消
-        /// 刚开始提交，下一个节点未审批情况，流程发起人可以终止
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        //protected async Task<bool> ProcessTransitionWithdrawAsync(WorkFlowProcessTransition model)
-        //{
-        //    var result = await _db.Ado.UseTranAsync(async () =>
-        //    {
-        //        //WorkFlowStatus publishFlowStatus = WorkFlowStatus.Running;
-        //        var dbflowinstance = await _db.Queryable<WF_WorkFlow_Instance>().FirstAsync(a => a.InstanceId == model.InstanceId.ToString());
-        //        //删除流程操作记录
-        //        var dboperationHistory = await _db.Queryable<WF_WorkFlow_Operation_History>().Where(m => m.InstanceId == model.InstanceId.ToString()).ToListAsync();
-        //        await _db.Deleteable(dboperationHistory).ExecuteCommandAsync();
-        //        //删除流程流转记录
-        //        var dbtransitionHistory = await _db.Queryable<WF_WorkFlow_Operation_History>().Where(m => m.InstanceId == model.InstanceId.ToString()).ToListAsync();
-        //        await _db.Deleteable(dbtransitionHistory).ExecuteCommandAsync();
-
-        //        //删除委托表信息
-        //        var dbassigns = await _db.Queryable<WFWorkFlowAssign>().Where(m => m.InstanceId == model.InstanceId.ToString()).ToListAsync();
-        //        await _db.Deleteable(dbassigns).ExecuteCommandAsync();
-
-        //        //var dbinstanceForm = await databaseFixture.Db.WorkflowInstanceForm.FindAsync(m => m.InstanceId == dbflowinstance.InstanceId);
-        //        //if ((WorkFlowFormType)dbinstanceForm.FormType == WorkFlowFormType.System)//定制表单
-        //        //{
-        //        //    //删除流程实例表单关联记录
-        //        //    await databaseFixture.Db.WorkflowInstanceForm.DeleteAsync(dbinstanceForm, tran);
-        //        //删除流程实例
-        //        await _db.Deleteable(dbflowinstance).ExecuteCommandAsync();
-        //        //await databaseFixture.Db.WorkflowInstance.DeleteAsync(dbflowinstance, tran);
-        //        //改变表单状态
-        //        await FlowStatusChangePublisher(model.StatusChange, WorkFlowStatus.Withdraw);
-        //        //}
-        //        //else
-        //        //{
-        //        //    //自定义表单流程实例修改
-        //        //    dbflowinstance.IsFinish = null;
-        //        //    dbflowinstance.Status = (int)WorkFlowStatus.UnSubmit;
-        //        //    dbflowinstance.MakerList = null;
-        //        //    dbflowinstance.ModifyDate = DateTime.Now;
-        //        //  await  _db.Updateable(dbflowinstance).ExecuteCommandAsync();
-
-        //        //}
-        //        //if (dbflowinstance.IsFinish == (int)WorkFlowInstanceStatus.Finish)
-        //        //{
-        //        //    return;
-        //        //}
-        //        //MsWorkFlowContext context = new MsWorkFlowContext(new WorkFlow.Core.WorkFlow
-        //        //{
-        //        //    FlowId = model.FlowId,
-        //        //    FlowJson = dbflowinstance.FlowContent,
-        //        //    ActivityNodeId = Guid.Parse(dbflowinstance.ActivityId),
-        //        //    PreviousId = Guid.Parse(dbflowinstance.PreviousId)
-        //        //});
-        //    });
-
-        //    return result.IsSuccess;
-        //}
-
-
+     
         /// <summary>
         /// 已阅操作
         /// </summary>
