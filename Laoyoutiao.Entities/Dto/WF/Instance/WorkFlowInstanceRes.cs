@@ -1,5 +1,6 @@
 ﻿using Laoyoutiao.Models.CustomAttribute;
 using Laoyoutiao.Models.Entitys.WF;
+using Laoyoutiao.Models.Views;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Laoyoutiao.Models.Dto.WF
 {
-    [TypeMapper(SourceType = typeof(WF_WorkFlow_Instance))]
+    [TypeMapper(SourceType = typeof(V_WorkFlow))]
     public class WorkFlowInstanceRes
     {
         public long? Id { get; set; }
@@ -60,10 +61,12 @@ namespace Laoyoutiao.Models.Dto.WF
         /// <summary>
         /// 菜单地址
         /// </summary>
-        public string? MenuUrl { get; set; }
+        public string MenuUrl { get; set; }
 
         public string? FlowStatusName { get; set; }
 
         public DateTime? CreateDate { get; set; }
+
+        public string? ComValue { get; set; }
     }
 }

@@ -19,7 +19,8 @@ namespace Laoyoutiao.webapi.Controllers
         where TRes : class where TReq : Pagination where TEdit : class
     {
         private readonly IBaseService<T> _baseService;
-        private readonly IWorkFlowInstanceService _workFlowInstanceService;
+        private readonly IWorkFlowInstanceService _workFlowInstanceService;      
+
         //private readonly IMapper _mapper;
         //private readonly ICapPublisher capPublisher;
         public BaseWorkFlowController(IBaseService<T> baseService, IWorkFlowInstanceService workFlowInstanceService) : base(baseService)
@@ -27,7 +28,7 @@ namespace Laoyoutiao.webapi.Controllers
             _baseService = baseService;
             //this._workFlowInstanceService = new WorkFlowInstanceService(_mapper, capPublisher);
             this._workFlowInstanceService = workFlowInstanceService;
-        }
+        }       
 
         #region 审批流程
         /// <summary>
@@ -54,6 +55,16 @@ namespace Laoyoutiao.webapi.Controllers
             return ResultHelper.Success(isOk);
         }
 
+        /// <summary>
+        /// 同意操作
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<ApiResult> WorkFlowAgree(WorkFlowProcessTransition model)
+        {
+            var result = await _workFlowInstanceService.WorkFlowAgreeAsync(model);
+            return ResultHelper.Success(result);
+        }
 
         /// <summary>
         /// 工作流程提交

@@ -121,7 +121,7 @@
         </member>
         <member name="T:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController">
             <summary>
-            
+            工作流操作
             </summary>
         </member>
         <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController.GetUserTodoListAsync(Laoyoutiao.Models.Dto.WF.Instance.WorkFlowInstanceReq)">
@@ -129,6 +129,32 @@
             获取用户的待办信息
             </summary>
             <param name="req">传递的参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController.WorkFlowAgree(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
+            <summary>
+            同意操作
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController.WorkFlowNoAgree(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
+            <summary>
+            不同意操作
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController.WrokFlowCommit(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
+            <summary>
+            工作流程提交
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController.WorkFlowWithdrawAsync(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
+            <summary>
+            撤销
+            </summary>
+            <param name="model"></param>
             <returns></returns>
         </member>
         <member name="T:Laoyoutiao.webapi.Config.AutofacModuleRegister">
@@ -269,6 +295,12 @@
              /// <param name="url">路由地址</param>
               /// <param name="userId">当前用户Id</param>
             <returns></returns>(string url,long userId,string instanceId,string SourceTable,long KeyValue)
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseWorkFlowController`4.WorkFlowAgree(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
+            <summary>
+            同意操作
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Laoyoutiao.webapi.Controllers.BaseWorkFlowController`4.WrokFlowCommit(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
             <summary>

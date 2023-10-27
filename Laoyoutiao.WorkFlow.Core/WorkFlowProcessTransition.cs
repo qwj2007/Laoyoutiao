@@ -20,12 +20,12 @@ namespace Laoyoutiao.WorkFlow.Core
         /// <summary>
         /// 页面地址
         /// </summary>
-        public string url { get; set; }
+        public string? url { get; set; }
 
         /// <summary>
         /// 流程实例Id，真正的主键
         /// </summary>
-        public long Id { get; set; }
+        public long? Id { get; set; }
         ///// <summary>
         ///// 表单Id
         ///// </summary>
@@ -89,7 +89,10 @@ namespace Laoyoutiao.WorkFlow.Core
         // 摘要:
         //     扩展字段
         public object? Extend { get; set; }
-
+        /// <summary>
+        /// 比较值
+        /// </summary>
+        public string? ComValue { get; set; }
 
     }
 }

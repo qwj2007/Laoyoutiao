@@ -29,7 +29,10 @@ namespace Laoyoutiao.Service.Sys
         public async Task<List<PromiseMenu>> GetPromiseMenus(long userId, int isButton = 0,int isShow=-1)
         {
             string sql = @"select sr.RoleName from sys_user us inner join sys_user_role role on us.Id=role.UserId
-inner JOIN sys_role sr on sr.Id=role.RoleId where us.IsDeleted=0 and us.Id=" + userId;
+inner JOIN sys_role sr on sr.Id=role.RoleId where us.IsDeleted=0" ;
+            if (userId > 0) {
+                sql += " and us.Id =" + userId;
+            }
             string?[] roleInfos = await _db.SqlQueryable<SysRole>(sql).Select(a => a.RoleName).ToArrayAsync();
 
             //超级管理员的账号
@@ -40,8 +43,13 @@ from sys_menu menu where menu.isdeleted=0  ";
             }
             else
             {
-                sql = @"select menu.Id, Path , Component,Icon,ParentId, Title,IsButton,Code,ButtonClass,IsShow  from view_menu  menu where userId>0 ";
-                sql += " and  userId=" + userId;
+                sql = @"select menu.Id, Path , Component,Icon,ParentId, Title,IsButton,Code,ButtonClass,IsShow  from view_menu  menu where menu.Id>0 ";
+
+                
+                if (userId > 0)
+                {
+                    sql += " and  userId=" + userId;
+                }
             }
             if (isButton >= 0)
             {

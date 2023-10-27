@@ -60,6 +60,10 @@ namespace Laoyoutiao.Models.Entitys.WF
         public string? BusinessCode { get; set; }
         [SugarColumn(IsNullable = true, ColumnDescription = "创建人姓名", Length = 50)]
         public string? CreateUserName { get; set; }
+
+        [SugarColumn(IsNullable = true, ColumnDescription = "流程比较值", Length = 50)]
+        public string? ComValue { get; set; }
         
+
     }
 }

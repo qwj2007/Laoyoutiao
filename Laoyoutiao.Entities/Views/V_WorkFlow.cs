@@ -19,6 +19,6 @@ namespace Laoyoutiao.Models.Views
     public class V_WorkFlow:WF_WorkFlow_Instance
     {
         
-      public string MenuUrl { get; set; }
+      public string? MenuUrl { get; set; }
     }
 }

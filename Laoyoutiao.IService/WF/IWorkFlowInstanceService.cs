@@ -44,5 +44,11 @@ namespace Laoyoutiao.IService.WF
         /// <param name="model"></param>
         /// <returns></returns>
         Task<bool> WorkFlowAgreeAsync(WorkFlowProcessTransition model);
+        /// <summary>
+        /// 不同意操作
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task<bool> WorkFlowDeprecateAsync(WorkFlowProcessTransition model);
     }
 }
