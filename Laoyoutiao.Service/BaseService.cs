@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Laoyoutiao.Common;
 using Laoyoutiao.IService;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.CustomAttribute;
@@ -305,6 +306,8 @@ namespace Laoyoutiao.Service
             var exp = await base.GetListByWhereAsync(expression);
             return _mapper.Map<List<TRes>>(exp);
         }
+
+     
 
         //public virtual async Task<PageInfo> GetTreeAsync<TReq, TRes>(TReq req)
         //    where TReq : Pagination

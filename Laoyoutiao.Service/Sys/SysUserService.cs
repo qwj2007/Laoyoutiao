@@ -46,7 +46,7 @@ public class SysUserService : BaseService<SysUser>, ISysUserService
                 JobNumber = u.JobNumber,
                 CreateDate = u.CreateDate,
                 Password=u.Password
-            }).ToListAsync();
+            }).Distinct().ToListAsync();
         var res = exp
             .Skip((req.PageIndex - 1) * req.PageSize)
             .Take(req.PageSize)

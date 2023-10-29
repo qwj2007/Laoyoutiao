@@ -23,7 +23,7 @@ namespace Laoyoutiao.IService.WF
         /// <param name="model"></param>
         /// <returns></returns>
         Task<bool> CreateInstanceAsync(WorkFlowProcessTransition model);
-        Task<bool> CreateInstanceAsync(string url, long userId,  string sourceTable, long keyValue, string businessName = "",string businessCode="");
+        //Task<bool> CreateInstanceAsync(string url, long userId,  string sourceTable, long keyValue, string businessName = "",string businessCode="");
        // Task<bool> CreateInstanceAsync(string url, long userId, string sourceTable, long keyValue, string businessName = "", string businessCode = "")
         Task<WorkFlowProcess> GetProcessAsync(WorkFlowProcess process);
         Task<WorkFlowProcess> GetProcessForSystemAsync(SystemFlowDto model);
@@ -50,5 +50,12 @@ namespace Laoyoutiao.IService.WF
         /// <param name="model"></param>
         /// <returns></returns>
         Task<bool> WorkFlowDeprecateAsync(WorkFlowProcessTransition model);
+        /// <summary>
+        /// 退回操作
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task<bool> WorkFlowBackAsync(WorkFlowProcessTransition model);
+
     }
 }

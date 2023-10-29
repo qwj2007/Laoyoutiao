@@ -3,8 +3,54 @@ using System.Reflection;
 
 namespace Laoyoutiao.Common
 {
+    public class EnumResult
+    {
+        public string Label { get; set; }
+        public int Value { get; set; }
+    }
     public static class EnumHelper
     {
+        /// <summary>
+        /// 枚举转Dictionary
+        /// </summary>
+        /// <typeparam name="TEnum"></typeparam>
+        /// <returns></returns>
+        public static IList<EnumResult> EnumToDictionary<TEnum>()
+        {
+            var enumType = typeof(TEnum);
+
+            return (from object obj in Enum.GetValues(enumType)
+                    select new EnumResult
+                    {
+                        Label = GetEnumDescription(obj),
+                        Value = (int)obj
+                    }).ToList();
+        }
+
+        private static string GetEnumDescription<TEnum>(this TEnum eunmObj)
+        {
+            //获取枚举对象的枚举类型  
+            var type = eunmObj.GetType();
+            //通过反射获取该枚举类型的所有属性  
+            var fieldInfos = type.GetFields();
+
+            foreach (var field in fieldInfos)
+            {
+                //不是参数obj,就直接跳过  
+                if (field.Name != eunmObj.ToString())
+                {
+                    continue;
+                }
+                //取出参数obj的自定义属性  
+                if (!field.IsDefined(typeof(DescriptionAttribute), true)) continue;
+                var descriptionAttribute = field.GetCustomAttributes(typeof(DescriptionAttribute),
+                    true)[0] as DescriptionAttribute;
+                if (descriptionAttribute != null)
+                    return descriptionAttribute.Description;
+            }
+            return eunmObj.ToString();
+        }
+
         /// <summary>
         /// 根据desctiption 的值获取枚举值
         /// </summary>
@@ -78,8 +124,9 @@ namespace Laoyoutiao.Common
             //FieldInfo info = type.GetField(myEnum.ToString());
             foreach (FieldInfo info in fields)
             {
-               string fieldName= info.Name;
-                if (fieldName != "value__") {
+                string fieldName = info.Name;
+                if (fieldName != "value__")
+                {
                     int filedValue = (int)info.GetValue(fieldName);//查找这个数据是不是存在
                     if (enumValue == filedValue)
                     {
@@ -89,10 +136,10 @@ namespace Laoyoutiao.Common
                             return desc.Description;
                         }
                     }
-                }  
+                }
             }
             return "";
-           
+
         }
     }
 }

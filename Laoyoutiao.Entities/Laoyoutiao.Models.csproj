@@ -5,6 +5,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Dto\WF\新文件夹\**" />
+    <EmbeddedResource Remove="Dto\WF\新文件夹\**" />
+    <None Remove="Dto\WF\新文件夹\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="SqlSugarCore" Version="5.1.4.99" />
   </ItemGroup>
   <ItemGroup>

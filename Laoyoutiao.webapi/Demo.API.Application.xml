@@ -157,6 +157,20 @@
             <param name="model"></param>
             <returns></returns>
         </member>
+        <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController.WorkFlowBackAsync(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
+            <summary>
+            退回
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowTransitionHistoryController.GetWorkFlowTransitionHistroyByInstanceId(System.String)">
+            <summary>
+            获取用户的部门Id
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Laoyoutiao.webapi.Config.AutofacModuleRegister">
             <summary>
             用autofac实现依赖注入
@@ -287,15 +301,6 @@
             
             </summary>
         </member>
-        <member name="M:Laoyoutiao.webapi.Controllers.BaseWorkFlowController`4.Commit(`3,System.String,System.Int64,System.String,System.Int64,System.String)">
-            <summary>
-            提交审批
-            </summary>
-            <param name="req">请求参数</param>
-             /// <param name="url">路由地址</param>
-              /// <param name="userId">当前用户Id</param>
-            <returns></returns>(string url,long userId,string instanceId,string SourceTable,long KeyValue)
-        </member>
         <member name="M:Laoyoutiao.webapi.Controllers.BaseWorkFlowController`4.WorkFlowAgree(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
             <summary>
             同意操作
@@ -314,6 +319,13 @@
             撤销
             </summary>
             <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.EnumController.GetNodeRejectType">
+            <summary>
+            获取RejectType枚举
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="T:Laoyoutiao.webapi.Controllers.LoginController">

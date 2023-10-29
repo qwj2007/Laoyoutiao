@@ -87,6 +87,17 @@ namespace Laoyoutiao.webapi.Area.WF.Controllers
             return ResultHelper.Success(result);
         }
 
+        /// <summary>
+        /// 退回
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public virtual async Task<ApiResult> WorkFlowBackAsync(WorkFlowProcessTransition model)
+        {           
+            var result = await _workFlowInstanceService.WorkFlowBackAsync(model);
+            return ResultHelper.Success(result);
+        }
 
         #endregion
 

@@ -88,6 +88,7 @@ namespace Laoyoutiao.Service.WF
             }
         }
 
+        #region 我的待办事项
         /// <summary>
         /// 我的待办事项
         /// </summary>
@@ -118,8 +119,9 @@ namespace Laoyoutiao.Service.WF
             return pageInfo;
 
         }
-       
+        #endregion
 
+        #region 用户流程操作历史记录
         /// <summary>
         /// 获取用户流程操作历史记录
         /// </summary>
@@ -129,7 +131,9 @@ namespace Laoyoutiao.Service.WF
         //{
         //    return await databaseFixture.Db.WorkflowInstance.GetUserOperationHistoryAsync(searchDto);
         //}
+        #endregion
 
+        #region 我发起的流程
         /// <summary>
         /// 获取用户发起的流程
         /// </summary>
@@ -141,7 +145,9 @@ namespace Laoyoutiao.Service.WF
         //{
         //    return await databaseFixture.Db.WorkflowInstance.GetUserWorkFlowPageAsync(pageIndex, pageSize, userId);
         //}
+        #endregion
 
+        #region 我的审批历史
         /// <summary>
         /// 获取我的审批历史记录
         /// </summary>
@@ -153,7 +159,7 @@ namespace Laoyoutiao.Service.WF
         //{
         //    return await databaseFixture.Db.WorkflowInstance.GetMyApprovalHistoryAsync(pageIndex, pageSize, userId);
         //}
-       
+        #endregion
 
         #region 流程过程流转处理
 
@@ -223,11 +229,11 @@ namespace Laoyoutiao.Service.WF
         //    }
         //}
 
-  
-      
+
+
         #endregion
 
-   
+
         /// <summary>
         /// 创建一个实例
         /// /// 注意事项：
@@ -712,7 +718,7 @@ namespace Laoyoutiao.Service.WF
                     result = await WorkFlowDeprecateAsync(model);
                     break;
                 case WorkFlowMenu.Back://返回
-                    result = await ProcessTransitionBackAsync(model);
+                    result = await WorkFlowBackAsync(model);
                     break;
                 case WorkFlowMenu.Withdraw://撤回
                     result = await WorkFlowWithdrawAsync(model);
@@ -1078,6 +1084,7 @@ namespace Laoyoutiao.Service.WF
 
         }
 
+        #region 同意操作
         /// <summary>
         /// 同意操作
         /// </summary>
@@ -1272,7 +1279,9 @@ namespace Laoyoutiao.Service.WF
             return result.IsSuccess;
 
         }
+        #endregion
 
+        #region 通知
         /// <summary>
         /// 通知
         /// </summary>
@@ -1327,7 +1336,9 @@ namespace Laoyoutiao.Service.WF
                 }
             }
         }
+        #endregion
 
+        #region 不同意
         /// <summary>
         /// 不同意
         /// </summary>
@@ -1410,13 +1421,15 @@ namespace Laoyoutiao.Service.WF
             });
             return result.IsSuccess;
         }
+        #endregion
 
+        #region 流程退回
         /// <summary>
         /// 流程退回
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        protected async Task<bool> ProcessTransitionBackAsync(WorkFlowProcessTransition model)
+        public async Task<bool> WorkFlowBackAsync(WorkFlowProcessTransition model)
         {
             var result = await _db.Ado.UseTranAsync(async () =>
             {
@@ -1433,12 +1446,12 @@ namespace Laoyoutiao.Service.WF
                     ActivityNodeId = Guid.Parse(dbflowinstance.ActivityId),
                     PreviousId = Guid.Parse(dbflowinstance.PreviousId)
                 });
-
+                var userInfo = await _db.Queryable<SysUser>().FirstAsync(a => a.Id.ToString() == model.UserId && a.IsDeleted == 0);
+                model.UserName = userInfo.UserName;
                 if (context.WorkFlow.ActivityNodeType == WorkFlowInstanceNodeType.Normal || context.WorkFlow.ActivityNodeType == WorkFlowInstanceNodeType.Start)
                 {
                     var rejectNodeId = context.RejectNode(model.NodeRejectType.Value, model.RejectNodeId);
                     var rejectNode = context.WorkFlow.Nodes[rejectNodeId];
-
                     dbflowinstance.PreviousId = dbflowinstance.ActivityId;
                     dbflowinstance.ActivityId = rejectNodeId.ToString();
                     dbflowinstance.ActivityName = rejectNode.text.value;
@@ -1505,14 +1518,15 @@ namespace Laoyoutiao.Service.WF
             });
             return result.IsSuccess;
         }
+        #endregion
 
+        #region 流程撤回
         /// <summary>
         /// 流程撤回
         /// 刚开始提交，下一个节点未审批情况，流程发起人可以终止
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-
         public async Task<bool> WorkFlowWithdrawAsync(WorkFlowProcessTransition model)
         {
             var result = await _db.Ado.UseTranAsync(async () =>
@@ -1568,7 +1582,9 @@ namespace Laoyoutiao.Service.WF
             return result.IsSuccess;
         }
 
-     
+        #endregion
+
+        #region 已阅操作
         /// <summary>
         /// 已阅操作
         /// </summary>
@@ -1607,7 +1623,9 @@ namespace Laoyoutiao.Service.WF
             return result.IsSuccess;
 
         }
+        #endregion
 
+        #region 流程委托
         /// <summary>
         /// 流程委托操作
         /// 将自己审批某个流程的权限赋予其他人，让其他用户代审批流程;
@@ -1674,7 +1692,9 @@ namespace Laoyoutiao.Service.WF
             return result.IsSuccess;
 
         }
+        #endregion
 
+        #region 获取审批意见
         /// <summary>
         /// 获取审批意见
         /// </summary>
@@ -1711,7 +1731,9 @@ namespace Laoyoutiao.Service.WF
                 return dbhistory;
             }
         }
+        #endregion
 
+        #region 获取流程图信息
         /// <summary>
         /// 获取流程图信息
         /// </summary>
@@ -1744,6 +1766,7 @@ namespace Laoyoutiao.Service.WF
             }
 
         }
+        #endregion
 
         #endregion
 

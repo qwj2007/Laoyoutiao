@@ -1,4 +1,5 @@
-﻿using Laoyoutiao.IRespository;
+﻿using Laoyoutiao.Common;
+using Laoyoutiao.IRespository;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.User;
 using Laoyoutiao.Models.Entitys;
@@ -8,6 +9,7 @@ namespace Laoyoutiao.IService
 {
     public interface IBaseService<T> : IBaseServiceRepository<T> where T : BaseKey, new()
     {
+       
         Task<T> AddOrUpdateReturnEntity<TEdit>(TEdit input, long userId);
         Task<long> AddOneRerunKeyValue<TEdit>(TEdit input, long userId);
 
