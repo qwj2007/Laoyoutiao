@@ -366,7 +366,7 @@ namespace Laoyoutiao.Service.WF
                     InstanceId = flowInstance.InstanceId,
                     CreateUserId = long.Parse(model.UserId),
                     CreateUserName = userInfo.UserName,
-                    Content = "提交流程",
+                    Content = "提交申请",
                     NodeName = context.WorkFlow.ActivityNode.text.value,
                     NodeId = context.WorkFlow.ActivityNodeId.ToString(),
                     TransitionType = (int)WorkFlowMenu.Submit
