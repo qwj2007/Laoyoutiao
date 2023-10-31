@@ -10,11 +10,15 @@ using System.Threading.Tasks;
 namespace Laoyoutiao.Models.Dto.WF.Transition
 {
 
-    [TypeMapper(SourceType = typeof(WF_WorkFlow_Transition_History))]
-    public class WorkFlowTransitionHistoryRes
-    {      
+    [TypeMapper(SourceType = typeof(WF_WorkFlow_Operation_History))]
+    public class WorkFlowOperationHistoryRes
+    {
+       // public string InstanceId { get; set; }
         public string FromNodeId { get; set; }
         public string FromNodeName { get; set; }
-      
+        public string CreateDate { get; set; }
+        public string Content { get; set; }
+        public string CreateUserName { get; set; }
+        public string NodeName { get; set; }
     }
 }

@@ -14,12 +14,12 @@ namespace Laoyoutiao.webapi.Area.WF.Controllers
     /// 流程操作历史
     /// </summary>
     [Area("WF")]
-    public class WorkFlowTransitionHistoryController : BaseController<WF_WorkFlow_Transition_History, WorkFlowTransitionHistoryRes, WorkFlowTransitionHistoryReq, WorkFlowTransitionHistoryEdit>
+    public class WorkFlowOperationHistoryController : BaseController<WF_WorkFlow_Operation_History, WorkFlowOperationHistoryRes, WorkFlowOperationHistoryReq, WorkFlowOperationHistoryEdit>
     {
-        private readonly WorkFlowTransitionHistoryService _service;
-        public WorkFlowTransitionHistoryController(IBaseService<WF_WorkFlow_Transition_History> baseService) : base(baseService)
+        private readonly WorkFlowOperationHistoryService _service;
+        public WorkFlowOperationHistoryController(IBaseService<WF_WorkFlow_Operation_History> baseService) : base(baseService)
         {
-            this._service = baseService as WorkFlowTransitionHistoryService;
+            this._service = baseService as WorkFlowOperationHistoryService;
         }
 
        
@@ -30,9 +30,9 @@ namespace Laoyoutiao.webapi.Area.WF.Controllers
         /// <param name="userId"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ApiResult> GetWorkFlowTransitionByInstanceId(string instanceId)
+        public async Task<ApiResult> GetWorkFlowOperationByInstanceId(string instanceId)
         {
-            return ResultHelper.Success(await _service.GetWorkFlowTransitionHistorySetp(instanceId));
+            return ResultHelper.Success(await _service.GetWorkFlowHistorySetp(instanceId));
 
         }
     }

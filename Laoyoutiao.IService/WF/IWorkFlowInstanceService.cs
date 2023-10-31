@@ -28,8 +28,14 @@ namespace Laoyoutiao.IService.WF
         Task<WorkFlowProcess> GetProcessAsync(WorkFlowProcess process);
         Task<WorkFlowProcess> GetProcessForSystemAsync(SystemFlowDto model);
         Task<bool> ProcessTransitionFlowAsync(WorkFlowProcessTransition model);
-        Task<IEnumerable<WF_WorkFlow_Operation_History>> GetFlowApprovalAsync(WorkFlowProcessTransition model);
-        Task<WorkFlowImageDto> GetFlowImageAsync(string flowid, string? instanceId);
+        Task<IEnumerable<WF_WorkFlow_Operation_History>> GetFlowApprovalAsync(string instanceIdl);
+        /// <summary>
+        /// 获取流程图信息
+        /// </summary>
+        /// <param name="flowid"></param>
+        /// <param name="instanceId"></param>
+        /// <returns></returns>
+        Task<WorkFlowInstanceRes> GetFlowImageAsync(string? flowid, string? instanceId);
         Task<bool> UrgeAsync(UrgeEdit urge);
         Task<bool> WorkFlowWithdrawAsync(WorkFlowProcessTransition model);
         /// <summary>

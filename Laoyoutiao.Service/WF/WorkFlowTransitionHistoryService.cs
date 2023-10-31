@@ -17,15 +17,19 @@ namespace Laoyoutiao.Service.WF
         {
             this._mapper = mapper;
         }
+
+
         /// <summary>
         ///根据InstanceId得到历史记录
         /// </summary>
         /// <param name="InstanceId"></param>
-        /// <returns></returns>
-        public async Task<List<WorkFlowTransitionHistoryRes>> GetWorkFlowHistorySetp(string InstanceId)
+        /// <returns></returns>  
+
+        public async  Task<List<WorkFlowTransitionHistoryRes>> GetWorkFlowTransitionHistorySetp(string InstanceId)
         {
-            var list = await _db.Queryable<WF_WorkFlow_Transition_History>().WhereIF(!string.IsNullOrEmpty(InstanceId), a => a.InstanceId == InstanceId)
-                    .OrderBy(a => a.CreateDate).Distinct().ToListAsync();
+            var list = await _db.Queryable<WF_WorkFlow_Transition_History>()
+                .WhereIF(!string.IsNullOrEmpty(InstanceId), a => a.InstanceId == InstanceId && a.IsDeleted == 0)
+                .OrderBy(a => a.CreateDate).Distinct().ToListAsync();
             return _mapper.Map<List<WorkFlowTransitionHistoryRes>>(list);
         }
     }

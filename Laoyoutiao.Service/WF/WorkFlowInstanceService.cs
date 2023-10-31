@@ -1700,13 +1700,11 @@ namespace Laoyoutiao.Service.WF
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<WF_WorkFlow_Operation_History>> GetFlowApprovalAsync(WorkFlowProcessTransition model)
+        public async Task<IEnumerable<WF_WorkFlow_Operation_History>> GetFlowApprovalAsync(string instanceId)
         {
             var dbhistory = await _db.Queryable<WF_WorkFlow_Operation_History>()
-                .Where(a => a.InstanceId == model.InstanceId.ToString()
-                      && a.IsDeleted == 0).ToListAsync();
-            var dbinstance = await _db.Queryable<WF_WorkFlow_Instance>().FirstAsync(a => a.InstanceId == model.InstanceId.ToString()
-            && a.IsDeleted == 0);
+                .Where(a => a.InstanceId == instanceId && a.IsDeleted == 0).ToListAsync();
+            var dbinstance = await _db.Queryable<WF_WorkFlow_Instance>().FirstAsync(a => a.InstanceId == instanceId && a.IsDeleted == 0);
 
             if (dbinstance.IsFinish == 1)//已经完成
             {
@@ -1718,13 +1716,11 @@ namespace Laoyoutiao.Service.WF
                         TransitionType = null,
                         CreateUserName = "",
                         Content = "系统自动结束",
-                        CreateDate=DateTime.Now
-                        //CreateTime = dbhistory.OrderByDescending(m => m.CreateTime).Select(m => m.CreateTime).First() + 1
+                        CreateDate=DateTime.Now                        
                     }
                 };
                 IEnumerable<WF_WorkFlow_Operation_History> result = dbhistory.Union(list);
                 return result;
-
             }
             else
             {
@@ -1739,28 +1735,28 @@ namespace Laoyoutiao.Service.WF
         /// </summary>
         /// <param name="instanceId">实例ID</param>
         /// <returns></returns>
-        public async Task<WorkFlowImageDto> GetFlowImageAsync(string flowid, string? instanceId)
+        public async Task<WorkFlowInstanceRes> GetFlowImageAsync(string? flowid, string? instanceId)
         {
-            if (instanceId == null || instanceId == default(Guid).ToString())//未提交
+            if (instanceId == null || instanceId == default(Guid).ToString()|| instanceId=="undefined")//未提交
             {
                 var dbflow = await _db.Queryable<WF_WorkFlow>().FirstAsync(a => a.FlowId == flowid && a.IsDeleted == 0);
-                return new WorkFlowImageDto
+                return new WorkFlowInstanceRes
                 {
                     FlowId = dbflow.FlowId,
                     FlowContent = dbflow.FlowContent,
                     InstanceId = default(Guid).ToString(),
-                    CurrentNodeId = default(Guid).ToString()
+                    ActivityId = default(Guid).ToString()
                 };
             }
             else
             {
                 //提交
                 var instance = await _db.Queryable<WF_WorkFlow_Instance>().FirstAsync(a => a.InstanceId == instanceId);
-                return new WorkFlowImageDto
+                return new WorkFlowInstanceRes
                 {
                     FlowId = instance.FlowId,
                     InstanceId = instance.InstanceId,
-                    CurrentNodeId = instance.ActivityId,
+                    ActivityId = instance.ActivityId,
                     FlowContent = instance.FlowContent,
                 };
             }

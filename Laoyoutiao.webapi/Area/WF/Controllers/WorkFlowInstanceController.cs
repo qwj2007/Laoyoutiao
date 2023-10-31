@@ -31,14 +31,14 @@ namespace Laoyoutiao.webapi.Area.WF.Controllers
         /// </summary>
         /// <param name="req">传递的参数</param>
         /// <returns></returns>
-        [HttpGet,HttpPost]
+        [HttpGet, HttpPost]
         public async Task<ApiResult> GetUserTodoListAsync(WorkFlowInstanceReq req)
         {
             var result = await _workFlowInstanceService.GetUserTodoListAsync(req);
             return ResultHelper.Success(result);
         }
         #region 审批流程
-       
+
 
         /// <summary>
         /// 同意操作
@@ -94,11 +94,35 @@ namespace Laoyoutiao.webapi.Area.WF.Controllers
         /// <returns></returns>
         [HttpPost]
         public virtual async Task<ApiResult> WorkFlowBackAsync(WorkFlowProcessTransition model)
-        {           
+        {
             var result = await _workFlowInstanceService.WorkFlowBackAsync(model);
             return ResultHelper.Success(result);
         }
 
+        /// <summary>
+        /// 获取流程图信息
+        /// </summary>
+        /// <param name="flowid"></param>
+        /// <param name="instanceId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public virtual async Task<ApiResult> GetFlowImageAsync(string? flowid, string? instanceId)
+        {
+            var result = await _workFlowInstanceService.GetFlowImageAsync(flowid, instanceId);
+            return ResultHelper.Success(result);
+        }
+
+        /// <summary>
+        /// 获取审批意见
+        /// </summary>
+        /// <param name="instanceId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<ApiResult> GetFlowApprovalAsync(string instanceId)
+        {
+            var result = await _workFlowInstanceService.GetFlowApprovalAsync(instanceId);
+            return ResultHelper.Success(result);
+        }
         #endregion
 
     }
