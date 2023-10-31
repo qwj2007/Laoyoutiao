@@ -25,11 +25,15 @@ namespace Laoyoutiao.Service.WF
         /// <param name="InstanceId"></param>
         /// <returns></returns>  
 
-        public async  Task<List<WorkFlowTransitionHistoryRes>> GetWorkFlowTransitionHistorySetp(string InstanceId)
+        public async Task<List<WorkFlowTransitionHistoryRes>> GetWorkFlowTransitionHistorySetp(string InstanceId)
         {
-            var list = await _db.Queryable<WF_WorkFlow_Transition_History>()
+            var list = await _db.Queryable<WF_WorkFlow_Transition_History>().Select(it => new WF_WorkFlow_Transition_History
+            {
+                FromNodeId = it.FromNodeId,
+                FromNodeName = it.FromNodeName
+            })
                 .WhereIF(!string.IsNullOrEmpty(InstanceId), a => a.InstanceId == InstanceId && a.IsDeleted == 0)
-                .OrderBy(a => a.CreateDate).Distinct().ToListAsync();
+                .Distinct().ToListAsync();
             return _mapper.Map<List<WorkFlowTransitionHistoryRes>>(list);
         }
     }
