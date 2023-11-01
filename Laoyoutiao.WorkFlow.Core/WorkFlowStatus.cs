@@ -26,31 +26,31 @@ namespace Laoyoutiao.WorkFlow.Core
         // 摘要:
         //     审核中
         [Description("审核中")]
-        Running,
+        Running=1,
         //
         // 摘要:
         //     已结束 => 通过
         [Description("已结束")]
-        IsFinish,
+        IsFinish=2,
         //
         // 摘要:
         //     不同意
         [Description("不同意")]
-        Deprecate,
+        Deprecate=3,
         //
         // 摘要:
         //     流程被退回
         [Description("已退回")]
-        Back,
+        Back=4,
         //
         // 摘要:
         //     终止，流程被暂停,流程意外报错终止
         [Description("终止")]
-        Stop,
+        Stop=5,
         //
         // 摘要:
         //     撤回
         [Description("撤回")]
-        Withdraw
+        Withdraw=6
     }
 }

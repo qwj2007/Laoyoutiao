@@ -11,6 +11,7 @@ using Laoyoutiao.webapi.Controllers;
 using Laoyoutiao.WorkFlow.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Laoyoutiao.Models.Views;
 
 namespace Laoyoutiao.webapi.Area.WF.Controllers
 {

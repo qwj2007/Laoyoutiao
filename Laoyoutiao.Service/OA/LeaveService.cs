@@ -91,7 +91,8 @@ namespace Laoyoutiao.Service.OA
                      FlowId = win.FlowId,
                      FormId = win.FormId,
                      FlowStatusName = "",
-                     CreateDate = oa.CreateDate
+                     CreateDate = oa.CreateDate,
+                     ActivityType=win.ActivityType
 
                  });
 

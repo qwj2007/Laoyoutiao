@@ -42,6 +42,8 @@ namespace Laoyoutiao.Models.Common
 
         [SugarColumn(IsNullable = true, Length = 50, ColumnDescription = "编码")]
         public string? Code { get; set; }
+        [SugarColumn(IsNullable = true, Length = 50, ColumnDescription = "部门Id")]
+        public string? DeptId { get; set; }
       
       
     }

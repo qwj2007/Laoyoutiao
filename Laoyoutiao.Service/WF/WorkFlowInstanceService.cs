@@ -3,9 +3,11 @@ using DotNetCore.CAP;
 using Laoyoutiao.Common;
 using Laoyoutiao.IService.WF;
 using Laoyoutiao.Models.Common;
+using Laoyoutiao.Models.Dto.OA.Leave;
 using Laoyoutiao.Models.Dto.WF;
 using Laoyoutiao.Models.Dto.WF.Instance;
 using Laoyoutiao.Models.Dto.WF.Urge;
+using Laoyoutiao.Models.Entitys.OA;
 using Laoyoutiao.Models.Entitys.Sys;
 using Laoyoutiao.Models.Entitys.WF;
 using Laoyoutiao.Models.Views;
@@ -25,6 +27,27 @@ namespace Laoyoutiao.Service.WF
             this.capPublisher = capPublisher;
         }
 
+        public override async Task<PageInfo> GetPagesAsync<TReq, TRes>(TReq req)
+        {
+            //查找
+            var reqs = req as WorkFlowInstanceReq;
+            var list = _db.Queryable<V_WorkFlow>()
+                .WhereIF(!string.IsNullOrEmpty(reqs.BusinessName), a => a.BusinessName.Contains(reqs.BusinessName))
+                .WhereIF(reqs.LoginUserId != 1, a => a.CreateUserId == reqs.LoginUserId);//不是超级管理员  
+            var queryList = await list.Skip((reqs.PageIndex - 1) * reqs.PageSize)
+            .Take(reqs.PageSize)
+            .ToListAsync();
+            PageInfo pageInfo = new PageInfo();
+            pageInfo.data =_mapper.Map<List<WorkFlowInstanceRes>>(queryList) ;// _mapper.Map<List<LeaveRes>>(queryList);
+            pageInfo.total = list.Count();
+            foreach (var item in pageInfo.data as List<WorkFlowInstanceRes>)
+            {
+
+                item.FlowStatusName = EnumHelper.EnumToDescription<WorkFlowStatus>(item.FlowStatus);
+            }
+
+            return pageInfo;
+        }
 
 
         /// <summary>
@@ -1735,11 +1758,27 @@ namespace Laoyoutiao.Service.WF
         /// </summary>
         /// <param name="instanceId">实例ID</param>
         /// <returns></returns>
-        public async Task<WorkFlowInstanceRes> GetFlowImageAsync(string? flowid, string? instanceId)
+        public async Task<WorkFlowInstanceRes> GetFlowImageAsync(string? url, string? instanceId)
         {
-            if (instanceId == null || instanceId == default(Guid).ToString()|| instanceId=="undefined")//未提交
+            if (instanceId=="null"
+                ||string.IsNullOrEmpty(instanceId) 
+                || instanceId == default(Guid).ToString()
+                || instanceId=="undefined")//未提交
             {
-                var dbflow = await _db.Queryable<WF_WorkFlow>().FirstAsync(a => a.FlowId == flowid && a.IsDeleted == 0);
+                var menu = await _db.Queryable<Menus>().FirstAsync(a => a.MenuUrl == url && a.IsDeleted == 0 && a.IsButton == 0);
+                if (menu == null)
+                {
+                    throw new ArgumentException("菜单的URL", "菜单的url为配置");
+                }
+                long fromId = menu.Id;
+                //根据FormId查找到workflow
+                WF_WorkFlow workflow = await _db.Queryable<WF_WorkFlow>().FirstAsync(a => a.FormId == fromId);
+                if (workflow == null || workflow.FlowContent.Length == 0)
+                {
+                    throw new ArgumentException("未配置流程", "未配置流程，请联系管理员");
+                }
+
+                var dbflow = await _db.Queryable<WF_WorkFlow>().FirstAsync(a => a.FlowId == workflow.FlowId && a.IsDeleted == 0);
                 return new WorkFlowInstanceRes
                 {
                     FlowId = dbflow.FlowId,

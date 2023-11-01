@@ -12,7 +12,6 @@ namespace Laoyoutiao.Models.Dto.WF.Instance
         public string? FlowName { get; set; }
         public string? UserName { get; set; }
         public long? LoginUserId { get; set; }
-
         public string? BusinessName { get; set; }
     }
 }
