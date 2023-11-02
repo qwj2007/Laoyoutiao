@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "vJfLhcXyN5CWRukBDz/iaJzgL7V/gRjDl5LDDB1BPukrgaRyU5ZRcgVmx1Mw5IKZQHPSCUIOHYwt4hmfnizZIw==",
+  "dgSpecHash": "nE6W3x3hUu6L4zDq3ub6LGSh0U7PDe8EfK7xADHsldWceCHjHT2WeZHFuqLPLywmhrMW/IU3ESyO5Ta9LflZAQ==",
   "success": true,
   "projectFilePath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj",
   "expectedPackageFiles": [
@@ -8,7 +8,7 @@
     "C:\\Users\\齐文杰\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\microsoft.extensions.configuration.binder\\7.0.4\\microsoft.extensions.configuration.binder.7.0.4.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
-    "C:\\Users\\齐文杰\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512",
+    "C:\\Users\\齐文杰\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
   ],
   "logs": []

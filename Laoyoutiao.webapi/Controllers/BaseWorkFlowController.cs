@@ -31,29 +31,7 @@ namespace Laoyoutiao.webapi.Controllers
         }       
 
         #region 审批流程
-        /// <summary>
-        /// 提交审批
-        /// </summary>
-        /// <param name="req">请求参数</param>
-        ///  /// <param name="url">路由地址</param>
-        ///   /// <param name="userId">当前用户Id</param>
-        /// <returns></returns>(string url,long userId,string instanceId,string SourceTable,long KeyValue)
-        //[HttpPost]
-        //public virtual async Task<ApiResult> Commit(TEdit req, string url, long userId,string sourceTable,long keyValue,string businessName)
-        //{
-        //    //提交先保存，在提交
-        //    var result = await _baseService.AddOrUpdateReturnEntity(req, userId);
-        //    bool isOk = false;
-        //    if (result.Id>0)
-        //    {
-        //        if (keyValue == 0) {
-        //            keyValue = result.Id;
-        //        }
-        //        //提交操作
-        //        isOk = await _workFlowInstanceService.CreateInstanceAsync(url, userId, sourceTable, keyValue,businessName,result.Code);
-        //    }
-        //    return ResultHelper.Success(isOk);
-        //}
+
 
         /// <summary>
         /// 同意操作

@@ -85,7 +85,7 @@ namespace Laoyoutiao.webapi.Controllers
         [HttpGet]
         public async Task<ApiResult> GetTokens(string account, string password)
         {
-            var result = Task.Run(() =>
+            var result = System.Threading.Tasks.Task.Run(() =>
             {
 
                 if (string.IsNullOrEmpty(account) || string.IsNullOrEmpty(password))

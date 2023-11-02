@@ -1,6 +1,7 @@
 ﻿using Laoyoutiao.Common;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.CustomAttribute;
+using Laoyoutiao.Models.Entitys.Sys;
 using Microsoft.AspNetCore.Mvc;
 using SqlSugar;
 using SqlSugar.IOC;
@@ -26,6 +27,8 @@ namespace Laoyoutiao.webapi.Controllers
         {
             var files = System.IO.Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "Laoyoutiao.Models.dll");
             List<IocConfig> connectionConfigs = AppSettings.App<IocConfig>(new string[] { ConnectionConfigs });
+           
+
             Type[] typeall = Assembly.LoadFrom(files[0]).GetTypes();
             foreach (var item in connectionConfigs)
             {

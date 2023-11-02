@@ -12,5 +12,6 @@ namespace Laoyoutiao.Common
         {
             return new ApiResult() { IsSuccess = false, Msg = message };
         }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System.Threading.Tasks;
 
 namespace Laoyoutiao.webapi.Filter
 {
@@ -34,7 +35,7 @@ namespace Laoyoutiao.webapi.Filter
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public override Task OnExceptionAsync(ExceptionContext context)
+        public override System.Threading.Tasks.Task OnExceptionAsync(ExceptionContext context)
         {
             //string? name = context.ActionDescriptor.DisplayName;
             //string method = context.HttpContext.Request.Method.ToLower();
@@ -51,7 +52,7 @@ namespace Laoyoutiao.webapi.Filter
             //}
             //context.ExceptionHandled = true; //异常已处理了
             OnException(context);
-            return Task.CompletedTask;
+            return System.Threading.Tasks.Task.CompletedTask;
         }
     }
 }

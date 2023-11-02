@@ -1,0 +1,367 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Task\\Laoyoutiao.Task.Core.csproj": {}
+  },
+  "projects": {
+    "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj",
+        "projectName": "Laoyoutiao.Common",
+        "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj",
+        "packagesPath": "C:\\Users\\齐文杰\\.nuget\\packages\\",
+        "outputPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\齐文杰\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Binder": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj",
+        "projectName": "Laoyoutiao.Models",
+        "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj",
+        "packagesPath": "C:\\Users\\齐文杰\\.nuget\\packages\\",
+        "outputPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\齐文杰\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj": {
+                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj"
+              },
+              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj": {
+                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj"
+              },
+              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj": {
+                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "SqlSugarCore": {
+              "target": "Package",
+              "version": "[5.1.4.113, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj",
+        "projectName": "Laoyoutiao.Enums",
+        "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj",
+        "packagesPath": "C:\\Users\\齐文杰\\.nuget\\packages\\",
+        "outputPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\齐文杰\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj": {
+                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Task\\Laoyoutiao.Task.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Task\\Laoyoutiao.Task.Core.csproj",
+        "projectName": "Laoyoutiao.Task.Core",
+        "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Task\\Laoyoutiao.Task.Core.csproj",
+        "packagesPath": "C:\\Users\\齐文杰\\.nuget\\packages\\",
+        "outputPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Task\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\齐文杰\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj": {
+                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Http.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.Hosting.Abstractions": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Quartz": {
+              "target": "Package",
+              "version": "[3.7.0, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "SqlSugar.IOC": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "SqlSugarCore": {
+              "target": "Package",
+              "version": "[5.1.4.113, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj",
+        "projectName": "Laoyoutiao.WorkFlow.Core",
+        "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj",
+        "packagesPath": "C:\\Users\\齐文杰\\.nuget\\packages\\",
+        "outputPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\齐文杰\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

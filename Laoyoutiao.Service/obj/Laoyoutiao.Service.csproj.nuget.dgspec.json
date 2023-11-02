@@ -54,7 +54,7 @@
             },
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[13.0.2, )"
+              "version": "[13.0.3, )"
             }
           },
           "imports": [
@@ -129,7 +129,7 @@
           "dependencies": {
             "SqlSugarCore": {
               "target": "Package",
-              "version": "[5.1.4.99, )"
+              "version": "[5.1.4.113, )"
             }
           },
           "imports": [
@@ -400,7 +400,7 @@
             },
             "SqlSugarCore": {
               "target": "Package",
-              "version": "[5.1.4.99, )"
+              "version": "[5.1.4.113, )"
             }
           },
           "imports": [
@@ -486,7 +486,7 @@
             },
             "DotNetCore.CAP": {
               "target": "Package",
-              "version": "[7.2.1, )"
+              "version": "[7.2.2, )"
             },
             "Microsoft.AspNetCore.Http.Abstractions": {
               "target": "Package",

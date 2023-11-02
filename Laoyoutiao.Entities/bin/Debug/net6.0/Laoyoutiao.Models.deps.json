@@ -11,7 +11,7 @@
           "Laoyoutiao.Common": "1.0.0",
           "Laoyoutiao.Enums": "1.0.0",
           "Laoyoutiao.WorkFlow.Core": "1.0.0",
-          "SqlSugarCore": "5.1.4.99"
+          "SqlSugarCore": "5.1.4.113"
         },
         "runtime": {
           "Laoyoutiao.Models.dll": {}
@@ -234,11 +234,11 @@
           }
         }
       },
-      "Newtonsoft.Json/13.0.2": {
+      "Newtonsoft.Json/13.0.3": {
         "runtime": {
           "lib/net6.0/Newtonsoft.Json.dll": {
             "assemblyVersion": "13.0.0.0",
-            "fileVersion": "13.0.2.27524"
+            "fileVersion": "13.0.3.27908"
           }
         }
       },
@@ -419,12 +419,12 @@
           }
         }
       },
-      "SqlSugarCore/5.1.4.99": {
+      "SqlSugarCore/5.1.4.113": {
         "dependencies": {
           "Microsoft.Data.SqlClient": "2.1.4",
           "Microsoft.Data.Sqlite": "7.0.5",
           "MySqlConnector": "2.2.5",
-          "Newtonsoft.Json": "13.0.2",
+          "Newtonsoft.Json": "13.0.3",
           "Npgsql": "5.0.7",
           "Oracle.ManagedDataAccess.Core": "3.21.100",
           "SqlSugarCore.Dm": "1.2.0",
@@ -434,8 +434,8 @@
         },
         "runtime": {
           "lib/netstandard2.1/SqlSugar.dll": {
-            "assemblyVersion": "5.1.4.99",
-            "fileVersion": "5.1.4.99"
+            "assemblyVersion": "5.1.4.113",
+            "fileVersion": "5.1.4.113"
           }
         }
       },
@@ -762,7 +762,7 @@
         "dependencies": {
           "Microsoft.Extensions.Configuration": "7.0.0",
           "Microsoft.Extensions.Configuration.Binder": "7.0.4",
-          "Newtonsoft.Json": "13.0.2"
+          "Newtonsoft.Json": "13.0.3"
         },
         "runtime": {
           "Laoyoutiao.Common.dll": {}
@@ -929,12 +929,12 @@
       "path": "mysqlconnector/2.2.5",
       "hashPath": "mysqlconnector.2.2.5.nupkg.sha512"
     },
-    "Newtonsoft.Json/13.0.2": {
+    "Newtonsoft.Json/13.0.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-R2pZ3B0UjeyHShm9vG+Tu0EBb2lC8b0dFzV9gVn50ofHXh9Smjk6kTn7A/FdAsC8B5cKib1OnGYOXxRBz5XQDg==",
-      "path": "newtonsoft.json/13.0.2",
-      "hashPath": "newtonsoft.json.13.0.2.nupkg.sha512"
+      "sha512": "sha512-HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
+      "path": "newtonsoft.json/13.0.3",
+      "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
     },
     "Npgsql/5.0.7": {
       "type": "package",
@@ -978,12 +978,12 @@
       "path": "sqlitepclraw.provider.e_sqlite3/2.1.4",
       "hashPath": "sqlitepclraw.provider.e_sqlite3.2.1.4.nupkg.sha512"
     },
-    "SqlSugarCore/5.1.4.99": {
+    "SqlSugarCore/5.1.4.113": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-wVx2Y3VHn75ybtsS6TUUaIYDlRkGwPtwZGPgKXcS+lEJDTInQ8z4tt56/a0a6rx/XdGUTDi2jli/UxRJk8eAaw==",
-      "path": "sqlsugarcore/5.1.4.99",
-      "hashPath": "sqlsugarcore.5.1.4.99.nupkg.sha512"
+      "sha512": "sha512-azUBAHPljQcC6/AXkwJGtDNf5zPhfAfV+3HlQib9UUX1Dju4um5b/sXZI8nMIqgB2ovpCe35HBoQf3bxdafd4A==",
+      "path": "sqlsugarcore/5.1.4.113",
+      "hashPath": "sqlsugarcore.5.1.4.113.nupkg.sha512"
     },
     "SqlSugarCore.Dm/1.2.0": {
       "type": "package",

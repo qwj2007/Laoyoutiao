@@ -11,7 +11,8 @@ using System.Text;
 using MediatR;
 using SqlSugar;
 using SqlSugar.IOC;
-using Microsoft.Extensions.DependencyInjection;
+using Quartz;
+using Laoyoutiao.Tasks.Core;
 
 namespace Laoyoutiao.Configuration
 {
@@ -40,9 +41,9 @@ namespace Laoyoutiao.Configuration
             #region  添加MediatR事件总线
             buil.Services.AddMediatR(Assembly.GetExecutingAssembly());
             #endregion
+
             #region 配置数据库
             #region 注入数据库
-
             buil.Services.AddSingleton(new AppSettings(buil.Configuration));
             SqlsugarSetup.AddSqlsugarSetup();
             SnowFlakeSingle.WorkId = Convert.ToInt32(buil.Configuration.GetSection("SnowFlake:workId").Value);
@@ -56,6 +57,25 @@ namespace Laoyoutiao.Configuration
             });
             #endregion
 
+            #region 配置定时任务
+            buil.Services.AddQuartz(options =>
+            {
+                options.UseMicrosoftDependencyInjectionJobFactory();
+                //q.UseMicrosoftDependencyInjectionScopedJobFactory();
+                options.UseDefaultThreadPool(tp =>
+                {
+                    tp.MaxConcurrency = 1;//单线程执行 多个数据库连接区域连接容易出现问题 
+                });
+                options.AddJobListener<CustomJobListener>();
+
+            });
+            buil.Services.AddQuartzHostedService(
+                options =>
+                {
+                    // when shutting down we want jobs to complete gracefully
+                    options.WaitForJobsToComplete = true;
+                });
+            #endregion
             //buil.Host.ConfigureContainer<ContainerBuilder>(builder =>
             //{
             //    builder.Register<ISqlSugarClient>(context =>
@@ -103,7 +123,7 @@ namespace Laoyoutiao.Configuration
             {
                 List<IocConfig> connectionConfigs = AppSettings.App<IocConfig>(new string[] { "ConnectionConfigs" });
                 var conn = connectionConfigs.Where(a => a.DbType == IocDbType.MySql).FirstOrDefault();
-                x.UseMySql(conn.ConnectionString);                
+                x.UseMySql(conn.ConnectionString);
                 x.UseRabbitMQ(opt =>
                 {
                     opt.HostName = buil.Configuration.GetSection("RabbitMQ:HostName").Value;
@@ -122,7 +142,7 @@ namespace Laoyoutiao.Configuration
                 };
 
             });
-            
+
             #region JWT校验
 
             //第一步，注册JWT

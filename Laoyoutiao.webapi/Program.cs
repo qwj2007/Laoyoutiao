@@ -1,7 +1,6 @@
 using Autofac;
-using Autofac.Core;
-using Laoyoutiao.Common;
 using Laoyoutiao.Configuration;
+using Laoyoutiao.Tasks.Core;
 using Laoyoutiao.webapi.Filter;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,8 +13,6 @@ builder.Services.Configure<MvcOptions>(opt => { opt.Filters.Add<SysExceptionFilt
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-
 
 builder.Register();
 
@@ -36,7 +33,8 @@ app.UseAuthorization();
 #region 跨域设置
 app.UseCors("CorsPolicy");
 #endregion
-
+//启用定时任务
+UseTask.UseQuartz(app, app.Lifetime, app.Configuration);
 
 //app.UseEndpoints(routes =>
 //{

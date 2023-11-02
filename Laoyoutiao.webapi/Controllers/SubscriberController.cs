@@ -21,7 +21,7 @@ namespace Laoyoutiao.webapi.Controllers
         /// <returns></returns>
         [NonAction]
         [CapSubscribe("WorkFlowStatusChanged")]
-        public async Task ChangeTableStatusAsync(WorkFlowStatusChange statusChange)
+        public async System.Threading.Tasks. Task ChangeTableStatusAsync(WorkFlowStatusChange statusChange)
         {
             await workFlowService.ChangeTableStatusAsync(statusChange);
         }

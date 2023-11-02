@@ -77,7 +77,7 @@
           "lib/netstandard2.0/Consul.dll": {}
         }
       },
-      "DotNetCore.CAP/7.2.1": {
+      "DotNetCore.CAP/7.2.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Hosting.Abstractions": "7.0.0",
@@ -2253,7 +2253,7 @@
           "System.Xml.XDocument": "4.3.0"
         }
       },
-      "Newtonsoft.Json/13.0.2": {
+      "Newtonsoft.Json/13.0.3": {
         "type": "package",
         "compile": {
           "lib/net6.0/Newtonsoft.Json.dll": {
@@ -2440,6 +2440,59 @@
         },
         "runtime": {
           "lib/netstandard2.1/Oracle.ManagedDataAccess.dll": {}
+        }
+      },
+      "Quartz/3.7.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "2.1.1",
+          "System.Configuration.ConfigurationManager": "6.0.1"
+        },
+        "compile": {
+          "lib/net6.0/Quartz.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Quartz.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Quartz.Extensions.DependencyInjection/3.7.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "6.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
+          "Microsoft.Extensions.Options": "6.0.0",
+          "Quartz": "3.7.0"
+        },
+        "compile": {
+          "lib/net6.0/Quartz.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Quartz.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Quartz.Extensions.Hosting/3.7.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Hosting.Abstractions": "6.0.0",
+          "Quartz.Extensions.DependencyInjection": "3.7.0"
+        },
+        "compile": {
+          "lib/net6.0/Quartz.Extensions.Hosting.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Quartz.Extensions.Hosting.dll": {
+            "related": ".xml"
+          }
         }
       },
       "RabbitMQ.Client/6.5.0": {
@@ -2665,6 +2718,19 @@
           }
         }
       },
+      "Serilog/3.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Serilog.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Serilog.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "SQLitePCLRaw.bundle_e_sqlite3/2.1.4": {
         "type": "package",
         "dependencies": {
@@ -2821,7 +2887,7 @@
           "lib/netstandard2.1/SqlSugar.IOC.dll": {}
         }
       },
-      "SqlSugarCore/5.1.4.99": {
+      "SqlSugarCore/5.1.4.113": {
         "type": "package",
         "dependencies": {
           "Microsoft.Data.SqlClient": "2.1.4",
@@ -3125,7 +3191,7 @@
           "lib/netstandard1.0/System.Composition.TypedParts.dll": {}
         }
       },
-      "System.Configuration.ConfigurationManager/6.0.0": {
+      "System.Configuration.ConfigurationManager/6.0.1": {
         "type": "package",
         "dependencies": {
           "System.Security.Cryptography.ProtectedData": "6.0.0",
@@ -4633,7 +4699,7 @@
         "dependencies": {
           "Microsoft.Extensions.Configuration": "7.0.0",
           "Microsoft.Extensions.Configuration.Binder": "7.0.4",
-          "Newtonsoft.Json": "13.0.2"
+          "Newtonsoft.Json": "13.0.3"
         },
         "compile": {
           "bin/placeholder/Laoyoutiao.Common.dll": {}
@@ -4690,7 +4756,7 @@
           "Laoyoutiao.Common": "1.0.0",
           "Laoyoutiao.Enums": "1.0.0",
           "Laoyoutiao.WorkFlow.Core": "1.0.0",
-          "SqlSugarCore": "5.1.4.99"
+          "SqlSugarCore": "5.1.4.113"
         },
         "compile": {
           "bin/placeholder/Laoyoutiao.Models.dll": {}
@@ -4706,7 +4772,7 @@
           "Laoyoutiao.IRespository": "1.0.0",
           "Laoyoutiao.Models": "1.0.0",
           "SqlSugar.IOC": "2.0.0",
-          "SqlSugarCore": "5.1.4.99"
+          "SqlSugarCore": "5.1.4.113"
         },
         "compile": {
           "bin/placeholder/Laoyoutiao.Repository.dll": {}
@@ -4721,7 +4787,7 @@
         "dependencies": {
           "AutoMapper": "12.0.1",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
-          "DotNetCore.CAP": "7.2.1",
+          "DotNetCore.CAP": "7.2.2",
           "Laoyoutiao.Common": "1.0.0",
           "Laoyoutiao.IService": "1.0.0",
           "Laoyoutiao.Repository": "1.0.0",
@@ -4734,6 +4800,26 @@
         },
         "runtime": {
           "bin/placeholder/Laoyoutiao.Service.dll": {}
+        }
+      },
+      "Laoyoutiao.Tasks.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Laoyoutiao.Models": "1.0.0",
+          "Laoyoutiao.Service": "1.0.0",
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
+          "Microsoft.Extensions.Hosting.Abstractions": "7.0.0",
+          "Quartz": "3.7.0",
+          "Serilog": "3.0.1",
+          "SqlSugar.IOC": "2.0.0",
+          "SqlSugarCore": "5.1.4.113"
+        },
+        "compile": {
+          "bin/placeholder/Laoyoutiao.Tasks.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Laoyoutiao.Tasks.Core.dll": {}
         }
       },
       "Laoyoutiao.WorkFlow.Core/1.0.0": {
@@ -4832,15 +4918,15 @@
         "lib/netstandard2.0/Consul.dll"
       ]
     },
-    "DotNetCore.CAP/7.2.1": {
-      "sha512": "R14lrHxuYXTlvqQ5y3n9BF/JsR7XZXwBfDED4ZcS+MvE9zSyrPHzY93nK8KI1Nbmxh4/ArFFbUeF2tuufq06Qg==",
+    "DotNetCore.CAP/7.2.2": {
+      "sha512": "0q2gzHGqtK0Kq/XuXQq+YpqvASGvCarEoLHDczb6vCkS4n7c3AauWTvT7rGuOshOkBb2nU10DrzLnfpgLhw3kw==",
       "type": "package",
-      "path": "dotnetcore.cap/7.2.1",
+      "path": "dotnetcore.cap/7.2.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
-        "dotnetcore.cap.7.2.1.nupkg.sha512",
+        "dotnetcore.cap.7.2.2.nupkg.sha512",
         "dotnetcore.cap.nuspec",
         "lib/net6.0/DotNetCore.CAP.dll",
         "lib/net6.0/DotNetCore.CAP.pdb",
@@ -8139,10 +8225,10 @@
         "netstandard.library.nuspec"
       ]
     },
-    "Newtonsoft.Json/13.0.2": {
-      "sha512": "R2pZ3B0UjeyHShm9vG+Tu0EBb2lC8b0dFzV9gVn50ofHXh9Smjk6kTn7A/FdAsC8B5cKib1OnGYOXxRBz5XQDg==",
+    "Newtonsoft.Json/13.0.3": {
+      "sha512": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
       "type": "package",
-      "path": "newtonsoft.json/13.0.2",
+      "path": "newtonsoft.json/13.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -8164,7 +8250,7 @@
         "lib/netstandard1.3/Newtonsoft.Json.xml",
         "lib/netstandard2.0/Newtonsoft.Json.dll",
         "lib/netstandard2.0/Newtonsoft.Json.xml",
-        "newtonsoft.json.13.0.2.nupkg.sha512",
+        "newtonsoft.json.13.0.3.nupkg.sha512",
         "newtonsoft.json.nuspec",
         "packageIcon.png"
       ]
@@ -8365,6 +8451,62 @@
         "oracle.manageddataaccess.core.3.21.100.nupkg.sha512",
         "oracle.manageddataaccess.core.nuspec",
         "readme.txt"
+      ]
+    },
+    "Quartz/3.7.0": {
+      "sha512": "11sQqbnhv/KBLcdpj8I7KlpK/QGnNbVj8YiBLsGo4d7rm78WSukODcKlJuz7bLQ6ZF5BYkalrdHUDTgL8ZgkcQ==",
+      "type": "package",
+      "path": "quartz/3.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net462/Quartz.dll",
+        "lib/net462/Quartz.xml",
+        "lib/net472/Quartz.dll",
+        "lib/net472/Quartz.xml",
+        "lib/net6.0/Quartz.dll",
+        "lib/net6.0/Quartz.xml",
+        "lib/netstandard2.0/Quartz.dll",
+        "lib/netstandard2.0/Quartz.xml",
+        "quartz-logo-small.png",
+        "quartz.3.7.0.nupkg.sha512",
+        "quartz.nuspec"
+      ]
+    },
+    "Quartz.Extensions.DependencyInjection/3.7.0": {
+      "sha512": "wlkikyE1M5PdNfT8H3vIsFhGi7NpwAaGIik+ssHggHk6KsedIqMGY0NLIM8RVoEwF23iry9iSE1l0kZiIkrzPA==",
+      "type": "package",
+      "path": "quartz.extensions.dependencyinjection/3.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net6.0/Quartz.Extensions.DependencyInjection.dll",
+        "lib/net6.0/Quartz.Extensions.DependencyInjection.xml",
+        "lib/netcoreapp3.1/Quartz.Extensions.DependencyInjection.dll",
+        "lib/netcoreapp3.1/Quartz.Extensions.DependencyInjection.xml",
+        "lib/netstandard2.0/Quartz.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.0/Quartz.Extensions.DependencyInjection.xml",
+        "quartz-logo-small.png",
+        "quartz.extensions.dependencyinjection.3.7.0.nupkg.sha512",
+        "quartz.extensions.dependencyinjection.nuspec"
+      ]
+    },
+    "Quartz.Extensions.Hosting/3.7.0": {
+      "sha512": "TJFhzlXW5w4GLefwKZUT24vO+l2bHke72/z7WJSjvmxCcn1NAFYrvXP9aEMA6wqLXAl0zs3cFaMIRXBuDtpdIQ==",
+      "type": "package",
+      "path": "quartz.extensions.hosting/3.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net6.0/Quartz.Extensions.Hosting.dll",
+        "lib/net6.0/Quartz.Extensions.Hosting.xml",
+        "lib/netcoreapp3.1/Quartz.Extensions.Hosting.dll",
+        "lib/netcoreapp3.1/Quartz.Extensions.Hosting.xml",
+        "lib/netstandard2.0/Quartz.Extensions.Hosting.dll",
+        "lib/netstandard2.0/Quartz.Extensions.Hosting.xml",
+        "quartz-logo-small.png",
+        "quartz.extensions.hosting.3.7.0.nupkg.sha512",
+        "quartz.extensions.hosting.nuspec"
       ]
     },
     "RabbitMQ.Client/6.5.0": {
@@ -8670,6 +8812,33 @@
         "version.txt"
       ]
     },
+    "Serilog/3.0.1": {
+      "sha512": "E4UmOQ++eNJax1laE+lws7E3zbhKgHsGJbO7ra0yE5smUh+5FfUPIKKBxM3MO1tK4sgpQke6/pLReDxIc/ggNw==",
+      "type": "package",
+      "path": "serilog/3.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "icon.png",
+        "lib/net462/Serilog.dll",
+        "lib/net462/Serilog.xml",
+        "lib/net471/Serilog.dll",
+        "lib/net471/Serilog.xml",
+        "lib/net5.0/Serilog.dll",
+        "lib/net5.0/Serilog.xml",
+        "lib/net6.0/Serilog.dll",
+        "lib/net6.0/Serilog.xml",
+        "lib/net7.0/Serilog.dll",
+        "lib/net7.0/Serilog.xml",
+        "lib/netstandard2.0/Serilog.dll",
+        "lib/netstandard2.0/Serilog.xml",
+        "lib/netstandard2.1/Serilog.dll",
+        "lib/netstandard2.1/Serilog.xml",
+        "serilog.3.0.1.nupkg.sha512",
+        "serilog.nuspec"
+      ]
+    },
     "SQLitePCLRaw.bundle_e_sqlite3/2.1.4": {
       "sha512": "EWI1olKDjFEBMJu0+3wuxwziIAdWDVMYLhuZ3Qs84rrz+DHwD00RzWPZCa+bLnHCf3oJwuFZIRsHT5p236QXww==",
       "type": "package",
@@ -8772,15 +8941,15 @@
         "sqlsugar.ioc.nuspec"
       ]
     },
-    "SqlSugarCore/5.1.4.99": {
-      "sha512": "wVx2Y3VHn75ybtsS6TUUaIYDlRkGwPtwZGPgKXcS+lEJDTInQ8z4tt56/a0a6rx/XdGUTDi2jli/UxRJk8eAaw==",
+    "SqlSugarCore/5.1.4.113": {
+      "sha512": "azUBAHPljQcC6/AXkwJGtDNf5zPhfAfV+3HlQib9UUX1Dju4um5b/sXZI8nMIqgB2ovpCe35HBoQf3bxdafd4A==",
       "type": "package",
-      "path": "sqlsugarcore/5.1.4.99",
+      "path": "sqlsugarcore/5.1.4.113",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.1/SqlSugar.dll",
-        "sqlsugarcore.5.1.4.99.nupkg.sha512",
+        "sqlsugarcore.5.1.4.113.nupkg.sha512",
         "sqlsugarcore.nuspec"
       ]
     },
@@ -9215,10 +9384,10 @@
         "system.composition.typedparts.nuspec"
       ]
     },
-    "System.Configuration.ConfigurationManager/6.0.0": {
-      "sha512": "7T+m0kDSlIPTHIkPMIu6m6tV6qsMqJpvQWW2jIc2qi7sn40qxFo0q+7mEQAhMPXZHMKnWrnv47ntGlM/ejvw3g==",
+    "System.Configuration.ConfigurationManager/6.0.1": {
+      "sha512": "jXw9MlUu/kRfEU0WyTptAVueupqIeE3/rl0EZDMlf8pcvJnitQ8HeVEp69rZdaStXwTV72boi/Bhw8lOeO+U2w==",
       "type": "package",
-      "path": "system.configuration.configurationmanager/6.0.0",
+      "path": "system.configuration.configurationmanager/6.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -9235,7 +9404,7 @@
         "lib/netstandard2.0/System.Configuration.ConfigurationManager.xml",
         "runtimes/win/lib/net461/System.Configuration.ConfigurationManager.dll",
         "runtimes/win/lib/net461/System.Configuration.ConfigurationManager.xml",
-        "system.configuration.configurationmanager.6.0.0.nupkg.sha512",
+        "system.configuration.configurationmanager.6.0.1.nupkg.sha512",
         "system.configuration.configurationmanager.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -13081,6 +13250,11 @@
       "path": "../Laoyoutiao.Service/Laoyoutiao.Service.csproj",
       "msbuildProject": "../Laoyoutiao.Service/Laoyoutiao.Service.csproj"
     },
+    "Laoyoutiao.Tasks.Core/1.0.0": {
+      "type": "project",
+      "path": "../Laoyoutiao.Task/Laoyoutiao.Tasks.Core.csproj",
+      "msbuildProject": "../Laoyoutiao.Task/Laoyoutiao.Tasks.Core.csproj"
+    },
     "Laoyoutiao.WorkFlow.Core/1.0.0": {
       "type": "project",
       "path": "../Laoyoutiao.WorkFlow.Core/Laoyoutiao.WorkFlow.Core.csproj",
@@ -13093,7 +13267,7 @@
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.1",
       "Autofac >= 7.0.1",
       "Autofac.Extensions.DependencyInjection >= 8.0.0",
-      "DotNetCore.CAP >= 7.2.1",
+      "DotNetCore.CAP >= 7.2.2",
       "DotNetCore.CAP.Dashboard >= 7.2.1",
       "DotNetCore.CAP.MySql >= 7.2.1",
       "DotNetCore.CAP.RabbitMQ >= 7.2.1",
@@ -13101,12 +13275,17 @@
       "Laoyoutiao.IService >= 1.0.0",
       "Laoyoutiao.Models >= 1.0.0",
       "Laoyoutiao.Service >= 1.0.0",
+      "Laoyoutiao.Tasks.Core >= 1.0.0",
       "MediatR.Extensions.Microsoft.DependencyInjection >= 11.1.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.19",
       "Microsoft.Extensions.Configuration.Binder >= 7.0.4",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.15",
+      "Quartz >= 3.7.0",
+      "Quartz.Extensions.DependencyInjection >= 3.7.0",
+      "Quartz.Extensions.Hosting >= 3.7.0",
+      "Serilog >= 3.0.1",
       "SqlSugar.IOC >= 2.0.0",
-      "SqlSugarCore >= 5.1.4.99",
+      "SqlSugarCore >= 5.1.4.113",
       "Swashbuckle.AspNetCore >= 6.5.0",
       "System.Data.SqlClient >= 4.8.5",
       "System.Linq.Dynamic.Core >= 1.3.3"
@@ -13155,6 +13334,9 @@
             },
             "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Service\\Laoyoutiao.Service.csproj": {
               "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Service\\Laoyoutiao.Service.csproj"
+            },
+            "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Task\\Laoyoutiao.Tasks.Core.csproj": {
+              "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Task\\Laoyoutiao.Tasks.Core.csproj"
             }
           }
         }
@@ -13187,7 +13369,7 @@
           },
           "DotNetCore.CAP": {
             "target": "Package",
-            "version": "[7.2.1, )"
+            "version": "[7.2.2, )"
           },
           "DotNetCore.CAP.Dashboard": {
             "target": "Package",
@@ -13217,13 +13399,29 @@
             "target": "Package",
             "version": "[6.0.15, )"
           },
+          "Quartz": {
+            "target": "Package",
+            "version": "[3.7.0, )"
+          },
+          "Quartz.Extensions.DependencyInjection": {
+            "target": "Package",
+            "version": "[3.7.0, )"
+          },
+          "Quartz.Extensions.Hosting": {
+            "target": "Package",
+            "version": "[3.7.0, )"
+          },
+          "Serilog": {
+            "target": "Package",
+            "version": "[3.0.1, )"
+          },
           "SqlSugar.IOC": {
             "target": "Package",
             "version": "[2.0.0, )"
           },
           "SqlSugarCore": {
             "target": "Package",
-            "version": "[5.1.4.99, )"
+            "version": "[5.1.4.113, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
