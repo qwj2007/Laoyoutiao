@@ -58,6 +58,7 @@ namespace Laoyoutiao.Configuration
             #endregion
 
             #region 配置定时任务
+           
             buil.Services.AddQuartz(options =>
             {
                 options.UseMicrosoftDependencyInjectionJobFactory();
@@ -75,6 +76,7 @@ namespace Laoyoutiao.Configuration
                     // when shutting down we want jobs to complete gracefully
                     options.WaitForJobsToComplete = true;
                 });
+            buil.Services.UseQuartz();
             #endregion
             //buil.Host.ConfigureContainer<ContainerBuilder>(builder =>
             //{

@@ -748,7 +748,7 @@
           "lib/netstandard2.1/SqlSugar.IOC.dll": {}
         }
       },
-      "SqlSugarCore/5.1.4.113": {
+      "SqlSugarCore/5.1.4.114": {
         "type": "package",
         "dependencies": {
           "Microsoft.Data.SqlClient": "2.1.4",
@@ -1438,7 +1438,7 @@
           "Laoyoutiao.Common": "1.0.0",
           "Laoyoutiao.Enums": "1.0.0",
           "Laoyoutiao.WorkFlow.Core": "1.0.0",
-          "SqlSugarCore": "5.1.4.113"
+          "SqlSugarCore": "5.1.4.114"
         },
         "compile": {
           "bin/placeholder/Laoyoutiao.Models.dll": {}
@@ -1454,7 +1454,7 @@
           "Laoyoutiao.IRespository": "1.0.0",
           "Laoyoutiao.Models": "1.0.0",
           "SqlSugar.IOC": "2.0.0",
-          "SqlSugarCore": "5.1.4.113"
+          "SqlSugarCore": "5.1.4.114"
         },
         "compile": {
           "bin/placeholder/Laoyoutiao.Repository.dll": {}
@@ -2530,15 +2530,15 @@
         "sqlsugar.ioc.nuspec"
       ]
     },
-    "SqlSugarCore/5.1.4.113": {
-      "sha512": "azUBAHPljQcC6/AXkwJGtDNf5zPhfAfV+3HlQib9UUX1Dju4um5b/sXZI8nMIqgB2ovpCe35HBoQf3bxdafd4A==",
+    "SqlSugarCore/5.1.4.114": {
+      "sha512": "KgzGqweODBp+ttXl4awvdiLgFQ58+clrfkI0wL74AZX8OrA/WZD8GzU5lRPRlmk+ghkASlMutMai7TPYVODbTw==",
       "type": "package",
-      "path": "sqlsugarcore/5.1.4.113",
+      "path": "sqlsugarcore/5.1.4.114",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.1/SqlSugar.dll",
-        "sqlsugarcore.5.1.4.113.nupkg.sha512",
+        "sqlsugarcore.5.1.4.114.nupkg.sha512",
         "sqlsugarcore.nuspec"
       ]
     },
@@ -4168,7 +4168,7 @@
       "Quartz >= 3.7.0",
       "Serilog >= 3.0.1",
       "SqlSugar.IOC >= 2.0.0",
-      "SqlSugarCore >= 5.1.4.113"
+      "SqlSugarCore >= 5.1.4.114"
     ]
   },
   "packageFolders": {
@@ -4244,7 +4244,7 @@
           },
           "SqlSugarCore": {
             "target": "Package",
-            "version": "[5.1.4.113, )"
+            "version": "[5.1.4.114, )"
           }
         },
         "imports": [

@@ -339,3 +339,5 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Debug\net6.0\Laoyoutia
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Debug\net6.0\ref\Laoyoutiao.webapi.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\Laoyoutiao.Tasks.Core.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\Laoyoutiao.Tasks.Core.pdb
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\Laoyoutiao.Jobs.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\Laoyoutiao.Jobs.pdb

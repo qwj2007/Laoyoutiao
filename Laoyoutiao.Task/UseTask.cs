@@ -28,9 +28,9 @@ namespace Laoyoutiao.Tasks.Core
             {
                 var _schedulerFactory = app.ApplicationServices.GetRequiredService<ISchedulerFactory>();
 
-                var _IScheduler = _schedulerFactory.GetScheduler().GetAwaiter().GetResult();
+                var _IScheduler = _schedulerFactory.GetScheduler().GetAwaiter().GetResult();                
 
-                while (_IScheduler.IsStarted)
+               while (_IScheduler.IsStarted)
                 {
                     string configId = "0";
                     var ConnectionString = Configuration.GetConnectionString("Defaultcon");

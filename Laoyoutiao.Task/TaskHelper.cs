@@ -1,26 +1,32 @@
 ﻿using System.Reflection;
 using System.Text.RegularExpressions;
+using Laoyoutiao.Common;
 using Laoyoutiao.Models.Entitys.Sys;
 using Quartz;
 using SqlSugar;
+using SqlSugar.IOC;
 
 namespace Laoyoutiao.Tasks.Core
 {
 
     public class TaskHelper
-    {
-        public TaskHelper(ISchedulerFactory schedulerFactory, ISqlSugarClient sqlSugarClient)
-        {
-            
-            _schedulerFactory = schedulerFactory;
-            //IScheduler scheduler，
-            _sqlSugarClient = sqlSugarClient;
-        }
-
-        //private readonly IScheduler _scheduler;
+    { //private readonly IScheduler _scheduler;
         private readonly ISchedulerFactory _schedulerFactory;
-        private readonly ISqlSugarClient _sqlSugarClient;
-
+        private ISqlSugarClient _sqlSugarClient;
+        public TaskHelper(ISchedulerFactory schedulerFactory)
+        {
+            _schedulerFactory = schedulerFactory;
+            string configId = "0";
+            string ConnectionConfigs = "ConnectionConfigs";
+            List<IocConfig> connectionConfigs = AppSettings.App<IocConfig>(new string[] { ConnectionConfigs });
+            var attr = typeof(SysTask).GetCustomAttribute<TenantAttribute>();
+            if (attr != null)
+            {
+                var attrConfigId = attr.configId ?? "0";
+                configId = attrConfigId.ToString();
+            }
+            _sqlSugarClient = DbScoped.SugarScope.GetConnection(configId ?? "0");
+        }
         private IScheduler _scheduler
         {
             get { return _schedulerFactory.GetScheduler().GetAwaiter().GetResult(); }
@@ -31,7 +37,7 @@ namespace Laoyoutiao.Tasks.Core
         /// <param name="cron"></param>
         /// <param name="next"></param>
         /// <returns></returns>
-        public  bool GetTime(string cron, out DateTime? next)
+        public bool GetTime(string cron, out DateTime? next)
         {
             var result = true;
             next = null;
@@ -67,7 +73,7 @@ namespace Laoyoutiao.Tasks.Core
             }
             else
             {
-                return $"{Math.Round(times / 1000, 2) }s";
+                return $"{Math.Round(times / 1000, 2)}s";
             }
         }
         /// <summary>
@@ -77,7 +83,7 @@ namespace Laoyoutiao.Tasks.Core
         /// <param name="jobid"></param>
         /// <param name="runtime"></param>
         /// <param name="NextTime"></param>
-        public  async System.Threading.Tasks.Task UpdateTime(IJobExecutionContext context, ISqlSugarClient sqlSugarClient)
+        public async Task UpdateTime(IJobExecutionContext context)
         {
             var jobid = context.JobDetail.Key.Name;
             //Console.WriteLine(context.JobDetail.Key.Name);
@@ -88,9 +94,9 @@ namespace Laoyoutiao.Tasks.Core
             Regex _regex = new Regex("[0-9]");
             if (_regex.IsMatch(jobid))
             {
-                if(long.TryParse(jobid, out long joid))
+                if (long.TryParse(jobid, out long joid))
                 {
-                    await sqlSugarClient.Updateable<SysTask>().SetColumns(t => new SysTask()
+                    await _sqlSugarClient.Updateable<SysTask>().SetColumns(t => new SysTask()
                     {
                         Id = joid,
                         RunTime = runtime,
@@ -99,9 +105,9 @@ namespace Laoyoutiao.Tasks.Core
 
                     }).SetColumns(t => t.Counts == t.Counts + 1).Where(t => t.Id == joid).ExecuteCommandAsync();
                 }
-               
+
             }
-             
+
         }
         /// <summary>
         /// 添加普通定时任务
@@ -110,9 +116,9 @@ namespace Laoyoutiao.Tasks.Core
         /// <param name="jobClass"></param>
         /// <param name="cron"></param>
         /// <returns></returns>
-        public async Task<string> AddJob(String jobName, IJob jobClass, String cron)
+        public async Task<ScheduleResult> AddJob(String jobName, IJob jobClass, String cron)
         {
-
+            ScheduleResult result = new ScheduleResult();
             try
             {
 
@@ -134,13 +140,16 @@ namespace Laoyoutiao.Tasks.Core
 
                 await _scheduler.ScheduleJob(jobDetail, trigger);
 
-                return null;
+              
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                result.ResultCode = ResultCodeAddMsgKeys.CommonExceptionCode;
+                result.ResultMsg = ResultCodeAddMsgKeys.CommonExceptionMsg + "," + ex.ToString();
+
 
             }
+            return result;
 
         }
         /// <summary>
@@ -150,9 +159,9 @@ namespace Laoyoutiao.Tasks.Core
         /// <param name="jobClass"></param>
         /// <param name="cron"></param>
         /// <returns></returns>
-        public async Task<string> AddJob(String jobName, Type jobType, String cron)
+        public async Task<ScheduleResult> AddJob(string jobName, Type jobType, string cron)
         {
-
+            ScheduleResult result = new ScheduleResult();
             try
             {
                 var jobDetail = JobBuilder.Create(jobType)
@@ -164,18 +173,14 @@ namespace Laoyoutiao.Tasks.Core
                 .WithIdentity(jobName)
                 .StartNow()
                 .WithCronSchedule(cron).Build();
-
-
-                await _scheduler.ScheduleJob(jobDetail, trigger);
-
-                return null;
+                await _scheduler.ScheduleJob(jobDetail, trigger);               
             }
             catch (Exception ex)
             {
-                return ex.Message;
-
+                result.ResultCode = ResultCodeAddMsgKeys.CommonExceptionCode;
+                result.ResultMsg = ResultCodeAddMsgKeys.CommonExceptionMsg + "," + ex.ToString();
             }
-
+            return result;
         }
 
         /// <summary>
@@ -185,9 +190,9 @@ namespace Laoyoutiao.Tasks.Core
         /// <param name="jobType"></param>
         /// <param name="cron"></param>
         /// <returns></returns>
-        public async Task<string> AddDataJob(String jobName, Type jobType, String cron)
+        public async Task<ScheduleResult> AddDataJob(string jobName, Type jobType, string cron)
         {
-
+            ScheduleResult result = new ScheduleResult();
             try
             {
                 var jobDetail = JobBuilder.Create(jobType)
@@ -203,18 +208,20 @@ namespace Laoyoutiao.Tasks.Core
 
                 await _scheduler.ScheduleJob(jobDetail, trigger);
 
-                return null;
+               
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                result.ResultCode = ResultCodeAddMsgKeys.CommonExceptionCode;
+                result.ResultMsg = ResultCodeAddMsgKeys.CommonExceptionMsg + "," + ex.ToString();
 
             }
+            return result;
 
         }
-        public async Task<string> AddDataJob(long jobid, string jobname, String cron)
+        public async Task<ScheduleResult> AddDataJob(long jobid, string jobname, String cron)
         {
-
+            ScheduleResult result = new ScheduleResult();
             try
             {
                 var Jobdll = Assembly.LoadFrom(AppDomain.CurrentDomain.BaseDirectory + "/Laoyoutiao.Jobs.dll");
@@ -235,22 +242,16 @@ namespace Laoyoutiao.Tasks.Core
                     .StartNow()
                     .WithCronSchedule(cron).Build();
 
-
                     await _scheduler.ScheduleJob(jobDetail, trigger);
-                }
-                else
-                {
-                    return "未找到该任务";
-                }
-
-
-                return null;
+                }    
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                result.ResultCode = ResultCodeAddMsgKeys.CommonExceptionCode;
+                result.ResultMsg = ResultCodeAddMsgKeys.CommonExceptionMsg + "," + ex.ToString();
 
             }
+            return result;
 
         }
 
@@ -262,73 +263,172 @@ namespace Laoyoutiao.Tasks.Core
         /// <param name="date"></param>
         /// <param name="para">需要携带的参数</param>
         /// <returns></returns>
-        public async Task<string> AddDataJob<T>(long jobid, DateTime date, Dictionary<string,dynamic> para=null) where T : IJob
+        public async Task<ScheduleResult> AddDataJob<T>(long jobid, DateTime date, Dictionary<string, dynamic> para = null) where T : IJob
         {
-
+            ScheduleResult result = new ScheduleResult();
             try
             {
                 if (date < DateTime.Now.AddMinutes(1))
                 {
-                    return "时间间隔不能少于一分钟";
+                    result.ResultCode = -10;
+                    result.ResultMsg = "时间间隔不能少于一分钟";
+                    return result;
                 }
                 var jobDetail = JobBuilder.Create<T>()
                   .WithIdentity(jobid.ToString())
                   .Build();
 
-                 TriggerBuilder  tbulider= TriggerBuilder.Create()
-                .WithIdentity(jobid.ToString());
+                TriggerBuilder tbulider = TriggerBuilder.Create()
+               .WithIdentity(jobid.ToString());
                 if (para != null)
                 {
                     foreach (var key in para.Keys)
                     {
                         tbulider = tbulider.UsingJobData("para", para[key]);
                     }
-                    
+
                 }
                 ITrigger trigger = tbulider.StartNow()
                 .WithCronSchedule($"{date.Second} {date.Minute} {date.Hour} {date.Day} {date.Month + 1} ? {date.Year}")
                  .Build();
-
                 await _scheduler.ScheduleJob(jobDetail, trigger);
-
-                return null;
+               
             }
             catch (Exception ex)
             {
-                return ex.Message;
-
+                result.ResultCode = ResultCodeAddMsgKeys.CommonExceptionCode;
+                result.ResultMsg = ResultCodeAddMsgKeys.CommonExceptionMsg + "," + ex.ToString();
             }
+            return result;
 
         }
+
         /// <summary>
         /// 删除任务
         /// </summary>
         /// <param name="jobName"></param>
         /// <param name="jobGroupName"></param>
         /// <returns></returns>
-        public async Task<string> removeJob(String jobName)
+        public async Task<ScheduleResult> RemoveJob(string jobName)
         {
-
+            ScheduleResult result = new ScheduleResult();
             try
             {
+
                 TriggerKey triggerKey = new TriggerKey(jobName);
 
                 await _scheduler.PauseTrigger(triggerKey);// 停止触发器 
 
                 await _scheduler.UnscheduleJob(triggerKey);// 移除触发器 
 
-                await _scheduler.DeleteJob(new JobKey(jobName));// 删除任务 
-                return null;
+                await _scheduler.DeleteJob(new JobKey(jobName));// 删除任务                
 
             }
-            catch (Exception e)
+            catch (Exception ex)
+            {
+                result.ResultCode = ResultCodeAddMsgKeys.CommonExceptionCode;
+                result.ResultMsg = ResultCodeAddMsgKeys.CommonExceptionMsg+","+ ex.ToString();
+
+            }
+            return result;
+        }
+        public async Task<ScheduleResult> RemoveJob(string jobName, string jobGroup )
+        {
+            ScheduleResult result = new ScheduleResult();
+            try
             {
 
-                return e.Message;
+                TriggerKey triggerKey = new TriggerKey(jobName, jobGroup);
+
+                await _scheduler.PauseTrigger(triggerKey);// 停止触发器 
+
+                await _scheduler.UnscheduleJob(triggerKey);// 移除触发器 
+
+                await _scheduler.DeleteJob(new JobKey(jobName,jobGroup));// 删除任务                
 
             }
+            catch (Exception ex)
+            {
+                result.ResultCode = ResultCodeAddMsgKeys.CommonExceptionCode;
+                result.ResultMsg = ResultCodeAddMsgKeys.CommonExceptionMsg + "," + ex.ToString();
 
+            }
+            return result;
         }
+
+        /// <summary>
+        /// 暂停指定任务计划
+        /// </summary>
+        /// <param name="jobName">任务名</param>
+        /// <param name="jobGroup">任务分组</param>
+        /// <returns></returns>
+        public async Task<ScheduleResult> StopJobAsync(string jobName)
+        {
+            ScheduleResult result = new ScheduleResult();
+            try
+            {
+                JobKey jobKey = new JobKey(jobName);
+                if (await _scheduler.CheckExists(jobKey))
+                {
+                    await _scheduler.PauseJob(jobKey);
+                }               
+
+            }
+            catch (Exception ex)
+            {
+                result.ResultCode = ResultCodeAddMsgKeys.CommonExceptionCode;
+                result.ResultMsg = ResultCodeAddMsgKeys.CommonExceptionMsg + "," + ex.ToString();
+            }
+            return result;
+        }
+        public async Task<ScheduleResult> StopJobAsync(string jobName,string jobGroup)
+        {
+            ScheduleResult result = new ScheduleResult();
+            try
+            {
+                JobKey jobKey = new JobKey(jobName, jobGroup);
+                if (await _scheduler.CheckExists(jobKey))
+                {
+                    await _scheduler.PauseJob(jobKey);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.ResultCode = ResultCodeAddMsgKeys.CommonExceptionCode;
+                result.ResultMsg = ResultCodeAddMsgKeys.CommonExceptionMsg + "," + ex.ToString();
+            }
+            return result;
+        }
+
+        //public async Task<ScheduleResult> DeleteJobAsync(string jobName, string jobGroup)
+        //{
+        //    ScheduleResult result = new ScheduleResult();
+        //    try
+        //    {
+        //        JobKey jobKey = new JobKey(jobName, jobGroup);
+
+        //        if (await Scheduler.CheckExists(jobKey))
+        //        {
+        //            //先暂停，再移除
+        //            await Scheduler.PauseJob(jobKey);
+        //            await Scheduler.DeleteJob(jobKey);
+        //        }
+        //        else
+        //        {
+        //            result.ResultCode = -1;
+        //            result.ResultMsg = "任务不存在";
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, nameof(ResumeJobAsync));
+        //        result.ResultCode = -4;
+        //        result.ResultMsg = ex.ToString();
+        //    }
+        //    return result;
+        //}
 
 
 
@@ -336,98 +436,53 @@ namespace Laoyoutiao.Tasks.Core
         ///// 启动任务
         ///// </summary>
         ///// <returns></returns>
-        //public async Task<string> startJobs()
-        //{
-        //    try
-        //    {
-        //      //  Console.WriteLine(_scheduler.IsShutdown);
-        //        if (_scheduler.IsShutdown)
-        //        {
-        //            await _scheduler.Start();
-        //        }
+        public async Task<ScheduleResult> StartJobs()
+        {
+            ScheduleResult result = new ScheduleResult();
+            try
+            {
+                //  Console.WriteLine(_scheduler.IsShutdown);
+                if (_scheduler.IsShutdown)
+                {
+                    await _scheduler.Start();
+                }
+            }
+            catch (Exception ex)
+            {
 
-        //        return null;
-        //    }
-        //    catch (Exception e)
-        //    {
+                result.ResultCode = ResultCodeAddMsgKeys.CommonExceptionCode;
+                result.ResultMsg = ResultCodeAddMsgKeys.CommonExceptionMsg + "," + ex.ToString();
 
-        //        return e.Message;
+            }
+            return result;
 
-        //    }
-
-        //}
-
+        }       
 
 
         ///// <summary>
         ///// 关闭全部任务
         ///// </summary>
         ///// <returns></returns>
-        //public async Task<string> shutdownJobs()
-        //{
-        //    try
-        //    {
+        public async Task<ScheduleResult> ShutdownJobs()
+        {
+            ScheduleResult result = new ScheduleResult();
+            try
+            {
+                if (!_scheduler.IsShutdown)
+                {
+                    await _scheduler.Shutdown();
 
-        //        if (!_scheduler.IsShutdown)
-        //        {
+                }
+              
+            }
+            catch (Exception ex)
+            {
+                result.ResultCode = ResultCodeAddMsgKeys.CommonExceptionCode;
+                result.ResultMsg = ResultCodeAddMsgKeys.CommonExceptionMsg + "," + ex.ToString();
 
-        //            await _scheduler.Shutdown();
-
-        //        }
-        //        return null;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return e.Message;
-
-        //    }
-
-        //}
-
-        ///// <summary>
-        ///// 基础任务
-        ///// </summary>
-        //public async Task BaseTasks()
-        //{
-
-        //    #region 自带定时任务
-        //    //工作日3点清理3天前的多余上传的附件
-        //     await AddJob(nameof(FuJianJob), typeof(FuJianJob), "0 0 3 ? * 1-5");
-        //    //每周日0点备份数据库
-        //    await AddJob(nameof(DBJob), typeof(DBJob), "0 0 0 ? * 7");
-        //   // await AddJob(nameof(DBJob), typeof(DBJob), "0 43 * ? * *");
-        //    // await AddJob(nameof(BaseJob),typeof( BaseJob), "0/5 * * * * ?");
-        //    #endregion
-
-        //    #region 数据库配置的定时任务
-        //    var list = _sqlSugarClient.Queryable<C_Base_Tasks>().Where(t => t.IsDelete == 0).ToList();
-        //    if (list.Count > 0)
-        //    {
-        //        var Jobdll = Assembly.LoadFrom(AppDomain.CurrentDomain.BaseDirectory + "/CG.Jobs.dll");
-        //        var jobs = Jobdll.GetTypes()
-        //            .Where(t => t.IsClass && t.GetInterfaces()
-        //               .Contains(typeof(IJob))
-        //               )
-        //            .ToArray();
-        //        foreach (var data in list)
-        //        {
-        //            var job = jobs.FirstOrDefault(t => t.Name.Equals(data.TaskName, StringComparison.OrdinalIgnoreCase));
-        //            if (job != null)
-        //            {
-        //                await AddDataJob(data.Id.ToString(), job, data.Cron);
-        //            }
-        //        }
-        //    }
-
-        //    #endregion
-
-
-        //    //AddJob(nameof(HelloJob),  new HelloJob(), "0/10 * * * * ?").Wait();
-        //    //var types = AppDomain.CurrentDomain.GetAssemblies()
-        //    //   .SelectMany(a => a.GetTypes().Where(t => t.IsClass && t.GetInterfaces()
-        //    //       .Contains(typeof(IJob))))
-        //    //   .ToArray();
-
-        //}
+            }
+            return result;
+        }
+     
     }
 }

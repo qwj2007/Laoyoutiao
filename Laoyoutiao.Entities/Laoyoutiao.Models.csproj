@@ -10,7 +10,7 @@
     <None Remove="Dto\WF\新文件夹\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="SqlSugarCore" Version="5.1.4.113" />
+    <PackageReference Include="SqlSugarCore" Version="5.1.4.114" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Laoyoutiao.Common\Laoyoutiao.Common.csproj" />

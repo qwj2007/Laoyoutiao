@@ -18,6 +18,7 @@
           "DotNetCore.CAP.RabbitMQ": "7.2.1",
           "Laoyoutiao.Common": "1.0.0",
           "Laoyoutiao.IService": "1.0.0",
+          "Laoyoutiao.Jobs": "1.0.0",
           "Laoyoutiao.Models": "1.0.0",
           "Laoyoutiao.Service": "1.0.0",
           "Laoyoutiao.Tasks.Core": "1.0.0",
@@ -30,7 +31,7 @@
           "Quartz.Extensions.Hosting": "3.7.0",
           "Serilog": "3.0.1",
           "SqlSugar.IOC": "2.0.0",
-          "SqlSugarCore": "5.1.4.113",
+          "SqlSugarCore": "5.1.4.114",
           "Swashbuckle.AspNetCore": "6.5.0",
           "System.Data.SqlClient": "4.8.5",
           "System.Linq.Dynamic.Core": "1.3.3"
@@ -2204,7 +2205,7 @@
           }
         }
       },
-      "SqlSugarCore/5.1.4.113": {
+      "SqlSugarCore/5.1.4.114": {
         "dependencies": {
           "Microsoft.Data.SqlClient": "2.1.4",
           "Microsoft.Data.Sqlite": "7.0.5",
@@ -3246,12 +3247,21 @@
           "Laoyoutiao.IService.dll": {}
         }
       },
+      "Laoyoutiao.Jobs/1.0.0": {
+        "dependencies": {
+          "Quartz": "3.7.0",
+          "SqlSugarCore": "5.1.4.114"
+        },
+        "runtime": {
+          "Laoyoutiao.Jobs.dll": {}
+        }
+      },
       "Laoyoutiao.Models/1.0.0": {
         "dependencies": {
           "Laoyoutiao.Common": "1.0.0",
           "Laoyoutiao.Enums": "1.0.0",
           "Laoyoutiao.WorkFlow.Core": "1.0.0",
-          "SqlSugarCore": "5.1.4.113"
+          "SqlSugarCore": "5.1.4.114"
         },
         "runtime": {
           "Laoyoutiao.Models.dll": {}
@@ -3262,7 +3272,7 @@
           "Laoyoutiao.IRespository": "1.0.0",
           "Laoyoutiao.Models": "1.0.0",
           "SqlSugar.IOC": "2.0.0",
-          "SqlSugarCore": "5.1.4.113"
+          "SqlSugarCore": "5.1.4.114"
         },
         "runtime": {
           "Laoyoutiao.Repository.dll": {}
@@ -3293,7 +3303,7 @@
           "Quartz": "3.7.0",
           "Serilog": "3.0.1",
           "SqlSugar.IOC": "2.0.0",
-          "SqlSugarCore": "5.1.4.113"
+          "SqlSugarCore": "5.1.4.114"
         },
         "runtime": {
           "Laoyoutiao.Tasks.Core.dll": {}
@@ -4516,12 +4526,12 @@
       "path": "sqlsugar.ioc/2.0.0",
       "hashPath": "sqlsugar.ioc.2.0.0.nupkg.sha512"
     },
-    "SqlSugarCore/5.1.4.113": {
+    "SqlSugarCore/5.1.4.114": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-azUBAHPljQcC6/AXkwJGtDNf5zPhfAfV+3HlQib9UUX1Dju4um5b/sXZI8nMIqgB2ovpCe35HBoQf3bxdafd4A==",
-      "path": "sqlsugarcore/5.1.4.113",
-      "hashPath": "sqlsugarcore.5.1.4.113.nupkg.sha512"
+      "sha512": "sha512-KgzGqweODBp+ttXl4awvdiLgFQ58+clrfkI0wL74AZX8OrA/WZD8GzU5lRPRlmk+ghkASlMutMai7TPYVODbTw==",
+      "path": "sqlsugarcore/5.1.4.114",
+      "hashPath": "sqlsugarcore.5.1.4.114.nupkg.sha512"
     },
     "SqlSugarCore.Dm/1.2.0": {
       "type": "package",
@@ -5197,6 +5207,11 @@
       "sha512": ""
     },
     "Laoyoutiao.IService/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Laoyoutiao.Jobs/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
