@@ -6,11 +6,11 @@ namespace Laoyoutiao.Common
     {
         public static ApiResult Success(object res)
         {
-            return new ApiResult() { IsSuccess = true, Result = res, Code = "1" };
+            return new ApiResult() { IsSuccess = true, Result = res, Code = "0" };
         }
-        public static ApiResult Error(string message)
+        public static ApiResult Error(string message="操作失败")
         {
-            return new ApiResult() { IsSuccess = false, Msg = message };
+            return new ApiResult() { IsSuccess = false, Msg = message, Code = "10000" };
         }
 
     }

@@ -49,7 +49,11 @@ namespace Laoyoutiao.webapi.Area.WF.Controllers
         public async Task<ApiResult> WorkFlowAgree(WorkFlowProcessTransition model)
         {
             var result = await _workFlowInstanceService.WorkFlowAgreeAsync(model);
-            return ResultHelper.Success(result);
+            if (result)
+            {
+                return ResultHelper.Success(result);
+            }
+            return ResultHelper.Error("同意操作失败");
         }
 
         /// <summary>
@@ -60,7 +64,11 @@ namespace Laoyoutiao.webapi.Area.WF.Controllers
         public async Task<ApiResult> WorkFlowNoAgree(WorkFlowProcessTransition model)
         {
             var result = await _workFlowInstanceService.WorkFlowDeprecateAsync(model);
-            return ResultHelper.Success(result);
+            if (result)
+            {
+                return ResultHelper.Success(result);
+            }
+            return ResultHelper.Error("不同意操作失败");
         }
 
         /// <summary>
@@ -73,7 +81,11 @@ namespace Laoyoutiao.webapi.Area.WF.Controllers
         {
             //提交先保存，在提交
             var result = await _workFlowInstanceService.CreateInstanceAsync(model);
-            return ResultHelper.Success(result);
+            if (result)
+            {
+                return ResultHelper.Success(result);
+            }
+            return ResultHelper.Error("流程提交失败");
         }
         /// <summary>
         /// 撤销
@@ -85,7 +97,11 @@ namespace Laoyoutiao.webapi.Area.WF.Controllers
         {
             //提交先保存，在提交
             var result = await _workFlowInstanceService.WorkFlowWithdrawAsync(model);
-            return ResultHelper.Success(result);
+            if (result)
+            {
+                return ResultHelper.Success(result);
+            }
+            return ResultHelper.Error("流程撤销失败");
         }
 
         /// <summary>
@@ -97,7 +113,11 @@ namespace Laoyoutiao.webapi.Area.WF.Controllers
         public virtual async Task<ApiResult> WorkFlowBackAsync(WorkFlowProcessTransition model)
         {
             var result = await _workFlowInstanceService.WorkFlowBackAsync(model);
-            return ResultHelper.Success(result);
+            if (result)
+            {
+                return ResultHelper.Success(result);
+            }
+            return ResultHelper.Error("流程退回失败");
         }
 
         /// <summary>

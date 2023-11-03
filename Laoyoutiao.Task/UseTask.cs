@@ -26,11 +26,11 @@ namespace Laoyoutiao.Tasks.Core
             #region 初始化任务
             appLifetime.ApplicationStarted.Register(() =>
             {
-                var _schedulerFactory = app.ApplicationServices.GetRequiredService<ISchedulerFactory>();
+                var _schedulerFactory = app.ApplicationServices.GetService<ISchedulerFactory>();
 
                 var _IScheduler = _schedulerFactory.GetScheduler().GetAwaiter().GetResult();                
 
-               while (_IScheduler.IsStarted)
+               //while (_IScheduler.IsStarted)
                 {
                     string configId = "0";
                     var ConnectionString = Configuration.GetConnectionString("Defaultcon");
@@ -45,7 +45,7 @@ namespace Laoyoutiao.Tasks.Core
 
                     List<SysTask> tasks = new List<SysTask>();
                     var _sqlSugarClient = DbScoped.SugarScope.GetConnection(configId ?? "0");
-                    tasks = _sqlSugarClient.Queryable<SysTask>().Where(t => t.IsDeleted == 0).ToList();                   
+                    tasks = _sqlSugarClient.Queryable<SysTask>().Where(t => t.IsDeleted == 0&&t.Status==1).ToList();                   
 
                     //using (var db = new SqlSugarClient(new ConnectionConfig()
                     //{
@@ -59,7 +59,7 @@ namespace Laoyoutiao.Tasks.Core
                     //}
 
 
-                    var _customtask = app.ApplicationServices.GetRequiredService<TaskHelper>();
+                    var _customtask = app.ApplicationServices.GetRequiredService<SchedulerCenter>();
 
                     #region 数据库任务
                     var Jobdll = Assembly.LoadFrom(AppDomain.CurrentDomain.BaseDirectory + "/Laoyoutiao.Jobs.dll");
@@ -73,23 +73,23 @@ namespace Laoyoutiao.Tasks.Core
                         var job = jobs.FirstOrDefault(t => t.Name.Equals(data.TaskName, StringComparison.OrdinalIgnoreCase));
                         if (job != null)
                         {
-                            _customtask.AddDataJob(data.Id.ToString(), job, data.Cron).GetAwaiter().GetResult();
+                            _customtask.AddDataJob(data.Id.ToString(), job, data.Cron,data.Groups).GetAwaiter().GetResult();
                         }
                     }
 
                     #endregion
 
                     #region 基础任务
-                    _customtask.AddJob(nameof(FuJianJob), typeof(FuJianJob), "0 0 3 ? * 1-5").GetAwaiter().GetResult();
+                  //  _customtask.AddJob(nameof(FuJianJob), typeof(FuJianJob), "0 0 3 ? * 1-5").GetAwaiter().GetResult();
                     //每周日0点备份数据库
-                    _customtask.AddJob(nameof(DBJob), typeof(DBJob), "0 0 0 ? * 7").GetAwaiter().GetResult();
+                   // _customtask.AddJob(nameof(DBJob), typeof(DBJob), "0 0 0 ? * 7").GetAwaiter().GetResult();
                     try
                     {
                         if (joblist != null)
                         {
                             foreach (var item in joblist)
                             {
-                                _customtask.AddJob(item.JobId, item.JobType, item.Cron).GetAwaiter().GetResult();
+                                _customtask.AddJob(item.JobId, item.JobType, item.Cron,item.JobId).GetAwaiter().GetResult();
                             }
                         }
                     }
@@ -101,7 +101,7 @@ namespace Laoyoutiao.Tasks.Core
 
                     #endregion
 
-                    break;
+                    //break;
                 }
 
 
@@ -114,7 +114,7 @@ namespace Laoyoutiao.Tasks.Core
 
         public static void UseQuartz(this IServiceCollection services)
         {
-            services.AddSingleton<TaskHelper>();
+            services.AddSingleton<SchedulerCenter>();
             
         }
     }

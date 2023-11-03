@@ -30,7 +30,10 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers
         {
             long uId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
             var result = await _roleMenuService.SaveRoleMenu(list, roleId, uId);
-            return ResultHelper.Success(result);
+            if (result) {
+                return ResultHelper.Success(result);
+            }
+            return ResultHelper.Error();
         }   
 
         /// <summary>

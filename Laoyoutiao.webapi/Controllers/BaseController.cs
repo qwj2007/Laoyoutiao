@@ -51,7 +51,17 @@ namespace Laoyoutiao.webapi.Controllers
         [HttpGet]
         public virtual ApiResult GetModelById(long id)
         {
-            return ResultHelper.Success(_baseService.GetModelById<TRes>(id));
+            var res = _baseService.GetModelById<TRes>(id);
+            if (res != null)
+            {
+                return ResultHelper.Success(res);
+            }
+            else
+            {
+                return ResultHelper.Error("未查找到数据");
+            }
+
+
         }
 
         /// <summary>
@@ -65,7 +75,15 @@ namespace Laoyoutiao.webapi.Controllers
             //获取当前登录人信息 
             long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
             var result = await _baseService.Add(req, userId);
-            return ResultHelper.Success(result);
+            if (result)
+            {
+                return ResultHelper.Success(result);
+            }
+            else
+            {
+                return ResultHelper.Error("操作失败");
+            }
+
         }
 
         /// <summary>
@@ -79,7 +97,12 @@ namespace Laoyoutiao.webapi.Controllers
             //获取当前登录人信息 
             long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
             var result = await _baseService.AddOneRerunKeyValue(req, userId);
-            return ResultHelper.Success(result);
+            if (result > 0)
+            {
+                return ResultHelper.Success(result);
+            }
+            return ResultHelper.Error("操作失败");
+
         }
         /// <summary>
         /// 保存并返回实体
@@ -92,9 +115,14 @@ namespace Laoyoutiao.webapi.Controllers
             //获取当前登录人信息 
             long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
             var result = await _baseService.AddOrUpdateReturnEntity(req, userId);
-            return ResultHelper.Success(result);
+            if (result != null)
+            {
+                return ResultHelper.Success(result);
+            }
+            return ResultHelper.Error();
+
         }
-        
+
 
         //[HttpPost]
         //public async Task<ApiResult> Edit(UserEdit req)
@@ -111,7 +139,11 @@ namespace Laoyoutiao.webapi.Controllers
         [HttpGet]
         public virtual ApiResult Del(long id)
         {
-            return ResultHelper.Success(_baseService.Del(id));
+            var res = _baseService.Del(id);
+            if (res) {
+                return ResultHelper.Success(res);
+            }
+            return ResultHelper.Error();
         }
 
         /// <summary>
@@ -130,9 +162,12 @@ namespace Laoyoutiao.webapi.Controllers
         /// <param name="ids"></param>
         /// <returns></returns>
         [HttpPost]
-        public virtual ApiResult BatchDel(string ids)
+        public virtual async Task<ApiResult> BatchDel(string ids)
         {
-            return ResultHelper.Success(_baseService.BatchDel(ids.Split(',')));
+            var res = await _baseService.BatchDelAsync(ids.Split(','));
+            if (res) { return ResultHelper.Success(res); }
+            return ResultHelper.Error("批量删除失败");
+           
         }
         /// <summary>
         ///  批量删除
@@ -140,9 +175,11 @@ namespace Laoyoutiao.webapi.Controllers
         /// <param name="ids">主键数组</param>
         /// <returns></returns>
         [HttpPost]
-        public virtual ApiResult BatchDelByIdArray(string[] ids)
+        public virtual async Task<ApiResult> BatchDelByIdArray(string[] ids)
         {
-            return ResultHelper.Success(_baseService.BatchDel(ids));
+            var res = await _baseService.BatchDelAsync(ids);
+            if (res) { return ResultHelper.Success(res); }
+            return ResultHelper.Error("批量删除失败");          
         }
 
         /// <summary>
@@ -158,7 +195,7 @@ namespace Laoyoutiao.webapi.Controllers
             return ResultHelper.Success(result);
         }
 
-        
+
 
     }
 }

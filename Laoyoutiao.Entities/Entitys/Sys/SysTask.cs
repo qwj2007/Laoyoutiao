@@ -12,11 +12,11 @@ namespace Laoyoutiao.Models.Entitys.Sys
         /// </summary>
 
         [SugarColumn(ColumnDataType = "nvarchar", Length = 255, IsNullable = true, ColumnDescription = "任务组")]
-        public string Groups { get; set; }
+        public string Groups { get; set; } = "datajob";
         /// <summary>
         /// 任务名称 类名称
         /// </summary>
-       
+
         [SugarColumn(ColumnDataType = "nvarchar", Length = 255, IsNullable = true, ColumnDescription = "任务名称")]
         public string TaskName { get; set; }
         /// <summary>
@@ -57,6 +57,6 @@ namespace Laoyoutiao.Models.Entitys.Sys
         /// </summary>
        
         [SugarColumn(ColumnDataType = "nvarchar", Length = 255, IsNullable = true, ColumnDescription = "Cron 表达式")]
-        public string Cron { get; set; }
+        public string? Cron { get; set; }
     }
 }

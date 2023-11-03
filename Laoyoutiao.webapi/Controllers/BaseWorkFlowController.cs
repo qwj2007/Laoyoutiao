@@ -41,7 +41,26 @@ namespace Laoyoutiao.webapi.Controllers
         public async Task<ApiResult> WorkFlowAgree(WorkFlowProcessTransition model)
         {
             var result = await _workFlowInstanceService.WorkFlowAgreeAsync(model);
-            return ResultHelper.Success(result);
+            if (result)
+            {
+                return ResultHelper.Success(result);
+            }
+            return ResultHelper.Error("同意操作失败");
+        }
+
+        /// <summary>
+        /// 不同意操作
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<ApiResult> WorkFlowNoAgree(WorkFlowProcessTransition model)
+        {
+            var result = await _workFlowInstanceService.WorkFlowDeprecateAsync(model);
+            if (result)
+            {
+                return ResultHelper.Success(result);
+            }
+            return ResultHelper.Error("不同意操作失败");
         }
 
         /// <summary>
@@ -54,7 +73,11 @@ namespace Laoyoutiao.webapi.Controllers
         {
             //提交先保存，在提交
             var result = await _workFlowInstanceService.CreateInstanceAsync(model);
-            return ResultHelper.Success(result);
+            if (result)
+            {
+                return ResultHelper.Success(result);
+            }
+            return ResultHelper.Error("流程提交失败");
         }
         /// <summary>
         /// 撤销
@@ -65,40 +88,54 @@ namespace Laoyoutiao.webapi.Controllers
         public virtual async Task<ApiResult> WorkFlowWithdrawAsync(WorkFlowProcessTransition model)
         {
             //提交先保存，在提交
-            var result = await _workFlowInstanceService.WorkFlowWithdrawAsync(model);           
+            var result = await _workFlowInstanceService.WorkFlowWithdrawAsync(model);
+            if (result)
+            {
+                return ResultHelper.Success(result);
+            }
+            return ResultHelper.Error("流程撤销失败");
+        }
+
+        /// <summary>
+        /// 退回
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public virtual async Task<ApiResult> WorkFlowBackAsync(WorkFlowProcessTransition model)
+        {
+            var result = await _workFlowInstanceService.WorkFlowBackAsync(model);
+            if (result)
+            {
+                return ResultHelper.Success(result);
+            }
+            return ResultHelper.Error("流程退回失败");
+        }
+
+        /// <summary>
+        /// 获取流程图信息
+        /// </summary>
+        /// <param name="flowid"></param>
+        /// <param name="instanceId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public virtual async Task<ApiResult> GetFlowImageAsync(string? flowid, string? instanceId)
+        {
+            var result = await _workFlowInstanceService.GetFlowImageAsync(flowid, instanceId);
             return ResultHelper.Success(result);
         }
 
-        
-        #endregion
-
         /// <summary>
-        /// 
+        /// 获取审批意见
         /// </summary>
-        /// <param name="req"></param>
-        /// <param name="url"></param>
-        /// <param name="userId"></param>
-        /// <param name="sourceTable"></param>
-        /// <param name="keyValue"></param>
-        /// <param name="businessName"></param>
+        /// <param name="instanceId"></param>
         /// <returns></returns>
-        #region 撤回操作，只有本人才能撤回没有被审核的数据
-        //public virtual async Task<ApiResult> WithDraw(string url, long userId, string sourceTable, long keyValue, string businessName)
-        //{
-        //    //提交先保存，在提交
-        //    var result = await _baseService.AddOneRerunKeyValue(req, userId);
-        //    bool isOk = false;
-        //    if (result > 0)
-        //    {
-        //        if (keyValue == 0)
-        //        {
-        //            keyValue = result;
-        //        }
-        //        //提交操作
-        //        isOk = await _workFlowInstanceService.CreateInstanceAsync(url, userId, sourceTable, keyValue, businessName);
-        //    }
-        //    return ResultHelper.Success(isOk);
-        //}
+        [HttpGet]
+        public async Task<ApiResult> GetFlowApprovalAsync(string instanceId)
+        {
+            var result = await _workFlowInstanceService.GetFlowApprovalAsync(instanceId);
+            return ResultHelper.Success(result);
+        }
         #endregion
     }
 }

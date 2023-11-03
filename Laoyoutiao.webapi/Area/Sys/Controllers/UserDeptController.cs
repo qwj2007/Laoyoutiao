@@ -27,19 +27,30 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers
         /// <param name="userId"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ApiResult>  GetSelectDeptIdByUserId(long userId) {
+        public async Task<ApiResult> GetSelectDeptIdByUserId(long userId)
+        {
             return ResultHelper.Success(await _userDeptService.GetSelectDeptIdByUserId(userId));
 
         }
 
-     
+        /// <summary>
+        /// 保存用户部门关系
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
 
         [HttpPost]
-        public async Task<ApiResult> SaveUserDepts(List<UserDeptEdit> list,long userId)
+        public async Task<ApiResult> SaveUserDepts(List<UserDeptEdit> list, long userId)
         {
             long uid = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
-            var result = await _userDeptService.SaveUserDept(list, userId,uid);
-            return ResultHelper.Success(result);
+            var result = await _userDeptService.SaveUserDept(list, userId, uid);
+            if (result)
+            {
+                return ResultHelper.Success(result);
+            }
+            return ResultHelper.Error();
+
         }
     }
 }
