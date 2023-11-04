@@ -341,3 +341,7 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\Laoyoutia
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\Laoyoutiao.Tasks.Core.pdb
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\Laoyoutiao.Jobs.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\Laoyoutiao.Jobs.pdb
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\Pipelines.Sockets.Unofficial.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\StackExchange.Redis.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\Laoyoutiao.Caches.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Debug\net6.0\Laoyoutiao.Caches.pdb

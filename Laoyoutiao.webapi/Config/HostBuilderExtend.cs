@@ -13,6 +13,7 @@ using SqlSugar;
 using SqlSugar.IOC;
 using Quartz;
 using Laoyoutiao.Tasks.Core;
+using Laoyoutiao.webapi.Extensions;
 
 namespace Laoyoutiao.Configuration
 {
@@ -57,8 +58,12 @@ namespace Laoyoutiao.Configuration
             });
             #endregion
 
+            #region 运用缓存
+            buil.Services.AddCache(builder => builder.UseCache(buil.Configuration));            
+            #endregion
+
             #region 配置定时任务
-           
+
             buil.Services.AddQuartz(options =>
             {
                 options.UseMicrosoftDependencyInjectionJobFactory();

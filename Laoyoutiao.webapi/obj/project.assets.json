@@ -2442,6 +2442,22 @@
           "lib/netstandard2.1/Oracle.ManagedDataAccess.dll": {}
         }
       },
+      "Pipelines.Sockets.Unofficial/2.2.8": {
+        "type": "package",
+        "dependencies": {
+          "System.IO.Pipelines": "5.0.1"
+        },
+        "compile": {
+          "lib/net5.0/Pipelines.Sockets.Unofficial.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net5.0/Pipelines.Sockets.Unofficial.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Quartz/3.7.0": {
         "type": "package",
         "dependencies": {
@@ -2927,6 +2943,23 @@
         },
         "runtime": {
           "lib/netstandard2.1/Kdbndp.dll": {}
+        }
+      },
+      "StackExchange.Redis/2.7.4": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "6.0.0",
+          "Pipelines.Sockets.Unofficial": "2.2.8"
+        },
+        "compile": {
+          "lib/net6.0/StackExchange.Redis.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/StackExchange.Redis.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Swashbuckle.AspNetCore/6.5.0": {
@@ -4691,6 +4724,23 @@
         },
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
+        }
+      },
+      "Laoyoutiao.Caches/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.Extensions.Caching.Abstractions": "6.0.0",
+          "Microsoft.Extensions.Caching.Memory": "6.0.0",
+          "Microsoft.Extensions.Configuration.Abstractions": "7.0.0",
+          "Newtonsoft.Json": "13.0.3",
+          "StackExchange.Redis": "2.7.4"
+        },
+        "compile": {
+          "bin/placeholder/Laoyoutiao.Caches.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Laoyoutiao.Caches.dll": {}
         }
       },
       "Laoyoutiao.Common/1.0.0": {
@@ -8467,6 +8517,29 @@
         "readme.txt"
       ]
     },
+    "Pipelines.Sockets.Unofficial/2.2.8": {
+      "sha512": "zG2FApP5zxSx6OcdJQLbZDk2AVlN2BNQD6MorwIfV6gVj0RRxWPEp2LXAxqDGZqeNV1Zp0BNPcNaey/GXmTdvQ==",
+      "type": "package",
+      "path": "pipelines.sockets.unofficial/2.2.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/Pipelines.Sockets.Unofficial.dll",
+        "lib/net461/Pipelines.Sockets.Unofficial.xml",
+        "lib/net472/Pipelines.Sockets.Unofficial.dll",
+        "lib/net472/Pipelines.Sockets.Unofficial.xml",
+        "lib/net5.0/Pipelines.Sockets.Unofficial.dll",
+        "lib/net5.0/Pipelines.Sockets.Unofficial.xml",
+        "lib/netcoreapp3.1/Pipelines.Sockets.Unofficial.dll",
+        "lib/netcoreapp3.1/Pipelines.Sockets.Unofficial.xml",
+        "lib/netstandard2.0/Pipelines.Sockets.Unofficial.dll",
+        "lib/netstandard2.0/Pipelines.Sockets.Unofficial.xml",
+        "lib/netstandard2.1/Pipelines.Sockets.Unofficial.dll",
+        "lib/netstandard2.1/Pipelines.Sockets.Unofficial.xml",
+        "pipelines.sockets.unofficial.2.2.8.nupkg.sha512",
+        "pipelines.sockets.unofficial.nuspec"
+      ]
+    },
     "Quartz/3.7.0": {
       "sha512": "11sQqbnhv/KBLcdpj8I7KlpK/QGnNbVj8YiBLsGo4d7rm78WSukODcKlJuz7bLQ6ZF5BYkalrdHUDTgL8ZgkcQ==",
       "type": "package",
@@ -8989,6 +9062,27 @@
         "lib/netstandard2.1/Kdbndp.dll",
         "sqlsugarcore.kdbndp.7.4.0.nupkg.sha512",
         "sqlsugarcore.kdbndp.nuspec"
+      ]
+    },
+    "StackExchange.Redis/2.7.4": {
+      "sha512": "lD6a0lGOCyV9iuvObnzStL74EDWAyK31w6lS+Md9gIz1eP4U6KChDIflzTdtrktxlvVkeOvPtkaYOcm4qjbHSw==",
+      "type": "package",
+      "path": "stackexchange.redis/2.7.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/StackExchange.Redis.dll",
+        "lib/net461/StackExchange.Redis.xml",
+        "lib/net472/StackExchange.Redis.dll",
+        "lib/net472/StackExchange.Redis.xml",
+        "lib/net6.0/StackExchange.Redis.dll",
+        "lib/net6.0/StackExchange.Redis.xml",
+        "lib/netcoreapp3.1/StackExchange.Redis.dll",
+        "lib/netcoreapp3.1/StackExchange.Redis.xml",
+        "lib/netstandard2.0/StackExchange.Redis.dll",
+        "lib/netstandard2.0/StackExchange.Redis.xml",
+        "stackexchange.redis.2.7.4.nupkg.sha512",
+        "stackexchange.redis.nuspec"
       ]
     },
     "Swashbuckle.AspNetCore/6.5.0": {
@@ -13229,6 +13323,11 @@
         "system.xml.xdocument.nuspec"
       ]
     },
+    "Laoyoutiao.Caches/1.0.0": {
+      "type": "project",
+      "path": "../Laoyoutiao.Cache/Laoyoutiao.Caches.csproj",
+      "msbuildProject": "../Laoyoutiao.Cache/Laoyoutiao.Caches.csproj"
+    },
     "Laoyoutiao.Common/1.0.0": {
       "type": "project",
       "path": "../Laoyoutiao.Common/Laoyoutiao.Common.csproj",
@@ -13290,6 +13389,7 @@
       "DotNetCore.CAP.Dashboard >= 7.2.1",
       "DotNetCore.CAP.MySql >= 7.2.1",
       "DotNetCore.CAP.RabbitMQ >= 7.2.1",
+      "Laoyoutiao.Caches >= 1.0.0",
       "Laoyoutiao.Common >= 1.0.0",
       "Laoyoutiao.IService >= 1.0.0",
       "Laoyoutiao.Jobs >= 1.0.0",
@@ -13343,6 +13443,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj": {
+              "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj"
+            },
             "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj": {
               "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj"
             },

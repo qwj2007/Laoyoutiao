@@ -16,6 +16,7 @@
           "DotNetCore.CAP.Dashboard": "7.2.1",
           "DotNetCore.CAP.MySql": "7.2.1",
           "DotNetCore.CAP.RabbitMQ": "7.2.1",
+          "Laoyoutiao.Caches": "1.0.0",
           "Laoyoutiao.Common": "1.0.0",
           "Laoyoutiao.IService": "1.0.0",
           "Laoyoutiao.Jobs": "1.0.0",
@@ -1900,6 +1901,17 @@
           }
         }
       },
+      "Pipelines.Sockets.Unofficial/2.2.8": {
+        "dependencies": {
+          "System.IO.Pipelines": "5.0.1"
+        },
+        "runtime": {
+          "lib/net5.0/Pipelines.Sockets.Unofficial.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "2.2.8.1080"
+          }
+        }
+      },
       "Quartz/3.7.0": {
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "7.0.0",
@@ -2241,6 +2253,18 @@
           "lib/netstandard2.1/Kdbndp.dll": {
             "assemblyVersion": "8.3.712.0",
             "fileVersion": "8.3.712.0"
+          }
+        }
+      },
+      "StackExchange.Redis/2.7.4": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "7.0.0",
+          "Pipelines.Sockets.Unofficial": "2.2.8"
+        },
+        "runtime": {
+          "lib/net6.0/StackExchange.Redis.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.7.4.20928"
           }
         }
       },
@@ -3209,6 +3233,18 @@
           "System.Text.Encoding": "4.3.0",
           "System.Threading": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0"
+        }
+      },
+      "Laoyoutiao.Caches/1.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Caching.Abstractions": "6.0.0",
+          "Microsoft.Extensions.Caching.Memory": "6.0.0",
+          "Microsoft.Extensions.Configuration.Abstractions": "7.0.0",
+          "Newtonsoft.Json": "13.0.3",
+          "StackExchange.Redis": "2.7.4"
+        },
+        "runtime": {
+          "Laoyoutiao.Caches.dll": {}
         }
       },
       "Laoyoutiao.Common/1.0.0": {
@@ -4316,6 +4352,13 @@
       "path": "oracle.manageddataaccess.core/3.21.100",
       "hashPath": "oracle.manageddataaccess.core.3.21.100.nupkg.sha512"
     },
+    "Pipelines.Sockets.Unofficial/2.2.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zG2FApP5zxSx6OcdJQLbZDk2AVlN2BNQD6MorwIfV6gVj0RRxWPEp2LXAxqDGZqeNV1Zp0BNPcNaey/GXmTdvQ==",
+      "path": "pipelines.sockets.unofficial/2.2.8",
+      "hashPath": "pipelines.sockets.unofficial.2.2.8.nupkg.sha512"
+    },
     "Quartz/3.7.0": {
       "type": "package",
       "serviceable": true,
@@ -4546,6 +4589,13 @@
       "sha512": "sha512-cHqgzvPz65v6pkO61oZM2pcPKY0KXvZo2EEAbZFHmyl5X7suxzpTOz/b6DvXjmRlcHxTRKGav2wwmStqTiUacg==",
       "path": "sqlsugarcore.kdbndp/7.4.0",
       "hashPath": "sqlsugarcore.kdbndp.7.4.0.nupkg.sha512"
+    },
+    "StackExchange.Redis/2.7.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lD6a0lGOCyV9iuvObnzStL74EDWAyK31w6lS+Md9gIz1eP4U6KChDIflzTdtrktxlvVkeOvPtkaYOcm4qjbHSw==",
+      "path": "stackexchange.redis/2.7.4",
+      "hashPath": "stackexchange.redis.2.7.4.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/6.5.0": {
       "type": "package",
@@ -5190,6 +5240,11 @@
       "sha512": "sha512-5zJ0XDxAIg8iy+t4aMnQAu0MqVbqyvfoUVl1yDV61xdo3Vth45oA2FoY4pPkxYAH5f8ixpmTqXeEIya95x0aCQ==",
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
+    },
+    "Laoyoutiao.Caches/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Laoyoutiao.Common/1.0.0": {
       "type": "project",

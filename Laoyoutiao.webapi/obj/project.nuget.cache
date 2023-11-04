@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "E+GVTsTi4nQmJ3irwFFtRw343sYIC4bFYk2T+jglNSOk45te8fL52K2c2eRETUo5pWoQycNti3zDuN7McVtHQg==",
+  "dgSpecHash": "1Kh6i31rKLlQ11JjimROtGGUZ4Jo3g+w1SSJffGRTGnRVrTTlgnT4srLyRJSqu6N+ZNk4zzs+YLiCQeaM5xHeg==",
   "success": true,
   "projectFilePath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.webapi\\Laoyoutiao.webapi.csproj",
   "expectedPackageFiles": [
@@ -146,6 +146,7 @@
     "C:\\Users\\齐文杰\\.nuget\\packages\\nuget.protocol\\6.3.1\\nuget.protocol.6.3.1.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\nuget.versioning\\6.3.1\\nuget.versioning.6.3.1.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\oracle.manageddataaccess.core\\3.21.100\\oracle.manageddataaccess.core.3.21.100.nupkg.sha512",
+    "C:\\Users\\齐文杰\\.nuget\\packages\\pipelines.sockets.unofficial\\2.2.8\\pipelines.sockets.unofficial.2.2.8.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\quartz\\3.7.0\\quartz.3.7.0.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\quartz.extensions.dependencyinjection\\3.7.0\\quartz.extensions.dependencyinjection.3.7.0.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\quartz.extensions.hosting\\3.7.0\\quartz.extensions.hosting.3.7.0.nupkg.sha512",
@@ -179,6 +180,7 @@
     "C:\\Users\\齐文杰\\.nuget\\packages\\sqlsugarcore\\5.1.4.114\\sqlsugarcore.5.1.4.114.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\sqlsugarcore.dm\\1.2.0\\sqlsugarcore.dm.1.2.0.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\sqlsugarcore.kdbndp\\7.4.0\\sqlsugarcore.kdbndp.7.4.0.nupkg.sha512",
+    "C:\\Users\\齐文杰\\.nuget\\packages\\stackexchange.redis\\2.7.4\\stackexchange.redis.2.7.4.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
