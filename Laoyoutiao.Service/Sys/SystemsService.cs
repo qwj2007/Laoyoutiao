@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Laoyoutiao.Caches;
 using Laoyoutiao.IService.Sys;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.Sys;
@@ -15,7 +16,7 @@ namespace Laoyoutiao.Service.Sys
     public class SystemsService : BaseService<Systems>, ISystemsService
     {
         private readonly IMapper _mapper;
-        public SystemsService(IMapper mapper) : base(mapper)
+        public SystemsService(IMapper mapper, CustomCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

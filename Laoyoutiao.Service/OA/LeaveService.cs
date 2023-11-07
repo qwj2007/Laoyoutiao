@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Laoyoutiao.Caches;
 using Laoyoutiao.Common;
 using Laoyoutiao.IService.OA;
 using Laoyoutiao.IService.Sys;
@@ -25,7 +26,7 @@ namespace Laoyoutiao.Service.OA
     public class LeaveService : BaseService<OALeave>, ILeaveService
     {
         private readonly IMapper _mapper;
-        public LeaveService(IMapper mapper) : base(mapper)
+        public LeaveService(IMapper mapper, CustomCache cache) : base(mapper,cache)
         {
             this._mapper = mapper;
         }

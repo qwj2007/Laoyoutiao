@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Laoyoutiao.Caches;
 using Laoyoutiao.IService;
 using Laoyoutiao.Models.Entitys;
 using Laoyoutiao.Service;
@@ -8,7 +9,7 @@ namespace demo.Service
     public class RoleService : BaseService<Role>, IRoleService
     {
         private readonly IMapper _mapper;
-        public RoleService(IMapper mapper) : base(mapper)
+        public RoleService(IMapper mapper, CustomCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Laoyoutiao.Caches;
 using Laoyoutiao.IService.Sys;
 using Laoyoutiao.Models.Entitys.Sys;
 using System;
@@ -14,7 +15,7 @@ namespace Laoyoutiao.Service.Sys
     /// </summary>
     public class SysTaskService : BaseService<SysTask>, ISysTaskService
     {
-        public SysTaskService(IMapper mapper) : base(mapper)
+        public SysTaskService(IMapper mapper, CustomCache cache) : base(mapper, cache)
         {
 
         }

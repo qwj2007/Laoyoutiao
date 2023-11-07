@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Laoyoutiao.Caches;
 using Laoyoutiao.IService.Sys;
 using Laoyoutiao.Models.Dto.Sys.DataPermission;
 using Laoyoutiao.Models.Dto.User;
@@ -10,7 +11,7 @@ namespace Laoyoutiao.Service.Sys
     public class DataPermissionService : BaseService<DataPermission>, IDataPermissionService
     {
         private readonly IMapper _mapper;
-        public DataPermissionService(IMapper mapper) : base(mapper)
+        public DataPermissionService(IMapper mapper, CustomCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

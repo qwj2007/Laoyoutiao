@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Laoyoutiao.Caches;
 using Laoyoutiao.IService.Sys;
 using Laoyoutiao.Models.Dto.Sys;
 using Laoyoutiao.Models.Entitys.Sys;
@@ -14,7 +15,7 @@ namespace Laoyoutiao.Service.Sys
     public class RoleMenuService : BaseService<RoleMenu>, IRoleMenuService
     {
         private readonly IMapper _mapper;
-        public RoleMenuService(IMapper mapper) : base(mapper)
+        public RoleMenuService(IMapper mapper, CustomCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

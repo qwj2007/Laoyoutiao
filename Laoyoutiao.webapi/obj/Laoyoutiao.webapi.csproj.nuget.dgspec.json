@@ -31,7 +31,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj": {
+                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -44,6 +48,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Http.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.Extensions.Caching.Abstractions": {
               "target": "Package",
               "version": "[6.0.0, )"
@@ -601,6 +609,9 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
+              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj": {
+                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj"
+              },
               "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj": {
                 "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj"
               },

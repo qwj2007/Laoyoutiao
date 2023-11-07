@@ -1,5 +1,6 @@
 using Autofac;
 using Laoyoutiao.Configuration;
+using Laoyoutiao.Models.Common;
 using Laoyoutiao.Tasks.Core;
 using Laoyoutiao.webapi.Filter;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +36,8 @@ app.UseCors("CorsPolicy");
 #endregion
 //启用定时任务
 UseTask.UseQuartz(app, app.Lifetime, app.Configuration);
-
+ServiceProviderInstance.Instance = app.Services;//.ApplicationServices;
+ServiceProviderInstance.wwwrootpath = app.Environment.WebRootPath;
 //app.UseEndpoints(routes =>
 //{
 //    routes.MapControllerRoute(

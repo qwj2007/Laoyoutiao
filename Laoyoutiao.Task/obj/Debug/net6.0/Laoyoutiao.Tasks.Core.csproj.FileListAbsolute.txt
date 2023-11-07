@@ -27,3 +27,5 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Task\bin\Debug\net6.0\Laoyoutiao.
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Task\bin\Debug\net6.0\Laoyoutiao.IRespository.pdb
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Task\bin\Debug\net6.0\Laoyoutiao.IService.pdb
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Task\bin\Debug\net6.0\Laoyoutiao.Repository.pdb
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Task\bin\Debug\net6.0\Laoyoutiao.Caches.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Task\bin\Debug\net6.0\Laoyoutiao.Caches.pdb

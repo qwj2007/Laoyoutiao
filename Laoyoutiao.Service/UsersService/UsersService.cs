@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Laoyoutiao.Caches;
 using Laoyoutiao.IService;
 using Laoyoutiao.Models.Dto.User;
 using Laoyoutiao.Models.Entitys;
@@ -10,7 +11,7 @@ namespace Laoyoutiao.Service
     public class UsersService : BaseService<Users>, IUserService
     {
         private readonly IMapper _mapper;
-        public UsersService(IMapper mapper) : base(mapper)
+        public UsersService(IMapper mapper, CustomCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

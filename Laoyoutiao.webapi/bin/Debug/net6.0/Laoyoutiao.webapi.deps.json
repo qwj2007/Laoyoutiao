@@ -3237,6 +3237,8 @@
       },
       "Laoyoutiao.Caches/1.0.0": {
         "dependencies": {
+          "Laoyoutiao.Models": "1.0.0",
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.Extensions.Caching.Abstractions": "6.0.0",
           "Microsoft.Extensions.Caching.Memory": "6.0.0",
           "Microsoft.Extensions.Configuration.Abstractions": "7.0.0",
@@ -3319,6 +3321,7 @@
           "AutoMapper": "12.0.1",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
           "DotNetCore.CAP": "7.2.2",
+          "Laoyoutiao.Caches": "1.0.0",
           "Laoyoutiao.Common": "1.0.0",
           "Laoyoutiao.IService": "1.0.0",
           "Laoyoutiao.Repository": "1.0.0",

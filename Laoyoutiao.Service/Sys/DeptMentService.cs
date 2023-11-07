@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Laoyoutiao.Caches;
 using Laoyoutiao.Common;
 using Laoyoutiao.IService.Sys;
 using Laoyoutiao.Models.Common;
@@ -13,7 +14,7 @@ namespace Laoyoutiao.Service.Sys
     public class DeptMentService : BaseTreeService<DeptMent>, IDeptMentService
     {
         private readonly IMapper _mapper;
-        public DeptMentService(IMapper mapper) : base(mapper)
+        public DeptMentService(IMapper mapper, CustomCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

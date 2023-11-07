@@ -14,6 +14,7 @@ using SqlSugar.IOC;
 using Quartz;
 using Laoyoutiao.Tasks.Core;
 using Laoyoutiao.webapi.Extensions;
+using Laoyoutiao.Caches;
 
 namespace Laoyoutiao.Configuration
 {
@@ -30,7 +31,7 @@ namespace Laoyoutiao.Configuration
                 //configurationBuilder.AddApollo(hostBuilderContext.Configuration.GetSection("apollo"))
                 //    .AddNamespace("ApolloServiceConfig", ConfigFileFormat.Json).AddDefault();
             });
-
+            buil.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             // buil.Host.ConfigureAppConfiguration((context, b) =>
             // {
             //     //添加Apollo配置中心
@@ -59,6 +60,9 @@ namespace Laoyoutiao.Configuration
             #endregion
 
             #region 运用缓存
+            //初始化redis
+                   
+            RedisHelper.redisClient.InitRedisConnect(buil.Configuration);
             buil.Services.AddCache(builder => builder.UseCache(buil.Configuration));            
             #endregion
 
@@ -83,6 +87,7 @@ namespace Laoyoutiao.Configuration
                 });
             buil.Services.UseQuartz();
             #endregion
+
             //buil.Host.ConfigureContainer<ContainerBuilder>(builder =>
             //{
             //    builder.Register<ISqlSugarClient>(context =>
@@ -149,6 +154,7 @@ namespace Laoyoutiao.Configuration
                 };
 
             });
+           
 
             #region JWT校验
 

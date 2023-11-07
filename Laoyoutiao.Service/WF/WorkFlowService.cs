@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Laoyoutiao.Caches;
 using Laoyoutiao.Common;
 using Laoyoutiao.IService.Sys;
 using Laoyoutiao.IService.WF;
@@ -19,7 +20,7 @@ namespace Laoyoutiao.Service.WF
     public class WorkFlowService : BaseService<WF_WorkFlow>, IWorkFlowService
     {
         private readonly IMapper _mapper;
-        public WorkFlowService(IMapper mapper) : base(mapper)
+        public WorkFlowService(IMapper mapper, CustomCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

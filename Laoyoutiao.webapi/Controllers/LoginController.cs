@@ -5,6 +5,7 @@ using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.Sys;
 using Laoyoutiao.Models.Dto.User;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.AccessControl;
 
 namespace Laoyoutiao.webapi.Controllers
 {
@@ -19,7 +20,7 @@ namespace Laoyoutiao.webapi.Controllers
         //private readonly IUserService _userService;
         private readonly ICustomJWTService _jwtService;
         private readonly IConfiguration _configuration;
-        private readonly ISysUserService _sysUserService;
+        private readonly ISysUserService _sysUserService;       
 
         /// <summary>
         /// 
@@ -97,6 +98,7 @@ namespace Laoyoutiao.webapi.Controllers
                 {
                     return ResultHelper.Error("账号不存在，用户名或密码错误！");
                 }
+                
 
                 return ResultHelper.Success(_jwtService.GetToken(users));
             });

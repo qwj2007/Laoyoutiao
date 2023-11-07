@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Laoyoutiao.Caches;
 using Laoyoutiao.IService;
 using Laoyoutiao.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,8 @@ namespace Laoyoutiao.webapi.Config
         /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder)
         {
-
+            builder.RegisterType<CustomCache>().AsSelf().InstancePerLifetimeScope().PropertiesAutowired();
+            //builder.RegisterType<ICache>().AsSelf().InstancePerLifetimeScope().PropertiesAutowired();
             //Assembly interfasceAss = Assembly.Load("demo.Interface");
             //Assembly serviceAss = Assembly.Load("demo.Service");
             //builder.RegisterAssemblyTypes(interfasceAss, serviceAss).AsImplementedInterfaces();

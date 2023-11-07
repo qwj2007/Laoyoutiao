@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Laoyoutiao.Caches;
 using Laoyoutiao.Common;
 using Laoyoutiao.IService;
 using Laoyoutiao.Models.Common;
@@ -12,9 +13,9 @@ namespace demo.Service
 {
     public class MenuService : BaseService<Menu>, IMenuService
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper _mapper;      
 
-        public MenuService(IMapper mapper) : base(mapper)
+        public MenuService(IMapper mapper, CustomCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Laoyoutiao.Caches;
 using Laoyoutiao.Enums;
 using Laoyoutiao.IService.Sys;
 using Laoyoutiao.Models.Entitys.Sys;
@@ -12,7 +13,7 @@ namespace Laoyoutiao.Service.Sys
 {
     public class BtnService : BaseService<SysButton>, IBtnService
     {
-        public BtnService(IMapper mapper) : base(mapper)
+        public BtnService(IMapper mapper, CustomCache cache) : base(mapper, cache)
         {
 
         }

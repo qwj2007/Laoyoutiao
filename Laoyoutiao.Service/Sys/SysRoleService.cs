@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Laoyoutiao.Caches;
 using Laoyoutiao.IService.Sys;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.Sys;
@@ -10,7 +11,7 @@ namespace Laoyoutiao.Service.Sys
     public class SysRoleService : BaseService<SysRole>, ISysRoleService
     {
         private readonly IMapper _mapper;
-        public SysRoleService(IMapper mapper) : base(mapper)
+        public SysRoleService(IMapper mapper, CustomCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

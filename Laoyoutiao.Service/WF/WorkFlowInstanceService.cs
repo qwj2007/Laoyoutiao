@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DotNetCore.CAP;
+using Laoyoutiao.Caches;
 using Laoyoutiao.Common;
 using Laoyoutiao.IService.WF;
 using Laoyoutiao.Models.Common;
@@ -21,7 +22,7 @@ namespace Laoyoutiao.Service.WF
     {
         private readonly IMapper _mapper;
         private readonly ICapPublisher capPublisher;
-        public WorkFlowInstanceService(IMapper mapper, ICapPublisher capPublisher) : base(mapper)
+        public WorkFlowInstanceService(IMapper mapper, ICapPublisher capPublisher, CustomCache cache) : base(mapper, cache)
         {
             this._mapper = mapper;
             this.capPublisher = capPublisher;

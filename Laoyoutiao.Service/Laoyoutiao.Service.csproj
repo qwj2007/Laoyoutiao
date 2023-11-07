@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Laoyoutiao.Cache\Laoyoutiao.Caches.csproj" />
     <ProjectReference Include="..\Laoyoutiao.Common\Laoyoutiao.Common.csproj" />
     <ProjectReference Include="..\Laoyoutiao.IService\Laoyoutiao.IService.csproj" />
     <ProjectReference Include="..\Laoyoutiao.Repository\Laoyoutiao.Repository.csproj" />

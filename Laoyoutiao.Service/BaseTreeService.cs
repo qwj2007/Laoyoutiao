@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Laoyoutiao.Caches;
 using Laoyoutiao.IService;
 using Laoyoutiao.Models.Common;
 using System;
@@ -13,7 +14,7 @@ namespace Laoyoutiao.Service
     {
         private readonly IMapper _mapper;
         
-        public BaseTreeService(IMapper mapper) : base(mapper)
+        public BaseTreeService(IMapper mapper, CustomCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

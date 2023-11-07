@@ -24,7 +24,7 @@ namespace Laoyoutiao.Caches
             var isOpenRedis = configration.GetSection("IsOpenRedis").Value;
             if (!string.IsNullOrEmpty(isOpenRedis) && isOpenRedis.Trim().ToLower() == "true")
             {
-                var RedisConnection = configration.GetConnectionString("RedisConnectionString");
+                var RedisConnection = configration.GetSection("RedisConnectionString").Value;
                 redis = ConnectionMultiplexer.Connect(RedisConnection);
                 db = redis.GetDatabase();
                 isOpen = true;

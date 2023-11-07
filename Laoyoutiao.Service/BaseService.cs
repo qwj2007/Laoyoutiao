@@ -1,22 +1,52 @@
 ﻿using AutoMapper;
-using Laoyoutiao.Common;
+using Laoyoutiao.Caches;
+using Laoyoutiao.Enums;
 using Laoyoutiao.IService;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.CustomAttribute;
 using Laoyoutiao.Models.Dto;
 using Laoyoutiao.Repository;
+using Microsoft.AspNetCore.Http;
 using SqlSugar;
 using System.Linq.Expressions;
+using System.Net.Http;
 using System.Reflection;
+using System.Security.Claims;
 
 namespace Laoyoutiao.Service
 {
     public class BaseService<T> : BaseServiceRepository<T>, IBaseService<T> where T : BaseEntity, new()
     {
         private readonly IMapper _mapper;
-        public BaseService(IMapper mapper)
+        //private readonly ICache _cache;
+        private readonly CustomCache _customcache;
+        public ICache _cache { get; set; }
+        public IHttpContextAccessor _httpContext { get; set; }
+        /// <summary>
+        /// 当前用户信息  用_cache 获取
+        /// </summary>
+        public LoginUserInfo _currentUser
+        {
+            get
+            {
+                return _customcache.GetUserInfo();
+                //if (_httpContext != null && _httpContext.HttpContext != null)
+                //{
+                //    var Claims = _httpContext.HttpContext.User.Claims;
+                //    if (Claims.Count() > 0)
+                //    {
+                //        var id = Claims.FirstOrDefault(t => t.Type == ClaimTypes.PrimarySid)?.Value;
+                //        return _cache.GetCache<CurrentUserInfo>($"selfinfo{id}", out bool has);
+                //    }
+                //}
+                //return null;
+            }
+        }
+
+        public BaseService(IMapper mapper, CustomCache cache)
         {
             this._mapper = mapper;
+            _customcache = cache;
         }
 
         public virtual bool BatchDel(string[] ids)
@@ -63,7 +93,7 @@ namespace Laoyoutiao.Service
             T info = _mapper.Map<T>(input);
             if (info.Id == 0)
             {
-                info.Code= SnowFlakeSingle.Instance.NextId().ToString();
+                info.Code = SnowFlakeSingle.Instance.NextId().ToString();
                 info.CreateUserId = userId;
                 info.CreateDate = DateTime.Now;
                 //info.UserType = 1;//0=炒鸡管理员，系统内置的
@@ -95,14 +125,14 @@ namespace Laoyoutiao.Service
                 //info.UserType = 1;//0=炒鸡管理员，系统内置的
                 info.IsDeleted = 0;
                 return await _db.Insertable(info).ExecuteReturnIdentityAsync();
-               
-                
+
+
             }
             else
             {
                 info.ModifyUserId = userId;
                 info.ModifyDate = DateTime.Now;
-                var result= await _db.Updateable(info).ExecuteCommandAsync();
+                var result = await _db.Updateable(info).ExecuteCommandAsync();
                 return info.Id;
             }
         }
@@ -163,6 +193,11 @@ namespace Laoyoutiao.Service
 
             var exp = _db.Queryable<T>();
             exp = GetMappingExpression(req, exp);
+
+            #region 加载数据权限
+            var userInfo = _currentUser;
+            //return _cache.GetCache<LoginUserInfo>(CacheInfo.LoginUserInfo + $"{httpContext.User.Claims.FirstOrDefault(t => t.Type == ClaimTypes.PrimarySid)?.Value}", out Boolean result);
+            #endregion
             var res = await exp
                 .Skip((req.PageIndex - 1) * req.PageSize)
                 .Take(req.PageSize)
@@ -307,7 +342,7 @@ namespace Laoyoutiao.Service
             return _mapper.Map<List<TRes>>(exp);
         }
 
-     
+
 
         //public virtual async Task<PageInfo> GetTreeAsync<TReq, TRes>(TReq req)
         //    where TReq : Pagination

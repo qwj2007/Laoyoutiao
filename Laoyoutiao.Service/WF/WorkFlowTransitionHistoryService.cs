@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Laoyoutiao.Caches;
 using Laoyoutiao.IService.WF;
 using Laoyoutiao.Models.Dto.WF.Transition;
 using Laoyoutiao.Models.Entitys.WF;
@@ -13,7 +14,7 @@ namespace Laoyoutiao.Service.WF
     public class WorkFlowTransitionHistoryService : BaseService<WF_WorkFlow_Transition_History>, IWorkFlowTransitionHistory
     {
         private readonly IMapper _mapper;
-        public WorkFlowTransitionHistoryService(IMapper mapper) : base(mapper)
+        public WorkFlowTransitionHistoryService(IMapper mapper, CustomCache cache) : base(mapper, cache)
         {
             this._mapper = mapper;
         }
