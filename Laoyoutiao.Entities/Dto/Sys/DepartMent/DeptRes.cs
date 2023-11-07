@@ -21,5 +21,7 @@ namespace Laoyoutiao.Models.Dto.Sys
         public long ParentId { get; set; }
         public string Path { get; set; }
         public List<DeptRes> Children { get; set; }
+      
+        public bool? spread = true;
     }
 }
