@@ -125,11 +125,18 @@
             
             </summary>
         </member>
-        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserController.#ctor(Laoyoutiao.IService.Sys.ISysUserService)">
+        <member name="F:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserController._cache">
             <summary>
             
             </summary>
             <param name="sysUserService"></param>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserController.LogOut(System.String)">
+            <summary>
+            退出登录，把缓存中的信息一块清除
+            </summary>
+            <param name="account"></param>
+            <returns></returns>
         </member>
         <member name="T:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserRoleController">
             <summary>

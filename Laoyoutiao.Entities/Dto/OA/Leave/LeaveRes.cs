@@ -43,5 +43,7 @@ namespace Laoyoutiao.Models.Dto.OA.Leave
         public string FormId { get; set; }
         public string InstanceId { get; set; }
         public int? ActivityType { get; set; }
+
+        public string? DeptId { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace Laoyoutiao.Models.Common
         public BaseEntity()
         {
             CreateDate = DateTime.Now;
-            IsDeleted = 0;
+            IsDeleted = 0;         
         }
 
         /// <summary>
@@ -44,7 +44,9 @@ namespace Laoyoutiao.Models.Common
         public string? Code { get; set; }
         [SugarColumn(IsNullable = true, Length = 50, ColumnDescription = "部门Id")]
         public string? DeptId { get; set; }
-      
-      
+
+       
+        
+
     }
 }

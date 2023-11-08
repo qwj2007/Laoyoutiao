@@ -1,4 +1,5 @@
 ﻿
+using Laoyoutiao.Caches;
 using Laoyoutiao.IService;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.Sys;
@@ -18,9 +19,11 @@ namespace Laoyoutiao.Service
     public class CustomJWTService : ICustomJWTService
     {
         private readonly JWTTokenOptions _JWTTokenOptions;
-        public CustomJWTService(IOptionsMonitor<JWTTokenOptions> optionsMonitor)
+        protected readonly CustomCache _customcache;
+        public CustomJWTService(IOptionsMonitor<JWTTokenOptions> optionsMonitor, CustomCache customcache)
         {
             _JWTTokenOptions = optionsMonitor.CurrentValue;
+            _customcache = customcache;
         }
         //获取token的方法
         public string GetToken(UserRes user)
@@ -54,6 +57,8 @@ namespace Laoyoutiao.Service
 
             JwtSecurityToken token = new JwtSecurityToken(issuer: _JWTTokenOptions.Issuer, audience: _JWTTokenOptions.Audience, claims: claims, expires: DateTime.Now.AddMinutes(30), signingCredentials: credentials);
             string returnToken = new JwtSecurityTokenHandler().WriteToken(token);
+            //
+            //_customcache.GetUserInfo();
             return returnToken;
         }
     }

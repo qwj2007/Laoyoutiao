@@ -4736,6 +4736,8 @@
           "Microsoft.Extensions.Caching.Memory": "6.0.0",
           "Microsoft.Extensions.Configuration.Abstractions": "7.0.0",
           "Newtonsoft.Json": "13.0.3",
+          "SqlSugar.IOC": "2.0.0",
+          "SqlSugarCore": "5.1.4.114",
           "StackExchange.Redis": "2.7.4"
         },
         "compile": {

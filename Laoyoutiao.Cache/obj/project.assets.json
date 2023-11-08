@@ -667,6 +667,19 @@
           "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         }
       },
+      "SqlSugar.IOC/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "5.0.0",
+          "System.Runtime.Loader": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/SqlSugar.IOC.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/SqlSugar.IOC.dll": {}
+        }
+      },
       "SqlSugarCore/5.1.4.114": {
         "type": "package",
         "dependencies": {
@@ -1107,6 +1120,22 @@
           "ref/netstandard1.5/_._": {
             "related": ".xml"
           }
+        }
+      },
+      "System.Runtime.Loader/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "System.IO": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Runtime": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.5/System.Runtime.Loader.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard1.5/System.Runtime.Loader.dll": {}
         }
       },
       "System.Security.AccessControl/6.0.0": {
@@ -2268,6 +2297,18 @@
         "sqlitepclraw.provider.e_sqlite3.nuspec"
       ]
     },
+    "SqlSugar.IOC/2.0.0": {
+      "sha512": "bRo+0DpzKE34rGCeIvyO9HVcX0jUZ3lQakum2EDjftCFwQPt7bI7JADKfuX9m0t3ApWKfofQKgamz6CTl7jNgg==",
+      "type": "package",
+      "path": "sqlsugar.ioc/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/SqlSugar.IOC.dll",
+        "sqlsugar.ioc.2.0.0.nupkg.sha512",
+        "sqlsugar.ioc.nuspec"
+      ]
+    },
     "SqlSugarCore/5.1.4.114": {
       "sha512": "KgzGqweODBp+ttXl4awvdiLgFQ58+clrfkI0wL74AZX8OrA/WZD8GzU5lRPRlmk+ghkASlMutMai7TPYVODbTw==",
       "type": "package",
@@ -3358,6 +3399,38 @@
         "system.runtime.extensions.nuspec"
       ]
     },
+    "System.Runtime.Loader/4.3.0": {
+      "sha512": "DHMaRn8D8YCK2GG2pw+UzNxn/OHVfaWx7OTLBD/hPegHZZgcZh3H6seWegrC4BYwsfuGrywIuT+MQs+rPqRLTQ==",
+      "type": "package",
+      "path": "system.runtime.loader/4.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net462/_._",
+        "lib/netstandard1.5/System.Runtime.Loader.dll",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/netstandard1.5/System.Runtime.Loader.dll",
+        "ref/netstandard1.5/System.Runtime.Loader.xml",
+        "ref/netstandard1.5/de/System.Runtime.Loader.xml",
+        "ref/netstandard1.5/es/System.Runtime.Loader.xml",
+        "ref/netstandard1.5/fr/System.Runtime.Loader.xml",
+        "ref/netstandard1.5/it/System.Runtime.Loader.xml",
+        "ref/netstandard1.5/ja/System.Runtime.Loader.xml",
+        "ref/netstandard1.5/ko/System.Runtime.Loader.xml",
+        "ref/netstandard1.5/ru/System.Runtime.Loader.xml",
+        "ref/netstandard1.5/zh-hans/System.Runtime.Loader.xml",
+        "ref/netstandard1.5/zh-hant/System.Runtime.Loader.xml",
+        "system.runtime.loader.4.3.0.nupkg.sha512",
+        "system.runtime.loader.nuspec"
+      ]
+    },
     "System.Security.AccessControl/6.0.0": {
       "sha512": "AUADIc0LIEQe7MzC+I0cl0rAT8RrTAKFHl53yHjEUzNVIaUlhFY11vc2ebiVJzVBuOzun6F7FBA+8KAbGTTedQ==",
       "type": "package",
@@ -3900,6 +3973,8 @@
       "Microsoft.Extensions.Caching.Memory >= 6.0.0",
       "Microsoft.Extensions.Configuration.Abstractions >= 7.0.0",
       "Newtonsoft.Json >= 13.0.3",
+      "SqlSugar.IOC >= 2.0.0",
+      "SqlSugarCore >= 5.1.4.114",
       "StackExchange.Redis >= 2.7.4"
     ]
   },
@@ -3970,6 +4045,14 @@
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[13.0.3, )"
+          },
+          "SqlSugar.IOC": {
+            "target": "Package",
+            "version": "[2.0.0, )"
+          },
+          "SqlSugarCore": {
+            "target": "Package",
+            "version": "[5.1.4.114, )"
           },
           "StackExchange.Redis": {
             "target": "Package",

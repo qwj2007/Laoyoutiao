@@ -91,11 +91,20 @@ namespace Laoyoutiao.Service
         public virtual async Task<bool> Add<TEdit>(TEdit input, long userId)
         {
             T info = _mapper.Map<T>(input);
+            if (_currentUser.deptDataIds.Count > 0)
+            {
+                info.DeptId = string.Join(",", _currentUser.deptDataIds.ToArray());
+            }
+            if (_currentUser.isAdmin)
+            {
+                info.DeptId = "1";
+            }
             if (info.Id == 0)
             {
                 info.Code = SnowFlakeSingle.Instance.NextId().ToString();
                 info.CreateUserId = userId;
                 info.CreateDate = DateTime.Now;
+
                 //info.UserType = 1;//0=炒鸡管理员，系统内置的
                 info.IsDeleted = 0;
                 return await _db.Insertable(info).ExecuteCommandAsync() > 0;
@@ -117,6 +126,14 @@ namespace Laoyoutiao.Service
         public virtual async Task<long> AddOneRerunKeyValue<TEdit>(TEdit input, long userId)
         {
             T info = _mapper.Map<T>(input);
+            if (_currentUser.deptDataIds.Count > 0)
+            {
+                info.DeptId = string.Join(",", _currentUser.deptDataIds.ToArray());
+            }
+            if (_currentUser.isAdmin)
+            {
+                info.DeptId = "1";
+            }
             if (info.Id == 0)
             {
                 info.Code = SnowFlakeSingle.Instance.NextId().ToString();
@@ -146,6 +163,14 @@ namespace Laoyoutiao.Service
         public virtual async Task<T> AddOrUpdateReturnEntity<TEdit>(TEdit input, long userId)
         {
             T info = _mapper.Map<T>(input);
+            if (_currentUser.deptDataIds.Count > 0)
+            {
+                info.DeptId = string.Join(",", _currentUser.deptDataIds.ToArray());
+            }
+            if (_currentUser.isAdmin)
+            {
+                info.DeptId = "1";
+            }
             if (info.Id == 0)
             {
                 info.Code = SnowFlakeSingle.Instance.NextId().ToString();
@@ -192,12 +217,12 @@ namespace Laoyoutiao.Service
         {
 
             var exp = _db.Queryable<T>();
+            #region 加载数据权限
+            exp = GetCurrentUserDataRange(exp);
+            #endregion
             exp = GetMappingExpression(req, exp);
 
-            #region 加载数据权限
-            var userInfo = _currentUser;
-            //return _cache.GetCache<LoginUserInfo>(CacheInfo.LoginUserInfo + $"{httpContext.User.Claims.FirstOrDefault(t => t.Type == ClaimTypes.PrimarySid)?.Value}", out Boolean result);
-            #endregion
+
             var res = await exp
                 .Skip((req.PageIndex - 1) * req.PageSize)
                 .Take(req.PageSize)
@@ -207,6 +232,59 @@ namespace Laoyoutiao.Service
             pageInfo.total = exp.Count();
             return pageInfo;
         }
+
+        public ISugarQueryable<T> GetCurrentUserDataRange(ISugarQueryable<T> exp)
+        {
+            var userInfo = _currentUser;
+            if (userInfo != null)
+            {
+                if (userInfo.isAdmin || userInfo.isPower)
+                {//若果是管理员或没有限制，不做任何处理
+                }
+                else
+                {
+                    //如果只能查看自己的数据
+                    if (userInfo.isOnlySelf)
+                    {
+                        exp = exp.Where(a => a.CreateUserId == userInfo.loginUser.Id);
+                    }
+                    if (userInfo.deptDataIds.Count > 0)
+                    {
+                        string deptIds = string.Join(",", userInfo.deptDataIds.ToArray());
+                        exp = exp.Where(a => a.DeptId.Contains(deptIds) || deptIds.Contains(a.DeptId));
+                    }
+                }
+            }
+
+            return exp;
+        }
+
+        //public ISugarQueryable<TRes> GetCurrentUserDataRange<TRes>(ISugarQueryable<TRes> exp) where TRes : class
+        //{
+        //    var userInfo = _currentUser;
+        //    if (userInfo != null)
+        //    {
+        //        if (userInfo.isAdmin || userInfo.isPower)
+        //        {//若果是管理员或没有限制，不做任何处理
+        //        }
+        //        else
+        //        {
+        //            //如果只能查看自己的数据
+        //            if (userInfo.isOnlySelf)
+        //            {
+        //                exp = exp.Where(a => a.CreateUserId == userInfo.loginUser.Id);
+        //            }
+        //            if (userInfo.deptDataIds.Count > 0)
+        //            {
+        //                string deptIds = string.Join(",", userInfo.deptDataIds.ToArray());
+        //                exp = exp.Where(a => a.DeptId.Contains(deptIds) || deptIds.Contains(a.DeptId));
+        //            }
+        //        }
+        //    }
+
+        //    return exp;
+        //}
+
         /// <summary>
         /// 
         /// </summary>
@@ -304,6 +382,9 @@ namespace Laoyoutiao.Service
         {
             PageInfo pageInfo = new PageInfo();
             var exp = _db.Queryable<T>();
+            #region 加载数据权限
+            exp = GetCurrentUserDataRange(exp);
+            #endregion
             var res = exp
                 .Skip((req.PageIndex - 1) * req.PageSize)
                 .Take(req.PageSize)
@@ -321,25 +402,66 @@ namespace Laoyoutiao.Service
         public virtual async Task<List<TRes>> GetListAllAsync<TRes>() where TRes : class
         {
             var exp = await base.GetAllAsync();
+            #region 加载数据权限
+            exp = GetCurrentUserDataRange(exp);
+            #endregion
             return _mapper.Map<List<TRes>>(exp);
         }
 
         public List<TRes> GetListAll<TRes>() where TRes : class
         {
             var exp = base.GetAll();
+            #region 加载数据权限
+            exp = GetCurrentUserDataRange(exp);
+            #endregion
             return _mapper.Map<List<TRes>>(exp);
         }
 
         public List<TRes> GetListByQuery<TRes>(Expression<Func<T, bool>> expression) where TRes : class
         {
             var exp = base.GetListByWhere(expression);
+            exp = GetCurrentUserDataRange(exp);
             return _mapper.Map<List<TRes>>(exp);
         }
 
         public async Task<List<TRes>> GetListByQueryAsync<TRes>(Expression<Func<T, bool>> expression) where TRes : class
         {
             var exp = await base.GetListByWhereAsync(expression);
+            exp = GetCurrentUserDataRange(exp); 
             return _mapper.Map<List<TRes>>(exp);
+        }
+
+        /// <summary>
+        /// 获取当前登录人的权限
+        /// </summary>
+        /// <param name="exp"></param>
+        /// <returns></returns>
+        public List<T> GetCurrentUserDataRange(List<T> exp)
+        {
+            #region 加载数据权限
+            var userInfo = _currentUser;
+            if (userInfo != null)
+            {
+                if (userInfo.isAdmin || userInfo.isPower)
+                {//若果是管理员或没有限制，不做任何处理
+                }
+                else
+                {
+                    //如果只能查看自己的数据
+                    if (userInfo.isOnlySelf)
+                    {
+                        exp = exp.Where(a => a.CreateUserId == userInfo.loginUser.Id).ToList();
+                    }
+                    if (userInfo.deptDataIds.Count > 0)
+                    {
+                        string deptIds = string.Join(",", userInfo.deptDataIds.ToArray());
+                        exp = exp.Where(a => deptIds.Contains(a.DeptId) || a.DeptId.Contains(deptIds)).ToList();
+                        //exp = exp.Where(a => a.DeptId.Contains(deptIds)).ToList();
+                    }
+                }
+            }
+            #endregion
+            return exp;
         }
 
 

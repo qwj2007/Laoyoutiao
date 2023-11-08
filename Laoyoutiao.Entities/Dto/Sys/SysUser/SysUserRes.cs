@@ -37,4 +37,6 @@ public class SysUserRes
 
     public DateTime CreateDate { get; set; }
     public string Status { get; set; }
+    public long? CreateUserId { get; set; }
+    public string? DeptId { get; set; }
 }

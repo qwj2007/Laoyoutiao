@@ -3,13 +3,15 @@ using Laoyoutiao.IRespository;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.User;
 using Laoyoutiao.Models.Entitys;
+using SqlSugar;
 using System.Linq.Expressions;
 
 namespace Laoyoutiao.IService
 {
     public interface IBaseService<T> : IBaseServiceRepository<T> where T : BaseKey, new()
     {
-       
+        ISugarQueryable<T> GetCurrentUserDataRange(ISugarQueryable<T> exp);
+        List<T> GetCurrentUserDataRange(List<T> exp);
         Task<T> AddOrUpdateReturnEntity<TEdit>(TEdit input, long userId);
         Task<long> AddOneRerunKeyValue<TEdit>(TEdit input, long userId);
 
