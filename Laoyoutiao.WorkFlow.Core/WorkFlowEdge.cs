@@ -39,11 +39,13 @@ namespace Laoyoutiao.WorkFlow.Core
         /// <summary>
         /// 显示坐标集合
         /// </summary>
-        public List<WFPoint> pointsList { get; set; }
+        public List<WFPoint> pointsList { get; set; } = new List<WFPoint>();
         /// <summary>
         /// 显示属性
         /// </summary>
-        public EdgeProperties properties { get; set; }
+        public EdgeProperties properties { get; set; } = new EdgeProperties();
+
+        public string statu { get; set; }
 
 
     }

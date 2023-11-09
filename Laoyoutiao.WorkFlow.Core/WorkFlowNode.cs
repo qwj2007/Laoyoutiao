@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -76,9 +76,13 @@ namespace Laoyoutiao.WorkFlow.Core
         /// <summary>
         /// node自定义属性
         /// </summary>
-        public NodeProperties properties { get; set; }
+        public NodeProperties properties { get; set; } = new NodeProperties();
 
-        public  NodeText text{get;set;}
+        /// <summary>
+        /// 审批结果
+        /// </summary>
+        public string statu { get; set; }
+        public NodeText text { get; set; } = new NodeText();
         //
         // 摘要:
         //     获取节点枚举类型

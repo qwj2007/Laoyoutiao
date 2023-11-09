@@ -33,10 +33,15 @@ namespace Laoyoutiao.Service.WF
             this.WorkFlow.Nodes = this.GetNodes(jsonobj.nodes);
             //获取连线
             this.WorkFlow.Edges = this.GetFromLines(jsonobj.edges);
-
+            //if (workFlow.NextNodeType != WorkFlowInstanceNodeType.End)
+            //{
             this.WorkFlow.ActivityNodeId = workFlow.ActivityNodeId == default(Guid) ? this.WorkFlow.StartNodeId : workFlow.ActivityNodeId;
-
             this.WorkFlow.ActivityNodeType = this.GetNodeType(this.WorkFlow.ActivityNodeId);
+            //}
+            //else {
+            //    this.WorkFlow.ActivityNodeId = workFlow.Nodes.Where(a => a.Value.Type == "END".ToLower()).FirstOrDefault().Key;
+            //}
+
 
             //会签会签节点和流程结束节点没有下一步
             if (this.WorkFlow.ActivityNodeType == WorkFlowInstanceNodeType.ChatNode || this.WorkFlow.ActivityNodeType == WorkFlowInstanceNodeType.End)
@@ -47,17 +52,26 @@ namespace Laoyoutiao.Service.WF
             else
             {
                 var nodeids = this.GetNextNodeIdsNotSpecialNode(this.WorkFlow.ActivityNodeId, WorkFlowInstanceNodeType.ViewNode);
-                if (nodeids.Count == 1)
+                if (WorkFlow.NextNodeType != WorkFlowInstanceNodeType.End)
                 {
-                    this.WorkFlow.NextNodeId = nodeids[0];
-                    this.WorkFlow.NextNodeType = this.GetNodeType(this.WorkFlow.NextNodeId);
+                    if (nodeids.Count == 1)
+                    {
+                        this.WorkFlow.NextNodeId = nodeids[0];
+                        this.WorkFlow.NextNodeType = this.GetNodeType(this.WorkFlow.NextNodeId);
+                    }
+                    else
+                    {
+                        //多个下个节点情况
+                        this.WorkFlow.NextNodeId = default(Guid);
+                        this.WorkFlow.NextNodeType = WorkFlowInstanceNodeType.NotRun;
+                    }
                 }
                 else
-                {
-                    //多个下个节点情况
-                    this.WorkFlow.NextNodeId = default(Guid);
-                    this.WorkFlow.NextNodeType = WorkFlowInstanceNodeType.NotRun;
+                {//如果是不同意操作，直接结束流程
+                    this.WorkFlow.NextNodeId = workFlow.Nodes.Where(a => a.Value.Type == "END".ToLower()).FirstOrDefault().Key;
+                    this.WorkFlow.NextNodeType = this.GetNodeType(this.WorkFlow.NextNodeId);
                 }
+
             }
         }
         public List<Guid> GetNextNodeIdsNotSpecialNode(Guid nodeId, WorkFlowInstanceNodeType nodeType)
@@ -180,7 +194,7 @@ namespace Laoyoutiao.Service.WF
         /// <returns></returns>
         public List<WorkFlowEdge> GetLinesForFrom(string nodeid)
         {
-            var lines = GetAllLines().Where(m => m.targetNodeId ==Guid.Parse( nodeid)).ToList();
+            var lines = GetAllLines().Where(m => m.targetNodeId == Guid.Parse(nodeid)).ToList();
             return lines;
         }
 

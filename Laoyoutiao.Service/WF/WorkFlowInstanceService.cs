@@ -39,7 +39,7 @@ namespace Laoyoutiao.Service.WF
             .Take(reqs.PageSize)
             .ToListAsync();
             PageInfo pageInfo = new PageInfo();
-            pageInfo.data =_mapper.Map<List<WorkFlowInstanceRes>>(queryList) ;// _mapper.Map<List<LeaveRes>>(queryList);
+            pageInfo.data = _mapper.Map<List<WorkFlowInstanceRes>>(queryList);// _mapper.Map<List<LeaveRes>>(queryList);
             pageInfo.total = list.Count();
             foreach (var item in pageInfo.data as List<WorkFlowInstanceRes>)
             {
@@ -331,8 +331,8 @@ namespace Laoyoutiao.Service.WF
                         BusinessName = model.BusinessName,
                         BusinessId = model.Id.ToString(),// keyValue.ToString(),
                         BusinessCode = model.Code,
-                        ComValue=model.ComValue.ToString()
-                        
+                        ComValue = model.ComValue.ToString()
+
 
                     };
                     await _db.Insertable(flowInstance).ExecuteCommandAsync();
@@ -443,11 +443,14 @@ namespace Laoyoutiao.Service.WF
         /// <param name="instanceid"></param>
         /// <param name="currentNodeId"></param>
         /// <returns></returns>
-        private async Task<List<WorkFlowNode>> GetExcuteNodes(string instanceid, string currentNodeId)
+        public async Task<List<WorkFlowNode>> GetExcuteNodes(string instanceid, string currentNodeId)
         {
             var operationHis = await _db.Queryable<WF_WorkFlow_Operation_History>().Where(a => a.InstanceId == instanceid.ToString()).ToListAsync();
-            var list = operationHis.Where(m => m.NodeId != currentNodeId && (m.TransitionType == (int)WorkFlowMenu.Agree || m.TransitionType == (int)WorkFlowMenu.Submit))
-                .OrderBy(m => m.CreateDate);
+            var list = operationHis.Where(m => m.NodeId != currentNodeId
+            && (m.TransitionType == (int)WorkFlowMenu.Agree
+            || m.TransitionType == (int)WorkFlowMenu.Submit
+            || m.TransitionType == (int)WorkFlowMenu.Deprecate
+            )).OrderBy(m => m.CreateDate);
             List<WorkFlowNode> nodes = new List<WorkFlowNode>();
             foreach (var item in list)
             {
@@ -462,11 +465,47 @@ namespace Laoyoutiao.Service.WF
                         var flow = new WorkFlowNode();
                         flow.Id = Guid.Parse(item.NodeId);
                         flow.text.value = item.NodeName;
+                        flow.statu = item.TransitionType.ToString();//审批结果                        
                         nodes.Add(flow);
                     }
                 }
             }
             return nodes;
+        }
+
+        public async Task<List<WorkFlowEdge>> GetExcuteEdges(string instanceid, string currentNodeId)
+        {
+            List<WorkFlowEdge> workFlowEdges = new List<WorkFlowEdge>();
+            //查找到所有的
+            var listNodes = await GetExcuteNodes(instanceid, currentNodeId);
+            var flowInstance = await _db.Queryable<WF_WorkFlow_Instance>().FirstAsync(a => a.InstanceId == instanceid && a.IsDeleted == 0);
+            if (flowInstance == null) {
+                return workFlowEdges;
+            }
+            //工作流程信息
+            MsWorkFlowContext context = new MsWorkFlowContext(new WorkFlow.Core.WorkFlow
+            {
+                FlowId = Guid.Parse(flowInstance.FlowId),
+                FlowJson = flowInstance.FlowContent,
+                ActivityNodeId = default(Guid)
+            });
+            
+            //所有的连线信息
+            var edges = context.WorkFlow.Edges;
+            foreach (var node in listNodes)
+            {
+                workFlowEdges.AddRange(context.GetLinesForFrom(node.Id.ToString()));
+                workFlowEdges.AddRange(context.GetLinesForTo(node.Id));
+            }     
+
+            var listEdges = workFlowEdges.GroupBy(a => a.id);//.Select(a => a.Count() > 1);
+            listEdges= listEdges.Where(a => a.Count() == 2).ToList();
+            workFlowEdges.Clear();
+            foreach (var edge in listEdges) {
+                workFlowEdges.Add(edge.FirstOrDefault());
+            }
+
+            return workFlowEdges==null?new List<WorkFlowEdge>():workFlowEdges;
         }
 
         /// <summary>
@@ -1269,7 +1308,7 @@ namespace Laoyoutiao.Service.WF
                             CreateUserId = long.Parse(model.UserId),
                             CreateUserName = model.UserName
                         };
-                        await _db.Insertable<WF_WorkFlow_Transition_History>(transitionHistory).ExecuteCommandAsync();                        
+                        await _db.Insertable<WF_WorkFlow_Transition_History>(transitionHistory).ExecuteCommandAsync();
 
                         #endregion
                     }
@@ -1364,7 +1403,7 @@ namespace Laoyoutiao.Service.WF
 
         #region 不同意
         /// <summary>
-        /// 不同意
+        /// 不同意，现在逻辑是不同意流程直接结束
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -1385,7 +1424,8 @@ namespace Laoyoutiao.Service.WF
                     FlowId = model.FlowId,
                     FlowJson = dbflowinstance.FlowContent,
                     ActivityNodeId = Guid.Parse(dbflowinstance.ActivityId),
-                    PreviousId = Guid.Parse(dbflowinstance.PreviousId)
+                    PreviousId = Guid.Parse(dbflowinstance.PreviousId),
+                    NextNodeType = WorkFlowInstanceNodeType.End//下一个节点是结束节点
                 });
                 //会签
                 if (context.WorkFlow.ActivityNode.NodeType() == WorkFlowInstanceNodeType.ChatNode)
@@ -1396,7 +1436,7 @@ namespace Laoyoutiao.Service.WF
                 {
                     //流程不同意节点判断
                     dbflowinstance.MakerList = "";
-                    dbflowinstance.IsFinish = 0;
+                    dbflowinstance.IsFinish = 1;
                     dbflowinstance.Status = (int)WorkFlowStatus.Deprecate;
                     dbflowinstance.PreviousId = dbflowinstance.ActivityId;
                     dbflowinstance.ActivityId = context.WorkFlow.NextNodeId.ToString();
@@ -1410,7 +1450,8 @@ namespace Laoyoutiao.Service.WF
                         transitionId = Guid.NewGuid().ToString(),
                         InstanceId = dbflowinstance.InstanceId,
                         TransitionState = (int)WorkFlowTransitionStateType.Reject,
-                        IsFinish = (int)WorkFlowInstanceStatus.Running,
+                        //IsFinish = (int)WorkFlowInstanceStatus.Running,
+                        IsFinish = context.WorkFlow.NextNodeType.ToIsFinish(),
                         CreateUserId = long.Parse(model.UserId),
                         CreateUserName = model.UserName,
                         FromNodeId = context.WorkFlow.ActivityNodeId.ToString(),
@@ -1740,7 +1781,7 @@ namespace Laoyoutiao.Service.WF
                         TransitionType = null,
                         CreateUserName = "",
                         Content = "系统自动结束",
-                        CreateDate=DateTime.Now                        
+                        CreateDate=DateTime.Now
                     }
                 };
                 IEnumerable<WF_WorkFlow_Operation_History> result = dbhistory.Union(list);
@@ -1761,10 +1802,10 @@ namespace Laoyoutiao.Service.WF
         /// <returns></returns>
         public async Task<WorkFlowInstanceRes> GetFlowImageAsync(string? url, string? instanceId)
         {
-            if (instanceId=="null"
-                ||string.IsNullOrEmpty(instanceId) 
+            if (instanceId == "null"
+                || string.IsNullOrEmpty(instanceId)
                 || instanceId == default(Guid).ToString()
-                || instanceId=="undefined")//未提交
+                || instanceId == "undefined")//未提交
             {
                 var menu = await _db.Queryable<Menus>().FirstAsync(a => a.MenuUrl == url && a.IsDeleted == 0 && a.IsButton == 0);
                 if (menu == null)

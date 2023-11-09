@@ -62,6 +62,15 @@ namespace Laoyoutiao.IService.WF
         /// <param name="model"></param>
         /// <returns></returns>
         Task<bool> WorkFlowBackAsync(WorkFlowProcessTransition model);
+        /// <summary>
+        /// 获取执行过的节点
+        /// </summary>
+        /// <param name="instanceid"></param>
+        /// <param name="currentNodeId"></param>
+        /// <returns></returns>
+        Task<List<WorkFlowNode>> GetExcuteNodes(string instanceid, string currentNodeId);
+
+        Task<List<WorkFlowEdge>> GetExcuteEdges(string instanceid, string currentNodeId);
 
     }
 }

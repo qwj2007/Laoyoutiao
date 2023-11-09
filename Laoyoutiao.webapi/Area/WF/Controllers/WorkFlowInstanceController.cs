@@ -144,6 +144,31 @@ namespace Laoyoutiao.webapi.Area.WF.Controllers
             var result = await _workFlowInstanceService.GetFlowApprovalAsync(instanceId);
             return ResultHelper.Success(result);
         }
+
+        /// <summary>
+        /// 获取执行过的节点
+        /// </summary>
+        /// <param name="instanceId"></param>
+        /// <param name="currentNodeId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<ApiResult> GetExcuteNodes(string instanceId,string currentNodeId)
+        {
+            var result = await _workFlowInstanceService.GetExcuteNodes(instanceId, currentNodeId);
+            return ResultHelper.Success(result);
+        }
+
+        /// <summary>
+        /// 获取执行过的线路
+        /// </summary>
+        /// <param name="instanceid"></param>
+        /// <param name="currentNodeId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<ApiResult> GetExcuteEdges(string instanceId, string currentNodeId) {
+            var result = await _workFlowInstanceService.GetExcuteEdges(instanceId, currentNodeId);
+            return ResultHelper.Success(result);
+        }
         #endregion
 
     }

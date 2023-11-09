@@ -33,6 +33,8 @@ namespace Laoyoutiao.WorkFlow.Core
 
         public ChatData ChatData { get; set; }
 
+        
+
     }
     /// <summary>
     /// 审批人员类型，指定人员或角色
