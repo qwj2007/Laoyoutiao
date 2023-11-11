@@ -1,0 +1,11 @@
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.WorkFlow.Core\bin\Release\net6.0\Laoyoutiao.WorkFlow.Core.deps.json
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.WorkFlow.Core\bin\Release\net6.0\Laoyoutiao.WorkFlow.Core.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.WorkFlow.Core\bin\Release\net6.0\Laoyoutiao.WorkFlow.Core.pdb
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Release\net6.0\Laoyoutiao.WorkFlow.Core.GeneratedMSBuildEditorConfig.editorconfig
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Release\net6.0\Laoyoutiao.WorkFlow.Core.AssemblyInfoInputs.cache
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Release\net6.0\Laoyoutiao.WorkFlow.Core.AssemblyInfo.cs
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Release\net6.0\Laoyoutiao.WorkFlow.Core.csproj.CoreCompileInputs.cache
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Release\net6.0\Laoyoutiao.WorkFlow.Core.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Release\net6.0\refint\Laoyoutiao.WorkFlow.Core.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Release\net6.0\Laoyoutiao.WorkFlow.Core.pdb
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Release\net6.0\ref\Laoyoutiao.WorkFlow.Core.dll

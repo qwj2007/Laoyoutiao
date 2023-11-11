@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
-  //base:"/",
+  base:"/dist",
 
   //运用代理处理跨域问题,这段代码只在开发服务器中器作用，发布到服务器将不会器作用，用nginx来处理。
   server:{

@@ -1,6 +1,7 @@
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyoutiao.Service.deps.json
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyoutiao.Service.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyoutiao.Service.pdb
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyoutiao.Caches.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyoutiao.Common.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyoutiao.Enums.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyoutiao.IRespository.dll
@@ -8,6 +9,7 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyouti
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyoutiao.Models.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyoutiao.Repository.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyoutiao.WorkFlow.Core.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyoutiao.Caches.pdb
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyoutiao.Common.pdb
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyoutiao.IService.pdb
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyoutiao.Repository.pdb
@@ -25,5 +27,3 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\obj\Debug\net6.0\Laoyouti
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\obj\Debug\net6.0\refint\Laoyoutiao.Service.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\obj\Debug\net6.0\Laoyoutiao.Service.pdb
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\obj\Debug\net6.0\ref\Laoyoutiao.Service.dll
-E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyoutiao.Caches.dll
-E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Service\bin\Debug\net6.0\Laoyoutiao.Caches.pdb

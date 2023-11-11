@@ -1,0 +1,607 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Laoyoutiao.webapi</name>
+    </assembly>
+    <members>
+        <member name="T:Laoyoutiao.webapi.Area.Sys.Controllers.DataPermissionController">
+            <summary>
+             DataPermission 数据权限
+            </summary>
+        </member>
+        <member name="F:Laoyoutiao.webapi.Area.Sys.Controllers.DataPermissionController._service">
+            <summary>
+            
+            </summary>
+            <param name="baseService"></param>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.DataPermissionController.GetModel(System.Int64,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="DataId"></param>
+            <param name="DataType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.DeptMentController.IsExitChildList(System.Int64)">
+            <summary>
+            判断是不存在子部门
+            </summary>
+            <returns></returns>
+                  
+        </member>
+        <member name="T:Laoyoutiao.webapi.Area.Sys.Controllers.JobsController">
+            <summary>
+            定时任务
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.JobsController.StopJobAsync(System.Int64)">
+            <summary>
+            停止一个任务
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.JobsController.StartJobAsync(System.Int64)">
+            <summary>
+            启动一个任务
+            </summary>
+            <param name="Ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.JobsController.DeleteJobAsync(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Area.Sys.Controllers.MenusController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.MenusController.GetChildButtons(System.Int64)">
+            <summary>
+            获取页面的按钮信息
+            </summary>
+            <returns></returns>
+                  
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.MenusController.IsExitChildList(System.Int64)">
+            <summary>
+            判断是不存在子菜单
+            </summary>
+            <returns></returns>
+                  
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.PromiseController.GetPromise(System.Int64,System.Int32,System.Int32)">
+            <summary>
+            获得菜单权限
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.RoleMenuController.SaveRoleMenu(System.Collections.Generic.List{Laoyoutiao.Models.Dto.Sys.RoleMenuEdit},System.Int64)">
+            <summary>
+            保存
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.RoleMenuController.GetExistMenuByRoleId(System.Int64)">
+            <summary>
+            根据角色Id查找信息
+            </summary>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Area.Sys.Controllers.SysRoleController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Laoyoutiao.webapi.Area.Sys.Controllers.SysRoleController._sysRoleService">
+            <summary>
+            
+            </summary>
+            <param name="baseService"></param>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.SysRoleController.GetRolesByUserId(System.Int64)">
+            <summary>
+            获取已经存在的用户角色
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.SysRoleController.GetAll">
+            <summary>
+            获取所有的角色
+            </summary>
+            <returns></returns>
+                  
+        </member>
+        <member name="T:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserController._cache">
+            <summary>
+            
+            </summary>
+            <param name="sysUserService"></param>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserController.LogOut(System.String)">
+            <summary>
+            退出登录，把缓存中的信息一块清除
+            </summary>
+            <param name="account"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserRoleController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserRoleController.SaveUserRoles(System.Collections.Generic.List{Laoyoutiao.Models.Dto.Sys.SysUserRoleEdit},System.Int64)">
+            <summary>
+            保存，用户一对多
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserRoleController.SaveUserRoleByRoles(System.Collections.Generic.List{Laoyoutiao.Models.Dto.Sys.SysUserRoleEdit},System.Int64)">
+            <summary>
+            保存,角色一对多
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.SysUserRoleController.GetExistUserByRoleId(System.Int64)">
+            <summary>
+            根据角色Id查找用户信息
+            </summary>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.UserDeptController.GetSelectDeptIdByUserId(System.Int64)">
+            <summary>
+            获取用户的部门Id
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.UserDeptController.SaveUserDepts(System.Collections.Generic.List{Laoyoutiao.Models.Dto.Sys.UserDeptEdit},System.Int64)">
+            <summary>
+            保存用户部门关系
+            </summary>
+            <param name="list"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController">
+            <summary>
+            工作流操作
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController.GetUserTodoListAsync(Laoyoutiao.Models.Dto.WF.Instance.WorkFlowInstanceReq)">
+            <summary>
+            获取用户的待办信息
+            </summary>
+            <param name="req">传递的参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController.WorkFlowAgree(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
+            <summary>
+            同意操作
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController.WorkFlowNoAgree(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
+            <summary>
+            不同意操作
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController.WrokFlowCommit(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
+            <summary>
+            工作流程提交
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController.WorkFlowWithdrawAsync(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
+            <summary>
+            撤销
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController.WorkFlowBackAsync(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
+            <summary>
+            退回
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController.GetFlowImageAsync(System.String,System.String)">
+            <summary>
+            获取流程图信息
+            </summary>
+            <param name="flowid"></param>
+            <param name="instanceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController.GetFlowApprovalAsync(System.String)">
+            <summary>
+            获取审批意见
+            </summary>
+            <param name="instanceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController.GetExcuteNodes(System.String,System.String)">
+            <summary>
+            获取执行过的节点
+            </summary>
+            <param name="instanceId"></param>
+            <param name="currentNodeId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowInstanceController.GetExcuteEdges(System.String,System.String)">
+            <summary>
+            获取执行过的线路
+            </summary>
+            <param name="instanceid"></param>
+            <param name="currentNodeId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowOperationHistoryController">
+            <summary>
+            流程操作历史
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowOperationHistoryController.GetWorkFlowOperationByInstanceId(System.String)">
+            <summary>
+            获取用户的部门Id
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowTransitionHistoryController">
+            <summary>
+            流程操作历史
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.WF.Controllers.WorkFlowTransitionHistoryController.GetWorkFlowTransitionByInstanceId(System.String)">
+            <summary>
+            获取用户的部门Id
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Config.AutofacModuleRegister">
+            <summary>
+            用autofac实现依赖注入
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Config.AutofacModuleRegister.Load(Autofac.ContainerBuilder)">
+            <summary>
+            用autofac实现依赖注入
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Config.BatchMapperProfile">
+            <summary>
+            批量映射
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Config.BatchMapperProfile.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Config.BatchMapperProfile.InitMapper">
+            <summary>
+            动态创建automapper
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Config.SqlsugarSetup.SetQueryFilter(SqlSugar.SqlSugarProvider)">
+            <summary>
+            添加全局过滤器
+            </summary>
+            <param name="provider"></param>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Controllers.BaseController`4">
+            <summary>
+            控制器基类
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TRes"></typeparam>
+            <typeparam name="TReq"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.#ctor(Laoyoutiao.IService.IBaseService{`0})">
+            <summary>
+            基础controller
+            </summary>
+            <param name="baseService"></param>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.GetModelById(System.Int64)">
+            <summary>
+            根据Id查找一条数据
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.Add(`3)">
+            <summary>
+            插入或修改一条数据
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.AddOneRerunKeyValue(`3)">
+            <summary>
+            保存修改返回主键
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.AddOrUpdateReturnEntity(`3)">
+            <summary>
+            保存并返回实体
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.Del(System.Int64)">
+            <summary>
+            根据Id删除
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.GetAll">
+            <summary>
+              ///获取所有信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.BatchDel(System.String)">
+            <summary>
+            批量删除
+            </summary>
+            <param name="ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.BatchDelByIdArray(System.String[])">
+            <summary>
+             批量删除
+            </summary>
+            <param name="ids">主键数组</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.GetPages(`2)">
+            <summary>
+            获取列表信息
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Controllers.BaseTreeController`4">
+            <summary>
+            列表为树形列表的要继承这个controller
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TRes"></typeparam>
+            <typeparam name="TReq"></typeparam>
+            <typeparam name="TEdit"></typeparam>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseTreeController`4.GetTree(`2)">
+            <summary>
+            数列表
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Controllers.BaseWorkFlowController`4">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseWorkFlowController`4.WorkFlowAgree(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
+            <summary>
+            同意操作
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseWorkFlowController`4.WorkFlowNoAgree(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
+            <summary>
+            不同意操作
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseWorkFlowController`4.WrokFlowCommit(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
+            <summary>
+            工作流程提交
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseWorkFlowController`4.WorkFlowWithdrawAsync(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
+            <summary>
+            撤销
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseWorkFlowController`4.WorkFlowBackAsync(Laoyoutiao.WorkFlow.Core.WorkFlowProcessTransition)">
+            <summary>
+            退回
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseWorkFlowController`4.GetFlowImageAsync(System.String,System.String)">
+            <summary>
+            获取流程图信息
+            </summary>
+            <param name="flowid"></param>
+            <param name="instanceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseWorkFlowController`4.GetFlowApprovalAsync(System.String)">
+            <summary>
+            获取审批意见
+            </summary>
+            <param name="instanceId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.EnumController.GetNodeRejectType">
+            <summary>
+            获取RejectType枚举
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Controllers.LoginController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.LoginController.#ctor(Laoyoutiao.IService.ICustomJWTService,Microsoft.Extensions.Configuration.IConfiguration,Laoyoutiao.IService.Sys.ISysUserService)">
+            <summary>
+            
+            </summary>
+            <param name="userService"></param>
+            <param name="customJWTService"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.LoginController.GetApollo">
+            <summary>
+            测试一下Apollo配置中心
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.LoginController.GetTokens(System.String,System.String)">
+            <summary>
+            获取token值
+            </summary>
+            <param name="name"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.MenuController.GetUserMenus">
+            <summary>
+            根据当前登录用户获取用户菜单
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Controllers.RoleController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.RoleController.#ctor(Laoyoutiao.IService.IRoleService)">
+            <summary>
+            
+            </summary>
+            <param name="roleService"></param>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.SubscriberController.ChangeTableStatusAsync(Laoyoutiao.WorkFlow.Core.WorkFlowStatusChange)">
+            <summary>
+            CAP 改变OA系统表单流程状态
+            </summary>
+            <param name="statusChange"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.ToolController.InitDataBase(System.String)">
+            <summary>
+            自动创建表
+            </summary>
+            <param name="ConnectionConfigs">连接数据库配置的名称</param>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.UserController.SettingRole(System.String,System.String)">
+            <summary>
+            获取用户信息
+            </summary>
+            <param name="req"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.UserController.EditNickNameOrPassword(System.String,System.String)">
+            <summary>
+                                                                                                                                                                                                                                           /// 
+            </summary>
+            <param name="nickName"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Extensions.CacheService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Extensions.CacheService.#ctor(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Extensions.CacheServiceBuilder">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Extensions.CacheServiceBuilder.AddCache(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Laoyoutiao.webapi.Extensions.CacheService})">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+            <param name="configure"></param>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Filter.SysExceptionFilter">
+            <summary>
+            全局异常处理
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Filter.SysExceptionFilter.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            OnException
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Filter.SysExceptionFilter.OnExceptionAsync(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            OnExceptionAsync
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Laoyoutiao.webapi.NotifactionHandler.BodyNotifactionHandler">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.NotifactionHandler.BodyNotifactionHandler.Handle(Laoyoutiao.webapi.Notifaction.BodyNotification)">
+            <summary>
+            
+            </summary>
+            <param name="notification"></param>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Notifaction.BodyNotification">
+            <summary>
+            
+            </summary>
+            <param name="body"></param>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Notifaction.BodyNotification.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="body"></param>
+        </member>
+        <member name="P:Laoyoutiao.webapi.Notifaction.BodyNotification.body">
+            <summary></summary>
+        </member>
+    </members>
+</doc>
