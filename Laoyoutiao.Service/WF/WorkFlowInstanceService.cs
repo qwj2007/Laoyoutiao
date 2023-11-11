@@ -450,12 +450,21 @@ namespace Laoyoutiao.Service.WF
             && (m.TransitionType == (int)WorkFlowMenu.Agree
             || m.TransitionType == (int)WorkFlowMenu.Submit
             || m.TransitionType == (int)WorkFlowMenu.Deprecate
+            || m.TransitionType == (int)WorkFlowMenu.Back
             )).OrderBy(m => m.CreateDate);
             List<WorkFlowNode> nodes = new List<WorkFlowNode>();
             foreach (var item in list)
             {
                 if (item.TransitionType == (int)WorkFlowMenu.Back)//当循环到Back节点时候，后面节点不在循环
                 {
+                    if (!nodes.Any(m => m.Id.ToString() == item.NodeId))
+                    {
+                        var flow = new WorkFlowNode();
+                        flow.Id = Guid.Parse(item.NodeId);
+                        flow.text.value = item.NodeName;
+                        flow.statu = item.TransitionType.ToString();//审批结果                        
+                        nodes.Add(flow);
+                    }
                     break;
                 }
                 else
@@ -1565,7 +1574,7 @@ namespace Laoyoutiao.Service.WF
                         InstanceId = dbflowinstance.InstanceId,
                         CreateUserId = long.Parse(model.UserId),
                         CreateUserName = model.UserName,
-                        Content = model.ProcessContent,
+                        Content = model.ProcessContent + dbflowinstance.ActivityName,
                         NodeName = context.WorkFlow.ActivityNode.text.value,
                         TransitionType = (int)WorkFlowMenu.Back,
                         NodeId = context.WorkFlow.ActivityNodeId.ToString()
