@@ -29,7 +29,7 @@ namespace Laoyoutiao.Service.Sys
         /// <exception cref="NotImplementedException"></exception>
         public async Task<List<PromiseMenu>> GetPromiseMenus(long userId, int isButton = 0,int isShow=-1)
         {
-            string sql = @"select sr.RoleName from sys_user us inner join sys_user_role role on us.Id=role.UserId
+            string sql = @"select distinct sr.RoleName from sys_user us inner join sys_user_role role on us.Id=role.UserId
 inner JOIN sys_role sr on sr.Id=role.RoleId where us.IsDeleted=0" ;
             if (userId > 0) {
                 sql += " and us.Id =" + userId;
@@ -39,12 +39,12 @@ inner JOIN sys_role sr on sr.Id=role.RoleId where us.IsDeleted=0" ;
             //超级管理员的账号
             if (roleInfos != null && roleInfos.Contains("超级管理员"))
             {
-                sql = @"select menu.Id,menu.MenuUrl Path ,menu.ComponentUrl Component,menu.Icon,menu.ParentId,menu.Name Title,menu.IsButton,menu.Code,menu.ButtonClass,menu.IsShow  
+                sql = @"select distinct menu.Id,menu.MenuUrl Path ,menu.ComponentUrl Component,menu.Icon,menu.ParentId,menu.Name Title,menu.IsButton,menu.Code,menu.ButtonClass,menu.IsShow  
 from sys_menu menu where menu.isdeleted=0  ";
             }
             else
             {
-                sql = @"select menu.Id, Path , Component,Icon,ParentId, Title,IsButton,Code,ButtonClass,IsShow  from view_menu  menu where menu.Id>0 ";
+                sql = @"select distinct menu.Id, Path , Component,Icon,ParentId, Title,IsButton,Code,ButtonClass,IsShow  from view_menu  menu where menu.Id>0 ";
 
                 
                 if (userId > 0)
