@@ -10,3 +10,4 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Jobs\obj\Debug\net6.0\Laoyoutiao.
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Jobs\obj\Debug\net6.0\refint\Laoyoutiao.Jobs.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Jobs\obj\Debug\net6.0\Laoyoutiao.Jobs.pdb
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Jobs\obj\Debug\net6.0\ref\Laoyoutiao.Jobs.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Jobs\obj\Debug\net6.0\Laoyoutiao.Jobs.sourcelink.json

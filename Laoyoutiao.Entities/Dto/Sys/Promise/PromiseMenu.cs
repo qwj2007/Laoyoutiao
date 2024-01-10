@@ -22,6 +22,7 @@ namespace Laoyoutiao.Models.Dto.Sys
         public string Code { get; set; }
         public string ButtonClass { get; set; }
         public int IsShow { get; set; }
+        public int Sort { get; set; }
         public List<PromiseMenu> Children { get; set; } = null;
     }
 }

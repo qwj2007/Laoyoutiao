@@ -27,7 +27,7 @@ namespace Laoyoutiao.Service.Sys
             if (pageInfo.data != null)
             {
                 List<MenusRes> list = pageInfo.data as List<MenusRes>;
-                await GetButtonOprate(list, allMenus);              
+                await GetButtonOprate(list, allMenus.OrderBy(a=>a.Sort).ToList());              
 
             }
             return pageInfo;
@@ -168,8 +168,27 @@ namespace Laoyoutiao.Service.Sys
                 var btnList = await _db.Queryable<Menus>().Where(a => a.IsButton == 1 && a.IsDeleted == 0 && a.ParentId == parentId).ToListAsync();
                 if (btnList != null && btnList.Count > 0)
                 {
-
-                    return _mapper.Map<List<MenusRes>>(btnList);
+                    //var listRes= _mapper.Map<List<MenusRes>>(btnList.OrderBy(a => a.Sort));
+                    List<MenusRes> btnsList = new List<MenusRes>();
+                    foreach (var (item, btn) in from item in btnList.OrderBy(a => a.Sort)
+                                                let btn = new MenusRes()
+                                                select (item, btn))
+                    {
+                        btn.ButtonClass = item.ButtonClass;
+                        btn.IsButton = "1";
+                        btn.Name = item.Name;
+                        btn.Code = item.Code;
+                        btn.BtnType = item.BtnType.ToString();
+                        btn.Icon = item.Icon;
+                        btn.Id = item.Id;
+                        btn.IsShow = item.IsShow.ToString();
+                        btn.ComponentUrl = item.ComponentUrl;
+                        btn.MenuUrl = item.MenuUrl;
+                        btn.Memo = item.Memo;
+                        btn.Sort = item.Sort;
+                        btnsList.Add(btn);
+                    }
+                    return btnsList;
                 }
             }
             else

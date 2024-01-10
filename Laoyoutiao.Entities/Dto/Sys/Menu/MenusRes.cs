@@ -13,15 +13,15 @@ namespace Laoyoutiao.Models.Dto.Sys
     [TypeMapper(SourceType = typeof(Menus))]
     public class MenusRes
     {
-        public long Id { get; set; }      
-        public string Name { get; set; }     
+        public long Id { get; set; }
+        public string Name { get; set; }
         //public string SystemName { get; set; }        
-        public long ParentId { get; set; }        
+        public long ParentId { get; set; }
         public string MenuUrl { get; set; }
-        public string? ButtonClass { get; set; }      
+        public string? ButtonClass { get; set; }
         public string Icon { get; set; }
-        public string IsShow { get; set; }       
-        public string IsButton { get; set; } 
+        public string IsShow { get; set; }
+        public string IsButton { get; set; }
         public string ComponentUrl { get; set; }
         public string Code { get; set; }
         public string BtnType { get; set; }
@@ -31,11 +31,11 @@ namespace Laoyoutiao.Models.Dto.Sys
         /// 下拉树是否展开
         /// </summary>
         public bool spread { get; set; } = true;
-       public List<MenusRes> Children { get; set; }
+        public List<MenusRes>? Children { get; set; }
         /// <summary>
         /// 按钮操作
         /// </summary>
-       public List<MenusRes> btnOperates { get; set; }
-       
+        public List<MenusRes>? btnOperates { get; set; }
+
     }
 }

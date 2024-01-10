@@ -39,12 +39,12 @@ inner JOIN sys_role sr on sr.Id=role.RoleId where us.IsDeleted=0" ;
             //超级管理员的账号
             if (roleInfos != null && roleInfos.Contains("超级管理员"))
             {
-                sql = @"select distinct menu.Id,menu.MenuUrl Path ,menu.ComponentUrl Component,menu.Icon,menu.ParentId,menu.Name Title,menu.IsButton,menu.Code,menu.ButtonClass,menu.IsShow  
+                sql = @"select distinct menu.Id,menu.MenuUrl Path ,menu.ComponentUrl Component,menu.Icon,menu.ParentId,menu.Name Title,menu.IsButton,menu.Code,menu.ButtonClass,menu.IsShow,menu.Sort  
 from sys_menu menu where menu.isdeleted=0  ";
             }
             else
             {
-                sql = @"select distinct menu.Id, Path , Component,Icon,ParentId, Title,IsButton,Code,ButtonClass,IsShow  from view_menu  menu where menu.Id>0 ";
+                sql = @"select distinct menu.Id, Path , Component,Icon,ParentId, Title,IsButton,Code,ButtonClass,IsShow,Sort  from view_menu  menu where menu.Id>0 ";
 
                 
                 if (userId > 0)
@@ -60,7 +60,8 @@ from sys_menu menu where menu.isdeleted=0  ";
             {
                 sql += " and IsShow=" + isShow;
             }
-            var listTree = await _db.SqlQueryable<Menus>(sql).ToTreeAsync(it => it.Children, it => it.ParentId, 0);
+            sql += " ";
+            var listTree = await _db.SqlQueryable<Menus>(sql).OrderBy(a=>a.Sort).ToTreeAsync(it => it.Children, it => it.ParentId, 0);
             var list = _mapper.Map<List<PromiseMenu>>(listTree);
             return list;
         }

@@ -345,3 +345,4 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Debug\net6.0\refint\La
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Debug\net6.0\Laoyoutiao.webapi.pdb
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Debug\net6.0\Laoyoutiao.webapi.genruntimeconfig.cache
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Debug\net6.0\ref\Laoyoutiao.webapi.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Debug\net6.0\Laoyoutiao.webapi.sourcelink.json
