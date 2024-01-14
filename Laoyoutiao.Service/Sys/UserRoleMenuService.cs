@@ -1,15 +1,8 @@
 ﻿using AutoMapper;
-using AutoMapper.Internal;
 using Laoyoutiao.Caches;
 using Laoyoutiao.IService.Sys;
-using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.Sys;
 using Laoyoutiao.Models.Entitys.Sys;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Laoyoutiao.Service.Sys
 {

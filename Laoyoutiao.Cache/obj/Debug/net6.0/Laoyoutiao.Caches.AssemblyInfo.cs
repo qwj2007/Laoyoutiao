@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Laoyoutiao.Caches")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a6dd77758cc9f386f382c599f2a00c1754f4b02a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+16416960e3628591ac31eb2a2c515612f17231fe")]
 [assembly: System.Reflection.AssemblyProductAttribute("Laoyoutiao.Caches")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Laoyoutiao.Caches")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

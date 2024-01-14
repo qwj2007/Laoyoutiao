@@ -30,6 +30,17 @@
             <returns></returns>
                   
         </member>
+        <member name="T:Laoyoutiao.webapi.Area.Sys.Controllers.DicController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Area.Sys.Controllers.DicController.#ctor(Laoyoutiao.IService.IBaseTreeService{Laoyoutiao.Models.Entitys.Sys.SysDic})">
+            <summary>
+            
+            </summary>
+            <param name="baseService"></param>
+        </member>
         <member name="T:Laoyoutiao.webapi.Area.Sys.Controllers.JobsController">
             <summary>
             定时任务
