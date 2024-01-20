@@ -8,7 +8,12 @@ using System.Threading.Tasks;
 namespace Laoyoutiao.Models.Dto.Sys.Dic
 {
     public class DicReq : Pagination
-    {
-        public string Name { get; set; }
+    {       
+        /// <summary>
+        /// 查找的条件数据
+        /// </summary>
+        public string? Title { get; set; }
+
+        
     }
 }

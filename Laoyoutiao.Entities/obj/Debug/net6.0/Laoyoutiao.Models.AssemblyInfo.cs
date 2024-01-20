@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Laoyoutiao.Models")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+16416960e3628591ac31eb2a2c515612f17231fe")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e2227a9bf3b62ac684f7ae927f3f78a696f77e47")]
 [assembly: System.Reflection.AssemblyProductAttribute("Laoyoutiao.Models")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Laoyoutiao.Models")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
