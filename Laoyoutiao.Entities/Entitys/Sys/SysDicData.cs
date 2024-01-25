@@ -21,7 +21,7 @@ namespace Laoyoutiao.Models.Entitys.Sys
         public string? Name { get; set; }
         [SugarColumn(IsNullable = true, Length = 50, ColumnDescription = "编码")]
         public string? DicCode { get; set; }
-        [SugarColumn(IsNullable = false, Length = 500, ColumnDescription = "备注")]
+        [SugarColumn(IsNullable = true, Length = 500, ColumnDescription = "备注")]
         public string? Remark { get; set; }
     }
 }
