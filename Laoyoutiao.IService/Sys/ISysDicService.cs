@@ -2,7 +2,8 @@
 
 namespace Laoyoutiao.IService.Sys
 {
-    public interface ISysDicService : IBaseService<SysDic>
+    public interface ISysDicService : IBaseTreeService<SysDic>
     {
+        
     }
 }

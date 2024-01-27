@@ -9,6 +9,6 @@ namespace Laoyoutiao.Models.Dto.Sys.DicData
 {
     public class DicDataReq:Pagination
     {
-        public string Name { get; set; }
+        public long ParentId { get; set; }
     }
 }

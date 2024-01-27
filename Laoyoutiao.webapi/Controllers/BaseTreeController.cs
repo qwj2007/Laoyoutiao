@@ -1,5 +1,6 @@
 ﻿using Laoyoutiao.Common;
 using Laoyoutiao.IService;
+using Laoyoutiao.IService.Sys;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Service;
 using Microsoft.AspNetCore.Http;
@@ -19,10 +20,14 @@ namespace Laoyoutiao.webapi.Controllers
         where TRes : class where TReq : Pagination where TEdit : class
     {
         private readonly IBaseTreeService<T> _baseService;
+        private ISysDicService sysDicService;
+
         public BaseTreeController(IBaseTreeService<T> baseService) : base(baseService)
         {
             _baseService = baseService;
         }
+
+
         /// <summary>
         /// 数列表
         /// </summary>

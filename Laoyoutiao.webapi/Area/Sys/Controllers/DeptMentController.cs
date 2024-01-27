@@ -18,6 +18,10 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers
     public class DeptMentController : BaseTreeController<DeptMent, DeptRes, DeptReq, DeptEdit>
     {
         private readonly IDeptMentService _deptMentService;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="deptMentService"></param>
         public DeptMentController(IDeptMentService deptMentService) : base(deptMentService)
         {
             _deptMentService = deptMentService;

@@ -372,7 +372,7 @@ namespace Laoyoutiao.Service
 
             }
             // }
-            exp = exp.OrderBy((u) => u.CreateDate, OrderByType.Desc);//根据创建时间
+            exp = exp.Where(a=>a.IsDeleted==0).OrderBy((u) => u.CreateDate, OrderByType.Desc);//根据创建时间
 
             return exp;
         }

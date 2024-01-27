@@ -76,7 +76,7 @@ namespace Laoyoutiao.Service.Sys
                 {
                     info.CreateUserId = userId;
                     info.CreateDate = DateTime.Now;
-                    info.FullId = path;                   
+                    info.FullId = path;
                     info.IsDeleted = 0;
                     long id = await _db.Insertable(info).ExecuteReturnBigIdentityAsync();
                     if (pid > 0)
@@ -90,7 +90,8 @@ namespace Laoyoutiao.Service.Sys
                     }
                     info.Id = id;
                     //如果没填写编码，就自动生成一个编码
-                    if (string.IsNullOrEmpty(info.DicCode)) {
+                    if (string.IsNullOrEmpty(info.DicCode))
+                    {
                         info.DicCode = SnowFlakeSingle.Instance.NextId().ToString();
                     }
                     await _db.Updateable(info).ExecuteCommandAsync();
@@ -108,6 +109,28 @@ namespace Laoyoutiao.Service.Sys
                 tran.CommitTran();
                 return true;
             };
+
+        }
+
+        /// <summary>
+        /// 判断是否有子项目，如果有就不可以删除
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public override async Task<bool> DelAsync(long id)
+        {
+            //判断这条数据是否有子数据
+            var listDic = await _db.Queryable<SysDic>().Where(a => a.ParentId == id && a.IsDeleted == 0).ToListAsync();
+            var listDicData = await _db.Queryable<SysDicData>().Where(a => a.ParentId == id && a.IsDeleted == 0).ToListAsync();
+            if (listDic.Count == 0 && listDicData.Count == 0)
+            {
+                await base.DelAsync(id);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
 
         }
     }
