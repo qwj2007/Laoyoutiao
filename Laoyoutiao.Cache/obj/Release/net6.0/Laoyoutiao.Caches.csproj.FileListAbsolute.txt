@@ -19,3 +19,4 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Cache\obj\Release\net6.0\Laoyouti
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Cache\obj\Release\net6.0\refint\Laoyoutiao.Caches.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Cache\obj\Release\net6.0\Laoyoutiao.Caches.pdb
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Cache\obj\Release\net6.0\ref\Laoyoutiao.Caches.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Cache\obj\Release\net6.0\Laoyoutiao.Caches.sourcelink.json

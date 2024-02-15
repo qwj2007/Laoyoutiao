@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Laoyoutiao.Extends")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a6dd77758cc9f386f382c599f2a00c1754f4b02a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8de27f83f28d600046f9ff3b865570844c2e871d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Laoyoutiao.Extends")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Laoyoutiao.Extends")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

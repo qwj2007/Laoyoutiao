@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Laoyoutiao.Repository")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+635574f962ba5583c5c78c53ac02fd172b19adf0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8de27f83f28d600046f9ff3b865570844c2e871d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Laoyoutiao.Repository")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Laoyoutiao.Repository")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

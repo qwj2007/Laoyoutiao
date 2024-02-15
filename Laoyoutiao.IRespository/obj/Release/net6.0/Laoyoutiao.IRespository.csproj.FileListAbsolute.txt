@@ -19,3 +19,4 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IRespository\obj\Release\net6.0\L
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IRespository\obj\Release\net6.0\refint\Laoyoutiao.IRespository.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IRespository\obj\Release\net6.0\Laoyoutiao.IRespository.pdb
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IRespository\obj\Release\net6.0\ref\Laoyoutiao.IRespository.dll
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IRespository\obj\Release\net6.0\Laoyoutiao.IRespository.sourcelink.json

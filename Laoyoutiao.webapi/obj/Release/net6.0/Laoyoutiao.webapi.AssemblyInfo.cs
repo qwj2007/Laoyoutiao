@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Laoyoutiao.webapi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8de27f83f28d600046f9ff3b865570844c2e871d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Laoyoutiao.webapi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Laoyoutiao.webapi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
