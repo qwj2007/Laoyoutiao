@@ -3,6 +3,7 @@ using Laoyoutiao.IService;
 using Laoyoutiao.IService.Sys;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.Sys;
+using Laoyoutiao.webapi.Filter;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Laoyoutiao.webapi.Controllers
@@ -12,7 +13,8 @@ namespace Laoyoutiao.webapi.Controllers
     /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
-    
+    //[CustomerActionFilters]
+    //[TypeFilter(typeof(CustomerActionFilters))] //这两种方式局部注册在类上，里边的方法都能filrer
     public class LoginController : ControllerBase
     {
         //private readonly IUserService _userService;
@@ -82,6 +84,8 @@ namespace Laoyoutiao.webapi.Controllers
         /// <returns></returns>
 
         [HttpGet]
+        //[CustomerActionFilters]
+        //[TypeFilter(typeof(CustomerActionFilters))] 这两种方式局部注册到方法上，只有这个方法可以filter都可以
         public async Task<ApiResult> GetTokens(string account, string password)
         {
             var result = System.Threading.Tasks.Task.Run(() =>
