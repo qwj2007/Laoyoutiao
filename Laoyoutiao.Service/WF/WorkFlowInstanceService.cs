@@ -278,7 +278,7 @@ namespace Laoyoutiao.Service.WF
                 var menu = await _db.Queryable<Menus>().FirstAsync(a => a.MenuUrl == model.url && a.IsDeleted == 0 && a.IsButton == 0);
                 if (menu == null)
                 {
-                    throw new ArgumentException("菜单的URL", "菜单的url为配置");
+                    throw new ArgumentException("菜单的URL", "菜单的url未配置");
                 }
                 long fromId = menu.Id;
                 //根据FormId查找到workflow

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Laoyoutiao.IRespository")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b9f6b47ac8c27787819f4cc2ba68cdfcf0d2daff")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b03095739cb8d9e995785aa7dc2092f6b13656fe")]
 [assembly: System.Reflection.AssemblyProductAttribute("Laoyoutiao.IRespository")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Laoyoutiao.IRespository")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

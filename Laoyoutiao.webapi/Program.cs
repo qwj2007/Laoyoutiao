@@ -10,7 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.Configure<MvcOptions>(opt => { opt.Filters.Add<SysExceptionFilter>();
+builder.Services.Configure<MvcOptions>(opt => { 
+    opt.Filters.Add<SysExceptionFilter>();
     opt.Filters.Add<CustomerActionFilters>();//全局注册，所有方法都可以使用actionfilter
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

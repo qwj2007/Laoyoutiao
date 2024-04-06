@@ -24,9 +24,9 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Task\obj\Debug\net6.0\Laoyoutiao.
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Task\obj\Debug\net6.0\Laoyoutiao.Tasks.Core.AssemblyInfoInputs.cache
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Task\obj\Debug\net6.0\Laoyoutiao.Tasks.Core.AssemblyInfo.cs
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Task\obj\Debug\net6.0\Laoyoutiao.Tasks.Core.csproj.CoreCompileInputs.cache
-E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Task\obj\Debug\net6.0\Laoyoutiao.Tasks.Core.csproj.CopyComplete
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Task\obj\Debug\net6.0\Laoyoutiao.Tasks.Core.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Task\obj\Debug\net6.0\refint\Laoyoutiao.Tasks.Core.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Task\obj\Debug\net6.0\Laoyoutiao.Tasks.Core.pdb
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Task\obj\Debug\net6.0\ref\Laoyoutiao.Tasks.Core.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Task\obj\Debug\net6.0\Laoyoutiao.Tasks.Core.sourcelink.json
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.Task\obj\Debug\net6.0\Laoyouti.5A902765.Up2Date
