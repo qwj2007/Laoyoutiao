@@ -51,6 +51,7 @@ namespace Laoyoutiao.Service.WF
             }
             else
             {
+                //查找下一个执行节点
                 var nodeids = this.GetNextNodeIdsNotSpecialNode(this.WorkFlow.ActivityNodeId, WorkFlowInstanceNodeType.ViewNode);
                 if (WorkFlow.NextNodeType != WorkFlowInstanceNodeType.End)
                 {
@@ -74,6 +75,12 @@ namespace Laoyoutiao.Service.WF
 
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nodeId">当前节点</param>
+        /// <param name="nodeType"></param>
+        /// <returns></returns>
         public List<Guid> GetNextNodeIdsNotSpecialNode(Guid nodeId, WorkFlowInstanceNodeType nodeType)
         {
             List<Guid> list = new List<Guid>();
