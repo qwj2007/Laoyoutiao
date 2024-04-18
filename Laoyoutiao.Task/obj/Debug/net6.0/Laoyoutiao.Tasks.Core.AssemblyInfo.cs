@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Laoyoutiao.Tasks.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+57274e7bcd2360e869809c0dd5aab838b3481713")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+031677e90fad1207c8e5f12029ac8ba4d0288dcf")]
 [assembly: System.Reflection.AssemblyProductAttribute("Laoyoutiao.Tasks.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Laoyoutiao.Tasks.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

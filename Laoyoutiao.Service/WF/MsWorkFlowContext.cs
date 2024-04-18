@@ -76,7 +76,7 @@ namespace Laoyoutiao.Service.WF
             }
         }
         /// <summary>
-        /// 
+        /// 从工作流中获取与指定节点不同类型的目标节点的列表
         /// </summary>
         /// <param name="nodeId">当前节点</param>
         /// <param name="nodeType"></param>
