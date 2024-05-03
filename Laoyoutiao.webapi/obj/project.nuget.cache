@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ybgA9NW/g1sBJdvi6gVRviCyF7bLq1Umy8YYv5/uR1uAWO1NDVb4sqf6XnhJc8X2/RlGhdEbAlt4WZ8kodBOLg==",
+  "dgSpecHash": "L63tEqiBb5e4+aP4oTyuqipwrn9Syh4WDXPDcIk45h5NspEtPOwG/IMfT0gw+MuBmmaPb4AO0aYQkqEWm2usFg==",
   "success": true,
   "projectFilePath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.webapi\\Laoyoutiao.webapi.csproj",
   "expectedPackageFiles": [
@@ -121,6 +121,7 @@
     "C:\\Users\\齐文杰\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\齐文杰\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.6\\microsoft.visualstudio.azure.containers.tools.targets.1.19.6.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\microsoft.visualstudio.debugger.contracts\\17.2.0\\microsoft.visualstudio.debugger.contracts.17.2.0.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration\\6.0.15\\microsoft.visualstudio.web.codegeneration.6.0.15.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.core\\6.0.15\\microsoft.visualstudio.web.codegeneration.core.6.0.15.nupkg.sha512",

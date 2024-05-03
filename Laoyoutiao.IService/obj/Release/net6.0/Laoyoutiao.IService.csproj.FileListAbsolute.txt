@@ -16,9 +16,9 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\obj\Release\net6.0\Laoyo
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\obj\Release\net6.0\Laoyoutiao.IService.AssemblyInfoInputs.cache
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\obj\Release\net6.0\Laoyoutiao.IService.AssemblyInfo.cs
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\obj\Release\net6.0\Laoyoutiao.IService.csproj.CoreCompileInputs.cache
-E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\obj\Release\net6.0\Laoyoutiao.IService.csproj.CopyComplete
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\obj\Release\net6.0\Laoyoutiao.IService.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\obj\Release\net6.0\refint\Laoyoutiao.IService.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\obj\Release\net6.0\Laoyoutiao.IService.pdb
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\obj\Release\net6.0\ref\Laoyoutiao.IService.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\obj\Release\net6.0\Laoyoutiao.IService.sourcelink.json
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.IService\obj\Release\net6.0\Laoyouti.092ACDF0.Up2Date

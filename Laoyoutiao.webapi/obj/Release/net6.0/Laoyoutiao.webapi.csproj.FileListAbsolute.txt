@@ -339,10 +339,11 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Release\net6.0\staticw
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Release\net6.0\staticwebassets.build.json
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Release\net6.0\staticwebassets.development.json
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Release\net6.0\scopedcss\bundle\Laoyoutiao.webapi.styles.css
-E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Release\net6.0\Laoyoutiao.webapi.csproj.CopyComplete
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Release\net6.0\Laoyoutiao.webapi.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Release\net6.0\refint\Laoyoutiao.webapi.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Release\net6.0\Laoyoutiao.webapi.pdb
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Release\net6.0\Laoyoutiao.webapi.genruntimeconfig.cache
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Release\net6.0\ref\Laoyoutiao.webapi.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Release\net6.0\Laoyoutiao.webapi.sourcelink.json
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\obj\Release\net6.0\Laoyouti.C112A932.Up2Date
+E:\学习程序代码等\Laoyoutiao\Laoyoutiao.webapi\bin\Release\net6.0\Dockerfile

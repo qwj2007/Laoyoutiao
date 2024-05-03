@@ -13,7 +13,7 @@ namespace Laoyoutiao.Models.Views
     /// <summary>
     /// 流程视图
     /// </summary>
-    [SugarTable("V_WorkFlow")]
+    [SugarTable("v_workflow")]
     [Tenant("0")]
     [IgnoreCreate]//不用来创建表
     public class V_WorkFlow:WF_WorkFlow_Instance
