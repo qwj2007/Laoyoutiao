@@ -15,6 +15,8 @@ using Quartz;
 using Laoyoutiao.Tasks.Core;
 using Laoyoutiao.webapi.Extensions;
 using Laoyoutiao.Caches;
+using Autofac.Core;
+using Minio;
 
 namespace Laoyoutiao.Configuration
 {
@@ -50,6 +52,9 @@ namespace Laoyoutiao.Configuration
             SqlsugarSetup.AddSqlsugarSetup();
             SnowFlakeSingle.WorkId = Convert.ToInt32(buil.Configuration.GetSection("SnowFlake:workId").Value);
             #endregion
+          
+            var minioClient = new MinioClient().WithEndpoint(buil.Configuration["MinIO:Endpoint"]).WithCredentials(buil.Configuration["MinIO:AccessKey"], buil.Configuration["MinIO:SecretKey"]).WithSSL().Build();
+            buil.Services.AddSingleton(minioClient);
 
             #region 使用autofac
             buil.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());

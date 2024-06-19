@@ -636,5 +636,253 @@
         <member name="P:Laoyoutiao.webapi.Notifaction.BodyNotification.body">
             <summary></summary>
         </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.MakeBucket(Minio.IMinioClient,System.String,System.String)">
+            <summary>创建存储桶
+            创建存储桶
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <param name="loc">可选参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.ListBuckets(Minio.IMinioClient)">
+            <summary>列出所有的存储桶
+            列出所有的存储桶
+            </summary>
+            <param name="minio">连接实例</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.BucketExists(Minio.IMinioClient,System.String)">
+            <summary>检查存储桶是否存在
+            检查存储桶是否存在
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.RemoveBucket(Minio.IMinioClient,System.String)">
+            <summary>删除一个存储桶
+            删除一个存储桶
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.ListObjects(Minio.IMinioClient,System.String,System.String,System.Boolean)">
+            <summary>列出存储桶里的对象
+            列出存储桶里的对象
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <param name="prefix">对象的前缀</param>
+            <param name="recursive">true代表递归查找，false代表类似文件夹查找，以'/'分隔，不查子文件夹</param>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.ListIncompleteUploads(Minio.IMinioClient,System.String,System.String,System.Boolean)">
+            <summary>列出存储桶中未完整上传的对象
+            列出存储桶中未完整上传的对象
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <param name="prefix">对象的前缀</param>
+            <param name="recursive">true代表递归查找，false代表类似文件夹查找，以'/'分隔，不查子文件夹</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.GetPolicy(Minio.IMinioClient,System.String)">
+            <summary>
+            获取存储桶或者对象前缀的访问权限
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.SetPolicy(Minio.IMinioClient,System.String)">
+            <summary>
+            针对存储桶和对象前缀设置访问策略
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.GetBucketNotification(Minio.IMinioClient,System.String)">
+            <summary>
+            获取存储桶的通知配置
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.SetBucketNotification(Minio.IMinioClient,System.String)">
+            <summary>
+            给存储桶设置通知
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.RemoveAllBucketNotifications(Minio.IMinioClient,System.String)">
+            <summary>
+            删除存储桶上所有配置的通知
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.FGetObject(Minio.IMinioClient,System.String,System.String,System.String,Minio.DataModel.Encryption.IServerSideEncryption)">
+            <summary>
+            从桶下载文件到本地
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <param name="objectName">存储桶里的对象名称</param>
+            <param name="fileName">本地路径</param>
+            <param name="sse"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.FPutObject(Minio.IMinioClient,System.String,System.String,System.String)">
+            <summary>
+            上传本地文件至存储桶
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <param name="objectName">存储桶里的对象名称</param>
+            <param name="fileName">本地路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.PresignedGetObject(Minio.IMinioClient,System.String,System.String,System.Int32)">
+            <summary>生成一个给HTTP GET请求用的presigned URL。浏览器/移动端的客户端可以用这个URL进行下载，即使其所在的存储桶是私有的。这个presigned URL可以设置一个失效时间，默认值是7天。
+            生成一个给HTTP GET请求用的presigned URL。浏览器/移动端的客户端可以用这个URL进行下载，即使其所在的存储桶是私有的。这个presigned URL可以设置一个失效时间，默认值是7天。
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <param name="objectName">存储桶里的对象名称</param>
+            <param name="expiresInt">失效时间（以秒为单位），默认是7天，不得大于七天</param>
+            <param name="reqParams">额外的响应头信息，支持response-expires、response-content-type、response-cache-control、response-content-disposition</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.PresignedPutObject(Minio.IMinioClient,System.String,System.String,System.Int32)">
+            <summary>生成一个给HTTP PUT请求用的presigned URL。浏览器/移动端的客户端可以用这个URL进行上传，即使其所在的存储桶是私有的。这个presigned URL可以设置一个失效时间，默认值是7天。
+            生成一个给HTTP PUT请求用的presigned URL。浏览器/移动端的客户端可以用这个URL进行上传，即使其所在的存储桶是私有的。这个presigned URL可以设置一个失效时间，默认值是7天。
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <param name="objectName">存储桶里的对象名称</param>
+            <param name="expiresInt">失效时间（以秒为单位），默认是7天，不得大于七天</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.PresignedPostPolicy(Minio.IMinioClient)">
+            <summary>
+            允许给POST请求的presigned URL设置策略，比如接收对象上传的存储桶名称的策略，key名称前缀，过期策略。
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="PostPolicy">对象的post策略</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.GetObjectAsync(Minio.IMinioClient,System.String,System.String,System.Action{System.IO.Stream})">
+            <summary>返回对象数据的流
+            返回对象数据的流
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <param name="objectName">存储桶里的对象名称</param>
+            <param name="callback">处理流的回调函数</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.GetObjectAsync(Minio.IMinioClient,System.String,System.String,System.Int64,System.Int64,System.Action{System.IO.Stream})">
+            <summary>
+            下载对象指定区域的字节数组做为流。offset和length都必须传
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <param name="objectName">存储桶里的对象名称</param>
+            <param name="offset">offset 是起始字节的位置</param>
+            <param name="length">length是要读取的长度</param>
+            <param name="callback">处理流的回调函数</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.GetObjectAsync(Minio.IMinioClient,System.String,System.String,System.String)">
+            <summary>
+            下载并将文件保存到本地文件系统
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <param name="objectName">存储桶里的对象名称</param>
+            <param name="fileName">本地文件路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.PutObjectAsync(Minio.IMinioClient,System.String,System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>通过文件上传到对象中
+            通过文件上传到对象中
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <param name="objectName">存储桶里的对象名称</param>
+            <param name="filePath">要上传的本地文件名</param>
+            <param name="contentType">文件的Content type，默认是"application/octet-stream"</param>
+            <param name="metaData">元数据头信息的Dictionary对象，默认是null</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.PutObjectAsync(Minio.IMinioClient,System.String,System.String,System.IO.Stream,System.Int64,System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>通过Stream上传对象
+            通过Stream上传对象
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <param name="objectName">存储桶里的对象名称</param>
+            <param name="data">要上传的Stream对象</param>
+            <param name="size">流的大小</param>
+            <param name="contentType">文件的Content type，默认是"application/octet-stream"</param>
+            <param name="metaData">元数据头信息的Dictionary对象，默认是null</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.StatObject(Minio.IMinioClient,System.String,System.String)">
+            <summary>获取对象的元数据
+            获取对象的元数据
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <param name="objectName">存储桶里的对象名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.CopyObject(Minio.IMinioClient,System.String,System.String,System.String,System.String,Minio.DataModel.CopyConditions,Minio.DataModel.Encryption.IServerSideEncryption,Minio.DataModel.Encryption.IServerSideEncryption)">
+            <summary>
+            从objectName指定的对象中将数据拷贝到destObjectName指定的对象
+            </summary>
+            <param name="minio"></param>
+            <param name="fromBucketName">源存储桶名称</param>
+            <param name="fromObjectName">源存储桶中的源对象名称</param>
+            <param name="destBucketName">目标存储桶名称</param>
+            <param name="destObjectName">要创建的目标对象名称,如果为空，默认为源对象名称</param>
+            <param name="copyConditions">拷贝操作的一些条件Map</param>
+            <param name="sseSrc"></param>
+            <param name="sseDest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.RemoveObject(Minio.IMinioClient,System.String,System.String)">
+            <summary>删除一个对象
+            删除一个对象
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <param name="objectName">存储桶里的对象名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.RemoveObjects(Minio.IMinioClient,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            删除多个对象
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <param name="objectsList">含有多个对象名称的IEnumerable</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Util.MinioUtil.RemoveIncompleteUpload(Minio.IMinioClient,System.String,System.String)">
+            <summary>
+            删除一个未完整上传的对象
+            </summary>
+            <param name="minio">连接实例</param>
+            <param name="bucketName">存储桶名称</param>
+            <param name="objectName">存储桶里的对象名称</param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

@@ -947,6 +947,10 @@
               "target": "Package",
               "version": "[6.0.15, )"
             },
+            "Minio": {
+              "target": "Package",
+              "version": "[6.0.2, )"
+            },
             "Quartz": {
               "target": "Package",
               "version": "[3.7.0, )"
