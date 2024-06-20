@@ -2,8 +2,6 @@
 using Laoyoutiao.IService;
 using Laoyoutiao.IService.Sys;
 using Laoyoutiao.Models.Common;
-using Laoyoutiao.Service;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Laoyoutiao.webapi.Controllers

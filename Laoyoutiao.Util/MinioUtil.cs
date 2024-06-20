@@ -21,7 +21,7 @@ namespace Laoyoutiao.Util
         /// <param name="bucketName">存储桶名称</param>
         /// <param name="loc">可选参数</param>
         /// <returns></returns>
-        public async static Task<bool> MakeBucket(IMinioClient minio, string bucketName, string loc = "us-east-1")
+        public async static Task<bool> MakeBucketAsync(IMinioClient minio, string bucketName, string loc = "us-east-1")
         {
             bool flag = false;
             try
@@ -76,12 +76,15 @@ namespace Laoyoutiao.Util
         /// <param name="minio">连接实例</param>
         /// <param name="bucketName">存储桶名称</param>
         /// <returns></returns>
-        public async static Task<bool> BucketExists(IMinioClient minio, string bucketName)
+        public async static Task<bool> BucketExistsAsync(IMinioClient minio, string bucketName)
         {
             bool flag = false;
             try
             {
-                flag = await minio.BucketExistsAsync(new BucketExistsArgs().WithBucket(bucketName));
+                var args = new BucketExistsArgs()
+                .WithBucket(bucketName);
+                flag = await minio.BucketExistsAsync(args).ConfigureAwait(false);
+                //flag = await minio.BucketExistsAsync(new BucketExistsArgs().WithBucket(bucketName));
             }
             catch (Exception e)
             {
@@ -935,6 +938,6 @@ namespace Laoyoutiao.Util
             }
             return flag;
         }
+        #endregion
     }
-    #endregion
 }

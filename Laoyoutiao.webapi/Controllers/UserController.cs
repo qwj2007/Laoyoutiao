@@ -1,12 +1,10 @@
-﻿using AutoMapper;
-using Laoyoutiao.Common;
+﻿using Laoyoutiao.Common;
 using Laoyoutiao.IService;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.User;
 using Laoyoutiao.Models.Entitys;
 using Laoyoutiao.webapi.Notifaction;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Laoyoutiao.webapi.Controllers

@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
@@ -36,11 +36,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Laoyoutiao.Cache\Laoyoutiao.Caches.csproj" />
     <ProjectReference Include="..\Laoyoutiao.Common\Laoyoutiao.Common.csproj" />
-    <ProjectReference Include="..\Laoyoutiao.Entities\Laoyoutiao.Models.csproj" />
     <ProjectReference Include="..\Laoyoutiao.IService\Laoyoutiao.IService.csproj" />
     <ProjectReference Include="..\Laoyoutiao.Jobs\Laoyoutiao.Jobs.csproj" />
     <ProjectReference Include="..\Laoyoutiao.Service\Laoyoutiao.Service.csproj" />
     <ProjectReference Include="..\Laoyoutiao.Task\Laoyoutiao.Tasks.Core.csproj" />
+    <ProjectReference Include="..\Laoyoutiao.Util\Laoyoutiao.Util.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Demo.API.Application.xml">
