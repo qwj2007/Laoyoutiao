@@ -72,6 +72,7 @@ namespace Laoyoutiao.webapi.Controllers
         [HttpPost]
         public virtual async Task<ApiResult> Add(TEdit req)
         {
+           
             //获取当前登录人信息 
             long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
             var result = await _baseService.Add(req, userId);

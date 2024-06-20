@@ -712,7 +712,7 @@ namespace Laoyoutiao.Util
             return flag;
         }
 
-        /// <summary>通过Stream上传对象
+        /// <summary>
         /// 通过Stream上传对象
         /// </summary>
         /// <param name="minio">连接实例</param>
@@ -725,6 +725,7 @@ namespace Laoyoutiao.Util
         /// <returns></returns>
         public async static Task<bool> PutObjectAsync(IMinioClient minio, string bucketName, string objectName, Stream data, long size, string contentType = "application/octet-stream", Dictionary<string, string> metaData = null)
         {
+           
             bool flag = false;
             try
             {
@@ -758,7 +759,7 @@ namespace Laoyoutiao.Util
         /// <param name="bucketName">存储桶名称</param>
         /// <param name="objectName">存储桶里的对象名称</param>
         /// <returns></returns>
-        public async static Task<bool> StatObject(IMinioClient minio, string bucketName, string bucketObject)
+        public async static Task<bool> StatObjectAsync(IMinioClient minio, string bucketName, string bucketObject)
         {
             bool flag = false;
             try

@@ -510,6 +510,13 @@
             <param name="files"></param>
             <returns></returns>
         </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.FileOperateController.DownloadFile(System.String)">
+            <summary>
+            下载附件
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
         <member name="T:Laoyoutiao.webapi.Controllers.LoginController">
             <summary>
             
@@ -609,6 +616,15 @@
             <summary>
             
             </summary>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Filter.GlobalExceptionHandler.TryHandleAsync(Microsoft.AspNetCore.Http.HttpContext,System.Exception,System.Threading.CancellationToken)">
+            <summary>
+            
+            </summary>
+            <param name="httpContext"></param>
+            <param name="exception"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
         </member>
         <member name="T:Laoyoutiao.webapi.Filter.SysExceptionFilter">
             <summary>

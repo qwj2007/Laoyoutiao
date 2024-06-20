@@ -3,6 +3,7 @@ using Minio;
 using Minio.Exceptions;
 using Laoyoutiao.Util;
 using Minio.DataModel.Args;
+using Laoyoutiao.Common;
 namespace Laoyoutiao.webapi.Controllers
 {
     /// <summary>
@@ -34,12 +35,7 @@ namespace Laoyoutiao.webapi.Controllers
             long size = files.Sum(f => f.Length);
             try
             {
-                //var args = new BucketExistsArgs().WithBucket(bucketName);
-                //var found = await _client.BucketExistsAsync(args).ConfigureAwait(false);
-                //Console.WriteLine((found ? "Found" : "Couldn't find ") + "bucket " + bucketName);
-                //Console.WriteLine();
-
-                //await _client.MakeBucketAsync(new MakeBucketArgs().WithBucket(bucketName));
+             
                 bool found = await MinioUtil.BucketExistsAsync(_client, bucketName);
                 //如果桶不存在则创建桶
                 if (!found)
@@ -56,13 +52,70 @@ namespace Laoyoutiao.webapi.Controllers
                         await MinioUtil.PutObjectAsync(_client, bucketName, objectName, stream, formFile.Length, formFile.ContentType);
                     }
                 }
+                
+            }
+            catch (MinioException ex)
+            {
+                throw ex;
+            }
+            return ResultHelper.Success(new { count = files.Count, size });
+          
+        }
+
+        /// <summary>
+        /// 下载附件
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        [HttpGet("/file/DownloadFile")]
+        public async Task<IActionResult> DownloadFile(string fileName)
+        {
+            var memoryStream = new MemoryStream();
+
+            try
+            {
+                await MinioUtil.StatObjectAsync(_client,bucketName, fileName);
+                await MinioUtil.GetObjectAsync(_client,bucketName, fileName,
+                                    (stream) =>
+                                    {
+                                        stream.CopyTo(memoryStream);
+                                    });
+                memoryStream.Position = 0;
+
             }
             catch (MinioException e)
             {
-                Console.WriteLine("文件上传错误: {0}", e.Message);
+                throw new MinioException("下载文件出错");
             }
-            return Ok(new { count = files.Count, size });
-        }
+            return File(memoryStream, GetContentType(fileName));
 
+        }
+        private static string GetContentType(string fileName)
+        {
+            if (fileName.Contains(".jpg"))
+            {
+                return "image/jpg";
+            }
+            else if (fileName.Contains(".jpeg"))
+            {
+                return "image/jpeg";
+            }
+            else if (fileName.Contains(".png"))
+            {
+                return "image/png";
+            }
+            else if (fileName.Contains(".gif"))
+            {
+                return "image/gif";
+            }
+            else if (fileName.Contains(".pdf"))
+            {
+                return "application/pdf";
+            }
+            else
+            {
+                return "application/octet-stream";
+            }
+        }
     }
 }

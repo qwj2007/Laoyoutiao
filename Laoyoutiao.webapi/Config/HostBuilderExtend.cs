@@ -16,6 +16,7 @@ using Laoyoutiao.webapi.Extensions;
 using Minio;
 using Laoyoutiao.Tasks.Core;
 using Laoyoutiao.Caches;
+using Laoyoutiao.webapi.Filter;
 
 
 namespace Laoyoutiao.Configuration
@@ -71,10 +72,11 @@ namespace Laoyoutiao.Configuration
                 builder.RegisterModule(new AutofacModuleRegister());
             });
             #endregion
-
+            buil.Services.AddExceptionHandler<GlobalExceptionHandler>();
+            buil.Services.AddProblemDetails();
             #region 运用缓存
             //初始化redis
-                   
+
             RedisHelper.redisClient.InitRedisConnect(buil.Configuration);
             buil.Services.AddCache(builder => builder.UseCache(buil.Configuration));            
             #endregion

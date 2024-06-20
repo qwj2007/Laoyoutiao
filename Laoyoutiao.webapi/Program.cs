@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.Configure<MvcOptions>(opt => { 
-    opt.Filters.Add<SysExceptionFilter>();
+    //opt.Filters.Add<SysExceptionFilter>();
     opt.Filters.Add<CustomerActionFilters>();//全局注册，所有方法都可以使用actionfilter
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -21,11 +21,11 @@ builder.Services.AddSwaggerGen();
 builder.Register();
 
 var app = builder.Build();
-
+app.UseExceptionHandler();
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 //{
-    app.UseSwagger();
+app.UseSwagger();
     app.UseSwaggerUI();
 //}
 app.UseRouting();
