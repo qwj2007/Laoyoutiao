@@ -836,14 +836,14 @@ namespace Laoyoutiao.Util
             return flag;
         }
 
-        /// <summary>删除一个对象
+        /// <summary>
         /// 删除一个对象
         /// </summary>
         /// <param name="minio">连接实例</param>
         /// <param name="bucketName">存储桶名称</param>
         /// <param name="objectName">存储桶里的对象名称</param>
         /// <returns></returns>
-        public async static Task<bool> RemoveObject(IMinioClient minio, string bucketName, string objectName)
+        public async static Task<bool> RemoveObjectAsync(IMinioClient minio, string bucketName, string objectName)
         {
             bool flag = false;
             try
@@ -874,7 +874,7 @@ namespace Laoyoutiao.Util
         /// <param name="bucketName">存储桶名称</param>
         /// <param name="objectsList">含有多个对象名称的IEnumerable</param>
         /// <returns></returns>
-        public static async Task<bool> RemoveObjects(IMinioClient minio, string bucketName, List<string> objectsList)
+        public static async Task<bool> RemoveObjectsAsync(IMinioClient minio, string bucketName, List<string> objectsList)
         {
             bool flag = false;
             try

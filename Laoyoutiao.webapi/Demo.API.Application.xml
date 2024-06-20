@@ -517,6 +517,22 @@
             <param name="fileName"></param>
             <returns></returns>
         </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.FileOperateController.RemoveFile(System.String,System.String)">
+            <summary>
+            删除一个文件
+            </summary>
+            <param name="bucketName">桶名</param>
+            <param name="objectName">文件路径如：/2024/06/20/2a8452619e0d40298bdfc664288bf28a.jpg</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.FileOperateController.RemoveFiles(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            删除多个文件
+            </summary>
+            <param name="bucketName">桶名</param>
+            <param name="objectNames">文件路径列表</param>
+            <returns></returns>
+        </member>
         <member name="T:Laoyoutiao.webapi.Controllers.LoginController">
             <summary>
             
