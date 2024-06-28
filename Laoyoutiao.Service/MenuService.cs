@@ -15,7 +15,7 @@ namespace demo.Service
     {
         private readonly IMapper _mapper;      
 
-        public MenuService(IMapper mapper, CustomCache cache) : base(mapper, cache)
+        public MenuService(IMapper mapper, CurrentUserCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

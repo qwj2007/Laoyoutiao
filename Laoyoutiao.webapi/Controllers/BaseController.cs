@@ -9,6 +9,7 @@ using Laoyoutiao.Models.Entitys;
 using Laoyoutiao.Service.WF;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Serilog.Core;
 using System.Linq.Expressions;
 
 namespace Laoyoutiao.webapi.Controllers
@@ -29,6 +30,7 @@ namespace Laoyoutiao.webapi.Controllers
     {
         private readonly IBaseService<T> _baseService;
         private readonly IWorkFlowInstanceService _workFlowInstanceService;
+        public Logger logger { get; set; }
         //private readonly IMapper _mapper;
         //private readonly ICapPublisher capPublisher;
 
@@ -72,7 +74,6 @@ namespace Laoyoutiao.webapi.Controllers
         [HttpPost]
         public virtual async Task<ApiResult> Add(TEdit req)
         {
-           
             //获取当前登录人信息 
             long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
             var result = await _baseService.Add(req);
@@ -176,11 +177,23 @@ namespace Laoyoutiao.webapi.Controllers
         /// <param name="ids">主键数组</param>
         /// <returns></returns>
         [HttpPost]
-        public virtual async Task<ApiResult> BatchDelByIdArray(string[] ids)
+        public virtual async Task<ApiResult> BatchDelByIds(string[] ids)
         {
             var res = await _baseService.BatchDelAsync(ids);
             if (res) { return ResultHelper.Success(res); }
             return ResultHelper.Error("批量删除失败");          
+        }
+        /// <summary>
+        ///  批量删除2
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public virtual async Task<ApiResult> BatchDelByIdArray(List<string> ids)
+        {
+            var res = await _baseService.BatchDelAsync(ids);
+            if (res) { return ResultHelper.Success(res); }
+            return ResultHelper.Error("批量删除失败");
         }
 
         /// <summary>

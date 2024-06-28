@@ -18,7 +18,7 @@ namespace Laoyoutiao.webapi.Config
         /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<CustomCache>().AsSelf().InstancePerLifetimeScope().PropertiesAutowired();
+            builder.RegisterType<CurrentUserCache>().AsSelf().InstancePerLifetimeScope().PropertiesAutowired();
             //builder.RegisterType<ICache>().AsSelf().InstancePerLifetimeScope().PropertiesAutowired();
             //Assembly interfasceAss = Assembly.Load("demo.Interface");
             //Assembly serviceAss = Assembly.Load("demo.Service");

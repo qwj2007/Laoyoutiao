@@ -6,6 +6,7 @@ using Laoyoutiao.Models.Dto.Sys;
 using Laoyoutiao.Models.Entitys;
 using Laoyoutiao.webapi.Filter;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace Laoyoutiao.webapi.Controllers
 {
@@ -64,6 +65,8 @@ namespace Laoyoutiao.webapi.Controllers
         //[TypeFilter(typeof(CustomerActionFilters))] 这两种方式局部注册到方法上，只有这个方法可以filter都可以
         public async Task<ApiResult> GetTokens(string account, string password)
         {
+            //throw new Exception("出现错误了12121。。。。。。。。");
+           
             var result = System.Threading.Tasks.Task.Run(() =>
             {
 
@@ -72,12 +75,11 @@ namespace Laoyoutiao.webapi.Controllers
                     return ResultHelper.Error("参数不能为空");
                 }
                 var users = _sysUserService.GetUser(account, password) as SysUserRes;
+               
                 if (string.IsNullOrEmpty(users.UserName))
                 {
                     return ResultHelper.Error("账号不存在，用户名或密码错误！");
                 }
-
-
                 return ResultHelper.Success(_jwtService.GetToken(users));
             });
             return await result;

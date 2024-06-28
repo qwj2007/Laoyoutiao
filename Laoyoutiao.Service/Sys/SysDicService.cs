@@ -18,7 +18,7 @@ namespace Laoyoutiao.Service.Sys
     public class SysDicService : BaseTreeService<SysDic>, ISysDicService
     {
         private readonly IMapper _mapper;
-        public SysDicService(IMapper mapper, CustomCache cache) : base(mapper, cache)
+        public SysDicService(IMapper mapper, CurrentUserCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

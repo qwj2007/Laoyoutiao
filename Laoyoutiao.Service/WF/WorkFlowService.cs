@@ -20,7 +20,7 @@ namespace Laoyoutiao.Service.WF
     public class WorkFlowService : BaseService<WF_WorkFlow>, IWorkFlowService
     {
         private readonly IMapper _mapper;
-        public WorkFlowService(IMapper mapper, CustomCache cache) : base(mapper, cache)
+        public WorkFlowService(IMapper mapper, CurrentUserCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

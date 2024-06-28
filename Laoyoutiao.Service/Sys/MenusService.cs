@@ -15,7 +15,7 @@ namespace Laoyoutiao.Service.Sys
     public class MenusService : BaseTreeService<Menus>, IMenusService
     {
         private readonly IMapper _mapper;
-        public MenusService(IMapper mapper, CustomCache cache) : base(mapper, cache)
+        public MenusService(IMapper mapper, CurrentUserCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

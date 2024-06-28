@@ -19,8 +19,8 @@ namespace Laoyoutiao.Service
     public class CustomJWTService : ICustomJWTService
     {
         private readonly JWTTokenOptions _JWTTokenOptions;
-        protected readonly CustomCache _customcache;
-        public CustomJWTService(IOptionsMonitor<JWTTokenOptions> optionsMonitor, CustomCache customcache)
+        protected readonly CurrentUserCache _customcache;
+        public CustomJWTService(IOptionsMonitor<JWTTokenOptions> optionsMonitor, CurrentUserCache customcache)
         {
             _JWTTokenOptions = optionsMonitor.CurrentValue;
             _customcache = customcache;

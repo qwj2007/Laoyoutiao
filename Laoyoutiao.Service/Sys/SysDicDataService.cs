@@ -15,7 +15,7 @@ namespace Laoyoutiao.Service.Sys
 {
     public class SysDicDataService : BaseService<SysDicData>, ISysDicDataService
     {
-        public SysDicDataService(IMapper mapper, CustomCache cache) : base(mapper, cache)
+        public SysDicDataService(IMapper mapper, CurrentUserCache cache) : base(mapper, cache)
         {
         }
         public override Task<SysDicData> AddOrUpdateReturnEntity<TEdit>(TEdit input)

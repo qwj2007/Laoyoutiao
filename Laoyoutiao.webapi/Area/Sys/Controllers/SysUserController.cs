@@ -10,6 +10,7 @@ using Laoyoutiao.webapi.Controllers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Serilog;
 using System.Security.Principal;
 
 
@@ -42,7 +43,7 @@ public class SysUserController : BaseController<SysUser, SysUserRes, SysUserReq,
     /// <returns></returns>
     [HttpGet]
     public async Task<ApiResult> LogOut(string account) {
-        
+        Log.Information($@"用户{0}退出系统", account);
         _cache.RemoveCache(CacheInfo.LoginUserInfo + account);
         return ResultHelper.Success(true) ;
     }

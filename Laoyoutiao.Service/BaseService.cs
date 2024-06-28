@@ -19,7 +19,7 @@ namespace Laoyoutiao.Service
     {
         private readonly IMapper _mapper;
         //private readonly ICache _cache;
-        private readonly CustomCache _customcache;
+        private readonly CurrentUserCache _customcache;
         public ICache _cache { get; set; }
         public IHttpContextAccessor _httpContext { get; set; }
         /// <summary>
@@ -30,20 +30,10 @@ namespace Laoyoutiao.Service
             get
             {
                 return _customcache.GetUserInfo();
-                //if (_httpContext != null && _httpContext.HttpContext != null)
-                //{
-                //    var Claims = _httpContext.HttpContext.User.Claims;
-                //    if (Claims.Count() > 0)
-                //    {
-                //        var id = Claims.FirstOrDefault(t => t.Type == ClaimTypes.PrimarySid)?.Value;
-                //        return _cache.GetCache<CurrentUserInfo>($"selfinfo{id}", out bool has);
-                //    }
-                //}
-                //return null;
             }
         }
 
-        public BaseService(IMapper mapper, CustomCache cache)
+        public BaseService(IMapper mapper, CurrentUserCache cache)
         {
             this._mapper = mapper;
             _customcache = cache;
@@ -53,11 +43,16 @@ namespace Laoyoutiao.Service
         {
             return Delete(ids);
         }
-
+        public virtual bool BatchDel(List<string> ids) { 
+            return Delete(ids.ToArray());
+        }
         public virtual async Task<bool> BatchDelAsync(string[] ids)
         {
             return await DeleteAsync(ids);
-
+        }
+        public virtual async Task<bool> BatchDelAsync(List<string> ids)
+        {
+            return await DeleteAsync(ids.ToArray());
         }
 
         public virtual bool Del(long id)
@@ -88,9 +83,9 @@ namespace Laoyoutiao.Service
         /// <param name="userId"></param>
         /// <returns></returns>
 
-       // public virtual async Task<bool> Add<TEdit>(TEdit input, long userId)
-             public virtual async Task<bool> Add<TEdit>(TEdit input)
+        public virtual async Task<bool> Add<TEdit>(TEdit input)
         {
+           
             var userId = _currentUser.loginUser.Id;
             T info = _mapper.Map<T>(input);
             if (_currentUser.deptDataIds.Count > 0)
@@ -126,7 +121,7 @@ namespace Laoyoutiao.Service
         /// <param name="userId"></param>
         /// <returns></returns>
         //public virtual async Task<long> AddOneRerunKeyValue<TEdit>(TEdit input, long userId)
-              public virtual async Task<long> AddOneRerunKeyValue<TEdit>(TEdit input)
+        public virtual async Task<long> AddOneRerunKeyValue<TEdit>(TEdit input)
         {
             var userId = _currentUser.loginUser.Id;
             T info = _mapper.Map<T>(input);
@@ -228,7 +223,7 @@ namespace Laoyoutiao.Service
             exp = GetMappingExpression(req, exp);
 
 
-            var res = await exp
+            var res = await exp.Where(a => a.IsDeleted == 0)
                 .Skip((req.PageIndex - 1) * req.PageSize)
                 .Take(req.PageSize)
                 .ToListAsync();
@@ -377,7 +372,7 @@ namespace Laoyoutiao.Service
 
             }
             // }
-            exp = exp.Where(a=>a.IsDeleted==0).OrderBy((u) => u.CreateDate, OrderByType.Desc);//根据创建时间
+            exp = exp.Where(a => a.IsDeleted == 0).OrderBy((u) => u.CreateDate, OrderByType.Desc);//根据创建时间
 
             return exp;
         }
@@ -432,7 +427,7 @@ namespace Laoyoutiao.Service
         public async Task<List<TRes>> GetListByQueryAsync<TRes>(Expression<Func<T, bool>> expression) where TRes : class
         {
             var exp = await base.GetListByWhereAsync(expression);
-            exp = GetCurrentUserDataRange(exp); 
+            exp = GetCurrentUserDataRange(exp);
             return _mapper.Map<List<TRes>>(exp);
         }
 

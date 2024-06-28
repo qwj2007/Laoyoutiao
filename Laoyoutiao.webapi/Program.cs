@@ -22,12 +22,14 @@ builder.Register();
 
 var app = builder.Build();
 app.UseExceptionHandler();
+
+
 // Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-app.UseSwagger();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
     app.UseSwaggerUI();
-//}
+}
 app.UseRouting();
 #region 鉴权
 app.UseAuthentication();

@@ -13,7 +13,7 @@ namespace Laoyoutiao.Service.Sys
 {
     public class BtnService : BaseService<SysButton>, IBtnService
     {
-        public BtnService(IMapper mapper, CustomCache cache) : base(mapper, cache)
+        public BtnService(IMapper mapper, CurrentUserCache cache) : base(mapper, cache)
         {
 
         }

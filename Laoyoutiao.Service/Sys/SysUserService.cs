@@ -13,10 +13,10 @@ namespace Laoyoutiao.Service.Sys;
 public class SysUserService : BaseService<SysUser>, ISysUserService
 {
     private readonly IMapper _mapper;
-    protected readonly CustomCache _customcache;
+    protected readonly CurrentUserCache _customcache;
     private readonly ICache _cache;
 
-    public SysUserService(IMapper mapper, CustomCache cache, ICache cache1) : base(mapper, cache)
+    public SysUserService(IMapper mapper, CurrentUserCache cache, ICache cache1) : base(mapper, cache)
     {
         _mapper = mapper;
         _customcache = cache;

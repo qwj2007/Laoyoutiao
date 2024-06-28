@@ -11,7 +11,7 @@ namespace Laoyoutiao.Service.Sys
     public class SysRoleService : BaseService<SysRole>, ISysRoleService
     {
         private readonly IMapper _mapper;
-        public SysRoleService(IMapper mapper, CustomCache cache) : base(mapper, cache)
+        public SysRoleService(IMapper mapper, CurrentUserCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }
@@ -23,6 +23,7 @@ namespace Laoyoutiao.Service.Sys
             var reqs = req as SysRoleReq;
             PageInfo pageInfo = new PageInfo();
             var exp = await _db.Queryable<SysRole>()
+                .Where(a=>a.IsDeleted==0)
                 .WhereIF(!string.IsNullOrEmpty(reqs.RoleName), u => u.RoleName.Contains(reqs.RoleName))
                 .WhereIF(reqs.IsEnable > -1, u => u.IsEnable == reqs.IsEnable)
                 .WhereIF(reqs.SystemId > -1, u => u.SystemId == reqs.SystemId)

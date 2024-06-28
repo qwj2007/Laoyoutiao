@@ -11,7 +11,7 @@ namespace Laoyoutiao.Service
     public class UsersService : BaseService<Users>, IUserService
     {
         private readonly IMapper _mapper;
-        public UsersService(IMapper mapper, CustomCache cache) : base(mapper, cache)
+        public UsersService(IMapper mapper, CurrentUserCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

@@ -314,7 +314,7 @@ namespace Laoyoutiao.Repository
                     //假删除 实体属性有isdelete或者isdeleted 请升级到5.0.4.9+，（5.0.4.3存在BUG）
                     rowsAffect = await Context.Deleteable<T>().In(ids).IsLogic().ExecuteCommandAsync();
                 }
-                return rowsAffect >= 0;
+                return rowsAffect > 0;
             }
             catch (Exception ex)
             {

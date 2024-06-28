@@ -17,6 +17,8 @@ using Minio;
 using Laoyoutiao.Tasks.Core;
 using Laoyoutiao.Caches;
 using Laoyoutiao.webapi.Filter;
+using Serilog;
+
 
 
 namespace Laoyoutiao.Configuration
@@ -27,6 +29,9 @@ namespace Laoyoutiao.Configuration
         {
             //buil.Services.AddSingleton<IUsersRepository, UsersRepository>();
             buil.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+            //日志配置
+            SerilogConfig.CreateLogger();
+   
 
             buil.WebHost.ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
             {
@@ -141,9 +146,15 @@ namespace Laoyoutiao.Configuration
             //});
             #endregion
             //注册autuomapper
-            //  buil.Services.AddAutoMapper(typeof(AutoMapperConfigs),typeof(BatchMapperProfile));
+            // buil.Services.AddAutoMapper(typeof(AutoMapperConfigs),typeof(BatchMapperProfile));
 
             buil.Services.AddAutoMapper(typeof(BatchMapperProfile));
+            
+            //添加 AutoMapper 的配置
+            //使用AddAutoMapper()方法可以将AutoMapper所需的服务添加到该集合中，以便在应用程序的其他部分中使用。
+            //该方法需要传入一个Assembly数组，以告诉AutoMapper要扫描哪些程序集来查找映射配置(在当前作用域的所有程序集里面扫描AutoMapper的配置文件)。
+            //buil.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 
             //开启cap
             buil.Services.AddCap(x =>

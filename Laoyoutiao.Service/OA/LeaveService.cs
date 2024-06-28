@@ -15,7 +15,7 @@ namespace Laoyoutiao.Service.OA
     public class LeaveService : BaseService<OALeave>, ILeaveService
     {
         private readonly IMapper _mapper;
-        public LeaveService(IMapper mapper, CustomCache cache) : base(mapper, cache)
+        public LeaveService(IMapper mapper, CurrentUserCache cache) : base(mapper, cache)
         {
             this._mapper = mapper;
         }

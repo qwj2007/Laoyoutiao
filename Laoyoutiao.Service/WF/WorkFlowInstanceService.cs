@@ -22,7 +22,7 @@ namespace Laoyoutiao.Service.WF
     {
         private readonly IMapper _mapper;
         private readonly ICapPublisher capPublisher;
-        public WorkFlowInstanceService(IMapper mapper, ICapPublisher capPublisher, CustomCache cache) : base(mapper, cache)
+        public WorkFlowInstanceService(IMapper mapper, ICapPublisher capPublisher, CurrentUserCache cache) : base(mapper, cache)
         {
             this._mapper = mapper;
             this.capPublisher = capPublisher;

@@ -2,9 +2,13 @@
 using Laoyoutiao.Models.Common;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace Laoyoutiao.webapi.Filter
 {
+    /// <summary>
+    /// 全局异常处理
+    /// </summary>
     public class GlobalExceptionHandler : IExceptionHandler
     {
         /// <summary>
@@ -16,10 +20,11 @@ namespace Laoyoutiao.webapi.Filter
         /// <returns></returns>
         public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
         {
-            //_logger.LogError(
-            //  exception, "Exception occurred: {Message}", exception.Message);
-          //var result=  ResultHelper.Error(exception.Message);
-            //return new ApiResult() { IsSuccess = false, Msg = message, Code = "10000" };
+            string url = httpContext.Request.Path.Value;
+            string param = httpContext.Request.QueryString.Value;
+            string method = httpContext.Request.Method;
+            Log.Error(exception, "异常信息: {Message},请求方式：{method},请求路径:{url},请求参数：{param}", exception.Message,url,param,method);
+        
             var problemDetails = new ProblemDetails
             {               
                 Status = StatusCodes.Status500InternalServerError,

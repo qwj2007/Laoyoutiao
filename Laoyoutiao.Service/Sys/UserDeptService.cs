@@ -15,7 +15,7 @@ namespace Laoyoutiao.Service.Sys
     public class UserDeptService : BaseService<UserDept>, IUserDeptService
     {
         private readonly IMapper _mapper;
-        public UserDeptService(IMapper mapper, CustomCache cache) : base(mapper, cache)
+        public UserDeptService(IMapper mapper, CurrentUserCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

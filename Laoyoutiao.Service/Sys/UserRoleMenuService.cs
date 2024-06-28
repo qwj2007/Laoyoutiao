@@ -9,7 +9,7 @@ namespace Laoyoutiao.Service.Sys
     public class UserRoleMenuService : BaseTreeService<Menus>, IUserRoleMenuService
     {
         private readonly IMapper _mapper;
-        public UserRoleMenuService(IMapper mapper, CustomCache cache) : base(mapper, cache)
+        public UserRoleMenuService(IMapper mapper, CurrentUserCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

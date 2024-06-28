@@ -9,7 +9,7 @@ namespace demo.Service
     public class RoleService : BaseService<Role>, IRoleService
     {
         private readonly IMapper _mapper;
-        public RoleService(IMapper mapper, CustomCache cache) : base(mapper, cache)
+        public RoleService(IMapper mapper, CurrentUserCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

@@ -14,7 +14,7 @@ namespace Laoyoutiao.Service
     {
         private readonly IMapper _mapper;
         
-        public BaseTreeService(IMapper mapper, CustomCache cache) : base(mapper, cache)
+        public BaseTreeService(IMapper mapper, CurrentUserCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

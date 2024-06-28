@@ -15,7 +15,7 @@ namespace Laoyoutiao.Service.Sys
     public class RoleMenuService : BaseService<RoleMenu>, IRoleMenuService
     {
         private readonly IMapper _mapper;
-        public RoleMenuService(IMapper mapper, CustomCache cache) : base(mapper, cache)
+        public RoleMenuService(IMapper mapper, CurrentUserCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }

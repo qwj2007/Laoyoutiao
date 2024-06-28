@@ -14,7 +14,7 @@ namespace Laoyoutiao.Service.WF
     public class WorkFlowOperationHistoryService : BaseService<WF_WorkFlow_Operation_History>, IWorkFlowOperationHistory
     {
         private readonly IMapper _mapper;
-        public WorkFlowOperationHistoryService(IMapper mapper, CustomCache cache) : base(mapper, cache)
+        public WorkFlowOperationHistoryService(IMapper mapper, CurrentUserCache cache) : base(mapper, cache)
         {
             this._mapper = mapper;
         }

@@ -16,7 +16,7 @@ namespace Laoyoutiao.Service.Sys
     public class SystemsService : BaseService<Systems>, ISystemsService
     {
         private readonly IMapper _mapper;
-        public SystemsService(IMapper mapper, CustomCache cache) : base(mapper, cache)
+        public SystemsService(IMapper mapper, CurrentUserCache cache) : base(mapper, cache)
         {
             _mapper = mapper;
         }
@@ -25,6 +25,7 @@ namespace Laoyoutiao.Service.Sys
             var reqs = req as SystemsReq;
             PageInfo pageInfo = new PageInfo();
             var exp = await _db.Queryable<Systems>()
+                .Where(a=>a.IsDeleted==0)
                 .WhereIF(!string.IsNullOrEmpty(reqs.SystemName), u => u.SystemName.Contains(reqs.SystemName))              
                 .OrderByDescending((u) => u.CreateDate)
                 .Select((u) => new SystemsRes

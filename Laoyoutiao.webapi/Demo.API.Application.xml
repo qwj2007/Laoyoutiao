@@ -333,6 +333,11 @@
             动态创建automapper
             </summary>
         </member>
+        <member name="T:Laoyoutiao.webapi.Config.SerilogConfig">
+            <summary>
+            Serilog配置
+            </summary>
+        </member>
         <member name="M:Laoyoutiao.webapi.Config.SqlsugarSetup.SetQueryFilter(SqlSugar.SqlSugarProvider)">
             <summary>
             添加全局过滤器
@@ -402,11 +407,18 @@
             <param name="ids"></param>
             <returns></returns>
         </member>
-        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.BatchDelByIdArray(System.String[])">
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.BatchDelByIds(System.String[])">
             <summary>
              批量删除
             </summary>
             <param name="ids">主键数组</param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.BatchDelByIdArray(System.Collections.Generic.List{System.String})">
+            <summary>
+             批量删除2
+            </summary>
+            <param name="ids"></param>
             <returns></returns>
         </member>
         <member name="M:Laoyoutiao.webapi.Controllers.BaseController`4.GetPages(`2)">
@@ -638,6 +650,11 @@
         <member name="T:Laoyoutiao.webapi.Filter.CustomerActionFilters">
             <summary>
             
+            </summary>
+        </member>
+        <member name="T:Laoyoutiao.webapi.Filter.GlobalExceptionHandler">
+            <summary>
+            全局异常处理
             </summary>
         </member>
         <member name="M:Laoyoutiao.webapi.Filter.GlobalExceptionHandler.TryHandleAsync(Microsoft.AspNetCore.Http.HttpContext,System.Exception,System.Threading.CancellationToken)">

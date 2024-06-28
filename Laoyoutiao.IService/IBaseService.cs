@@ -85,6 +85,7 @@ namespace Laoyoutiao.IService
         /// <param name="ids"></param>
         /// <returns></returns>
         Task<bool> BatchDelAsync(string[] ids);
+        Task<bool> BatchDelAsync(List<string> ids);
 
         /// <summary>
         /// 获取分页数据异步

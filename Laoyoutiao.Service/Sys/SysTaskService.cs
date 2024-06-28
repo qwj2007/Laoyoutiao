@@ -15,7 +15,7 @@ namespace Laoyoutiao.Service.Sys
     /// </summary>
     public class SysTaskService : BaseService<SysTask>, ISysTaskService
     {
-        public SysTaskService(IMapper mapper, CustomCache cache) : base(mapper, cache)
+        public SysTaskService(IMapper mapper, CurrentUserCache cache) : base(mapper, cache)
         {
 
         }
