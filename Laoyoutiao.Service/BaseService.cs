@@ -88,8 +88,10 @@ namespace Laoyoutiao.Service
         /// <param name="userId"></param>
         /// <returns></returns>
 
-        public virtual async Task<bool> Add<TEdit>(TEdit input, long userId)
+       // public virtual async Task<bool> Add<TEdit>(TEdit input, long userId)
+             public virtual async Task<bool> Add<TEdit>(TEdit input)
         {
+            var userId = _currentUser.loginUser.Id;
             T info = _mapper.Map<T>(input);
             if (_currentUser.deptDataIds.Count > 0)
             {
@@ -123,8 +125,10 @@ namespace Laoyoutiao.Service
         /// <param name="input"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public virtual async Task<long> AddOneRerunKeyValue<TEdit>(TEdit input, long userId)
+        //public virtual async Task<long> AddOneRerunKeyValue<TEdit>(TEdit input, long userId)
+              public virtual async Task<long> AddOneRerunKeyValue<TEdit>(TEdit input)
         {
+            var userId = _currentUser.loginUser.Id;
             T info = _mapper.Map<T>(input);
             if (_currentUser.deptDataIds.Count > 0)
             {
@@ -160,8 +164,9 @@ namespace Laoyoutiao.Service
         /// <param name="input"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public virtual async Task<T> AddOrUpdateReturnEntity<TEdit>(TEdit input, long userId)
+        public virtual async Task<T> AddOrUpdateReturnEntity<TEdit>(TEdit input)
         {
+            var userId = _currentUser.loginUser.Id;
             T info = _mapper.Map<T>(input);
             if (_currentUser.deptDataIds.Count > 0)
             {

@@ -130,7 +130,7 @@ namespace Laoyoutiao.Service.Sys
         //    return item;
         //}
 
-        public override async Task<bool> Add<TEdit>(TEdit input, long userId)
+        public override async Task<bool> Add<TEdit>(TEdit input)
         {
             DeptEdit deptEdit = input as DeptEdit;
             DeptMent info = _mapper.Map<DeptMent>(input);
@@ -146,7 +146,7 @@ namespace Laoyoutiao.Service.Sys
 
             if (info.Id == 0)
             {
-                info.CreateUserId = userId;
+                info.CreateUserId = _currentUser.loginUser.Id;
                 info.CreateDate = DateTime.Now;
                 info.Path = path;
                 //info.UserType = 1;//0=炒鸡管理员，系统内置的
@@ -167,7 +167,7 @@ namespace Laoyoutiao.Service.Sys
             }
             else
             {
-                info.ModifyUserId = userId;
+                info.ModifyUserId = _currentUser.loginUser.Id;
                 info.ModifyDate = DateTime.Now;
                 info.Path = path;
                 return await _db.Updateable(info).ExecuteCommandAsync() > 0;

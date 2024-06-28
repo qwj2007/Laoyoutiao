@@ -12,8 +12,8 @@ namespace Laoyoutiao.IService
     {
         ISugarQueryable<T> GetCurrentUserDataRange(ISugarQueryable<T> exp);
         List<T> GetCurrentUserDataRange(List<T> exp);
-        Task<T> AddOrUpdateReturnEntity<TEdit>(TEdit input, long userId);
-        Task<long> AddOneRerunKeyValue<TEdit>(TEdit input, long userId);
+        Task<T> AddOrUpdateReturnEntity<TEdit>(TEdit input);
+        Task<long> AddOneRerunKeyValue<TEdit>(TEdit input);
 
         /// <summary>
         /// 添加或修改一条记录
@@ -22,7 +22,7 @@ namespace Laoyoutiao.IService
         /// <param name="input">DTO</param>
         /// <param name="userId">用户Id</param>
         /// <returns></returns>
-        Task<bool> Add<TAdd>(TAdd input, long userId);
+        Task<bool> Add<TAdd>(TAdd input);
         /// <summary>
         /// 根据Id获取一个实体
         /// </summary>

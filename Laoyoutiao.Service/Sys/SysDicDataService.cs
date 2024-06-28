@@ -18,7 +18,7 @@ namespace Laoyoutiao.Service.Sys
         public SysDicDataService(IMapper mapper, CustomCache cache) : base(mapper, cache)
         {
         }
-        public override Task<SysDicData> AddOrUpdateReturnEntity<TEdit>(TEdit input, long userId)
+        public override Task<SysDicData> AddOrUpdateReturnEntity<TEdit>(TEdit input)
         {
             var dicDataEdit = input as DicDataEdit;
             if (string.IsNullOrEmpty(dicDataEdit.DicCode)) {
@@ -26,7 +26,7 @@ namespace Laoyoutiao.Service.Sys
                 dicDataEdit.DicCode = SnowFlakeSingle.Instance.NextId().ToString();
             }
 
-            return base.AddOrUpdateReturnEntity(dicDataEdit, userId);
+            return base.AddOrUpdateReturnEntity(dicDataEdit);
         }
     }
 }

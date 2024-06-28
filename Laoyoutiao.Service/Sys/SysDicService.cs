@@ -56,7 +56,7 @@ namespace Laoyoutiao.Service.Sys
             }
         }
         //添加功能
-        public override async Task<bool> Add<TEdit>(TEdit input, long userId)
+        public override async Task<bool> Add<TEdit>(TEdit input)
         {
             var edit = input as DicEdit;
             SysDic info = _mapper.Map<SysDic>(edit);
@@ -74,7 +74,7 @@ namespace Laoyoutiao.Service.Sys
             {
                 if (info.Id == 0)
                 {
-                    info.CreateUserId = userId;
+                    info.CreateUserId = _currentUser.loginUser.Id;
                     info.CreateDate = DateTime.Now;
                     info.FullId = path;
                     info.IsDeleted = 0;
@@ -98,7 +98,7 @@ namespace Laoyoutiao.Service.Sys
                 }
                 else
                 {
-                    info.ModifyUserId = userId;
+                    info.ModifyUserId = _currentUser.loginUser.Id;
                     info.ModifyDate = DateTime.Now;
                     info.FullId = path;
                     await _db.Updateable(info).ExecuteCommandAsync();

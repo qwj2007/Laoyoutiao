@@ -554,9 +554,16 @@
         </member>
         <member name="M:Laoyoutiao.webapi.Controllers.LoginController.GetTokens(System.String,System.String)">
             <summary>
-            获取token值
+            获取SysUser用户token
             </summary>
-            <param name="name"></param>
+            <param name="account"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Laoyoutiao.webapi.Controllers.LoginController.GetEncodePassword(System.String)">
+            <summary>
+            对密码进行加密
+            </summary>
             <param name="password"></param>
             <returns></returns>
         </member>

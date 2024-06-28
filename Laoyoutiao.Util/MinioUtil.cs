@@ -5,6 +5,7 @@ using Minio.DataModel.Result;
 using Minio.DataModel;
 using Minio.DataModel.Notification;
 using Minio.DataModel.Encryption;
+using System.Net.Sockets;
 namespace Laoyoutiao.Util
 {
     /// <summary>
@@ -36,6 +37,19 @@ namespace Laoyoutiao.Util
                 {
                     await minio.MakeBucketAsync(new MakeBucketArgs().WithBucket(bucketName).WithLocation(loc));
                     flag = true;
+                    // 设置存储桶的访问策略为public
+                   await SetPolicy(minio, bucketName);
+                    string policyJson = "{\"Version\":\"2012-10-17\"," +
+                    "\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":" +
+                    "{\"AWS\":[\"*\"]},\"Action\":[\"s3:ListBucket\",\"s3:ListBucketMultipartUploads\"," +
+                    "\"s3:GetBucketLocation\"],\"Resource\":[\"arn:aws:s3:::" + bucketName +
+                    "\"]},{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":[\"*\"]},\"Action\":[\"s3:PutObject\",\"s3:AbortMultipartUpload\",\"s3:DeleteObject\",\"s3:GetObject\",\"s3:ListMultipartUploadParts\"],\"Resource\":[\"arn:aws:s3:::" +
+                    bucketName +
+                    "/*\"]}]}";
+                    var arg = new SetPolicyArgs().WithBucket(bucketName).WithPolicy(policyJson);
+                    await minio.SetPolicyAsync(arg);
+                    //Task setBucketPolicyTask = await minio.SetBucketPolicyAsync(bucketName, "*", "s3:GetBucketLocation", "s3:ListBucket", "s3:GetObject");
+                    //setBucketPolicyTask.Wait();
                 }
             }
             catch (Exception e)
@@ -248,8 +262,12 @@ namespace Laoyoutiao.Util
             {
                 bool found = await minio.BucketExistsAsync(new BucketExistsArgs().WithBucket(bucketName));
                 if (found)
-                {
-                    string policyJson = $@"{{""Version"":""2012-10-17"",""Statement"":[{{""Action"":[""s3:GetBucketLocation""],""Effect"":""Allow"",""Principal"":{{""AWS"":[""*""]}},""Resource"":[""arn:aws:s3:::{bucketName}""],""Sid"":""""}},{{""Action"":[""s3:ListBucket""],""Condition"":{{""StringEquals"":{{""s3:prefix"":[""foo"",""prefix/""]}}}},""Effect"":""Allow"",""Principal"":{{""AWS"":[""*""]}},""Resource"":[""arn:aws:s3:::{bucketName}""],""Sid"":""""}},{{""Action"":[""s3:GetObject""],""Effect"":""Allow"",""Principal"":{{""AWS"":[""*""]}},""Resource"":[""arn:aws:s3:::{bucketName}/foo*"",""arn:aws:s3:::{bucketName}/prefix/*""],""Sid"":""""}}]}}";
+                {// 设置存储桶的访问策略为custom
+                    var policyJson =  $@"{{""Version"":""2012-10-17"",""Statement"":[{{""Action"":[""s3:GetBucketLocation""],""Effect"":""Allow"",""Principal"":{{""AWS"":[""*""]}},""Resource"":[""arn:aws:s3:::{bucketName}""],""Sid"":""""}},{{""Action"":[""s3:ListBucket""],""Condition"":{{""StringEquals"":{{""s3:prefix"":[""foo"",""prefix/""]}}}},""Effect"":""Allow"",""Principal"":{{""AWS"":[""*""]}},""Resource"":[""arn:aws:s3:::{bucketName}""],""Sid"":""""}},{{""Action"":[""s3:GetObject""],""Effect"":""Allow"",""Principal"":{{""AWS"":[""*""]}},""Resource"":[""arn:aws:s3:::{bucketName}/foo*"",""arn:aws:s3:::{bucketName}/prefix/*""],""Sid"":""""}}]}}";
+                 
+                    // 设置存储桶的访问策略为custom
+                    // string policyJsonPrivate = "{\"Version\":\"2012-10-17\",\"Statement\":[]}";
+
                     var arg = new SetPolicyArgs().WithBucket(bucketName).WithPolicy(policyJson);
                     await minio.SetPolicyAsync(arg);
                     flag = true;

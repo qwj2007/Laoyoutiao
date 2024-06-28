@@ -24,7 +24,7 @@ namespace Laoyoutiao.Service.WF
         {
             _mapper = mapper;
         }
-        public override Task<bool> Add<TEdit>(TEdit input, long userId)
+        public override Task<bool> Add<TEdit>(TEdit input)
         {
             WFEdit wfedit = input as WFEdit;
 
@@ -41,7 +41,7 @@ namespace Laoyoutiao.Service.WF
                 wfedit.FlowCode = DateTime.Now.Ticks.ToString();
             }
 
-            return base.Add(wfedit, userId);
+            return base.Add(wfedit);
         }
         public override async Task<PageInfo> GetPagesAsync<TReq, TRes>(TReq req)
         {

@@ -35,7 +35,7 @@ namespace Laoyoutiao.Service.Sys
             //return new DataPermissionRes();
 
         }
-        public override async Task<DataPermission> AddOrUpdateReturnEntity<TEdit>(TEdit input, long userId)
+        public override async Task<DataPermission> AddOrUpdateReturnEntity<TEdit>(TEdit input)
         {
             var model = input as DataPermissionEdit;
            var oldmodel=await _db.Queryable<DataPermission>().Where(a => a.DataId == model.DataId && model.DataType == a.DataType && a.IsDeleted == 0).FirstAsync();
@@ -48,7 +48,7 @@ namespace Laoyoutiao.Service.Sys
                 model.Depts = string.Join(',', model.Depts.Split(','));               
                 
             }           
-            return await base.AddOrUpdateReturnEntity(model, userId);
+            return await base.AddOrUpdateReturnEntity(model);
         }
     }
 }

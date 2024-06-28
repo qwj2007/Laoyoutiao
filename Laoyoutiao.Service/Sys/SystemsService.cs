@@ -53,7 +53,7 @@ namespace Laoyoutiao.Service.Sys
         //    return base.Add(t);
         //}
 
-        public override async Task<bool> Add<TEdit>(TEdit input, long userId)
+        public override async Task<bool> Add<TEdit>(TEdit input)
         {
             var edit = input as SystemsEdit;
             //if (edit.Id == 0) {
@@ -64,7 +64,7 @@ namespace Laoyoutiao.Service.Sys
 
             if (info.Id == 0)
             {
-                info.CreateUserId = userId;
+                info.CreateUserId = _currentUser.loginUser.Id;
                 info.CreateDate = DateTime.Now;
                 info.SystemCode = Guid.NewGuid().ToString();
                 //info.isEnable = edit.Status;
@@ -73,7 +73,7 @@ namespace Laoyoutiao.Service.Sys
             }
             else
             {
-                info.ModifyUserId = userId;
+                info.ModifyUserId = _currentUser.loginUser.Id;
                 info.ModifyDate = DateTime.Now;              
                 return await _db.Updateable(info).ExecuteCommandAsync() > 0;
             }

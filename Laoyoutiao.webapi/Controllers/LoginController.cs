@@ -3,6 +3,7 @@ using Laoyoutiao.IService;
 using Laoyoutiao.IService.Sys;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.Sys;
+using Laoyoutiao.Models.Entitys;
 using Laoyoutiao.webapi.Filter;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +21,7 @@ namespace Laoyoutiao.webapi.Controllers
         //private readonly IUserService _userService;
         private readonly ICustomJWTService _jwtService;
         private readonly IConfiguration _configuration;
-        private readonly ISysUserService _sysUserService;       
+        private readonly ISysUserService _sysUserService;
 
         /// <summary>
         /// 
@@ -40,42 +41,17 @@ namespace Laoyoutiao.webapi.Controllers
             _sysUserService = sysUserService;
         }
 
-/// <summary>
-/// 测试一下Apollo配置中心
-/// </summary>
-/// <returns></returns>
+        /// <summary>
+        /// 测试一下Apollo配置中心
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public  ApiResult GetApollo()
+        public ApiResult GetApollo()
         {
             //string name = _configuration.GetSection("JWTTokenOptions:SecurityKey").Value;
-            return ResultHelper.Success( _configuration.GetSection("JWTTokenOptions:SecurityKey"));
+            return ResultHelper.Success(_configuration.GetSection("JWTTokenOptions:SecurityKey"));
         }
-        /// <summary>
-        /// 获取token值
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-            [HttpGet]
-        //public async Task<ApiResult> GetToken(string name, string password)
-        //{
-        //    var result = Task.Run(() =>
-        //    {
 
-        //        if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(password))
-        //        {
-        //            return ResultHelper.Error("参数不能为空");
-        //        }
-        //        SysUserRes users = _sysUserService.GetUser(name, password) as SysUserRes;
-        //        if (string.IsNullOrEmpty(users.UserName))
-        //        {
-        //            return ResultHelper.Error("账号不存在，用户名或密码错误！");
-        //        }
-
-        //        return ResultHelper.Success(_jwtService.GetToken(users));
-        //    });
-        //    return await result;
-        //}
         /// <summary>
         /// 获取SysUser用户token
         /// </summary>
@@ -100,11 +76,26 @@ namespace Laoyoutiao.webapi.Controllers
                 {
                     return ResultHelper.Error("账号不存在，用户名或密码错误！");
                 }
-                
+
 
                 return ResultHelper.Success(_jwtService.GetToken(users));
             });
             return await result;
+        }
+        /// <summary>
+        /// 对密码进行加密
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<string> GetEncodePassword(string password)
+        {
+          var result=  Task.Run(() => {
+              return Encrypt.Encode(password);
+          });
+
+            return await result;
+
         }
     }
 }

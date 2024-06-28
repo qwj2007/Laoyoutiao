@@ -75,7 +75,7 @@ namespace Laoyoutiao.webapi.Controllers
            
             //获取当前登录人信息 
             long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
-            var result = await _baseService.Add(req, userId);
+            var result = await _baseService.Add(req);
             if (result)
             {
                 return ResultHelper.Success(result);
@@ -97,7 +97,7 @@ namespace Laoyoutiao.webapi.Controllers
         {
             //获取当前登录人信息 
             long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
-            var result = await _baseService.AddOneRerunKeyValue(req, userId);
+            var result = await _baseService.AddOneRerunKeyValue(req);
             if (result > 0)
             {
                 return ResultHelper.Success(result);
@@ -115,7 +115,7 @@ namespace Laoyoutiao.webapi.Controllers
         {
             //获取当前登录人信息 
             long userId = Convert.ToInt32(HttpContext.User.Claims.ToList()[0].Value);
-            var result = await _baseService.AddOrUpdateReturnEntity(req, userId);
+            var result = await _baseService.AddOrUpdateReturnEntity(req);
             if (result != null)
             {
                 return ResultHelper.Success(result);

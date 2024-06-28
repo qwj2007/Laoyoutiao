@@ -33,10 +33,12 @@ namespace Laoyoutiao.webapi.Controllers
         [HttpPost("/file/UploadFile")]
         public async Task<dynamic> UploadFile(List<IFormFile> files)
         {
+            string url = _client.Config.Endpoint;
             long size = files.Sum(f => f.Length);
             try
             {
 
+                
                 bool found = await MinioUtil.BucketExistsAsync(_client, bucketName);
                 //如果桶不存在则创建桶
                 if (!found)
@@ -51,15 +53,16 @@ namespace Laoyoutiao.webapi.Controllers
                     {
                         Stream stream = formFile.OpenReadStream();
                         await MinioUtil.PutObjectAsync(_client, bucketName, objectName, stream, formFile.Length, formFile.ContentType);
+                        url += "/"+bucketName+"/"+objectName;
                     }
                 }
-
+                
             }
             catch (MinioException ex)
             {
                 throw ex;
             }
-            return ResultHelper.Success(new { count = files.Count, size });
+            return ResultHelper.Success(new { count = files.Count, size=size,url= url });
 
         }
 

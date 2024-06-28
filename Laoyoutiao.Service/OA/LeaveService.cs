@@ -19,19 +19,19 @@ namespace Laoyoutiao.Service.OA
         {
             this._mapper = mapper;
         }
-        public override Task<bool> Add<TEdit>(TEdit input, long userId)
+        public override Task<bool> Add<TEdit>(TEdit input)
         {
             LeaveEdit leaveEdit = input as LeaveEdit;
-            leaveEdit.UserId = userId;
+            leaveEdit.UserId = _currentUser.loginUser.Id;
             leaveEdit.Days = Convert.ToDecimal(new TimeSpan(leaveEdit.EndTime.Ticks - leaveEdit.StartTime.Ticks).Days) + 1;
-            return base.Add(input, userId);
+            return base.Add(input);
         }
-        public override Task<long> AddOneRerunKeyValue<TEdit>(TEdit input, long userId)
+        public override Task<long> AddOneRerunKeyValue<TEdit>(TEdit input)
         {
             LeaveEdit leaveEdit = input as LeaveEdit;
-            leaveEdit.UserId = userId;
+           leaveEdit.UserId = _currentUser.loginUser.Id;
             leaveEdit.Days = Convert.ToDecimal(new TimeSpan(leaveEdit.EndTime.Ticks - leaveEdit.StartTime.Ticks).Days) + 1;
-            return base.AddOneRerunKeyValue(input, userId);
+            return base.AddOneRerunKeyValue(input);
         }
         /// <summary>
         /// 
@@ -40,12 +40,12 @@ namespace Laoyoutiao.Service.OA
         /// <param name="input"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public override Task<OALeave> AddOrUpdateReturnEntity<TEdit>(TEdit input, long userId)
+        public override Task<OALeave> AddOrUpdateReturnEntity<TEdit>(TEdit input)
         {
             LeaveEdit leaveEdit = input as LeaveEdit;
-            leaveEdit.UserId = userId;
+           leaveEdit.UserId = _currentUser.loginUser.Id;
             leaveEdit.Days = Convert.ToDecimal(new TimeSpan(leaveEdit.EndTime.Ticks - leaveEdit.StartTime.Ticks).Days) + 1;
-            return base.AddOrUpdateReturnEntity(input, userId);
+            return base.AddOrUpdateReturnEntity(input);
         }
 
         /// <summary>

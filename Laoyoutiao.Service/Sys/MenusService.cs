@@ -3,6 +3,7 @@ using Laoyoutiao.Caches;
 using Laoyoutiao.IService.Sys;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Models.Dto.Menu;
+using Laoyoutiao.Models.Dto.OA.Leave;
 using Laoyoutiao.Models.Dto.Sys;
 
 using Laoyoutiao.Models.Entitys.Sys;
@@ -67,7 +68,7 @@ namespace Laoyoutiao.Service.Sys
 
 
 
-        public override async Task<bool> Add<TEdit>(TEdit input, long userId)
+        public override async Task<bool> Add<TEdit>(TEdit input)
         {
             var edit = input as MenusEdit;
             Menus info = _mapper.Map<Menus>(edit);
@@ -85,7 +86,7 @@ namespace Laoyoutiao.Service.Sys
             {
                 if (info.Id == 0)
                 {
-                    info.CreateUserId = userId;
+                    info.CreateUserId =  _currentUser.loginUser.Id; ;
                     info.CreateDate = DateTime.Now;
                     info.Path = path;
                     //info.UserType = 1;//0=炒鸡管理员，系统内置的
@@ -106,7 +107,7 @@ namespace Laoyoutiao.Service.Sys
                 }
                 else
                 {
-                    info.ModifyUserId = userId;
+                    info.ModifyUserId = _currentUser.loginUser.Id;
                     info.ModifyDate = DateTime.Now;
                     info.Path = path;
                     await _db.Updateable(info).ExecuteCommandAsync();
