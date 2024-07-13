@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "uEpbSMlvt9YUF5muggTvcB0CkspTEE0i+nTt6M40Wbe5Y0EXdwUqHr10gVhi1xlhZTdjcGT4wKCWNoJpk1+/JA==",
+  "dgSpecHash": "qE8Qsi7X/Fjd8YavbO6EdigdfNt/xHrV4hQKr5bVlCFEM6j09ZMCwYt8JWHN7PV4+EF4U46kmId+m4u8VXkr4A==",
   "success": true,
   "projectFilePath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.webapi\\Laoyoutiao.webapi.csproj",
   "expectedPackageFiles": [
@@ -11,7 +11,7 @@
     "C:\\Users\\齐文杰\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\communitytoolkit.highperformance\\8.2.2\\communitytoolkit.highperformance.8.2.2.nupkg.sha512",
-    "C:\\Users\\齐文杰\\.nuget\\packages\\consul\\1.7.14.1\\consul.1.7.14.1.nupkg.sha512",
+    "C:\\Users\\齐文杰\\.nuget\\packages\\consul\\1.7.14.3\\consul.1.7.14.3.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\dotnetcore.cap\\8.2.0\\dotnetcore.cap.8.2.0.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\dotnetcore.cap.dashboard\\8.2.0\\dotnetcore.cap.dashboard.8.2.0.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\dotnetcore.cap.mysql\\8.2.0\\dotnetcore.cap.mysql.8.2.0.nupkg.sha512",

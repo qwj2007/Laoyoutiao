@@ -1,10 +1,11 @@
 #See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER app
 WORKDIR /app
-EXPOSE 5041
-
-#FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+EXPOSE 8080
+#
+#FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 #ARG BUILD_CONFIGURATION=Release
 #WORKDIR /src
 #COPY ["Laoyoutiao.webapi/Laoyoutiao.webapi.csproj", "Laoyoutiao.webapi/"]
@@ -19,6 +20,7 @@ EXPOSE 5041
 #COPY ["Laoyoutiao.Service/Laoyoutiao.Service.csproj", "Laoyoutiao.Service/"]
 #COPY ["Laoyoutiao.Repository/Laoyoutiao.Repository.csproj", "Laoyoutiao.Repository/"]
 #COPY ["Laoyoutiao.Task/Laoyoutiao.Tasks.Core.csproj", "Laoyoutiao.Task/"]
+#COPY ["Laoyoutiao.Util/Laoyoutiao.Util.csproj", "Laoyoutiao.Util/"]
 #RUN dotnet restore "./Laoyoutiao.webapi/Laoyoutiao.webapi.csproj"
 COPY . .
 #WORKDIR "/src/Laoyoutiao.webapi"

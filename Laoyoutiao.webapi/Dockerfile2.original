@@ -1,0 +1,38 @@
+#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+#Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
+#For more information, please see https://aka.ms/containercompat
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-nanoserver-1809 AS base
+WORKDIR /app
+EXPOSE 8080
+
+#FROM mcr.microsoft.com/dotnet/sdk:8.0-nanoserver-1809 AS build
+#ARG BUILD_CONFIGURATION=Release
+#WORKDIR /src
+#COPY ["Laoyoutiao.webapi/Laoyoutiao.webapi.csproj", "Laoyoutiao.webapi/"]
+#COPY ["Laoyoutiao.Cache/Laoyoutiao.Caches.csproj", "Laoyoutiao.Cache/"]
+#COPY ["Laoyoutiao.Entities/Laoyoutiao.Models.csproj", "Laoyoutiao.Entities/"]
+#COPY ["Laoyoutiao.Common/Laoyoutiao.Common.csproj", "Laoyoutiao.Common/"]
+#COPY ["Laoyoutiao.enums/Laoyoutiao.Enums.csproj", "Laoyoutiao.enums/"]
+#COPY ["Laoyoutiao.WorkFlow.Core/Laoyoutiao.WorkFlow.Core.csproj", "Laoyoutiao.WorkFlow.Core/"]
+#COPY ["Laoyoutiao.IService/Laoyoutiao.IService.csproj", "Laoyoutiao.IService/"]
+#COPY ["Laoyoutiao.IRespository/Laoyoutiao.IRespository.csproj", "Laoyoutiao.IRespository/"]
+#COPY ["Laoyoutiao.Jobs/Laoyoutiao.Jobs.csproj", "Laoyoutiao.Jobs/"]
+#COPY ["Laoyoutiao.Service/Laoyoutiao.Service.csproj", "Laoyoutiao.Service/"]
+#COPY ["Laoyoutiao.Repository/Laoyoutiao.Repository.csproj", "Laoyoutiao.Repository/"]
+#COPY ["Laoyoutiao.Task/Laoyoutiao.Tasks.Core.csproj", "Laoyoutiao.Task/"]
+#COPY ["Laoyoutiao.Util/Laoyoutiao.Util.csproj", "Laoyoutiao.Util/"]
+#RUN dotnet restore "./Laoyoutiao.webapi/Laoyoutiao.webapi.csproj"
+COPY . .
+#WORKDIR "/src/Laoyoutiao.webapi"
+#RUN dotnet build "./Laoyoutiao.webapi.csproj" -c %BUILD_CONFIGURATION% -o /app/build
+#
+#FROM build AS publish
+#ARG BUILD_CONFIGURATION=Release
+#RUN dotnet publish "./Laoyoutiao.webapi.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
+#
+#FROM base AS final
+#WORKDIR /app
+#COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "Laoyoutiao.webapi.dll"]

@@ -1,4 +1,5 @@
 using Autofac;
+using ConsulServiceRegistration;
 using Laoyoutiao.Configuration;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Tasks.Core;
@@ -22,8 +23,6 @@ builder.Register();
 
 var app = builder.Build();
 app.UseExceptionHandler();
-
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

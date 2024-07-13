@@ -37,6 +37,7 @@
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.4.2" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ConsulServerCore\ConsulServerCore.csproj" />
     <ProjectReference Include="..\Laoyoutiao.Cache\Laoyoutiao.Caches.csproj" />
     <ProjectReference Include="..\Laoyoutiao.Common\Laoyoutiao.Common.csproj" />
     <ProjectReference Include="..\Laoyoutiao.IService\Laoyoutiao.IService.csproj" />
@@ -57,6 +58,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Util\" />
   </ItemGroup>
 

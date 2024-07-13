@@ -121,7 +121,7 @@
           }
         }
       },
-      "Consul/1.7.14.1": {
+      "Consul/1.7.14.3": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
@@ -4037,6 +4037,22 @@
           }
         }
       },
+      "ConsulServerCore/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Consul": "1.7.14.3"
+        },
+        "compile": {
+          "bin/placeholder/ConsulServerCore.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ConsulServerCore.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Laoyoutiao.Caches/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -4371,14 +4387,14 @@
         "lib/netstandard2.1/CommunityToolkit.HighPerformance.xml"
       ]
     },
-    "Consul/1.7.14.1": {
-      "sha512": "JM1/sHsPhxTcawNKp0PaPRXeMqghjbn9L6lgPyNW6P5SnkcJ/rchQsHnDm8TlT51/ARX4bmboUzFRzU6arjSQQ==",
+    "Consul/1.7.14.3": {
+      "sha512": "t4w5fwKldVE9gnByiDbSLvsSIMWAp7vN3pGzASGup5BgFDfcpxjFrBr2wLbuyUGJW3QrHp2VuS32/blPGMPkrA==",
       "type": "package",
-      "path": "consul/1.7.14.1",
+      "path": "consul/1.7.14.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "consul.1.7.14.1.nupkg.sha512",
+        "consul.1.7.14.3.nupkg.sha512",
         "consul.nuspec",
         "lib/net461/Consul.dll",
         "lib/netstandard2.0/Consul.dll"
@@ -11801,6 +11817,11 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "ConsulServerCore/1.0.0": {
+      "type": "project",
+      "path": "../ConsulServerCore/ConsulServerCore.csproj",
+      "msbuildProject": "../ConsulServerCore/ConsulServerCore.csproj"
+    },
     "Laoyoutiao.Caches/1.0.0": {
       "type": "project",
       "path": "../Laoyoutiao.Cache/Laoyoutiao.Caches.csproj",
@@ -11868,6 +11889,7 @@
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.1",
       "Autofac >= 8.0.0",
       "Autofac.Extensions.DependencyInjection >= 9.0.0",
+      "ConsulServerCore >= 1.0.0",
       "DotNetCore.CAP >= 8.2.0",
       "DotNetCore.CAP.Dashboard >= 8.2.0",
       "DotNetCore.CAP.MySql >= 8.2.0",
@@ -11931,6 +11953,9 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+            "E:\\学习程序代码等\\Laoyoutiao\\ConsulServerCore\\ConsulServerCore.csproj": {
+              "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\ConsulServerCore\\ConsulServerCore.csproj"
+            },
             "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj": {
               "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj"
             },

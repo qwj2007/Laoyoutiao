@@ -18,6 +18,8 @@ using Laoyoutiao.Tasks.Core;
 using Laoyoutiao.Caches;
 using Laoyoutiao.webapi.Filter;
 using Serilog;
+using Autofac.Core;
+using ConsulServiceRegistration;
 
 
 
@@ -47,6 +49,9 @@ namespace Laoyoutiao.Configuration
             //         //b.AddApollo(configuration.GetSection("apollo"))
             //         .AddDefault();
             // });
+
+           
+          
 
             #region  添加MediatR事件总线
             buil.Services.AddMediatR(Assembly.GetExecutingAssembly());
@@ -149,7 +154,7 @@ namespace Laoyoutiao.Configuration
             // buil.Services.AddAutoMapper(typeof(AutoMapperConfigs),typeof(BatchMapperProfile));
 
             buil.Services.AddAutoMapper(typeof(BatchMapperProfile));
-            
+           
             //添加 AutoMapper 的配置
             //使用AddAutoMapper()方法可以将AutoMapper所需的服务添加到该集合中，以便在应用程序的其他部分中使用。
             //该方法需要传入一个Assembly数组，以告诉AutoMapper要扫描哪些程序集来查找映射配置(在当前作用域的所有程序集里面扫描AutoMapper的配置文件)。
@@ -180,8 +185,8 @@ namespace Laoyoutiao.Configuration
                 };
 
             });
-           
 
+            buil.Services.AddConsul();
             #region JWT校验
 
             //第一步，注册JWT
