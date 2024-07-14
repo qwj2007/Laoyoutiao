@@ -1,0 +1,6 @@
+{
+  "ConsulAddress": "http://127.0.0.1:8500/", //Consul地址
+  "ServiceName": "ServiceB", //΢微服务名称
+  "HealthCheck": "/Health",//健康检测
+  "ServerAddress": "http://127.0.0.1:7000"//΢微服务地址  
+}

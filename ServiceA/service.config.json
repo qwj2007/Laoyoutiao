@@ -1,0 +1,6 @@
+{
+  "ConsulAddress": "http://localhost:8500/", //Consul地址  注意：如果在docker里运行，需要使用docker的IP地址
+  "ServiceName": "ServiceA", //΢微服务名称
+  "HealthCheck": "/Health", //健康检测
+  "ServerAddress": "http://localhost:6000" //΢微服务地址  注意：如果在docker里运行，需要使用docker的IP地址
+}
