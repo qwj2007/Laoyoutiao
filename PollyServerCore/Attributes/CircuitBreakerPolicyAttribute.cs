@@ -1,6 +1,7 @@
 ﻿using Polly;
 
 namespace PollyServerCore.Attributes
+{
     /// <summary>
     /// Circuit Breaker Attribute
     /// </summary>

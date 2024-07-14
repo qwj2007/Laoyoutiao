@@ -1,0 +1,78 @@
+{
+  // 转发路由，数组中的每个元素都是某个服务的一组路由转发规则
+  "ReRoutes": [
+    {
+      "ServiceName": "MicroServiceDemoA",
+      // Uri方案，http、https
+      "DownstreamScheme": "http",
+      // 下游（服务提供方）服务路由模板
+      "DownstreamPathTemplate": "/api/{path}",
+      // 上游（客户端，服务消费方）请求路由模板
+      "UpstreamPathTemplate": "/a/{path}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin" //轮询     
+      },
+      "UseServiceDiscovery": "true，",
+      //缓存设置
+      "FileCacheOptions": {
+        "TtlSeconds": 10, //缓存10s（同一个地址请求就返回缓存结果)
+        "Region": "" //缓存region
+      },
+
+      //限流配置
+      "RateLimitOptions": {
+        "ClientWhitelist": [ "admin" ], // 白名单
+        "EnableRateLimiting": true, // 是否启用限流
+        "Period": "10s", // 统计时间段：1s, 5m, 1h, 1d
+        "PeriodTimespan": 10, // 多少秒之后客户端可以重试
+        "Limit": 5 // 在统计时间段内允许的最大请求数量
+      },
+      //熔断设置
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3, //允许多少个异常请求
+        "DurationOfBreak": 5000, // 熔断的时间5s，单位为ms
+        "TimeoutValue": 5000 //单位ms,如果下游请求的处理时间超过多少则自如将请求设置为超时 默认90秒
+      }
+
+    },
+
+    {
+      "ServiceName": "MicroServiceDemoB",
+      // Uri方案，http、https
+      "DownstreamScheme": "http",
+      // 下游（服务提供方）服务路由模板
+      "DownstreamPathTemplate": "/api/{path}",
+      // 上游（客户端，服务消费方）请求路由模板
+      "UpstreamPathTemplate": "/b/{path}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin" //轮询     
+      },
+      "UseServiceDiscovery": "true，",
+      //缓存设置
+      "FileCacheOptions": {
+        "TtlSeconds": 10, //缓存10s（同一个地址请求就返回缓存结果)
+        "Region": "" //缓存region
+      }
+    }
+  ],
+  // 全局配置，此节点的配置会覆盖ReRoutes，可以在这里设置一些通用的配置
+  "GlobalConfiguration": {
+    //"BaseUrl": "http://192.168.1.101:7000", //Ocelot应用地址
+    "ReRouteIsCaseSensitive": false,
+    "ServiceDiscoveryProvider": {
+      "Host": "192.168.177.130",
+      "Port": 8500,
+      "Type": "Consul", //由Consul提供服务发现
+      "Token": "footoken"
+    },
+    //限流
+    "RateLimitOptions": {
+      "QuotaExceededMessage": "errr:请求太频繁了,请稍后再试!", //限流后响应内容
+      "HttpStatusCode": 20006, //http状态码可以自定义
+      "ClientIdHeader": "client_id" // 用来识别客户端的请求头，默认是 ClientId
+
+    }
+  }
+}
