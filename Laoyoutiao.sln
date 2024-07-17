@@ -51,13 +51,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreMicService", "CoreMicSe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsulServerCore", "ConsulServerCore\ConsulServerCore.csproj", "{B6AC539F-96CF-4E76-A360-C0720588D0D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PollyServerCore", "PollyServerCore\PollyServerCore.csproj", "{01313205-A1AA-46A0-A2EA-A261230E36F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PollyServerCore", "PollyServerCore\PollyServerCore.csproj", "{01313205-A1AA-46A0-A2EA-A261230E36F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcelotGateway", "OcelotGateway\OcelotGateway.csproj", "{65D4C483-78F6-42E9-9E79-84CC3D1B8568}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotGateway", "OcelotGateway\OcelotGateway.csproj", "{65D4C483-78F6-42E9-9E79-84CC3D1B8568}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceA", "ServiceA\ServiceA.csproj", "{44CAE200-F119-4FD5-8185-3BD826894B80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceA", "ServiceA\ServiceA.csproj", "{44CAE200-F119-4FD5-8185-3BD826894B80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceB", "ServiceB\ServiceB.csproj", "{6D6DAD5F-009F-4B82-B03F-B6B65C666C19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceB", "ServiceB\ServiceB.csproj", "{6D6DAD5F-009F-4B82-B03F-B6B65C666C19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

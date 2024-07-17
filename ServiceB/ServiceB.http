@@ -1,4 +1,4 @@
-@ServiceB_HostAddress = http://localhost:5044
+@ServiceB_HostAddress = http://localhost:7000
 
 GET {{ServiceB_HostAddress}}/weatherforecast/
 Accept: application/json

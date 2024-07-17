@@ -31,7 +31,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj": {
+                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

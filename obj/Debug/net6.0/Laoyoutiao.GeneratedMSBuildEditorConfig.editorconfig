@@ -11,6 +11,7 @@ build_property.RootNamespace = Laoyoutiao
 build_property.RootNamespace = Laoyoutiao
 build_property.ProjectDir = E:\学习程序代码等\Laoyoutiao\
 build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
