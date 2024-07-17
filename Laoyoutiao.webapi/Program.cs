@@ -1,5 +1,5 @@
 using Autofac;
-using ConsulServiceRegistration;
+
 using Laoyoutiao.Configuration;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Tasks.Core;

@@ -17,9 +17,6 @@ using Minio;
 using Laoyoutiao.Tasks.Core;
 using Laoyoutiao.Caches;
 using Laoyoutiao.webapi.Filter;
-using Serilog;
-using Autofac.Core;
-using ConsulServiceRegistration;
 
 
 
@@ -186,7 +183,7 @@ namespace Laoyoutiao.Configuration
 
             });
 
-            buil.Services.AddConsul();
+            //buil.Services.AddConsul();
             #region JWT校验
 
             //第一步，注册JWT

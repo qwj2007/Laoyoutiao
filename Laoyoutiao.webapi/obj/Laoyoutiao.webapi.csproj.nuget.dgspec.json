@@ -4,83 +4,6 @@
     "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.webapi\\Laoyoutiao.webapi.csproj": {}
   },
   "projects": {
-    "E:\\学习程序代码等\\Laoyoutiao\\ConsulServerCore\\ConsulServerCore.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "E:\\学习程序代码等\\Laoyoutiao\\ConsulServerCore\\ConsulServerCore.csproj",
-        "projectName": "ConsulServerCore",
-        "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\ConsulServerCore\\ConsulServerCore.csproj",
-        "packagesPath": "C:\\Users\\齐文杰\\.nuget\\packages\\",
-        "outputPath": "E:\\学习程序代码等\\Laoyoutiao\\ConsulServerCore\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\齐文杰\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net8.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
-            "projectReferences": {
-              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj": {
-                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        }
-      },
-      "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
-          "dependencies": {
-            "Consul": {
-              "target": "Package",
-              "version": "[1.7.14.3, )"
-            }
-          },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
-        }
-      }
-    },
     "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -1011,9 +934,6 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\学习程序代码等\\Laoyoutiao\\ConsulServerCore\\ConsulServerCore.csproj": {
-                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\ConsulServerCore\\ConsulServerCore.csproj"
-              },
               "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj": {
                 "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj"
               },

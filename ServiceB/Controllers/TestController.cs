@@ -31,6 +31,8 @@ namespace ServiceB.Controllers
         [Route("postServiceB1")]
         public string PostServiceB(Users user)
         {
+            //Thread.Sleep(1000000);
+           // throw new Exception("errri");
             return "Hello From PostSerivceB........." + user.name;
         }
     }
