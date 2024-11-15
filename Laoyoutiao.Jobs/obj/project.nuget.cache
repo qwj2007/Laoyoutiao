@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "9eCAFBzQWeGp+tLWSJ06YLluh1mXWb82y6/5NNCBwSy55K4xlrpryliq7TTwpFU0CIuc8pzwabMniTsvZaYd7A==",
+  "dgSpecHash": "KJC/i7AsIfA=",
   "success": true,
   "projectFilePath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Jobs\\Laoyoutiao.Jobs.csproj",
   "expectedPackageFiles": [
@@ -64,5 +64,16 @@
     "C:\\Users\\齐文杰\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "包 \"System.Text.RegularExpressions\" 4.3.0 具有已知的 高 严重性漏洞，https://github.com/advisories/GHSA-cmhx-cq75-c4mj",
+      "libraryId": "System.Text.RegularExpressions",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }

@@ -27,7 +27,7 @@ namespace Laoyoutiao.Configuration
         public static void Register(this WebApplicationBuilder buil)
         {
             //buil.Services.AddSingleton<IUsersRepository, UsersRepository>();
-            buil.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+            //buil.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
             //日志配置
             SerilogConfig.CreateLogger();
    
