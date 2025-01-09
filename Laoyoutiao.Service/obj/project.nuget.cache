@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AJfe2TB+R5g=",
+  "dgSpecHash": "TFiHXFAkAqI=",
   "success": true,
-  "projectFilePath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Service\\Laoyoutiao.Service.csproj",
+  "projectFilePath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Service\\Laoyoutiao.Service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\齐文杰\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
@@ -91,26 +91,5 @@
     "C:\\Users\\齐文杰\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\xc.rsautil\\1.3.6\\xc.rsautil.1.3.6.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1904",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "包 \"System.Text.Encodings.Web\" 4.5.0 具有已知的 严重 严重性漏洞，https://github.com/advisories/GHSA-ghhp-997w-qr28",
-      "libraryId": "System.Text.Encodings.Web",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    },
-    {
-      "code": "NU1903",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "包 \"System.Text.RegularExpressions\" 4.3.0 具有已知的 高 严重性漏洞，https://github.com/advisories/GHSA-cmhx-cq75-c4mj",
-      "libraryId": "System.Text.RegularExpressions",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  "logs": []
 }

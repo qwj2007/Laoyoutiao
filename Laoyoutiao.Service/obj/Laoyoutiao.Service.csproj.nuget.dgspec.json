@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Service\\Laoyoutiao.Service.csproj": {}
+    "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Service\\Laoyoutiao.Service.csproj": {}
   },
   "projects": {
-    "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj": {
+    "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj",
+        "projectUniqueName": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj",
         "projectName": "Laoyoutiao.Caches",
-        "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj",
+        "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj",
         "packagesPath": "C:\\Users\\齐文杰\\.nuget\\packages\\",
-        "outputPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Cache\\obj\\",
+        "outputPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Cache\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,8 +32,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj": {
-                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj"
+              "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj": {
+                "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj"
               }
             }
           }
@@ -46,7 +46,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -103,18 +103,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj": {
+    "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj",
+        "projectUniqueName": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj",
         "projectName": "Laoyoutiao.Common",
-        "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj",
+        "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj",
         "packagesPath": "C:\\Users\\齐文杰\\.nuget\\packages\\",
-        "outputPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\obj\\",
+        "outputPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Common\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -145,7 +145,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -190,18 +190,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj": {
+    "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj",
+        "projectUniqueName": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj",
         "projectName": "Laoyoutiao.Models",
-        "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj",
+        "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj",
         "packagesPath": "C:\\Users\\齐文杰\\.nuget\\packages\\",
-        "outputPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\obj\\",
+        "outputPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Entities\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -222,14 +222,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj": {
-                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj"
+              "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj": {
+                "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj"
               },
-              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj": {
-                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj"
+              "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj": {
+                "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj"
               },
-              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj": {
-                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj"
+              "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj": {
+                "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj"
               }
             }
           }
@@ -242,7 +242,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -271,18 +271,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj": {
+    "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj",
+        "projectUniqueName": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj",
         "projectName": "Laoyoutiao.Enums",
-        "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj",
+        "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.enums\\Laoyoutiao.Enums.csproj",
         "packagesPath": "C:\\Users\\齐文杰\\.nuget\\packages\\",
-        "outputPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.enums\\obj\\",
+        "outputPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.enums\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -303,8 +303,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj": {
-                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj"
+              "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj": {
+                "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj"
               }
             }
           }
@@ -317,7 +317,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -340,18 +340,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IRespository\\Laoyoutiao.IRespository.csproj": {
+    "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.IRespository\\Laoyoutiao.IRespository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IRespository\\Laoyoutiao.IRespository.csproj",
+        "projectUniqueName": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.IRespository\\Laoyoutiao.IRespository.csproj",
         "projectName": "Laoyoutiao.IRespository",
-        "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IRespository\\Laoyoutiao.IRespository.csproj",
+        "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.IRespository\\Laoyoutiao.IRespository.csproj",
         "packagesPath": "C:\\Users\\齐文杰\\.nuget\\packages\\",
-        "outputPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IRespository\\obj\\",
+        "outputPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.IRespository\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -372,8 +372,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj": {
-                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj"
+              "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj": {
+                "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj"
               }
             }
           }
@@ -386,7 +386,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -409,18 +409,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IService\\Laoyoutiao.IService.csproj": {
+    "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.IService\\Laoyoutiao.IService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IService\\Laoyoutiao.IService.csproj",
+        "projectUniqueName": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.IService\\Laoyoutiao.IService.csproj",
         "projectName": "Laoyoutiao.IService",
-        "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IService\\Laoyoutiao.IService.csproj",
+        "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.IService\\Laoyoutiao.IService.csproj",
         "packagesPath": "C:\\Users\\齐文杰\\.nuget\\packages\\",
-        "outputPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IService\\obj\\",
+        "outputPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.IService\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -441,14 +441,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj": {
-                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj"
+              "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj": {
+                "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj"
               },
-              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IRespository\\Laoyoutiao.IRespository.csproj": {
-                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IRespository\\Laoyoutiao.IRespository.csproj"
+              "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.IRespository\\Laoyoutiao.IRespository.csproj": {
+                "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.IRespository\\Laoyoutiao.IRespository.csproj"
               },
-              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj": {
-                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj"
+              "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj": {
+                "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj"
               }
             }
           }
@@ -461,7 +461,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -484,18 +484,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Repository\\Laoyoutiao.Repository.csproj": {
+    "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Repository\\Laoyoutiao.Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Repository\\Laoyoutiao.Repository.csproj",
+        "projectUniqueName": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Repository\\Laoyoutiao.Repository.csproj",
         "projectName": "Laoyoutiao.Repository",
-        "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Repository\\Laoyoutiao.Repository.csproj",
+        "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Repository\\Laoyoutiao.Repository.csproj",
         "packagesPath": "C:\\Users\\齐文杰\\.nuget\\packages\\",
-        "outputPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Repository\\obj\\",
+        "outputPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Repository\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -516,11 +516,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj": {
-                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj"
+              "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj": {
+                "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj"
               },
-              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IRespository\\Laoyoutiao.IRespository.csproj": {
-                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IRespository\\Laoyoutiao.IRespository.csproj"
+              "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.IRespository\\Laoyoutiao.IRespository.csproj": {
+                "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.IRespository\\Laoyoutiao.IRespository.csproj"
               }
             }
           }
@@ -533,7 +533,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -566,18 +566,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Service\\Laoyoutiao.Service.csproj": {
+    "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Service\\Laoyoutiao.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Service\\Laoyoutiao.Service.csproj",
+        "projectUniqueName": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Service\\Laoyoutiao.Service.csproj",
         "projectName": "Laoyoutiao.Service",
-        "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Service\\Laoyoutiao.Service.csproj",
+        "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Service\\Laoyoutiao.Service.csproj",
         "packagesPath": "C:\\Users\\齐文杰\\.nuget\\packages\\",
-        "outputPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Service\\obj\\",
+        "outputPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Service\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -598,20 +598,20 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj": {
-                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj"
+              "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj": {
+                "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj"
               },
-              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj": {
-                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj"
+              "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj": {
+                "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj"
               },
-              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IService\\Laoyoutiao.IService.csproj": {
-                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IService\\Laoyoutiao.IService.csproj"
+              "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.IService\\Laoyoutiao.IService.csproj": {
+                "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.IService\\Laoyoutiao.IService.csproj"
               },
-              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Repository\\Laoyoutiao.Repository.csproj": {
-                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Repository\\Laoyoutiao.Repository.csproj"
+              "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Repository\\Laoyoutiao.Repository.csproj": {
+                "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Repository\\Laoyoutiao.Repository.csproj"
               },
-              "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj": {
-                "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj"
+              "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj": {
+                "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj"
               }
             }
           }
@@ -624,7 +624,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -669,18 +669,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj": {
+    "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj",
+        "projectUniqueName": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj",
         "projectName": "Laoyoutiao.WorkFlow.Core",
-        "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj",
+        "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj",
         "packagesPath": "C:\\Users\\齐文杰\\.nuget\\packages\\",
-        "outputPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\obj\\",
+        "outputPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -711,7 +711,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
+          "auditMode": "direct"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -734,7 +734,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

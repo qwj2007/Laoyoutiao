@@ -4081,11 +4081,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Extends\\Laoyoutiao.Extends.csproj",
+      "projectUniqueName": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Extends\\Laoyoutiao.Extends.csproj",
       "projectName": "Laoyoutiao.Extends",
-      "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Extends\\Laoyoutiao.Extends.csproj",
+      "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Extends\\Laoyoutiao.Extends.csproj",
       "packagesPath": "C:\\Users\\齐文杰\\.nuget\\packages\\",
-      "outputPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Extends\\obj\\",
+      "outputPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Extends\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4106,8 +4106,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj": {
-              "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj"
+            "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj": {
+              "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Entities\\Laoyoutiao.Models.csproj"
             }
           }
         }
@@ -4120,7 +4120,7 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "all"
+        "auditMode": "direct"
       },
       "SdkAnalysisLevel": "9.0.100"
     },
@@ -4153,20 +4153,8 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1903",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "包 \"System.Text.RegularExpressions\" 4.3.0 具有已知的 高 严重性漏洞，https://github.com/advisories/GHSA-cmhx-cq75-c4mj",
-      "libraryId": "System.Text.RegularExpressions",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  }
 }

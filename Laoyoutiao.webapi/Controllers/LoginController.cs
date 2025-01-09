@@ -1,4 +1,5 @@
 ﻿using Laoyoutiao.Common;
+using Laoyoutiao.Enums;
 using Laoyoutiao.IService;
 using Laoyoutiao.IService.Sys;
 using Laoyoutiao.Models.Common;
@@ -66,7 +67,7 @@ namespace Laoyoutiao.webapi.Controllers
         public async Task<ApiResult> GetTokens(string account, string password)
         {
             //throw new Exception("出现错误了12121。。。。。。。。");
-           
+
             var result = System.Threading.Tasks.Task.Run(() =>
             {
 
@@ -75,15 +76,45 @@ namespace Laoyoutiao.webapi.Controllers
                     return ResultHelper.Error("参数不能为空");
                 }
                 var users = _sysUserService.GetUser(account, password) as SysUserRes;
-               
-                if (string.IsNullOrEmpty(users.UserName))
+
+                if (string.IsNullOrEmpty(users.Account))
                 {
                     return ResultHelper.Error("账号不存在，用户名或密码错误！");
                 }
                 return ResultHelper.Success(_jwtService.GetToken(users));
             });
+
             return await result;
         }
+        /// <summary>
+        /// 验证token是否有效
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<ApiResult> ValidationToken(string token)
+        {
+            var result = System.Threading.Tasks.Task.Run(() =>
+            {
+                string code =Convert.ToInt64( TokenValidCodeEnum.Valid).ToString();
+                var tokenResult = _jwtService.ValidateToken(token);
+                if (tokenResult == null) {
+                    //token失效Code
+                    code =Convert.ToInt64(  TokenValidCodeEnum.UnValid).ToString();
+                }
+                return ResultHelper.Success(code);
+            });
+
+            return await result;
+        }
+        /// <summary>
+        /// 根据RefreshToken获取新的token
+        /// </summary>
+        /// <param name="RefreshToken"></param>
+        /// <returns></returns>
+        //public async Task<ApiResult> TokenRenewalByRefreshToken(string RefreshToken) { 
+        
+        //}
         /// <summary>
         /// 对密码进行加密
         /// </summary>
@@ -92,9 +123,10 @@ namespace Laoyoutiao.webapi.Controllers
         [HttpGet]
         public async Task<string> GetEncodePassword(string password)
         {
-          var result=  Task.Run(() => {
-              return Encrypt.Encode(password);
-          });
+            var result = Task.Run(() =>
+            {
+                return Encrypt.Encode(password);
+            });
 
             return await result;
 

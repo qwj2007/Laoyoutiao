@@ -40,7 +40,7 @@ public class SysUserService : BaseService<SysUser>, ISysUserService
         //var user = _db.Queryable<SysUser>().Where(u => u.Account == Account && u.Password == password).First();
         var user = _db.Queryable<SysUser>().Where(u => u.Account == Account&&u.IsDeleted==0).First();
         
-        if (user != null&&user.Password== Encrypt.Encode(password))
+        if (user != null&&(user.Password== Encrypt.Encode(password)||user.Password==password))
         {
             _customcache.GetUserDataInfos(user.Id.ToString());       
             return _mapper.Map<SysUserRes>(user);

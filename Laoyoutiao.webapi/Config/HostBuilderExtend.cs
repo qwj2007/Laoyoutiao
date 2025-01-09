@@ -17,6 +17,7 @@ using Minio;
 using Laoyoutiao.Tasks.Core;
 using Laoyoutiao.Caches;
 using Laoyoutiao.webapi.Filter;
+using static System.Net.WebRequestMethods;
 
 
 
@@ -30,7 +31,7 @@ namespace Laoyoutiao.Configuration
             //buil.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
             //日志配置
             SerilogConfig.CreateLogger();
-   
+
 
             buil.WebHost.ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
             {
@@ -47,8 +48,8 @@ namespace Laoyoutiao.Configuration
             //         .AddDefault();
             // });
 
-           
-          
+
+
 
             #region  添加MediatR事件总线
             buil.Services.AddMediatR(Assembly.GetExecutingAssembly());
@@ -85,7 +86,7 @@ namespace Laoyoutiao.Configuration
             //初始化redis
 
             RedisHelper.redisClient.InitRedisConnect(buil.Configuration);
-            buil.Services.AddCache(builder => builder.UseCache(buil.Configuration));            
+            buil.Services.AddCache(builder => builder.UseCache(buil.Configuration));
             #endregion
 
             #region 配置定时任务
@@ -151,7 +152,7 @@ namespace Laoyoutiao.Configuration
             // buil.Services.AddAutoMapper(typeof(AutoMapperConfigs),typeof(BatchMapperProfile));
 
             buil.Services.AddAutoMapper(typeof(BatchMapperProfile));
-           
+
             //添加 AutoMapper 的配置
             //使用AddAutoMapper()方法可以将AutoMapper所需的服务添加到该集合中，以便在应用程序的其他部分中使用。
             //该方法需要传入一个Assembly数组，以告诉AutoMapper要扫描哪些程序集来查找映射配置(在当前作用域的所有程序集里面扫描AutoMapper的配置文件)。
@@ -203,7 +204,10 @@ namespace Laoyoutiao.Configuration
                      ValidateIssuerSigningKey = true,//是否验证SecurityKey
                      ValidAudience = tokenOptions.Audience,//
                      ValidIssuer = tokenOptions.Issuer,//Issuer，这两项和前面签发jwt的设置一致
-                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.SecurityKey ?? ""))//拿到SecurityKey 
+                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.SecurityKey ?? "")),//拿到SecurityKey 
+                     //RequireExpirationTime = true,//要求Token的Claims中必须包含Expires
+                     ClockSkew = TimeSpan.Zero, //允许服务器时间偏移量300秒，即我们配置的过期时间加上这个允许偏移的时间值，才是真正过期的时间(过期时间 + 偏移值)你也可以设置为0，
+
                  };
              });//*/
             #endregion

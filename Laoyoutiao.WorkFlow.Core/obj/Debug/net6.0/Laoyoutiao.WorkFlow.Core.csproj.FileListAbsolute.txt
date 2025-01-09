@@ -10,3 +10,15 @@ E:\学习程序代码等\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Debug\net6.0\La
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Debug\net6.0\refint\Laoyoutiao.WorkFlow.Core.dll
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Debug\net6.0\Laoyoutiao.WorkFlow.Core.pdb
 E:\学习程序代码等\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Debug\net6.0\ref\Laoyoutiao.WorkFlow.Core.dll
+E:\studyCode\Laoyoutiao\Laoyoutiao.WorkFlow.Core\bin\Debug\net6.0\Laoyoutiao.WorkFlow.Core.deps.json
+E:\studyCode\Laoyoutiao\Laoyoutiao.WorkFlow.Core\bin\Debug\net6.0\Laoyoutiao.WorkFlow.Core.dll
+E:\studyCode\Laoyoutiao\Laoyoutiao.WorkFlow.Core\bin\Debug\net6.0\Laoyoutiao.WorkFlow.Core.pdb
+E:\studyCode\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Debug\net6.0\Laoyoutiao.WorkFlow.Core.GeneratedMSBuildEditorConfig.editorconfig
+E:\studyCode\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Debug\net6.0\Laoyoutiao.WorkFlow.Core.AssemblyInfoInputs.cache
+E:\studyCode\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Debug\net6.0\Laoyoutiao.WorkFlow.Core.AssemblyInfo.cs
+E:\studyCode\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Debug\net6.0\Laoyoutiao.WorkFlow.Core.csproj.CoreCompileInputs.cache
+E:\studyCode\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Debug\net6.0\Laoyoutiao.WorkFlow.Core.sourcelink.json
+E:\studyCode\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Debug\net6.0\Laoyoutiao.WorkFlow.Core.dll
+E:\studyCode\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Debug\net6.0\refint\Laoyoutiao.WorkFlow.Core.dll
+E:\studyCode\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Debug\net6.0\Laoyoutiao.WorkFlow.Core.pdb
+E:\studyCode\Laoyoutiao\Laoyoutiao.WorkFlow.Core\obj\Debug\net6.0\ref\Laoyoutiao.WorkFlow.Core.dll

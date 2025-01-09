@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KJC/i7AsIfA=",
+  "dgSpecHash": "ifLxdmqPqC8=",
   "success": true,
-  "projectFilePath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Jobs\\Laoyoutiao.Jobs.csproj",
+  "projectFilePath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Jobs\\Laoyoutiao.Jobs.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\齐文杰\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
@@ -64,16 +64,5 @@
     "C:\\Users\\齐文杰\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
     "C:\\Users\\齐文杰\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1903",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "包 \"System.Text.RegularExpressions\" 4.3.0 具有已知的 高 严重性漏洞，https://github.com/advisories/GHSA-cmhx-cq75-c4mj",
-      "libraryId": "System.Text.RegularExpressions",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  "logs": []
 }

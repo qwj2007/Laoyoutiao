@@ -4503,11 +4503,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Service\\Laoyoutiao.Service.csproj",
+      "projectUniqueName": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Service\\Laoyoutiao.Service.csproj",
       "projectName": "Laoyoutiao.Service",
-      "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Service\\Laoyoutiao.Service.csproj",
+      "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Service\\Laoyoutiao.Service.csproj",
       "packagesPath": "C:\\Users\\齐文杰\\.nuget\\packages\\",
-      "outputPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Service\\obj\\",
+      "outputPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Service\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4528,20 +4528,20 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj": {
-              "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj"
+            "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj": {
+              "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Cache\\Laoyoutiao.Caches.csproj"
             },
-            "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj": {
-              "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj"
+            "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj": {
+              "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Common\\Laoyoutiao.Common.csproj"
             },
-            "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IService\\Laoyoutiao.IService.csproj": {
-              "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.IService\\Laoyoutiao.IService.csproj"
+            "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.IService\\Laoyoutiao.IService.csproj": {
+              "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.IService\\Laoyoutiao.IService.csproj"
             },
-            "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Repository\\Laoyoutiao.Repository.csproj": {
-              "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.Repository\\Laoyoutiao.Repository.csproj"
+            "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Repository\\Laoyoutiao.Repository.csproj": {
+              "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Repository\\Laoyoutiao.Repository.csproj"
             },
-            "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj": {
-              "projectPath": "E:\\学习程序代码等\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj"
+            "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj": {
+              "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.WorkFlow.Core\\Laoyoutiao.WorkFlow.Core.csproj"
             }
           }
         }
@@ -4554,7 +4554,7 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "all"
+        "auditMode": "direct"
       },
       "SdkAnalysisLevel": "9.0.100"
     },
@@ -4599,30 +4599,8 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1904",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "包 \"System.Text.Encodings.Web\" 4.5.0 具有已知的 严重 严重性漏洞，https://github.com/advisories/GHSA-ghhp-997w-qr28",
-      "libraryId": "System.Text.Encodings.Web",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    },
-    {
-      "code": "NU1903",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "包 \"System.Text.RegularExpressions\" 4.3.0 具有已知的 高 严重性漏洞，https://github.com/advisories/GHSA-cmhx-cq75-c4mj",
-      "libraryId": "System.Text.RegularExpressions",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  }
 }
