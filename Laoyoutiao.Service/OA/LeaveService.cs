@@ -53,7 +53,7 @@ namespace Laoyoutiao.Service.OA
         /// </summary>
         /// <typeparam name="TReq">请求参数</typeparam>
         /// <typeparam name="TRes">响应参数</typeparam>
-        /// <param name="req"></param>
+        /// <param name="req">请求参数</param>
         /// <returns></returns>
         public override async Task<PageInfo> GetPagesAsync<TReq, TRes>(TReq req)
         {
