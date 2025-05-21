@@ -39,6 +39,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Laoyoutiao.Cache\Laoyoutiao.Caches.csproj" />
     <ProjectReference Include="..\Laoyoutiao.Common\Laoyoutiao.Common.csproj" />
+    <ProjectReference Include="..\Laoyoutiao.Entities\Laoyoutiao.Models.csproj" />
     <ProjectReference Include="..\Laoyoutiao.IService\Laoyoutiao.IService.csproj" />
     <ProjectReference Include="..\Laoyoutiao.Jobs\Laoyoutiao.Jobs.csproj" />
     <ProjectReference Include="..\Laoyoutiao.Service\Laoyoutiao.Service.csproj" />

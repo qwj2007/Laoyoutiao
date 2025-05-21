@@ -17,18 +17,7 @@ namespace Laoyoutiao.webapi.Area.OA.Controllers
     //[Route("api/[controller]/[action]")]
     public class LeaveController : BaseController<OALeave, LeaveRes, LeaveReq, LeaveEdit>
     {
-        //private readonly ILeaveService _leaveService;
-        //private readonly IWorkFlowInstanceService _workFlowInstanceService;
-        //public LeaveController(ILeaveService leaveService) : base(leaveService)
-        //{
-        //    this._leaveService = leaveService;
-        //    //this._workFlowInstanceService = workFlowInstanceService;
-        //}
-        //[HttpPost]
-        //public override Task<ApiResult> GetPages(LeaveReq req)
-        //{
-        //    return base.GetPages(req);
-        //}
+      
         public LeaveController(IBaseService<OALeave> baseService) : base(baseService)
         {
         }

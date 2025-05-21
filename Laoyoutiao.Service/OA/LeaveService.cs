@@ -51,13 +51,12 @@ namespace Laoyoutiao.Service.OA
         /// <summary>
         /// 查找数据
         /// </summary>
-        /// <typeparam name="TReq"></typeparam>
-        /// <typeparam name="TRes"></typeparam>
+        /// <typeparam name="TReq">请求参数</typeparam>
+        /// <typeparam name="TRes">响应参数</typeparam>
         /// <param name="req"></param>
         /// <returns></returns>
         public override async Task<PageInfo> GetPagesAsync<TReq, TRes>(TReq req)
         {
-
             //查找
             LeaveReq leaveReq = req as LeaveReq;
             var list = _db.Queryable<OALeave>()
