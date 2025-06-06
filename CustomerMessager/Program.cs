@@ -17,6 +17,7 @@ namespace CustomerMessager
             Subscriber subscriber1 = new Subscriber();
             Subscriber subscriber2 = new Subscriber();
             subscriber1.Subscribe(publisher);
+
             subscriber2.Subscribe(publisher);
         }
     }
