@@ -1,0 +1,142 @@
+﻿using ElasticAppDemo.Host.Infrastructure.Respositories;
+using ElasticAppDemo.Host.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection.Metadata.Ecma335;
+using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
+
+namespace ElasticAppDemo.Host.Controllers
+{
+    /// <summary>
+    /// 笔记相关操作
+    /// </summary>
+    [Route("api/[controller]/[action]")]
+    [ApiController]
+    public class NoteController : ControllerBase
+    {
+        private readonly INoteRepository _noteRepository;
+        public NoteController(INoteRepository noteRepository)
+        {
+            _noteRepository = noteRepository;
+        }
+
+        /// <summary>
+        /// 新增索引并添加文档，如果文档有，就更新，没有就创建
+        /// </summary>
+        /// <param name="note"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> AddAsync([FromBody] Note note)
+        {
+            await _noteRepository.AddAsync(note);
+            return Ok("Success");
+        }
+        /// <summary>
+        /// 查询笔记
+        /// </summary>
+        /// <param name="page">页码</param>
+        /// <param name="limit">每页数量</param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> QueryAsync(int page = 1, int limit = 10)
+        {
+            var result = await _noteRepository.QueryAsync(page, limit);
+            return Ok(new
+            {
+                total = result.Item1,
+                items = result.Item2
+            });
+        }
+        [HttpPut]
+        public async Task<IActionResult> UpdateAsync([FromBody] Note log)
+        {
+            await _noteRepository.UpdateAsync(log);
+            return Ok("Success");
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAsync([Required] string id)
+        {
+            await _noteRepository.DeleteAsync(id);
+            return Ok("Success");
+        }
+        /// <summary>
+        /// 查询结果中包含指定昵称的笔记，并高亮显示
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> QueryByNameWithHighlightAsync([Required] string key)
+        {
+            var result = await _noteRepository.QueryByNameWithHighlightAsync(key);
+            return Ok(result);
+        }
+        /// <summary>
+        /// 查询多个字段都要匹配--and查询
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IList<Note>> QueryByNameAsync(string title, string name)
+        {
+            var result = await _noteRepository.QueryByNameAsync(title, name);
+            return result;
+        }
+        /// <summary>
+        /// 查询多个字段都要匹配--or查询
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IList<Note>> QueryByTitleOrNameAsync(string name)
+        {
+            var result = await _noteRepository.QueryByTitleOrNameAsync(name);
+            return result;
+        }
+
+        /// <summary>
+        /// 查询多个字段包括keyword,模糊查询 和or查询一样
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IList<Note>> QueryByMutiMatchAsync(string keyword)
+        {
+            var result = await _noteRepository.QueryByMutiMatchAsync(keyword);
+            return result;
+        }
+
+        /// <summary>
+        /// 自定义创建索引
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpPost]
+        public async Task CreateIndexWithCustomMappingAsync()
+        {
+            await _noteRepository.CreateIndexWithCustomMappingAsync();
+        }
+        [HttpPost]
+        public async Task CreateIndexAsync()
+        {
+            await _noteRepository.CreateIndexAsync();
+        }
+        /// <summary>
+        /// function_score自定义分数查询
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IList<Note>> QueryWithFunctionScoreAsync(string keyword)
+        {
+            var result = await _noteRepository.QueryWithFunctionScoreAsync(keyword);
+            return result;
+        }
+
+
+
+    }
+}

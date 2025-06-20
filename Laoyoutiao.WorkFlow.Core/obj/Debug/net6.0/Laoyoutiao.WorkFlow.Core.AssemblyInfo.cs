@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Laoyoutiao.WorkFlow.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ad4944abfcf31ac27de5e09e74f1d97af4cd6e8b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3883c7f230b2d53a79d1914e89fb476acd84fdc2")]
 [assembly: System.Reflection.AssemblyProductAttribute("Laoyoutiao.WorkFlow.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Laoyoutiao.WorkFlow.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

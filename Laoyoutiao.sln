@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerMsgTest", "Customer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Laoyoutiao.Util", "Laoyoutiao.Util\Laoyoutiao.Util.csproj", "{19734D3E-C92A-494A-B545-A491BE4CE51C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElasticAppDemo.Host", "ElasticAppDemo.Host\ElasticAppDemo.Host.csproj", "{8A92C1A1-08C3-4583-92E4-D1C03DCD1CE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{19734D3E-C92A-494A-B545-A491BE4CE51C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19734D3E-C92A-494A-B545-A491BE4CE51C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19734D3E-C92A-494A-B545-A491BE4CE51C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A92C1A1-08C3-4583-92E4-D1C03DCD1CE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A92C1A1-08C3-4583-92E4-D1C03DCD1CE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A92C1A1-08C3-4583-92E4-D1C03DCD1CE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A92C1A1-08C3-4583-92E4-D1C03DCD1CE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

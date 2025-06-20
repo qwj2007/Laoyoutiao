@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using StackExchange.Redis;
+using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
 
 namespace Laoyoutiao.Caches
 {
@@ -9,7 +11,7 @@ namespace Laoyoutiao.Caches
         private static readonly object objlock = new object();
         private static RedisHelper _instance;
         private ConnectionMultiplexer redis { get; set; }
-        private IDatabase db { get; set; }
+        public IDatabase db { get; set; }
 
         private RedisHelper()
         {
@@ -521,8 +523,183 @@ namespace Laoyoutiao.Caches
         }
 
         #endregion
+        /// <summary>
+        /// 执行Lua脚本文件
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="keys"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        /// <exception cref="FileNotFoundException"></exception>
+
+        public RedisResult ExecuteLuaScriptFile(string filePath, RedisKey[] keys = null, RedisValue[] values = null)
+        {
+            if (!File.Exists(filePath))
+                throw new FileNotFoundException("Lua 脚本文件未找到", filePath);
+
+            string script = File.ReadAllText(filePath);
+            return db.ScriptEvaluate(script, keys ?? Array.Empty<RedisKey>(), values ?? Array.Empty<RedisValue>());
+        }
+
+        #region 自定义分布式锁
+        /// <summary>
+        /// 获取锁
+        /// </summary>
+        /// <param name="cacheKey"></param>
+        /// <param name="timeoutSeconds"></param>
+        /// <returns></returns>
+        public async Task<(bool Success, string LockValue)> LockAsync(string cacheKey, int timeoutSeconds = 5)
+        {
+            var lockKey = GetLockKey(cacheKey);
+            var lockValue = Guid.NewGuid().ToString();
+            var timeoutMilliseconds = timeoutSeconds * 1000;
+            var expiration = TimeSpan.FromMilliseconds(timeoutMilliseconds);
+            bool flag = await db.StringSetAsync(lockKey, lockValue, expiration, When.NotExists);
 
 
+            return (flag, flag ? lockValue : string.Empty);
+        }
+        public string GetLockKey(string cacheKey)
+        {
+            return $"locker:{cacheKey}";
+        }
+        /// <summary>
+        /// 删除锁
+        /// </summary>
+        /// <param name="cacheKey"></param>
+        /// <param name="lockValue"></param>
+        /// <returns></returns>
+        public async Task<bool> UnLockAsync(string cacheKey, string lockValue)
+        {            
+            var lockKey = GetLockKey(cacheKey);
+            var script = @"local invalue = @value
+                                    local currvalue = redis.call('get',@key)
+                                    if(invalue==currvalue) then redis.call('del',@key)
+                                        return 1
+                                    else
+                                        return 0
+                                    end";
+            var parameters = new { key = lockKey, value = lockValue };
+            var prepared = LuaScript.Prepare(script);
+            var result = (int)await db.ScriptEvaluateAsync(prepared, parameters);
 
+            return result == 1;
+        }
+        /// <summary>
+        /// 自动续期
+        /// </summary>
+        /// <param name="redisDb"></param>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="milliseconds">续期的时间</param>
+        /// <returns></returns>
+        public async Task Delay( string key, string value, int milliseconds)
+        {
+            if (!AutoDelayHandler.Instance.ContainsKey(key))
+                return;
+
+            var script = @"local val = redis.call('GET', @key)
+                                    if val==@value then
+                                        redis.call('PEXPIRE', @key, @milliseconds)
+                                        return 1
+                                    end
+                                    return 0";
+            object parameters = new { key, value, milliseconds };
+            var prepared = LuaScript.Prepare(script);
+            var result = await db.ScriptEvaluateAsync(prepared, parameters, CommandFlags.None);
+            if ((int)result == 0)
+            {
+                AutoDelayHandler.Instance.CloseTask(key);
+            }
+            return;
+        }
+        /// <summary>
+        /// 获取锁(带有自动续期功能)
+        /// </summary>
+        /// <param name="cacheKey"></param>
+        /// <param name="timeoutSeconds">超时时间</param>
+        /// <param name="autoDelay">是否自动续期</param>
+        /// <returns></returns>
+        public async Task<(bool Success, string LockValue)> LockAsync(string cacheKey, int timeoutSeconds = 5, bool autoDelay = false)
+        {
+            var lockKey = GetLockKey(cacheKey);
+            var lockValue = Guid.NewGuid().ToString();
+            var timeoutMilliseconds = timeoutSeconds * 1000;
+            var expiration = TimeSpan.FromMilliseconds(timeoutMilliseconds);
+            bool flag = await db.StringSetAsync(lockKey, lockValue, expiration, When.NotExists);
+            if (flag && autoDelay)
+            {
+                //需要自动续期，创建后台任务
+                CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+                var autoDelaytask = new Task(async () =>
+                {
+                    while (!cancellationTokenSource.IsCancellationRequested)
+                    {
+                        await Task.Delay(timeoutMilliseconds / 2);
+                        await Delay(lockKey, lockValue, timeoutMilliseconds);
+                    }
+                }, cancellationTokenSource.Token);
+                var result = AutoDelayHandler.Instance.TryAdd(lockKey, autoDelaytask, cancellationTokenSource);
+
+                if (!result)
+                {
+                    autoDelaytask.Dispose();
+                    await UnLockAsync(cacheKey, lockValue);
+                    return (false, string.Empty);
+                }
+            }
+            return (flag, flag ? lockValue : string.Empty);
+        }
+        #endregion
+
+
+    }
+    /// <summary>
+    /// 自动续期任务的处理器
+    /// </summary>
+    public class AutoDelayHandler
+    {
+        private static readonly Lazy<AutoDelayHandler> lazy = new Lazy<AutoDelayHandler>(() => new AutoDelayHandler());
+        private static ConcurrentDictionary<string, (Task, CancellationTokenSource)> _tasks = new ConcurrentDictionary<string, (Task, CancellationTokenSource)>();
+
+        public static AutoDelayHandler Instance => lazy.Value;
+
+        /// <summary>
+        /// 任务令牌添加到集合中
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="task"></param>
+        /// <returns></returns>
+        public bool TryAdd(string key, Task task, CancellationTokenSource token)
+        {
+            if (_tasks.TryAdd(key, (task, token)))
+            {
+                task.Start();
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        public void CloseTask(string key)
+        {
+            if (_tasks.ContainsKey(key))
+            {
+                if (_tasks.TryRemove(key, out (Task, CancellationTokenSource) item))
+                {
+                    item.Item2?.Cancel();
+                    item.Item1?.Dispose();
+                }
+            }
+        }
+
+        public bool ContainsKey(string key)
+        {
+            return _tasks.ContainsKey(key);
+        }
     }
 }
