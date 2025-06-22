@@ -173,14 +173,15 @@ namespace ElasticAppDemo.Host.Infrastructure.Respositories
             var result = await this.Client.SearchAsync<Note>(x => x.Index(this.IndexName)
             .Query(
                 q => q.FunctionScore(fs => fs.Query(
-                    q => q.MultiMatch( mm => mm.Query(keyword).Fields(f => f
-                                                     .Field(ff => ff.title,2.0) //设置权重值为2.0
+                    q => q.MultiMatch(mm => mm.Query(keyword).Fields(f => f
+                                                     .Field(ff => ff.title, 2.0) //设置权重值为2.0
                                                      .Field(ff => ff.nickname)//不设置默认为1.0
-                                                 )))                
+                                                 )))
 
 
                 .Functions(
                     fns => fns.FieldValueFactor(fvf => fvf.Field(f => f.commentTotal) //commentTotal字段作为评分依据
+
                                                                  .Factor(0.2) // 设置因子为0.5
                                                                  .Missing(0) // 如果字段缺失，则使用0
                                                                  .Modifier(FieldValueFactorModifier.SquareRoot)))// 平方根修正因子
@@ -198,25 +199,228 @@ namespace ElasticAppDemo.Host.Infrastructure.Respositories
                 .ScoreMode(FunctionScoreMode.Sum)// 设置评分模式为Sum
                 .BoostMode(FunctionBoostMode.Sum) // 设置提升模式为Sum
                 ))
-            
-            .Sort(s=>s.Descending(SortSpecialField.Score))
+
+            .Sort(s => s.Descending(SortSpecialField.Score))
             .From(0)
             .Size(100)
             .Highlight(
                 h => h.Fields(
                 hf => hf.Field(f => f.nickname).PreTags("<strong>").PostTags("</strong>")
-                ))               
+                ))
             );
             //处理高亮结果
             foreach (var hit in result.Hits)
             {
-                if (hit.Highlight != null && hit.Highlight.ContainsKey("nickname"))
+                if (hit.Highlight != null && hit.Highlight.ContainsKey(nameof(Note.nickname)))
                 {
-                    hit.Source.highlightTitle = string.Join(" ", hit.Highlight["nickname"]);
+                    hit.Source.highlightTitle = string.Join(" ", hit.Highlight[nameof(Note.nickname)]);
                 }
             }
             return result.Documents.ToList();
         }
-    }
 
+        /// <summary>
+        /// 按发布者昵称分组统计笔记数量，并统计点赞、评论、收藏的总和
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IList<NoteAgg>> GroupByNicknameAggAsync()
+        {
+            var result = await this.Client.SearchAsync<Note>(s => s
+                .Index(this.IndexName)
+                .Size(100) // 不返回文档，只返回聚合结果
+                .Aggregations(agg => agg
+                    .Terms("nickname_group", t => t
+                        .Field(f => f.noteId) //在 Elasticsearch 里，字段的类型会对它的使用方式产生限制。以nickname字段为例：
+                                              //若它是text类型，那么在进行聚合操作时，默认会采用分词后的词条，这就可能导致聚合结果出现偏差。
+                                              //若它是keyword类型，就能够直接用于聚合操作。
+                        .Size(100)
+                        .Aggregations(sub => sub
+                            .Sum("like_total_sum", sm => sm.Field(f => f.likeTotal))
+                            .Sum("comment_total_sum", sm => sm.Field(f => f.commentTotal))
+                            .Sum("collect_total_sum", sm => sm.Field(f => f.collectTotal))
+                        )
+                    )
+                )
+            );
+            var noteAggs = new List<NoteAgg>();
+            var buckets = result.Aggregations.Terms("nickname_group").Buckets;
+            if (buckets != null)
+            {
+                foreach (var bucket in buckets)
+                {
+                    var agg = new NoteAgg
+                    {
+                        //countVal = (int)(bucket.ValueCount("note_count")?.Value ?? 0),
+                        likeTotal = (int)(bucket.Sum("like_total_sum")?.Value ?? 0),
+                        commentTotal = (int)(bucket.Sum("comment_total_sum")?.Value ?? 0),
+                        collectTotal = (int)(bucket.Sum("collect_total_sum")?.Value ?? 0)
+                    };
+                    noteAggs.Add(agg);
+                }
+
+            }
+
+            return noteAggs;
+        }
+
+        /// <summary>
+        /// 按 noteId 分组统计笔记数量，并统计点赞、评论、收藏的总和
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IList<NoteAgg>> GroupByNoteIdAggAsync()
+        {
+            var result = await this.Client.SearchAsync<Note>(s => s
+                .Index(this.IndexName)
+                .Size(100) // 只返回聚合结果，不返回文档
+                .Aggregations(agg => agg
+                    .Terms("noteid_group", t => t
+                        .Field(f => f.noteId)
+                        .Size(1000)
+                        .Aggregations(sub => sub
+                            .ValueCount("note_count", vc => vc.Field(f => f.noteId))
+                            .Sum("like_total_sum", sm => sm.Field(f => f.likeTotal))
+                            .Sum("comment_total_sum", sm => sm.Field(f => f.commentTotal))
+                            .Sum("collect_total_sum", sm => sm.Field(f => f.collectTotal))
+                        )
+                    )
+                )
+            );
+            var noteAggs = new List<NoteAgg>();
+            var buckets = result.Aggregations.Terms("noteid_group").Buckets;
+            if (buckets != null)
+            {
+                foreach (var bucket in buckets)
+                {
+                    var agg = new NoteAgg
+                    {
+                        countVal = (int)(bucket.ValueCount("note_count")?.Value ?? 0),
+                        likeTotal = (int)(bucket.Sum("like_total_sum")?.Value ?? 0),
+                        commentTotal = (int)(bucket.Sum("comment_total_sum")?.Value ?? 0),
+                        collectTotal = (int)(bucket.Sum("collect_total_sum")?.Value ?? 0)
+                    };
+                    noteAggs.Add(agg);
+                }
+
+            }
+
+            return noteAggs;
+        }
+
+        /// <summary>
+        /// 按 noteId 分组统计笔记数量，并统计点赞、评论、收藏的总和
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IList<NoteAgg>> GroupByNoteAggAsync()
+        {
+
+            var result = await this.Client.SearchAsync<Note>(s => s
+                .Index(this.IndexName)
+                .Size(100) // 只返回聚合结果，不返回文档
+                .Aggregations(agg => agg
+                    .Terms("noteid_group", t => t
+                        .Field(f => f.noteId)
+                        .Size(1000)
+                        .Aggregations(sub => sub
+                            .ValueCount("note_count", vc => vc.Field(f => f.noteId))
+                            .Sum("like_total_sum", sm => sm.Field(f => f.likeTotal))
+                            .Sum("comment_total_sum", sm => sm.Field(f => f.commentTotal))
+                            .Sum("collect_total_sum", sm => sm.Field(f => f.collectTotal))
+                        )
+                    )
+                )
+            );
+            var noteAggs = new List<NoteAgg>();
+            var buckets = result.Aggregations.Terms("noteid_group").Buckets;
+            if (buckets != null)
+            {
+                foreach (var bucket in buckets)
+                {
+                    var agg = new NoteAgg
+                    {
+                        countVal = (int)(bucket.ValueCount("note_count")?.Value ?? 0),
+                        likeTotal = (int)(bucket.Sum("like_total_sum")?.Value ?? 0),
+                        commentTotal = (int)(bucket.Sum("comment_total_sum")?.Value ?? 0),
+                        collectTotal = (int)(bucket.Sum("collect_total_sum")?.Value ?? 0)
+                    };
+                    //this.Client.IndexDocument<NoteAgg>(agg);
+                    noteAggs.Add(agg);
+                }
+
+            }
+
+            return noteAggs;
+        }
+
+        /// <summary>
+        /// 批量插入文档
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<bool> InsertManyDocument()
+        {
+            var list = new List<Note>();
+            for (int i = 1000; i < 2000; i++)
+            {
+                Note note = new Note
+                {
+                    Id = "10000" + i,
+                    noteId = 10000 + i,
+                    title = $"笔记标题{i}",
+                    nickname = $"用户昵称{i}",
+                    cover = "https://example.com/cover.jpg",
+                    avatar = "https://example.com/avatar.jpg",
+                    likeTotal = (i % 100).ToString(),
+                    commentTotal = (i % 50).ToString(),
+                    collectTotal = (i % 30).ToString(),
+                    updateTime = DateTime.Now.Microsecond.ToString()
+                };
+                list.Add(note);
+            }
+            var batchSize = 200;// 每批次插入200条数据
+            for (int i = 0; i < list.Count; i += batchSize)
+            {
+                var batch = list.Skip(i).Take(batchSize).ToList();
+                if (!await this.IndexManyInsert(batch))
+                {
+                    return false; // 如果批量插入失败，返回false
+                }
+              
+            }
+            return true; // 如果所有批次都成功插入，返回true
+            //return await this.IndexManyInsert(list);
+        }
+
+        public async Task<bool> BulkInsert()
+        {
+            var list = new List<Note>();
+            for (int i = 2000; i < 3000; i++)
+            {
+                Note note = new Note
+                {
+                    Id = "20000" + i,
+                    noteId = 20000 + i,
+                    title = $"笔记标题BulkInsert{i}",
+                    nickname = $"用户昵称BulkInsert{i}",
+                    cover = "https://example.com/cover.jpg",
+                    avatar = "https://example.com/avatar.jpg",
+                    likeTotal = (i % 100).ToString(),
+                    commentTotal = (i % 50).ToString(),
+                    collectTotal = (i % 30).ToString(),
+                    updateTime = DateTime.Now.Microsecond.ToString()
+                };
+                list.Add(note);
+            }
+            var batchSize = 200;// 每批次插入200条数据
+            for (int i = 0; i < list.Count; i += batchSize)
+            {
+                var batch = list.Skip(i).Take(batchSize).ToList();
+                if (!await this.IndexManyInsert(batch))
+                {
+                    return false; // 如果批量插入失败，返回false
+                }
+
+            }
+            return true; // 
+        }
+    }
 }

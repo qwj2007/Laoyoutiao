@@ -2,6 +2,7 @@
 using ElasticAppDemo.Host.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Nest;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection.Metadata.Ecma335;
 using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
@@ -79,10 +80,10 @@ namespace ElasticAppDemo.Host.Controllers
         /// <param name="name"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IList<Note>> QueryByNameAsync(string title, string name)
+        public async Task<IActionResult> QueryByNameAsync(string title, string name)
         {
             var result = await _noteRepository.QueryByNameAsync(title, name);
-            return result;
+            return Ok(result);
         }
         /// <summary>
         /// 查询多个字段都要匹配--or查询
@@ -135,8 +136,68 @@ namespace ElasticAppDemo.Host.Controllers
             var result = await _noteRepository.QueryWithFunctionScoreAsync(keyword);
             return result;
         }
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IList<NoteAgg>> GroupByNicknameAggAsync()
+        {
+            var result = await _noteRepository.GroupByNicknameAggAsync();
+            return result;
+        }
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
 
+        public async Task<IList<NoteAgg>> GroupByNoteIdAggAsync()
+        {
+            var result = await _noteRepository.GroupByNoteIdAggAsync();
+            return result;
+        }
 
+        [HttpPost]
+        public async Task<IList<NoteAgg>> GroupByNoteAggAsync()
+        {
+            var result = await _noteRepository.GroupByNoteAggAsync();
+            return result;
+        }
+        /// <summary>
+        /// 批量插入文档，测试使用IndexManyInsert方法
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> IndexManyInsertAsync()
+        {
+            var result = await _noteRepository.InsertManyDocument();
+            if (result)
+            {
+                return Ok("批量插入成功");
+            }
+            else
+            {
+                return BadRequest("批量插入失败");
+            }
 
+        }
+        /// <summary>
+        /// 批量插入文档，测试使用BulkInsert方法
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> BulkInsertAsync()
+        {
+            var result = await _noteRepository.BulkInsert();
+            if (result)
+            {
+                return Ok("批量插入成功");
+            }
+            else
+            {
+                return BadRequest("批量插入失败");
+            }
+        }
     }
 }

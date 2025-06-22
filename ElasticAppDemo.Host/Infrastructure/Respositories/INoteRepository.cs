@@ -1,4 +1,5 @@
 ﻿using ElasticAppDemo.Host.Models;
+using Nest;
 
 namespace ElasticAppDemo.Host.Infrastructure.Respositories
 {
@@ -51,5 +52,26 @@ namespace ElasticAppDemo.Host.Infrastructure.Respositories
         /// <param name="keyword"></param>
         /// <returns></returns>
         Task<IList<Note>> QueryWithFunctionScoreAsync(string keyword);
+        /// <summary>
+        /// 按发布者昵称分组统计笔记数量，并统计点赞、评论、收藏的总和
+        /// </summary>
+        /// <returns></returns>
+        Task<IList<NoteAgg>> GroupByNicknameAggAsync();
+
+        Task<IList<NoteAgg>> GroupByNoteIdAggAsync();
+
+        Task<IList<NoteAgg>> GroupByNoteAggAsync();
+
+        /// <summary>
+        /// 批量插入文档
+        /// </summary>
+        /// <returns></returns>
+        Task<bool> InsertManyDocument();
+
+        /// <summary>
+        /// 批量插入文档
+        /// </summary>
+        /// <returns></returns>
+        Task<bool> BulkInsert();
     }
 }
