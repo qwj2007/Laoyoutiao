@@ -1,6 +1,7 @@
 ﻿using ElasticAppDemo.Host.Models;
 using Elasticsearch.Net;
 using Nest;
+using System.Collections.Generic;
 
 namespace ElasticAppDemo.Host.Infrastructure.Respositories
 {
@@ -384,7 +385,7 @@ namespace ElasticAppDemo.Host.Infrastructure.Respositories
                 {
                     return false; // 如果批量插入失败，返回false
                 }
-              
+
             }
             return true; // 如果所有批次都成功插入，返回true
             //return await this.IndexManyInsert(list);
@@ -422,5 +423,235 @@ namespace ElasticAppDemo.Host.Infrastructure.Respositories
             }
             return true; // 
         }
+
+        /// <summary>
+        /// 使用 Scroll API 实现深度分页（适合大数据量场景，游标方式）大数据量导出
+        /// 基于快照的批量分页
+        /// 原理：通过 scroll 参数生成一个“搜索上下文快照”（类似数据库的游标），
+        /// 后续请求通过 scroll_id 从快照中获取数据。
+        /// 快照在集群内存中临时保存（通过 scroll=1m 指定超时时间），避免重复计算。
+        /// </summary>
+        /// <param name="pageSize">每页条数</param>
+        /// <param name="scrollTime">scroll上下文有效期，如"2m"</param>
+        /// <returns>所有Note文档</returns>
+        public async Task<IList<Note>> ScrollSearchAsync(int pageSize = 100, string scrollTime = "2m")
+        {
+            var allNotes = new List<Note>();
+            // 第一次请求，获取scrollId
+            var searchResponse = await this.Client.SearchAsync<Note>(s => s
+                .Index(this.IndexName)
+                .From(0)
+                .Size(pageSize)
+                .Scroll(scrollTime)
+                .Sort(ss => ss.Descending(f => f.Id))
+                .Query(q => q.MatchAll(
+                 //按条件查询
+                 ))
+            );
+            if (!searchResponse.IsValid)
+            {
+                Console.WriteLine($"Scroll初始化失败: {searchResponse.DebugInformation}");
+                return null;
+            }
+            var scrollId = searchResponse.ScrollId;
+            allNotes.AddRange(searchResponse.Documents);
+
+            // 循环获取后续数据，直到没有更多
+            while (searchResponse.Documents.Count > 0)
+            {
+                searchResponse = await this.Client.ScrollAsync<Note>(scrollTime, scrollId);
+                if (searchResponse.Documents.Count == 0)
+                    break;
+                allNotes.AddRange(searchResponse.Documents);
+                scrollId = searchResponse.ScrollId;
+            }
+
+            // 清理scroll上下文
+            await this.Client.ClearScrollAsync(new ClearScrollRequest(scrollId));
+
+            return allNotes;
+        }
+
+
+
+        /// <summary>
+        /// 使用 Search After 实现实时深度分页
+        /// 仅支持“下一页”操作，无法跳转到任意页（需结合业务层缓存游标）；
+        /// </summary>
+        /// <param name="pageSize">每页大小（建议 50-200）</param>
+        /// <param name="processPage">分页回调（处理当前页数据）</param>
+        /// <param name="initialSort">初始排序规则（必须包含唯一字段组合）</param>
+        public async Task PaginateWithSearchAfterAsync(
+            int pageSize,
+            Action<List<Note>> processPage,
+            Func<SortDescriptor<Note>, IPromise<IList<ISort>>> initialSort = null)
+        {
+            initialSort ??= sd => sd
+                 .Descending(d => d.noteId)  // 主排序：时间戳降序（最新数据在前）
+                .Descending(d => d.Id);         // 次排序：ID升序（确保唯一性）
+
+            try
+            {
+                // 第一页：无 search_after 参数
+                var searchResponse = await Client.SearchAsync<Note>(s => s
+                    .Size(pageSize)
+                    .Sort(initialSort)
+                    .Query(q => q.MatchAll(
+
+                        )) // 替换为实际查询条件
+                );
+
+                if (!searchResponse.IsValid)
+                {
+                    Console.WriteLine($"首屏查询失败: {searchResponse.DebugInformation}");
+                    return;
+                }
+
+                // 处理首屏数据
+                var currentPage = 1;
+                var hits = searchResponse.Hits;
+                if (hits.Any())
+                {
+                    processPage?.Invoke(hits.Select(h => h.Source).ToList());
+                    Console.WriteLine($"第 {currentPage} 页获取 {hits.Count} 条数据");
+                }
+
+                // 迭代后续页面
+                while (hits.Any())
+                {
+                    // 获取最后一条记录的排序值（关键！）
+                    var lastHit = hits.Last();
+                    var sortValues = lastHit.Sorts;
+
+                    // 使用 search_after 查询下一页
+                    searchResponse = await this.Client.SearchAsync<Note>(s => s
+                        .Size(pageSize)
+                        .Sort(initialSort)       // 必须与首屏排序规则一致
+                        .SearchAfter(sortValues) // 关键参数：基于上一页末尾排序值
+                        .Query(q => q.MatchAll()) // 与首屏查询条件一致
+                    );
+
+                    if (!searchResponse.IsValid)
+                    {
+                        Console.WriteLine($"第 {currentPage + 1} 页查询失败: {searchResponse.DebugInformation}");
+                        break;
+                    }
+
+                    hits = searchResponse.Hits;
+                    currentPage++;
+
+                    if (hits.Any())
+                    {
+                        processPage?.Invoke(hits.Select(h => h.Source).ToList());
+                        Console.WriteLine($"第 {currentPage} 页获取 {hits.Count} 条数据");
+                    }
+                }
+
+                Console.WriteLine("分页完成，无更多数据");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"分页过程中发生异常: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// // 第一页查询（无 search_after）
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+
+        public async Task<PagedResult<Note>> GetFirstPageAsync(int pageSize = 10)
+        {
+            var searchResponse = await this.Client.SearchAsync<Note>(s => s
+                .Query(q => q.MatchAll())
+                .Sort(ss => ss
+                    .Descending(f => f.noteId)
+                    .Ascending("_id")
+                )
+                .Size(pageSize)
+            );
+
+            if (!searchResponse.IsValid)
+                throw new Exception($"查询失败: {searchResponse.ServerError.Error.Reason}");
+
+            return new PagedResult<Note>
+            {
+                Items = searchResponse.Documents,
+                HasMore = searchResponse.Hits.Count >= pageSize,
+                ScrollId = GetScrollId(searchResponse.Hits)
+            };
+        }
+
+        /// <summary>
+        /// 用search_after获取下一页数据,scrollId为null时获取第一页数据,
+        /// 只能获取下一页数据，不能跳转到任意页
+        /// </summary>
+        /// <param name="scrollId">要查询下一页的标识内容</param>
+        /// <param name="pageSize">页数</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<PagedResult<Note>> GetPageBySearchAfterAsync(string scrollId=null, int pageSize = 10)
+        {
+           
+            //if (string.IsNullOrEmpty(scrollId))
+            //    return new PagedResult<Note> { Items = new List<Note>() };
+
+            var searchAfterValues = ParseScrollId(scrollId);
+
+            var searchResponse = await Client.SearchAsync<Note>(s => s
+                .Query(q => q.MatchAll())
+                .Sort(ss => ss
+                    .Descending(f => f.noteId)
+                    .Descending(f=>f.Id)
+                )
+                .SearchAfter(searchAfterValues)
+                .Size(pageSize)
+            );
+            
+
+            if (!searchResponse.IsValid)
+                throw new Exception($"查询失败: {searchResponse.ServerError.Error.Reason}");
+
+            return new PagedResult<Note>
+            {
+                Items = searchResponse.Documents,
+                HasMore = searchResponse.Hits.Count >= pageSize,
+                ScrollId = GetScrollId(searchResponse.Hits)
+            };
+        }
+        /// <summary>
+        /// 从最后一条记录提取 scrollId
+        /// </summary>
+        /// <param name="hits"></param>
+        /// <returns></returns>
+        // 
+        private string GetScrollId(IReadOnlyCollection<IHit<Note>> hits)
+        {
+            if (hits.Count == 0) return null;
+            var lastHit = hits.Last();
+            var sort = lastHit.Sorts.ToArray();
+            return $"{sort[0]}|{sort[1]}"; // 序列化排序值
+        }
+        /// <summary>
+        /// 解析 scrollId 为 search_after 值
+        /// </summary>
+        /// <param name="scrollId"></param>
+        /// <returns></returns>
+        // 
+        private object[] ParseScrollId(string scrollId)
+        {
+            if (string.IsNullOrEmpty(scrollId)) return null;
+            var parts = scrollId.Split('|');
+            return new object[]
+            {
+            parts[0],
+            parts[1]
+            };
+        }
+
+       
     }
 }
+

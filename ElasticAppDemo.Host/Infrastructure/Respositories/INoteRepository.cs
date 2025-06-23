@@ -1,5 +1,6 @@
 ﻿using ElasticAppDemo.Host.Models;
 using Nest;
+using System.Collections.Generic;
 
 namespace ElasticAppDemo.Host.Infrastructure.Respositories
 {
@@ -73,5 +74,22 @@ namespace ElasticAppDemo.Host.Infrastructure.Respositories
         /// </summary>
         /// <returns></returns>
         Task<bool> BulkInsert();
+        Task<IList<Note>> ScrollSearchAsync(int pageSize = 100, string scrollTime = "2m");
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="processPage"></param>
+        /// <param name="initialSort"></param>
+        /// <returns></returns>
+        Task PaginateWithSearchAfterAsync(
+            int pageSize,
+            Action<List<Note>> processPage,
+            Func<SortDescriptor<Note>, IPromise<IList<ISort>>> initialSort = null);
+
+       
+        Task<PagedResult<Note>> GetFirstPageAsync(int pageSize = 10);
+        Task<PagedResult<Note>> GetPageBySearchAfterAsync(string scrollId=null, int pageSize = 10);
     }
 }

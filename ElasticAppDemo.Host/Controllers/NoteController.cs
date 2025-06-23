@@ -3,6 +3,7 @@ using ElasticAppDemo.Host.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Nest;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection.Metadata.Ecma335;
 using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
@@ -198,6 +199,58 @@ namespace ElasticAppDemo.Host.Controllers
             {
                 return BadRequest("批量插入失败");
             }
+        }
+        [HttpPost]
+        public async Task<IActionResult> ScrollSearchAsync()
+        {
+            var result = await _noteRepository.ScrollSearchAsync();
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest("查询失败");
+            }
+        }
+
+       
+
+        
+        [HttpPost]
+        public async Task<IActionResult> PaginateWithSearchAfterAsync()
+        {
+            await _noteRepository.PaginateWithSearchAfterAsync(
+                pageSize: 20,
+                processPage: pageData =>
+                {
+                    // 处理当前页数据（示例：打印到控制台）
+                    Console.WriteLine($"--- 当前页数据 ---");
+                    foreach (var doc in pageData)
+                    {
+                        Console.WriteLine($"ID: {doc.Id}, 时间: {doc.updateTime}, 内容: {doc.title}");
+                    }
+                },
+                initialSort: sd => sd.Descending(d => d.Id).Descending(d => d.noteId) // 确保返回值
+            );
+
+            return Ok("分页查询完成");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> GetFirstPageAsync(int pageSize = 10)
+        {
+            return Ok(await _noteRepository.GetFirstPageAsync(pageSize));
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetPageBySearchAfterAsync(string scrollId=null, int pageSize = 10) { 
+        
+            return Ok(await _noteRepository.GetPageBySearchAfterAsync(scrollId, pageSize));
         }
     }
 }
