@@ -238,7 +238,7 @@ namespace ElasticAppDemo.Host.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 获取第一页的数据集
         /// </summary>
         /// <param name="pageSize"></param>
         /// <returns></returns>
@@ -247,10 +247,47 @@ namespace ElasticAppDemo.Host.Controllers
         {
             return Ok(await _noteRepository.GetFirstPageAsync(pageSize));
         }
+        /// <summary>
+        /// 查询获取数据集合，scrollId为null时，获取第一页数据，
+        /// search_after为null时，获取第一页数据，
+        /// </summary>
+        /// <param name="scrollId"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> GetPageBySearchAfterAsync(string scrollId=null, int pageSize = 10) { 
         
             return Ok(await _noteRepository.GetPageBySearchAfterAsync(scrollId, pageSize));
+        }
+        [HttpGet]
+        public async Task FuncActionTest() {
+            var list = new List<int>();
+
+            for (int i = 0; i < 100; i++) {
+                list.Add(i);
+            }
+          //  DelegateIntance.PorcessItemss(list, Console.WriteLine);
+            DelegateIntance.PorcessItemss(list, item => Console.WriteLine($"处理完成: {item}"));
+           await DelegateIntance.ProcessItemsAsync(list, a =>
+            {
+                Console.WriteLine($"异步处理: {a}");
+                return Task.CompletedTask; // 返回一个已完成的任务
+            }); // 等待异步操作完成
+        
+            DelegateIntance.TransformItems(list,delegate(int item) { 
+                Console.WriteLine($"转换完成: {item}");
+                return item * 2; // 将每个整数乘以2
+            });
+            DelegateIntance.TransformItems(list, item => { 
+                Console.WriteLine($"==转换完成：{item}");
+                return item * 2;
+            }); // 使用Lambda表达式转换每个整数
+
+          var list1=  DelegateIntance.FileterItems(list, item => { Console.WriteLine($"{item}==是否是偶数");return item % 2 == 0; });
+            foreach (var item in list1)
+            {
+                Console.WriteLine($"偶数：{item}");
+            }
         }
     }
 }
