@@ -17,6 +17,7 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers
     ///  DataPermission 数据权限
     /// </summary>
     [Area("Sys")]
+    [ApiExplorerSettings(GroupName = " 数据权限_DataPermission")]
     public class DataPermissionController : BaseController<DataPermission, DataPermissionRes, DataPermissionReq, DataPermissionEdit>
     {/// <summary>
      /// 

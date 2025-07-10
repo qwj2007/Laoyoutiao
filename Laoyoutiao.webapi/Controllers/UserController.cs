@@ -10,7 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Laoyoutiao.webapi.Controllers
 {
     [Route("api/[controller]/[action]")]
-    [ApiController] 
+    [ApiController]
+    [ApiExplorerSettings(GroupName = "用户信息_User")]
     public class UserController : BaseController<Users,UserRes,UserReq,UserEdit>   
     {
         private readonly IUserService _users;

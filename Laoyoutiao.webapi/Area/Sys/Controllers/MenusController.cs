@@ -13,6 +13,7 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers
     /// 
     /// </summary>
     [Area("Sys")]
+    [ApiExplorerSettings(GroupName = "菜单信息_Menus")]
     public class MenusController : BaseTreeController<Menus, MenusRes, MenusReq, MenusEdit>
     {
         private readonly IMenusService _menuService;

@@ -16,6 +16,7 @@ namespace Laoyoutiao.webapi.Controllers
     /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "登录_Login")]
     //[CustomerActionFilters]
     //[TypeFilter(typeof(CustomerActionFilters))] //这两种方式局部注册在类上，里边的方法都能filrer
     public class LoginController : ControllerBase

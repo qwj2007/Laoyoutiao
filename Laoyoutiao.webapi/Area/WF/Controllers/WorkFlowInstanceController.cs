@@ -19,6 +19,7 @@ namespace Laoyoutiao.webapi.Area.WF.Controllers
     /// 工作流操作
     /// </summary>
     [Area("WF")]
+    [ApiExplorerSettings(GroupName = "工作流实例_WorkFlowInstance")]
     public class WorkFlowInstanceController : BaseController<WF_WorkFlow_Instance, WorkFlowInstanceRes, WorkFlowInstanceReq, WorkFlowInstanceEdit>
     {
         public readonly IWorkFlowInstanceService _workFlowInstanceService;

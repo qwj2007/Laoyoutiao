@@ -15,6 +15,7 @@ namespace Laoyoutiao.webapi.Area.OA.Controllers
     //[Authorize]
     //[ApiController]
     //[Route("api/[controller]/[action]")]
+    [ApiExplorerSettings(GroupName = "请假_Leave")]
     public class LeaveController : BaseController<OALeave, LeaveRes, LeaveReq, LeaveEdit>
     {
       

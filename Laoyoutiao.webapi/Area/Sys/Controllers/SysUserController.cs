@@ -24,6 +24,7 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers;
 [ApiController]
 [Area("Sys")]
 [Route("api/[controller]/[action]")]
+[ApiExplorerSettings(GroupName = "系统用户_System")]
 public class SysUserController : BaseController<SysUser, SysUserRes, SysUserReq, SysUserEdit>
 {
     /// <summary>

@@ -11,9 +11,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace Laoyoutiao.webapi.Area.WF.Controllers
 {
     /// <summary>
-    /// 流程操作历史
+    /// 流程流转操作历史
     /// </summary>
     [Area("WF")]
+    [ApiExplorerSettings(GroupName = "流程流转历史_WorkFlowTransitionHistory")]
     public class WorkFlowTransitionHistoryController : BaseController<WF_WorkFlow_Transition_History, WorkFlowTransitionHistoryRes, WorkFlowTransitionHistoryReq, WorkFlowTransitionHistoryEdit>
     {
         private readonly WorkFlowTransitionHistoryService _service;

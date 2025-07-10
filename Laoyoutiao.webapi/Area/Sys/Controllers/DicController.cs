@@ -14,6 +14,7 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers
     /// 
     /// </summary>
     [Area("Sys")]
+    [ApiExplorerSettings(GroupName = " 字典_Dic")]
     public class DicController : BaseTreeController<SysDic, DicRes, DicReq, DicEdit>
     {
         private readonly ISysDicService _sysDicService;

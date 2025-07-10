@@ -15,6 +15,7 @@ namespace Laoyoutiao.webapi.Controllers
     /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "角色信息_Role")]
     public class RoleController : BaseController<Role, RoleRes, RoleReq, RoleEdit>
   
     {

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Laoyoutiao.webapi.Area.WF.Controllers
 {
     [Area("WF")]
+    [ApiExplorerSettings(GroupName = "工作流_WF")]
     public class WorkFlowController : BaseController<WF_WorkFlow, WFRes, WFReq, WFEdit>
     {
         public WorkFlowController(IBaseService<WF_WorkFlow> baseService) : base(baseService)

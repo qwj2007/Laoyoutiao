@@ -15,6 +15,7 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers
     [ApiController]
     [Area("Sys")]
     [Route("api/[controller]/[action]")]
+    [ApiExplorerSettings(GroupName = " 部门信息_DeptMent")]
     public class DeptMentController : BaseTreeController<DeptMent, DeptRes, DeptReq, DeptEdit>
     {
         private readonly IDeptMentService _deptMentService;

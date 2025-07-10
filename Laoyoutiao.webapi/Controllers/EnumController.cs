@@ -7,6 +7,7 @@ namespace Laoyoutiao.webapi.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
+    [ApiExplorerSettings(GroupName = "枚举类型_Enum")]
     public class EnumController : ControllerBase
     {
         /// <summary>

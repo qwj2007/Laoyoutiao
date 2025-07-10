@@ -14,7 +14,7 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers
     /// </summary>
    
     [Area("Sys")]
- 
+    [ApiExplorerSettings(GroupName = "角色_Role")]
     public class SysRoleController : BaseController<SysRole, SysRoleRes, SysRoleReq, SysRoleEdit>
    
     {

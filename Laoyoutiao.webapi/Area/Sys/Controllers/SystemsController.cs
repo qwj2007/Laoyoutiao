@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Laoyoutiao.webapi.Area.Sys.Controllers
 { 
     [Area("sys")]
+    [ApiExplorerSettings(GroupName = "系统_System")]
     public class SystemsController : BaseController<Systems, SystemsRes, SystemsReq, SystemsEdit>
     {
         public SystemsController(IBaseService<Systems> baseService) : base(baseService)

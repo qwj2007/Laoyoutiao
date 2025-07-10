@@ -14,6 +14,7 @@ namespace Laoyoutiao.webapi.Area.WF.Controllers
     /// 流程操作历史
     /// </summary>
     [Area("WF")]
+    [ApiExplorerSettings(GroupName = "流程操作历史_WorkFlowOperationHistory")]
     public class WorkFlowOperationHistoryController : BaseController<WF_WorkFlow_Operation_History, WorkFlowOperationHistoryRes, WorkFlowOperationHistoryReq, WorkFlowOperationHistoryEdit>
     {
         private readonly WorkFlowOperationHistoryService _service;

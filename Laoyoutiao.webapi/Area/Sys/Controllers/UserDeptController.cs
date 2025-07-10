@@ -14,6 +14,7 @@ using SqlSugar;
 namespace Laoyoutiao.webapi.Area.Sys.Controllers
 {
     [Area("Sys")]
+    [ApiExplorerSettings(GroupName = "用户部门_UserDept")]
     public class UserDeptController : BaseController<UserDept, UserDeptEdit, UserDeptReq, UserDeptRes>
     {
         private readonly IUserDeptService _userDeptService;

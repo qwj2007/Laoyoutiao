@@ -18,6 +18,7 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers
     [ApiController]
     [Area("Sys")]
     [Route("api/[controller]/[action]")]
+    [ApiExplorerSettings(GroupName = "用户角色_SysUserRole")]
     public class SysUserRoleController : BaseController<SysUserRole, SysUserRoleRes, SysUserRoleReq, SysUserRoleEdit>
     {
 

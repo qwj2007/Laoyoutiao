@@ -11,6 +11,7 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers
     [Area("Sys")]
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "权限_Promise")]
     public class PromiseController : ControllerBase
     {
         private readonly IUserRoleMenuService _userRoleMenuService;

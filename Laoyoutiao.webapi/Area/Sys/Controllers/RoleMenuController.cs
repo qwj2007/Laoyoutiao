@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Laoyoutiao.webapi.Area.Sys.Controllers
 {
     [Area("Sys")]
+    [ApiExplorerSettings(GroupName = "角色菜单关联_RoleMenu")]
     public class RoleMenuController : BaseController<RoleMenu, RoleMenuRes, RoleMenuReq, RoleMenuEdit>
     {
         private readonly IRoleMenuService _roleMenuService;

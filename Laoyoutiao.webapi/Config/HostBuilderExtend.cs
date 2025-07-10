@@ -1,22 +1,27 @@
 ﻿using Autofac;
+using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
+using Laoyoutiao.Caches;
 using Laoyoutiao.Common;
 using Laoyoutiao.Models.Common;
+using Laoyoutiao.Tasks.Core;
 using Laoyoutiao.webapi.Config;
+using Laoyoutiao.webapi.Extensions;
+using Laoyoutiao.webapi.Filter;
+using Laoyoutiao.webapi.Util;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
-using System.Text;
-using MediatR;
+using Minio;
+using Quartz;
 using SqlSugar;
 using SqlSugar.IOC;
-using Quartz;
-using Laoyoutiao.webapi.Extensions;
-using Minio;
-using Laoyoutiao.Tasks.Core;
-using Laoyoutiao.Caches;
-using Laoyoutiao.webapi.Filter;
+using Swashbuckle.AspNetCore.SwaggerUI;
+using System.Reflection;
+using System.Text;
 using static System.Net.WebRequestMethods;
 
 
@@ -25,14 +30,25 @@ namespace Laoyoutiao.Configuration
 {
     public static class HostBuilderExtend
     {
-        public static void Register(this WebApplicationBuilder buil)
+        public static void ServiceRegister(this WebApplicationBuilder buil)
         {
-            //buil.Services.AddSingleton<IUsersRepository, UsersRepository>();
-            //buil.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-            //日志配置
+            // Add services to the container.
+
+            buil.Services.AddControllers();
+            buil.Services.Configure<MvcOptions>(opt =>
+            {
+                //opt.Filters.Add<SysExceptionFilter>();
+                opt.Filters.Add<CustomerActionFilters>();//全局注册，所有方法都可以使用actionfilter
+            });
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            buil.Services.AddEndpointsApiExplorer();
+
+
+            #region 日志配置
             SerilogConfig.CreateLogger();
+            #endregion
 
-
+            #region 添加Apollo配置中心
             buil.WebHost.ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
             {
                 //添加Apollo配置中心
@@ -47,21 +63,21 @@ namespace Laoyoutiao.Configuration
             //         //b.AddApollo(configuration.GetSection("apollo"))
             //         .AddDefault();
             // });
-
-
-
+            #endregion
 
             #region  添加MediatR事件总线
             buil.Services.AddMediatR(Assembly.GetExecutingAssembly());
             #endregion
 
             #region 配置数据库
+
             #region 注入数据库
             buil.Services.AddSingleton(new AppSettings(buil.Configuration));
             SqlsugarSetup.AddSqlsugarSetup();
             SnowFlakeSingle.WorkId = Convert.ToInt32(buil.Configuration.GetSection("SnowFlake:workId").Value);
             #endregion
 
+            #region Minio 配置
             // Add Minio using the default endpoint
             //builder.Services.AddMinio(accessKey, secretKey);
 
@@ -72,6 +88,7 @@ namespace Laoyoutiao.Configuration
 
             //var minioClient = new MinioClient().WithEndpoint(buil.Configuration["MinIO:Endpoint"]).WithCredentials(buil.Configuration["MinIO:AccessKey"], buil.Configuration["MinIO:SecretKey"]).WithSSL(true).Build();
             //buil.Services.AddSingleton(minioClient);
+            #endregion
 
             #region 使用autofac
             buil.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
@@ -80,11 +97,14 @@ namespace Laoyoutiao.Configuration
                 builder.RegisterModule(new AutofacModuleRegister());
             });
             #endregion
+
+            #region 全局异常注册
             buil.Services.AddExceptionHandler<GlobalExceptionHandler>();
             buil.Services.AddProblemDetails();
+            #endregion
+
             #region 运用缓存
             //初始化redis
-
             RedisHelper.redisClient.InitRedisConnect(buil.Configuration);
             buil.Services.AddCache(builder => builder.UseCache(buil.Configuration));
             #endregion
@@ -111,6 +131,7 @@ namespace Laoyoutiao.Configuration
             buil.Services.UseQuartz();
             #endregion
 
+            #region
             //buil.Host.ConfigureContainer<ContainerBuilder>(builder =>
             //{
             //    builder.Register<ISqlSugarClient>(context =>
@@ -148,9 +169,12 @@ namespace Laoyoutiao.Configuration
             //   builder.RegisterModule(new AutofacModuleRegister());
             //});
             #endregion
-            //注册autuomapper
-            // buil.Services.AddAutoMapper(typeof(AutoMapperConfigs),typeof(BatchMapperProfile));
 
+            #endregion
+
+            #region 注册autuomapper
+            // buil.Services.AddAutoMapper(typeof(AutoMapperConfigs),typeof(BatchMapperProfile));
+            //批量自动映射
             buil.Services.AddAutoMapper(typeof(BatchMapperProfile));
 
             //添加 AutoMapper 的配置
@@ -158,9 +182,9 @@ namespace Laoyoutiao.Configuration
             //该方法需要传入一个Assembly数组，以告诉AutoMapper要扫描哪些程序集来查找映射配置(在当前作用域的所
             //有程序集里面扫描AutoMapper的配置文件)。
             //buil.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            #endregion
 
-
-            //开启cap
+            #region 开启cap
             buil.Services.AddCap(x =>
             {
                 List<IocConfig> connectionConfigs = AppSettings.App<IocConfig>(new string[] { "ConnectionConfigs" });
@@ -184,8 +208,12 @@ namespace Laoyoutiao.Configuration
                 };
 
             });
+            #endregion
 
+            #region 注册中心
             //buil.Services.AddConsul();
+            #endregion
+
             #region JWT校验
 
             //第一步，注册JWT
@@ -217,7 +245,11 @@ namespace Laoyoutiao.Configuration
             buil.Services.AddCors(options =>
             {
                 //添加跨域策略
-                options.AddPolicy("CorsPolicy", opt => opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().WithExposedHeaders("X-Pagination"));
+                options.AddPolicy("CorsPolicy",
+                    opt => opt.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .WithExposedHeaders("X-Pagination"));
 
                 #region 如果需要限定请求地址、媒体请求和标头等内容
 
@@ -231,45 +263,178 @@ namespace Laoyoutiao.Configuration
             #endregion
 
             #region swagger文件显示注释信息
-            buil.Services.AddSwaggerGen((options) =>
-            {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "核心API", Version = "v1.0", Description = "", });
-                var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);//获取应用程序所在目录
-                var xmlPath = Path.Combine(basePath ?? "", $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");//接口action显示注释
-                options.IncludeXmlComments(Path.Combine(basePath ?? "", "Demo.WebAPI.xml"), true);//接口注释
-                options.IncludeXmlComments(Path.Combine(basePath ?? "", "Demo.API.Application.xml"), true);//实体类注释
+
+            //添加swagger
+            buil.Services.AddSwaggerGen(option =>
+             {
+                 foreach (var controller in SwaggerUtil.GetControllers())
+                 {
+                     var groupname = SwaggerUtil.GetSwaggerGroupName(controller);
+
+                     option.SwaggerDoc(groupname, new OpenApiInfo
+                     {
+                         Version = "v1",
+                         Title = groupname,
+                         Description = groupname + "接口定义详细信息"
+                     });
+                 }
+
+                 foreach (var name in Directory.GetFiles(AppContext.BaseDirectory, "*.*",
+                             SearchOption.AllDirectories).Where(f => Path.GetExtension(f).ToLower() == ".xml"))
+                 {
+                     option.IncludeXmlComments(name, includeControllerXmlComments: true);
+                     // logger.LogInformation($"find api file{name}");
+                 }
+
+                 option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                 {
+                     Description = "Value: Bearer {token}",
+                     Name = "Authorization",
+                     In = ParameterLocation.Header,
+                     Type = SecuritySchemeType.ApiKey,
+                     Scheme = "Bearer"
+                 });
+                 option.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                 {
+                   {
+                     new OpenApiSecurityScheme()
+                      {
+                          Reference = new OpenApiReference()
+                          {
+                            Type = ReferenceType.SecurityScheme,
+                            Id="Bearer"
+                          },
+                          Scheme = "oauth2",
+                          Name = "Bearer",
+                          In = ParameterLocation.Header
+
+                     },
+                     new List<string>()
+                   }
+                 });
+             });
+
+            #region 注释掉的代码
+
+            //        buil.Services.AddSwaggerGen((options) =>
+            //        {
+            //            options.SwaggerDoc("v1", new OpenApiInfo { Title = "核心API", Version = "v1.0", Description = "接口定义详细信息", });
+            //            //options.SwaggerDoc("v2", new OpenApiInfo { Title = "核心API2", Version = "v2.0", Description = "接口定义详细信息第二版本", });
+            //            var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);//获取应用程序所在目录
+            //            var xmlPath = Path.Combine(basePath ?? "", $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");//接口action显示注释
+            //            options.IncludeXmlComments(Path.Combine(basePath ?? "", "Demo.WebAPI.xml"), true);//接口注释
+            //            options.IncludeXmlComments(Path.Combine(basePath ?? "", "Demo.API.Application.xml"), true);//实体类注释
 
 
-                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-                {
-                    Description = "Value: Bearer {token}",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
-                });
-                options.AddSecurityRequirement(new OpenApiSecurityRequirement()
-    {
-        {
-            new OpenApiSecurityScheme()
-            {
-                Reference = new OpenApiReference()
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id="Bearer"
-                },
-                Scheme = "oauth2",
-                Name = "Bearer",
-                In = ParameterLocation.Header
 
-            },
-            new List<string>()
-        }
-    });
-            });
+            //            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+            //            {
+            //                Description = "Value: Bearer {token}",
+            //                Name = "Authorization",
+            //                In = ParameterLocation.Header,
+            //                Type = SecuritySchemeType.ApiKey,
+            //                Scheme = "Bearer"
+            //            });
+            //            options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+            //{
+            //    {
+            //        new OpenApiSecurityScheme()
+            //        {
+            //            Reference = new OpenApiReference()
+            //            {
+            //                Type = ReferenceType.SecurityScheme,
+            //                Id="Bearer"
+            //            },
+            //            Scheme = "oauth2",
+            //            Name = "Bearer",
+            //            In = ParameterLocation.Header
+
+            //        },
+            //        new List<string>()
+            //    }
+            //});
+            //        });
+
+            #endregion
+
+
             #endregion
 
         }
 
+
+        public static void UseAppRegister(this WebApplication app)
+        {
+            app.UseExceptionHandler();
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    // 按标签排序，即按控制器分组显示
+                    //options.DefaultModelsExpandDepth(-1); // 不显示模型
+                    //options.DisplayOperationId();
+                    //options.EnableTryItOutByDefault();
+
+                    //options.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+                    //c.IndexStream = () =>
+                    //           IntrospectionExtensions.GetTypeInfo(GetType()).Assembly
+                    //               .GetManifestResourceStream("OpenAuth.WebApi.index.html");
+                    //c.IndexStream = () =>
+                    //   Assembly.GetExecutingAssembly()
+                    //       .GetManifestResourceStream("laoyoutiao.webapi.index.html");
+                    foreach (var controller in SwaggerUtil.GetControllers())
+                    {
+                        var groupname = SwaggerUtil.GetSwaggerGroupName(controller);
+
+                        c.SwaggerEndpoint($"/swagger/{groupname}/swagger.json", groupname);
+                    }
+
+                    c.DocExpansion(DocExpansion.List); //默认展开列表
+                    c.OAuthClientId("laoyoutiao.WebApi"); //oauth客户端名称
+                    c.OAuthAppName("laoyoutiao权限认证"); // 描述
+                });
+            }
+            app.UseRouting();
+
+            #region 鉴权
+            app.UseAuthentication();
+            app.UseAuthorization();
+            #endregion
+
+            #region 跨域设置
+            app.UseCors("CorsPolicy");
+            #endregion
+            //启用定时任务
+            UseTask.UseQuartz(app, app.Lifetime, app.Configuration);
+            ServiceProviderInstance.Instance = app.Services;//.ApplicationServices;
+            ServiceProviderInstance.wwwrootpath = app.Environment.WebRootPath;
+            //app.UseEndpoints(routes =>
+            //{
+            //    routes.MapControllerRoute(
+            //        name: "TurntableRoute",
+            //        pattern: "{area:exists}/{controller=Activity}/{action=Turntable}/{id}.html");
+
+            //    routes.MapControllerRoute(
+            //        name: "areaRoute",
+            //        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+            //    routes.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller=Home}/{action=Index}/{id?}");
+            //});
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
+            //app.MapControllers();
+
+            app.Run();
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace Laoyoutiao.webapi.Controllers
     [Route("api/[controller]/[action]")]
     [ApiController]
     [Authorize]
+    [ApiExplorerSettings(GroupName = "菜单_Menu")]
     public class MenuController : BaseController<Menu, MenuRes, MenuReq, MenuEdit>
       
     {

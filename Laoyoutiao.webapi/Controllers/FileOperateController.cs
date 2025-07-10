@@ -12,6 +12,7 @@ namespace Laoyoutiao.webapi.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "文件操作_FileOperate")]
     public class FileOperateController : ControllerBase
     {
         private static string bucketName = "laoyoutiao";

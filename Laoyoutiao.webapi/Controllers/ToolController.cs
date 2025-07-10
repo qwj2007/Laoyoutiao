@@ -11,6 +11,7 @@ namespace Laoyoutiao.webapi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "自动创建表信息_Tool")]
     public class ToolController : ControllerBase
     {
         private ISqlSugarClient? _db = null;

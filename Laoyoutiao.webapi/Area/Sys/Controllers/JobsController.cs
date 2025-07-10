@@ -20,6 +20,7 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers
     /// 定时任务
     /// </summary>
     [Area("Sys")]
+    [ApiExplorerSettings(GroupName = "定时任务_Jobs")]
     public class JobsController : BaseController<SysTask, SysTaskRes, SysTaskReq, SysTaskEdit>
     {
         private readonly SchedulerCenter _scheduleCenter;

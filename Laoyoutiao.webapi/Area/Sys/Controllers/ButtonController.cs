@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Laoyoutiao.webapi.Area.Sys.Controllers
 {
     [Area("Sys")]
+    [ApiExplorerSettings(GroupName = "按钮_button")]
     public class ButtonController : BaseController<SysButton, BtnRes, BtnReq, BtnEdit>
     {
         public ButtonController(IBaseService<SysButton> baseService) : base(baseService)

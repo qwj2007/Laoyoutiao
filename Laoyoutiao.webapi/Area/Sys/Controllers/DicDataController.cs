@@ -13,6 +13,7 @@ namespace Laoyoutiao.webapi.Area.Sys.Controllers
     /// 
     /// </summary>
     [Area("Sys")]
+    [ApiExplorerSettings(GroupName = " 字典数据_DicData")]
     public class DicDataController : BaseController<SysDicData, DicDataRes, DicDataReq, DicDataEdit>
     {
         /// <summary>
