@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Serilog;
 using Laoyoutiao.Common;
 using SqlSugar.IOC;
-namespace Laoyoutiao.Tasks.Core
+namespace Laoyoutiao.Jobs
 {
     /// <summary>
     /// 定时备份数据库

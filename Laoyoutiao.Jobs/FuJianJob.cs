@@ -1,7 +1,7 @@
 ﻿using Quartz;
 using SqlSugar;
 
-namespace Laoyoutiao.Tasks.Core
+namespace Laoyoutiao.Jobs
 {
     /// <summary>
     /// 清理3天前多余的附件

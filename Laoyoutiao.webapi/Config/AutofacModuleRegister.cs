@@ -28,7 +28,7 @@ namespace Laoyoutiao.webapi.Config
             Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
             //批量注册所有仓储 && Service
             builder.RegisterAssemblyTypes(assemblies)//程序集内所有具象类（concrete classes）
-                .Where(cc => cc.Name.EndsWith("Repository") |//筛选
+                .Where(cc => cc.Name.EndsWith("Repository") ||//筛选
                              cc.Name.EndsWith("Service"))
                 .PublicOnly()//只要public访问权限的
                 .Where(cc => cc.IsClass)//只要class型（主要为了排除值和interface类型）

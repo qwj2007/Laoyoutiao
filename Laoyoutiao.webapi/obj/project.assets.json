@@ -4225,7 +4225,9 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Laoyoutiao.Service": "1.0.0",
           "Quartz": "3.7.0",
+          "Serilog": "4.0.0",
           "SqlSugarCore": "5.1.4.114"
         },
         "compile": {

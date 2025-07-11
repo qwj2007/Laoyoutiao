@@ -515,7 +515,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Service\\Laoyoutiao.Service.csproj": {
+                "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Service\\Laoyoutiao.Service.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -537,6 +541,10 @@
             "Quartz": {
               "target": "Package",
               "version": "[3.7.0, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[4.0.0, )"
             },
             "SqlSugarCore": {
               "target": "Package",

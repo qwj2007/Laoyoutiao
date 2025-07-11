@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Minio;
 using Quartz;
+using Quartz.Simpl;
 using SqlSugar;
 using SqlSugar.IOC;
 using Swashbuckle.AspNetCore.SwaggerUI;
@@ -109,27 +110,7 @@ namespace Laoyoutiao.Configuration
             buil.Services.AddCache(builder => builder.UseCache(buil.Configuration));
             #endregion
 
-            #region 配置定时任务
-
-            buil.Services.AddQuartz(options =>
-            {
-                options.UseMicrosoftDependencyInjectionJobFactory();
-                //q.UseMicrosoftDependencyInjectionScopedJobFactory();
-                options.UseDefaultThreadPool(tp =>
-                {
-                    tp.MaxConcurrency = 1;//单线程执行 多个数据库连接区域连接容易出现问题 
-                });
-                options.AddJobListener<CustomJobListener>();
-
-            });
-            buil.Services.AddQuartzHostedService(
-                options =>
-                {
-                    // when shutting down we want jobs to complete gracefully
-                    options.WaitForJobsToComplete = true;
-                });
-            buil.Services.UseQuartz();
-            #endregion
+          
 
             #region
             //buil.Host.ConfigureContainer<ContainerBuilder>(builder =>
@@ -262,6 +243,29 @@ namespace Laoyoutiao.Configuration
 
             #endregion
 
+            #region 配置定时任务
+
+            buil.Services.AddQuartz(options =>
+            {
+                options.UseJobFactory<MicrosoftDependencyInjectionJobFactory>();
+                //options.UseMicrosoftDependencyInjectionJobFactory(); 已经弃用
+              
+                options.UseDefaultThreadPool(tp =>
+                {
+                    tp.MaxConcurrency = 1;//单线程执行 多个数据库连接区域连接容易出现问题 
+                });
+                options.AddJobListener<CustomJobListener>();
+
+            });
+            buil.Services.AddQuartzHostedService(
+                options =>
+                {
+                    // when shutting down we want jobs to complete gracefully
+                    options.WaitForJobsToComplete = true;
+                });
+            buil.Services.UseQuartz();
+            #endregion
+
             #region swagger文件显示注释信息
 
             //添加swagger
@@ -366,6 +370,7 @@ namespace Laoyoutiao.Configuration
         public static void UseAppRegister(this WebApplication app)
         {
             app.UseExceptionHandler();
+            
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {

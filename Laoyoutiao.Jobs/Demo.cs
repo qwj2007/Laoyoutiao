@@ -1,7 +1,7 @@
 ﻿using Quartz;
 using SqlSugar;
 
-namespace Laoyoutiao.Tasks.Core
+namespace Laoyoutiao.Jobs
 {
     [DisallowConcurrentExecution] //此属性防止Quartz.NET试图同时运行相同的作业
     public class Demo : IJob
