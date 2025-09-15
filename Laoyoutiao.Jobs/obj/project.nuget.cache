@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "xovuRDMH4OA=",
+  "dgSpecHash": "XBSvY1Xo8QA=",
   "success": true,
   "projectFilePath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Jobs\\Laoyoutiao.Jobs.csproj",
   "expectedPackageFiles": [
@@ -93,15 +93,5 @@
     "C:\\Users\\Administrator\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\xc.rsautil\\1.3.6\\xc.rsautil.1.3.6.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "message": "获取包漏洞数据时出错: 无法加载源 https://api.nuget.org/v3/index.json 的服务索引。",
-      "projectPath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Jobs\\Laoyoutiao.Jobs.csproj",
-      "warningLevel": 1,
-      "filePath": "E:\\studyCode\\Laoyoutiao\\Laoyoutiao.Jobs\\Laoyoutiao.Jobs.csproj",
-      "targetGraphs": []
-    }
-  ]
+  "logs": []
 }

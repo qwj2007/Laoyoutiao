@@ -1,12 +1,8 @@
 ﻿using ElasticAppDemo.Host.Infrastructure.Respositories;
 using ElasticAppDemo.Host.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Nest;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
-using System.Reflection.Metadata.Ecma335;
-using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
 namespace ElasticAppDemo.Host.Controllers
 {

@@ -1,10 +1,12 @@
 ﻿using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
+using DotNetCore.CAP.Messages;
 using Laoyoutiao.Caches;
 using Laoyoutiao.Common;
 using Laoyoutiao.Models.Common;
 using Laoyoutiao.Tasks.Core;
+using Laoyoutiao.Util;
 using Laoyoutiao.webapi.Config;
 using Laoyoutiao.webapi.Extensions;
 using Laoyoutiao.webapi.Filter;
@@ -18,6 +20,7 @@ using Microsoft.OpenApi.Models;
 using Minio;
 using Quartz;
 using Quartz.Simpl;
+using Serilog;
 using SqlSugar;
 using SqlSugar.IOC;
 using Swashbuckle.AspNetCore.SwaggerUI;
@@ -110,7 +113,7 @@ namespace Laoyoutiao.Configuration
             buil.Services.AddCache(builder => builder.UseCache(buil.Configuration));
             #endregion
 
-          
+
 
             #region
             //buil.Host.ConfigureContainer<ContainerBuilder>(builder =>
@@ -168,24 +171,56 @@ namespace Laoyoutiao.Configuration
             #region 开启cap
             buil.Services.AddCap(x =>
             {
-                List<IocConfig> connectionConfigs = AppSettings.App<IocConfig>(new string[] { "ConnectionConfigs" });
-                var conn = connectionConfigs.Where(a => a.DbType == IocDbType.MySql).FirstOrDefault();
-                x.UseMySql(conn.ConnectionString);
+
+
+                List<IocConfig> connectionConfigs = AppSettings.App<IocConfig>(new string[] { "ConnectionConfigs" }) ?? throw new InvalidOperationException("数据库连接配置未找到");
+                //var conn = connectionConfigs.Where(a => a.DbType == IocDbType.MySql).FirstOrDefault();
+
+                var mysqlConfig = connectionConfigs.FirstOrDefault(c => c.DbType == IocDbType.MySql)
+                   ?? throw new InvalidOperationException("未配置MySQL数据库连接");
+
+                if (string.IsNullOrWhiteSpace(mysqlConfig.ConnectionString))
+                {
+                    throw new InvalidOperationException("MySQL连接字符串不能为空");
+                }
+
+                x.UseMySql(mysqlConfig.ConnectionString);
+
+                // 绑定并验证RabbitMQ配置
+                var rabbitMqSettings = new RabbitMqSettings();
+                buil.Configuration.GetSection("RabbitMQ").Bind(rabbitMqSettings);
+                // 验证RabbitMQ必要配置
+                if (string.IsNullOrWhiteSpace(rabbitMqSettings.HostName))
+                    throw new InvalidOperationException("RabbitMQ主机名未配置");
+
+                if (string.IsNullOrWhiteSpace(rabbitMqSettings.UserName))
+                    throw new InvalidOperationException("RabbitMQ用户名未配置");
+
+                if (string.IsNullOrWhiteSpace(rabbitMqSettings.Password))
+                    throw new InvalidOperationException("RabbitMQ密码未配置");
+
+                // 配置RabbitMQ
                 x.UseRabbitMQ(opt =>
                 {
-                    opt.HostName = buil.Configuration.GetSection("RabbitMQ:HostName").Value;
-                    opt.UserName = buil.Configuration.GetSection("RabbitMQ:UserName").Value;
-                    opt.Password = buil.Configuration.GetSection("RabbitMQ:Password").Value;
-                    opt.Port = int.Parse(buil.Configuration.GetSection("RabbitMQ:Port").Value);//端口
-                    //opt.VirtualHost = buil.Configuration.GetSection("RabbitMQ:VirtualHost").Value;
-
+                    opt.HostName = rabbitMqSettings.HostName;
+                    opt.UserName = rabbitMqSettings.UserName;
+                    opt.Password = rabbitMqSettings.Password;
+                    opt.Port = rabbitMqSettings.Port;
+                    opt.VirtualHost = rabbitMqSettings.VirtualHost;
                 });
+
+
                 x.FailedRetryCount = 10;//重试次数
                 x.FailedRetryInterval = 20;//多久重试一次，以秒为单位
 
                 x.FailedThresholdCallback = failed =>
                 {
-                    //写入失败发起通知
+                    // 建议添加日志记录
+
+                    Log.Error("消息处理失败达到阈值: {MessageId}", failed.Message.GetId());
+                    //  Log.LogError("消息处理失败达到阈值: {MessageId}", failed.MessageId);
+
+                    // 可以在这里实现通知逻辑（邮件、短信等）
                 };
 
             });
@@ -249,7 +284,7 @@ namespace Laoyoutiao.Configuration
             {
                 options.UseJobFactory<MicrosoftDependencyInjectionJobFactory>();
                 //options.UseMicrosoftDependencyInjectionJobFactory(); 已经弃用
-              
+
                 options.UseDefaultThreadPool(tp =>
                 {
                     tp.MaxConcurrency = 1;//单线程执行 多个数据库连接区域连接容易出现问题 
@@ -370,7 +405,7 @@ namespace Laoyoutiao.Configuration
         public static void UseAppRegister(this WebApplication app)
         {
             app.UseExceptionHandler();
-            
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {

@@ -1,7 +1,4 @@
 namespace Laoyoutiao.webapi.NotifactionHandler;
-
-using System.Threading;
-using System.Threading.Tasks;
 using Laoyoutiao.webapi.Notifaction;
 using MediatR;
 /// <summary>
