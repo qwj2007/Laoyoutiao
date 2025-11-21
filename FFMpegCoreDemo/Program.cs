@@ -135,8 +135,8 @@ static async Task AdvancedConversionExample()
 {
     Console.WriteLine("\n=== 高级转换示例 ===");
 
-    string inputFile = @"E:\video\test.mp4";
-    string outputDir = @"E:\video\hls_advanced\test";
+    string inputFile = @"E:\video\sample.mp4";
+    string outputDir = @"E:\video\hls_advanced\sample";
 
     var options = new HlsConversionOptions
     {
