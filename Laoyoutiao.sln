@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.6.33815.320
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11217.181 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Laoyoutiao.webapi", "Laoyoutiao.webapi\Laoyoutiao.webapi.csproj", "{CB4A83EF-30A9-4CA8-94B6-5A97F84B8448}"
 EndProject
@@ -48,6 +48,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Laoyoutiao.Util", "Laoyoutiao.Util\Laoyoutiao.Util.csproj", "{19734D3E-C92A-494A-B545-A491BE4CE51C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElasticAppDemo.Host", "ElasticAppDemo.Host\ElasticAppDemo.Host.csproj", "{8A92C1A1-08C3-4583-92E4-D1C03DCD1CE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFMpegCoreDemo", "FFMpegCoreDemo\FFMpegCoreDemo.csproj", "{E77D3F06-9872-4144-B186-FD3C6BB0CB8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +125,10 @@ Global
 		{8A92C1A1-08C3-4583-92E4-D1C03DCD1CE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A92C1A1-08C3-4583-92E4-D1C03DCD1CE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A92C1A1-08C3-4583-92E4-D1C03DCD1CE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E77D3F06-9872-4144-B186-FD3C6BB0CB8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E77D3F06-9872-4144-B186-FD3C6BB0CB8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E77D3F06-9872-4144-B186-FD3C6BB0CB8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E77D3F06-9872-4144-B186-FD3C6BB0CB8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

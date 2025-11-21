@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using DotNetCore.CAP.Messages;
 using Laoyoutiao.Caches;
@@ -14,7 +13,6 @@ using Laoyoutiao.webapi.Util;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Minio;
@@ -26,7 +24,6 @@ using SqlSugar.IOC;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Reflection;
 using System.Text;
-using static System.Net.WebRequestMethods;
 
 
 
