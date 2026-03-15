@@ -1,7 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using FFMpegCore;
-using FFMpegCore.Enums;
-using FFMpegCore.Exceptions;
 using FFMpegCoreDemo;
 
 #region
@@ -83,8 +81,8 @@ using FFMpegCoreDemo;
 #endregion
 
 
-    // 配置 FFmpeg 路径（如果需要）
-    GlobalFFOptions.Configure(new FFOptions { BinaryFolder = @"E:\studyCode\Laoyoutiao\FFMpegCoreDemo\ffmpeg\bin" });
+// 配置 FFmpeg 路径（如果需要）
+GlobalFFOptions.Configure(new FFOptions { BinaryFolder = @"E:\studyCode\Laoyoutiao\FFMpegCoreDemo\ffmpeg\bin" });
 
     // 示例1：转换单个文件
    // await ConvertSingleFileExample();

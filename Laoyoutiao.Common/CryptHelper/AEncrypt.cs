@@ -224,7 +224,7 @@ namespace Laoyoutiao.Common
 
         //构造一个对称算法
 
-        private static SymmetricAlgorithm mCSP = new TripleDESCryptoServiceProvider();
+        //private static SymmetricAlgorithm mCSP = new TripleDESCryptoServiceProvider();
 
 
 
@@ -235,52 +235,137 @@ namespace Laoyoutiao.Common
         /// </summary>
         /// <param name="Value">明文</param>
         /// <returns>加密后的密文</returns>
+        //public static string EncryptString(string Value)
+        //{
+        //    try
+        //    {
+
+        //        ICryptoTransform ct;
+
+        //        MemoryStream ms;
+
+        //        CryptoStream cs;
+
+        //        byte[] byt;
+
+        //        mCSP.Key = Convert.FromBase64String(sKey);
+
+        //        mCSP.IV = Convert.FromBase64String(sIV);
+
+        //        //指定加密的运算模式
+
+        //        mCSP.Mode = System.Security.Cryptography.CipherMode.ECB;
+
+        //        //获取或设置加密算法的填充模式
+
+        //        mCSP.Padding = System.Security.Cryptography.PaddingMode.PKCS7;
+
+        //        ct = mCSP.CreateEncryptor(mCSP.Key, mCSP.IV);
+
+        //        byt = Encoding.UTF8.GetBytes(Value + "_0212YUAN");
+
+        //        ms = new MemoryStream();
+
+        //        cs = new CryptoStream(ms, ct, CryptoStreamMode.Write);
+
+        //        cs.Write(byt, 0, byt.Length);
+
+        //        cs.FlushFinalBlock();
+
+        //        cs.Close();
+
+        //        return Convert.ToBase64String(ms.ToArray());
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Value;
+        //    }
+
+        ////}
+
+
+        //public static string DecryptString(string Value)
+        //{
+        //    try
+        //    {
+
+        //        ICryptoTransform ct;
+
+        //        MemoryStream ms;
+
+        //        CryptoStream cs;
+
+        //        byte[] byt;
+
+        //        mCSP.Key = Convert.FromBase64String(sKey);
+
+        //        mCSP.IV = Convert.FromBase64String(sIV);
+
+        //        mCSP.Mode = System.Security.Cryptography.CipherMode.ECB;
+
+        //        mCSP.Padding = System.Security.Cryptography.PaddingMode.PKCS7;
+
+        //        ct = mCSP.CreateDecryptor(mCSP.Key, mCSP.IV);
+
+        //        byt = Convert.FromBase64String(Value);
+
+        //        ms = new MemoryStream();
+
+        //        cs = new CryptoStream(ms, ct, CryptoStreamMode.Write);
+
+        //        cs.Write(byt, 0, byt.Length);
+
+        //        cs.FlushFinalBlock();
+
+        //        cs.Close();
+
+        //        return Encoding.UTF8.GetString(ms.ToArray()).Remove(Encoding.UTF8.GetString(ms.ToArray()).Length - 9, 9);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Value;
+        //    }
+
+        //}
+
+        /// <summary>
+        /// 加密
+        /// </summary>
+        /// <param name="Value">明文</param>
+        /// <returns>加密后的密文</returns>
         public static string EncryptString(string Value)
         {
             try
             {
+                using (var tdes = TripleDES.Create())
+                {
+                    ICryptoTransform ct;
+                    MemoryStream ms;
+                    CryptoStream cs;
+                    byte[] byt;
 
-                ICryptoTransform ct;
+                    tdes.Key = Convert.FromBase64String(sKey);
+                    tdes.IV = Convert.FromBase64String(sIV);
+                    tdes.Mode = CipherMode.ECB;
+                    tdes.Padding = PaddingMode.PKCS7;
 
-                MemoryStream ms;
+                    ct = tdes.CreateEncryptor(tdes.Key, tdes.IV);
 
-                CryptoStream cs;
+                    byt = Encoding.UTF8.GetBytes(Value + "_0212YUAN");
 
-                byte[] byt;
+                    ms = new MemoryStream();
+                    cs = new CryptoStream(ms, ct, CryptoStreamMode.Write);
+                    cs.Write(byt, 0, byt.Length);
+                    cs.FlushFinalBlock();
+                    cs.Close();
 
-                mCSP.Key = Convert.FromBase64String(sKey);
-
-                mCSP.IV = Convert.FromBase64String(sIV);
-
-                //指定加密的运算模式
-
-                mCSP.Mode = System.Security.Cryptography.CipherMode.ECB;
-
-                //获取或设置加密算法的填充模式
-
-                mCSP.Padding = System.Security.Cryptography.PaddingMode.PKCS7;
-
-                ct = mCSP.CreateEncryptor(mCSP.Key, mCSP.IV);
-
-                byt = Encoding.UTF8.GetBytes(Value + "_0212YUAN");
-
-                ms = new MemoryStream();
-
-                cs = new CryptoStream(ms, ct, CryptoStreamMode.Write);
-
-                cs.Write(byt, 0, byt.Length);
-
-                cs.FlushFinalBlock();
-
-                cs.Close();
-
-                return Convert.ToBase64String(ms.ToArray());
+                    return Convert.ToBase64String(ms.ToArray());
+                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Value;
             }
-
         }
 
         /// <summary>
@@ -292,44 +377,36 @@ namespace Laoyoutiao.Common
         {
             try
             {
+                using (var tdes = TripleDES.Create())
+                {
+                    ICryptoTransform ct;
+                    MemoryStream ms;
+                    CryptoStream cs;
+                    byte[] byt;
 
-                ICryptoTransform ct;
+                    tdes.Key = Convert.FromBase64String(sKey);
+                    tdes.IV = Convert.FromBase64String(sIV);
+                    tdes.Mode = CipherMode.ECB;
+                    tdes.Padding = PaddingMode.PKCS7;
 
-                MemoryStream ms;
+                    ct = tdes.CreateDecryptor(tdes.Key, tdes.IV);
 
-                CryptoStream cs;
+                    byt = Convert.FromBase64String(Value);
 
-                byte[] byt;
+                    ms = new MemoryStream();
+                    cs = new CryptoStream(ms, ct, CryptoStreamMode.Write);
+                    cs.Write(byt, 0, byt.Length);
+                    cs.FlushFinalBlock();
+                    cs.Close();
 
-                mCSP.Key = Convert.FromBase64String(sKey);
-
-                mCSP.IV = Convert.FromBase64String(sIV);
-
-                mCSP.Mode = System.Security.Cryptography.CipherMode.ECB;
-
-                mCSP.Padding = System.Security.Cryptography.PaddingMode.PKCS7;
-
-                ct = mCSP.CreateDecryptor(mCSP.Key, mCSP.IV);
-
-                byt = Convert.FromBase64String(Value);
-
-                ms = new MemoryStream();
-
-                cs = new CryptoStream(ms, ct, CryptoStreamMode.Write);
-
-                cs.Write(byt, 0, byt.Length);
-
-                cs.FlushFinalBlock();
-
-                cs.Close();
-
-                return Encoding.UTF8.GetString(ms.ToArray()).Remove(Encoding.UTF8.GetString(ms.ToArray()).Length - 9, 9);
+                    var result = Encoding.UTF8.GetString(ms.ToArray());
+                    return result.Remove(result.Length - 9, 9);
+                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Value;
             }
-
         }
 
     }

@@ -29,7 +29,7 @@ namespace Laoyoutiao.Service.OA
         public override Task<long> AddOneRerunKeyValue<TEdit>(TEdit input)
         {
             LeaveEdit leaveEdit = input as LeaveEdit;
-           leaveEdit.UserId = _currentUser.loginUser.Id;
+            leaveEdit.UserId = _currentUser.loginUser.Id;
             leaveEdit.Days = Convert.ToDecimal(new TimeSpan(leaveEdit.EndTime.Ticks - leaveEdit.StartTime.Ticks).Days) + 1;
             return base.AddOneRerunKeyValue(input);
         }
@@ -43,7 +43,7 @@ namespace Laoyoutiao.Service.OA
         public override Task<OALeave> AddOrUpdateReturnEntity<TEdit>(TEdit input)
         {
             LeaveEdit leaveEdit = input as LeaveEdit;
-           leaveEdit.UserId = _currentUser.loginUser.Id;
+            leaveEdit.UserId = _currentUser.loginUser.Id;
             leaveEdit.Days = Convert.ToDecimal(new TimeSpan(leaveEdit.EndTime.Ticks - leaveEdit.StartTime.Ticks).Days) + 1;
             return base.AddOrUpdateReturnEntity(input);
         }
@@ -59,7 +59,7 @@ namespace Laoyoutiao.Service.OA
         {
             //查找
             LeaveReq leaveReq = req as LeaveReq;
-            var list = _db.Queryable<OALeave>()
+            var list = await _db.Queryable<OALeave>()
                 .LeftJoin<V_WorkFlow>((oa, win) => oa.Id.ToString() == win.BusinessId && oa.Code == win.BusinessCode)
                 .Where(oa => oa.IsDeleted == 0).WhereIF(!string.IsNullOrEmpty(leaveReq.Title), oa => oa.Title.Contains(leaveReq.Title))
                 .Select<LeaveRes>((oa, win) => new LeaveRes //转换成dto
@@ -84,10 +84,15 @@ namespace Laoyoutiao.Service.OA
                     ActivityType = win.ActivityType,
                     DeptId = oa.DeptId
 
-                });
+                }).Distinct().ToListAsync();
 
 
             #region 数据权限
+
+            ////list = base.GetCurrentUserDataRange(list);
+            //#region 加载数据权限       
+            //list = base.GetCurrentUserDataRange(list);          
+
             var userInfo = _currentUser;
             if (userInfo != null)
             {
@@ -99,19 +104,18 @@ namespace Laoyoutiao.Service.OA
                     //如果只能查看自己的数据
                     if (userInfo.isOnlySelf)
                     {
-                        list = list.Where(oa => oa.UserId == userInfo.loginUser.Id);
+                        list = list.Where(oa => oa.UserId == userInfo.loginUser.Id).ToList();
                     }
                     if (userInfo.deptDataIds.Count > 0)
                     {
                         string deptIds = string.Join(",", userInfo.deptDataIds.ToArray());
-                        list = list.Where(oa => oa.DeptId.Contains(deptIds) || deptIds.Contains(oa.DeptId));
+                        list = list.Where(oa => oa.DeptId.Contains(deptIds) || deptIds.Contains(oa.DeptId)).ToList();
                     }
                 }
             }
             #endregion
-            var queryList = await list.Skip((leaveReq.PageIndex - 1) * leaveReq.PageSize)
-       .Take(leaveReq.PageSize)
-       .ToListAsync();
+            var queryList =  list.Skip((leaveReq.PageIndex - 1) * leaveReq.PageSize).Take(leaveReq.PageSize);
+
             PageInfo pageInfo = new PageInfo();
             pageInfo.data = queryList;// _mapper.Map<List<LeaveRes>>(queryList);
             pageInfo.total = list.Count();
