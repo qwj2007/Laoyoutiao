@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Laoyoutiao.webapi.Area.OA.Controllers
 {
+    /// <summary>
+    /// 请假
+    /// </summary>
     [Area("OA")]
     //[Authorize]
     //[ApiController]

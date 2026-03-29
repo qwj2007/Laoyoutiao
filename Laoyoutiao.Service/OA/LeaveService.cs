@@ -21,7 +21,7 @@ namespace Laoyoutiao.Service.OA
         }
         public override Task<bool> Add<TEdit>(TEdit input)
         {
-            LeaveEdit leaveEdit = input as LeaveEdit;
+            LeaveEdit? leaveEdit = input as LeaveEdit;
             leaveEdit.UserId = _currentUser.loginUser.Id;
             leaveEdit.Days = Convert.ToDecimal(new TimeSpan(leaveEdit.EndTime.Ticks - leaveEdit.StartTime.Ticks).Days) + 1;
             return base.Add(input);
@@ -42,7 +42,7 @@ namespace Laoyoutiao.Service.OA
         /// <returns></returns>
         public override Task<OALeave> AddOrUpdateReturnEntity<TEdit>(TEdit input)
         {
-            LeaveEdit leaveEdit = input as LeaveEdit;
+            LeaveEdit? leaveEdit = input as LeaveEdit;
             leaveEdit.UserId = _currentUser.loginUser.Id;
             leaveEdit.Days = Convert.ToDecimal(new TimeSpan(leaveEdit.EndTime.Ticks - leaveEdit.StartTime.Ticks).Days) + 1;
             return base.AddOrUpdateReturnEntity(input);
