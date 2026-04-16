@@ -33,7 +33,7 @@ namespace Laoyoutiao.Service.Sys
                     Id = u.Id,
                     SystemName = u.SystemName,
                     Memo = u.Memo,
-                    Status = u.isEnable == 1 ? "可用" : "不可用",
+                    Status = u.isEnable,
                     CreateDate = u.CreateDate,  
                     SystemCode=u.SystemCode
                 }).ToListAsync();
@@ -67,8 +67,7 @@ namespace Laoyoutiao.Service.Sys
             {
                 info.CreateUserId = _currentUser.loginUser.Id;
                 info.CreateDate = DateTime.Now;
-                info.SystemCode = Guid.NewGuid().ToString();
-                //info.isEnable = edit.Status;
+                info.SystemCode = Guid.NewGuid().ToString();                
                 return await _db.Insertable(info).ExecuteCommandAsync() > 0;
 
             }

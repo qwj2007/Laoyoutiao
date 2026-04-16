@@ -23,6 +23,6 @@ namespace Laoyoutiao.Models.Entitys.Sys
         [SugarColumn(IsNullable = false, ColumnDescription = "排序")]
         public int Sort { get; set; } = 0;
         [SugarColumn(IsNullable = false, ColumnDescription = "是否启用")]
-        public int isEnable { get; set; } = 1;
+        public int? isEnable { get; set; } = 1;
     }
 }

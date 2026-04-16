@@ -22,7 +22,7 @@ namespace Laoyoutiao.Models.Dto.Sys
         public DateTime CreateDate { get; set; }
 
         // public int Sort { get; set; } = 0;
-        public string? Status { get; set; }
+        public int? Status { get; set; }
        
     }
 }

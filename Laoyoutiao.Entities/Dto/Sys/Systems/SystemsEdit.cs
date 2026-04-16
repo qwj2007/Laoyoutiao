@@ -13,7 +13,8 @@ namespace Laoyoutiao.Models.Dto.Sys
     {
         public string? SystemName { get; set; }
         public string? Memo { get; set; }
-        public string? Status { get; set; }
+        public int? Status { get; set; }
+        public int? IsEnable { get; set; }
         public string? SystemCode { get; set; }
     }
 }

@@ -37,8 +37,8 @@ namespace Laoyoutiao.Common
             using var objStreamWriter = new StreamWriter(objCryptoStream);
 			objStreamWriter.Write(m_Need_Encode_String);
 			objStreamWriter.Flush();
-			//objCryptoStream.FlushFinalBlock();
-			objMemoryStream.Flush();
+			objCryptoStream.FlushFinalBlock();
+			//objMemoryStream.Flush();
 			return Convert.ToBase64String(objMemoryStream.GetBuffer(), 0, (int)objMemoryStream.Length);
 		}
 

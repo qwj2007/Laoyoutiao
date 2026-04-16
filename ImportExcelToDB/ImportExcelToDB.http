@@ -1,0 +1,6 @@
+@ImportExcelToDB_HostAddress = http://localhost:5103
+
+GET {{ImportExcelToDB_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
