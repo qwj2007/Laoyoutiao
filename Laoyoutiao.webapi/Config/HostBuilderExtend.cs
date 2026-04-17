@@ -34,7 +34,13 @@ namespace Laoyoutiao.Configuration
         public static void ServiceRegister(this WebApplicationBuilder buil)
         {
             // Add services to the container.
-
+            buil.Services.AddDistributedMemoryCache();
+            // 添加 Session 服务
+            buil.Services.AddSession(options =>
+            {
+                options.Cookie.Name = "CaptchaSession";
+                options.IdleTimeout = TimeSpan.FromMinutes(5); // 5分钟过期
+            });
             buil.Services.AddControllers();
             buil.Services.Configure<MvcOptions>(opt =>
             {
