@@ -13,15 +13,20 @@ namespace Laoyoutiao.webapi.Controllers
     [Route("api/captcha")]
     [ApiExplorerSettings(GroupName = "校验验证码是否有效")]
     public class CaptchaController : ControllerBase
-    {        
+    {
+        private readonly ICache _cache;
+        public CaptchaController(ICache cache)
+        {
+            _cache = cache;
+        }
         [HttpGet("image")]
         public async Task<IActionResult> GetCaptcha()
         {
             string code = CaptchaHelper.GenerateCode();
             //HttpContext.Session.SetString("CaptchaCode", code);
             // 将验证码存储在Redis中，设置过期时间为5分钟
-            string captchaId = Guid.NewGuid().ToString().Replace("-", "");
-            RedisHelper.redisClient.SetStringKey(captchaId, code, TimeSpan.FromMinutes(5));
+            string captchaId = Guid.NewGuid().ToString().Replace("-", "");           
+            _cache.WriteCache<string>(captchaId, code, TimeSpan.FromMinutes(5));
             Response.Headers["X-Captcha-Id"] = captchaId;
             byte[] bytes = CaptchaHelper.GenerateCaptchaImage(code);
             return File(bytes, "image/png");
@@ -35,13 +40,16 @@ namespace Laoyoutiao.webapi.Controllers
         [HttpPost("check")]
         public async Task<ApiResult> Check(string userCode, string captchaId)
         {
-            var code = RedisHelper.redisClient.GetStringValue(captchaId);
+            var hasCache = false;
+            //var code = RedisHelper.redisClient.GetStringValue(captchaId);
+            var code = _cache.GetCache<string>(captchaId, out hasCache);
             if (string.IsNullOrEmpty(code) || !userCode.ToLower().Equals(code.ToLower(), StringComparison.OrdinalIgnoreCase))
             {
                 return ResultHelper.Error("验证码错误");
             }
             // 验证成功后删除验证码，防止重复使用
-            RedisHelper.redisClient.DeleteStringKey(captchaId);
+           // RedisHelper.redisClient.DeleteStringKey(captchaId);
+            _cache.RemoveCache(captchaId);
             return ResultHelper.Success(true);
         }
     }
