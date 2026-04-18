@@ -41,14 +41,14 @@ namespace Laoyoutiao.webapi.Controllers
         public async Task<ApiResult> Check(string userCode, string captchaId)
         {
             var hasCache = false;
-            //var code = RedisHelper.redisClient.GetStringValue(captchaId);
+           
             var code = _cache.GetCache<string>(captchaId, out hasCache);
             if (string.IsNullOrEmpty(code) || !userCode.ToLower().Equals(code.ToLower(), StringComparison.OrdinalIgnoreCase))
             {
                 return ResultHelper.Error("验证码错误");
             }
             // 验证成功后删除验证码，防止重复使用
-           // RedisHelper.redisClient.DeleteStringKey(captchaId);
+           
             _cache.RemoveCache(captchaId);
             return ResultHelper.Success(true);
         }
