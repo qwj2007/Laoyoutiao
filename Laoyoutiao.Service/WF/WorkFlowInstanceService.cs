@@ -64,8 +64,8 @@ namespace Laoyoutiao.Service.WF
             {
                 return "";
             }
-          
-            
+
+
             if (string.IsNullOrWhiteSpace(node.properties.approveType))
             {
                 throw new Exception("获取审批人失败，请检查是否配置审批人");
@@ -80,7 +80,7 @@ namespace Laoyoutiao.Service.WF
                 case ApproveType.SPECIAL_ROLE:
                     {
                         //根据角色判断是哪些执行人
-                        var userids = _db.Queryable<SysUserRole>().Where(a => node.properties.roles.Contains(a.RoleId.ToString())).Select(a=>a.UserId).ToList();
+                        var userids = _db.Queryable<SysUserRole>().Where(a => node.properties.roles.Contains(a.RoleId.ToString())).Select(a => a.UserId).ToList();
                         //var userids = await configService.GetUserIdsByRoleIdsAsync(node.properties.roles.Select(x => Convert.ToInt64(x)).ToList());
                         string res = string.Join(",", userids);
                         return res.IsNullOrEmpty() ? res : res + ",";
@@ -313,7 +313,7 @@ namespace Laoyoutiao.Service.WF
             //先删除再添加
             var result = await _db.Ado.UseTranAsync(async () =>
             {
-               
+
                 #region 创建/修改实例               
                 //创建
                 if (flowInstance == null)
@@ -328,7 +328,7 @@ namespace Laoyoutiao.Service.WF
                         ActivityType = (int)context.WorkFlow.NextNodeType,
                         PreviousId = context.WorkFlow.ActivityNodeId.ToString(),
                         //MakerList = await this.GetMakerListAsync(context.WorkFlow.Nodes[context.WorkFlow.NextNodeId], model.UserId.ToString()),
-                        MakerList=makerList,
+                        MakerList = makerList,
                         CreateUserId = long.Parse(model.UserId),
                         CreateUserName = model.UserName,
                         FlowContent = workflow.FlowContent,
@@ -444,7 +444,7 @@ namespace Laoyoutiao.Service.WF
             {
                 statusChange.Status = flowStatus;
                 statusChange.FlowTime = DateTime.Now;
-                
+
                 await capPublisher.PublishAsync(statusChange.TargetName, statusChange);
             }
         }
@@ -499,7 +499,8 @@ namespace Laoyoutiao.Service.WF
             //查找到所有的
             var listNodes = await GetExcuteNodes(instanceid, currentNodeId);
             var flowInstance = await _db.Queryable<WF_WorkFlow_Instance>().FirstAsync(a => a.InstanceId == instanceid && a.IsDeleted == 0);
-            if (flowInstance == null) {
+            if (flowInstance == null)
+            {
                 return workFlowEdges;
             }
             //工作流程信息
@@ -509,23 +510,24 @@ namespace Laoyoutiao.Service.WF
                 FlowJson = flowInstance.FlowContent,
                 ActivityNodeId = default(Guid)
             });
-            
+
             //所有的连线信息
             var edges = context.WorkFlow.Edges;
             foreach (var node in listNodes)
             {
                 workFlowEdges.AddRange(context.GetLinesForFrom(node.Id.ToString()));
                 workFlowEdges.AddRange(context.GetLinesForTo(node.Id));
-            }     
+            }
 
             var listEdges = workFlowEdges.GroupBy(a => a.id);//.Select(a => a.Count() > 1);
-            listEdges= listEdges.Where(a => a.Count() == 2).ToList();
+            listEdges = listEdges.Where(a => a.Count() == 2).ToList();
             workFlowEdges.Clear();
-            foreach (var edge in listEdges) {
+            foreach (var edge in listEdges)
+            {
                 workFlowEdges.Add(edge.FirstOrDefault());
             }
 
-            return workFlowEdges==null?new List<WorkFlowEdge>():workFlowEdges;
+            return workFlowEdges == null ? new List<WorkFlowEdge>() : workFlowEdges;
         }
 
         /// <summary>
@@ -1127,53 +1129,128 @@ namespace Laoyoutiao.Service.WF
         /// <param name="model"></param>
         /// <param name="createUserId">流程发起人</param>
         /// <returns></returns>
-        private async Task<Guid?> GetFinalNodeId(List<WorkFlowEdge> nextLines, double? conValue = null)
+        #region
+        //private async Task<Guid?> GetFinalNodeId(List<WorkFlowEdge> nextLines, double? conValue = null)
+        //{
+        //    if (nextLines.Count > 1 && conValue == null)
+        //    {
+        //        throw new Exception("流程设计比较值未设定！");
+        //    }
+        //    //如果只有一条线，就返回这条线的目标NodeId
+        //    if (nextLines.Count == 1)
+        //    {
+        //        return nextLines[0].targetNodeId;
+        //    }
+        //    Guid? finalid = null;
+
+        //    //
+        //    var conditionsNotNullList = nextLines.Where(a => a.properties.conditions != null).ToList();
+        //    var conditionsNullList = nextLines.Where(a => a.properties.conditions is null).ToList();
+        //    bool isFind = false;
+        //    foreach (var line in conditionsNotNullList)
+        //    {
+        //        foreach (var item in line.properties.conditions.OrderBy(a => a.conditionalValue))
+        //        {
+        //            //判断符号
+        //            string conditional = item.conditional;//线上设置的条件判断
+        //            double cv = item.conditionalValue;//线路上设置的条件值
+        //            switch (conditional)
+        //            {
+        //                case "=":
+        //                    isFind = (conValue == cv);
+        //                    break;
+        //                case ">": isFind = (conValue > cv); break;
+        //                case ">=": isFind = (conValue >= cv); break;
+        //                case "<": isFind = (conValue < cv); break;
+        //                case "<=": isFind = (conValue <= cv); break;
+        //            }
+        //            //如果这一条线有一个是false,就直接跳出，例如条件3<conValue<=5,如果conValue=3，这个条件就不成立，
+        //            if (!isFind)
+        //            {
+        //                break;
+        //            }
+        //        }
+        //        if (isFind)
+        //        {
+        //            finalid = line.targetNodeId;
+        //            break;
+        //        }
+        //    }
+        //    if (!isFind)
+        //    {
+        //        finalid = conditionsNullList[0].targetNodeId;
+        //    }
+        //    return finalid;
+
+        //}
+        #endregion
+
+        /// <summary>
+        /// 根据条件获取最终流转节点ID
+        /// </summary>
+        /// <param name="nextLines">下一流程线集合</param>
+        /// <param name="compareValue">比较值</param>
+        /// <returns>目标节点ID</returns>
+        /// <exception cref="ArgumentException">参数异常</exception>
+        /// <exception cref="InvalidOperationException">流程配置异常</exception>
+        private async Task<Guid?> GetFinalNodeId(List<WorkFlowEdge> nextLines, double? compareValue = 0)
         {
-            if (nextLines.Count > 1 && conValue == null)
-            {
-                throw new Exception("流程设计比较值未设定！");
-            }
-            //如果只有一条线，就返回这条线的目标NodeId
+            // 1. 空集合校验
+            if (nextLines == null || !nextLines.Any())
+                return null;
+
+            // 2. 多分支必须传入比较值
+            if (nextLines.Count > 1 && compareValue == null)
+                throw new ArgumentException(nameof(compareValue), "多分支流程必须指定比较值！");
+
+            // 3. 单分支直接返回目标节点
             if (nextLines.Count == 1)
+                return nextLines.First().targetNodeId;
+
+            // 4. 拆分：带条件的线 / 默认线
+            var conditionLines = nextLines.Where(line => line.properties?.conditions != null).ToList();
+            var defaultLines = nextLines.Where(line => line.properties?.conditions == null).ToList();
+
+            // 5. 遍历匹配条件线
+            foreach (var line in conditionLines)
             {
-                return nextLines[0].targetNodeId;
-            }
-            Guid? finalid = null;
-
-            //
-            var conditionsNotNullList = nextLines.Where(a => a.properties.conditions != null).ToList();
-            var conditionsNullList = nextLines.Where(a => a.properties.conditions is null).ToList();
-            bool isFind = false;
-            foreach (var line in conditionsNotNullList)
-            {             
-                foreach (var item in line.properties.conditions.OrderBy(a=>a.conditionalValue)) {
-                    //判断符号
-                    string conditional = item.conditional;//线上设置的条件判断
-                    double cv = item.conditionalValue;//线路上设置的条件值
-                    switch (conditional)
-                    {
-                        case "=":
-                            isFind = (conValue == cv);
-                            break;
-                        case ">": isFind = (conValue > cv); break;
-                        case ">=": isFind = (conValue >= cv); break;
-                        case "<": isFind = (conValue < cv); break;
-                        case "<=": isFind = (conValue <= cv); break;
-                    }                   
-                }
-                if (isFind)
+                var conditions = line.properties.conditions.OrderBy(c => c.conditionalValue).ToList();
+                if (IsAllConditionsMatched(conditions, compareValue.Value))
                 {
-                    finalid = line.targetNodeId;
-                    break;
+                    return line.targetNodeId;
                 }
             }
-            if (!isFind) {
-                finalid= conditionsNullList[0].targetNodeId;
-            }
-            return finalid;
 
+            // 6. 无匹配条件 → 返回默认分支
+            if (!defaultLines.Any())
+                throw new InvalidOperationException("流程未配置默认分支，无法继续流转！");
+
+            return defaultLines.First().targetNodeId;
         }
 
+        /// <summary>
+        /// 校验所有条件是否全部满足（AND逻辑）
+        /// </summary>
+        private bool IsAllConditionsMatched(List<Conditions> conditions, double compareValue)
+        {
+            foreach (var condition in conditions)
+            {
+                bool isMatch = condition.conditional switch
+                {
+                    "=" => compareValue == condition.conditionalValue,
+                    ">" => compareValue > condition.conditionalValue,
+                    ">=" => compareValue >= condition.conditionalValue,
+                    "<" => compareValue < condition.conditionalValue,
+                    "<=" => compareValue <= condition.conditionalValue,
+                    _ => throw new NotSupportedException($"不支持的条件运算符：{condition.conditional}")
+                };
+
+                if (!isMatch)
+                    return false;
+            }
+
+            return true;
+        }
         #region 同意操作
         /// <summary>
         /// 同意操作
@@ -1201,7 +1278,7 @@ namespace Laoyoutiao.Service.WF
 
             var result = await _db.Ado.UseTranAsync(async () =>
             {
-               
+
                 //正常节点
                 if (context.WorkFlow.ActivityNode.NodeType() == WorkFlowInstanceNodeType.Normal)
                 {
@@ -1220,60 +1297,60 @@ namespace Laoyoutiao.Service.WF
                         //}
                         //else
                         //{
-                            //获取确定最终要执行的唯一节点
-                            Guid? finalid = await GetFinalNodeId(nextLines, Convert.ToDouble(model.ComValue));
-                            WorkFlowNode reallynode = context.WorkFlow.Nodes[finalid.Value];
-                            dbflowinstance.IsFinish = reallynode.NodeType().ToIsFinish();
-                            if (reallynode.NodeType() == WorkFlowInstanceNodeType.End)
-                            {
-                                dbflowinstance.Status = (int)WorkFlowStatus.IsFinish;
-                            }
-                            else
-                            {
-                                dbflowinstance.Status = (int)WorkFlowStatus.Running;
-                            }
-                            dbflowinstance.ActivityId = reallynode.Id.ToString();
-                            dbflowinstance.ActivityName = reallynode.text.value;
-                            dbflowinstance.ActivityType = (int)reallynode.NodeType();
-                            dbflowinstance.ModifyDate = DateTime.Now;
-                            dbflowinstance.MakerList = reallynode.NodeType() == WorkFlowInstanceNodeType.End ? "" : await this.GetMakerListAsync(reallynode, model.UserId, model.OptionParams);
-                            //await databaseFixture.Db.WorkflowInstance.UpdateAsync(dbflowinstance, tran);
-                            await _db.Updateable(dbflowinstance).ExecuteCommandAsync();
+                        //获取确定最终要执行的唯一节点
+                        Guid? finalid = await GetFinalNodeId(nextLines, Convert.ToDouble(model.ComValue));
+                        WorkFlowNode reallynode = context.WorkFlow.Nodes[finalid.Value];
+                        dbflowinstance.IsFinish = reallynode.NodeType().ToIsFinish();
+                        if (reallynode.NodeType() == WorkFlowInstanceNodeType.End)
+                        {
+                            dbflowinstance.Status = (int)WorkFlowStatus.IsFinish;
+                        }
+                        else
+                        {
+                            dbflowinstance.Status = (int)WorkFlowStatus.Running;
+                        }
+                        dbflowinstance.ActivityId = reallynode.Id.ToString();
+                        dbflowinstance.ActivityName = reallynode.text.value;
+                        dbflowinstance.ActivityType = (int)reallynode.NodeType();
+                        dbflowinstance.ModifyDate = DateTime.Now;
+                        dbflowinstance.MakerList = reallynode.NodeType() == WorkFlowInstanceNodeType.End ? "" : await this.GetMakerListAsync(reallynode, model.UserId, model.OptionParams);
+                        //await databaseFixture.Db.WorkflowInstance.UpdateAsync(dbflowinstance, tran);
+                        await _db.Updateable(dbflowinstance).ExecuteCommandAsync();
 
-                            //流程结束情况
-                            if ((int)WorkFlowInstanceStatus.Finish == dbflowinstance.IsFinish)
-                            {
-                                publishFlowStatus = WorkFlowStatus.IsFinish;
-                            }
+                        //流程结束情况
+                        if ((int)WorkFlowInstanceStatus.Finish == dbflowinstance.IsFinish)
+                        {
+                            publishFlowStatus = WorkFlowStatus.IsFinish;
+                        }
 
-                            #region 添加流转记录
+                        #region 添加流转记录
 
-                            WF_WorkFlow_Transition_History transitionHistory = new WF_WorkFlow_Transition_History
-                            {
-                                transitionId = Guid.NewGuid().ToString(),
-                                InstanceId = dbflowinstance.InstanceId,
-                                FromNodeId = context.WorkFlow.ActivityNodeId.ToString(),
-                                FromNodeName = context.WorkFlow.ActivityNode.text.value,
-                                FromNodeType = (int)context.WorkFlow.ActivityNodeType,
-                                ToNodeId = reallynode.Id.ToString(),
-                                ToNodeType = (int)reallynode.NodeType(),
-                                ToNodeName = reallynode.text.value,
-                                TransitionState = (int)WorkFlowTransitionStateType.Normal,
-                                IsFinish = reallynode.NodeType().ToIsFinish(),
-                                CreateUserId = long.Parse(model.UserId),
-                                CreateUserName = model.UserName
-                            };
-                            await _db.Insertable<WF_WorkFlow_Transition_History>(transitionHistory).ExecuteCommandAsync();
-                            // await databaseFixture.Db.WorkflowTransitionHistory.InsertAsync(transitionHistory, tran);
-                            #endregion
+                        WF_WorkFlow_Transition_History transitionHistory = new WF_WorkFlow_Transition_History
+                        {
+                            transitionId = Guid.NewGuid().ToString(),
+                            InstanceId = dbflowinstance.InstanceId,
+                            FromNodeId = context.WorkFlow.ActivityNodeId.ToString(),
+                            FromNodeName = context.WorkFlow.ActivityNode.text.value,
+                            FromNodeType = (int)context.WorkFlow.ActivityNodeType,
+                            ToNodeId = reallynode.Id.ToString(),
+                            ToNodeType = (int)reallynode.NodeType(),
+                            ToNodeName = reallynode.text.value,
+                            TransitionState = (int)WorkFlowTransitionStateType.Normal,
+                            IsFinish = reallynode.NodeType().ToIsFinish(),
+                            CreateUserId = long.Parse(model.UserId),
+                            CreateUserName = model.UserName
+                        };
+                        await _db.Insertable<WF_WorkFlow_Transition_History>(transitionHistory).ExecuteCommandAsync();
+                        // await databaseFixture.Db.WorkflowTransitionHistory.InsertAsync(transitionHistory, tran);
+                        #endregion
 
-                            #region 通知节点信息添加
+                        #region 通知节点信息添加
 
-                            var viewNodes = context.GetNextNodes(null, WorkFlowInstanceNodeType.ViewNode);
-                            await AddFlowNotice(viewNodes, dbflowinstance.CreateUserId.ToString(), model);
+                        var viewNodes = context.GetNextNodes(null, WorkFlowInstanceNodeType.ViewNode);
+                        await AddFlowNotice(viewNodes, dbflowinstance.CreateUserId.ToString(), model);
 
-                            #endregion
-                       // }
+                        #endregion
+                        // }
                     }
                     else
                     {
@@ -1877,7 +1954,7 @@ namespace Laoyoutiao.Service.WF
         #endregion
 
         /// <summary>
-        /// 流程催办
+        ///// 流程催办
         /// </summary>
         /// <param name="urge"></param>
         /// <returns></returns>
