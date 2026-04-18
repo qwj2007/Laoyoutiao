@@ -80,7 +80,7 @@ namespace Laoyoutiao.Service.WF
                 case ApproveType.SPECIAL_ROLE:
                     {
                         //根据角色判断是哪些执行人
-                        var userids = _db.Queryable<SysUserRole>().Where(a => node.properties.roles.Contains(a.RoleId.ToString())).ToList();
+                        var userids = _db.Queryable<SysUserRole>().Where(a => node.properties.roles.Contains(a.RoleId.ToString())).Select(a=>a.UserId).ToList();
                         //var userids = await configService.GetUserIdsByRoleIdsAsync(node.properties.roles.Select(x => Convert.ToInt64(x)).ToList());
                         string res = string.Join(",", userids);
                         return res.IsNullOrEmpty() ? res : res + ",";
@@ -444,6 +444,7 @@ namespace Laoyoutiao.Service.WF
             {
                 statusChange.Status = flowStatus;
                 statusChange.FlowTime = DateTime.Now;
+                
                 await capPublisher.PublishAsync(statusChange.TargetName, statusChange);
             }
         }
@@ -1139,28 +1140,35 @@ namespace Laoyoutiao.Service.WF
             }
             Guid? finalid = null;
 
-
-            foreach (var line in nextLines)
-            {
-                bool isFind = false;
-                //判断符号
-                string conditional = line.properties.conditional;//线上设置的条件判断
-                double cv = line.properties.conditionalValue;//线路上设置的条件值
-                switch (conditional)
-                {
-                    case "=":
-                        isFind = (conValue == cv);
-                        break;
-                    case ">": isFind = (conValue > cv); break;
-                    case ">=": isFind = (conValue >= cv); break;
-                    case "<": isFind = (conValue < cv); break;
-                    case "<=": isFind = (conValue <= cv); break;
+            //
+            var conditionsNotNullList = nextLines.Where(a => a.properties.conditions != null).ToList();
+            var conditionsNullList = nextLines.Where(a => a.properties.conditions is null).ToList();
+            bool isFind = false;
+            foreach (var line in conditionsNotNullList)
+            {             
+                foreach (var item in line.properties.conditions.OrderBy(a=>a.conditionalValue)) {
+                    //判断符号
+                    string conditional = item.conditional;//线上设置的条件判断
+                    double cv = item.conditionalValue;//线路上设置的条件值
+                    switch (conditional)
+                    {
+                        case "=":
+                            isFind = (conValue == cv);
+                            break;
+                        case ">": isFind = (conValue > cv); break;
+                        case ">=": isFind = (conValue >= cv); break;
+                        case "<": isFind = (conValue < cv); break;
+                        case "<=": isFind = (conValue <= cv); break;
+                    }                   
                 }
                 if (isFind)
                 {
                     finalid = line.targetNodeId;
                     break;
                 }
+            }
+            if (!isFind) {
+                finalid= conditionsNullList[0].targetNodeId;
             }
             return finalid;
 
@@ -1175,23 +1183,25 @@ namespace Laoyoutiao.Service.WF
         /// <exception cref="Exception"></exception>
         public async Task<bool> WorkFlowAgreeAsync(WorkFlowProcessTransition model)
         {
+            WorkFlowStatus publishFlowStatus = WorkFlowStatus.Running;
+            var dbflowinstance = await _db.Queryable<WF_WorkFlow_Instance>().FirstAsync(a => a.InstanceId == model.InstanceId.ToString());
+            if (dbflowinstance.IsFinish == (int)WorkFlowInstanceStatus.Finish)
+            {
+                throw new Exception("此流程已结束,不可操作");
+            }
+            var userInfo = await _db.Queryable<SysUser>().FirstAsync(a => a.Id.ToString() == model.UserId && a.IsDeleted == 0);
+            model.UserName = userInfo.UserName;
+            MsWorkFlowContext context = new MsWorkFlowContext(new WorkFlow.Core.WorkFlow
+            {
+                FlowId = model.FlowId,
+                FlowJson = dbflowinstance.FlowContent,
+                ActivityNodeId = Guid.Parse(dbflowinstance.ActivityId),
+                PreviousId = Guid.Parse(dbflowinstance.PreviousId)
+            });
+
             var result = await _db.Ado.UseTranAsync(async () =>
             {
-                WorkFlowStatus publishFlowStatus = WorkFlowStatus.Running;
-                var dbflowinstance = await _db.Queryable<WF_WorkFlow_Instance>().FirstAsync(a => a.InstanceId == model.InstanceId.ToString());
-                if (dbflowinstance.IsFinish == (int)WorkFlowInstanceStatus.Finish)
-                {
-                    return;
-                }
-                var userInfo = await _db.Queryable<SysUser>().FirstAsync(a => a.Id.ToString() == model.UserId && a.IsDeleted == 0);
-                model.UserName = userInfo.UserName;
-                MsWorkFlowContext context = new MsWorkFlowContext(new WorkFlow.Core.WorkFlow
-                {
-                    FlowId = model.FlowId,
-                    FlowJson = dbflowinstance.FlowContent,
-                    ActivityNodeId = Guid.Parse(dbflowinstance.ActivityId),
-                    PreviousId = Guid.Parse(dbflowinstance.PreviousId)
-                });
+               
                 //正常节点
                 if (context.WorkFlow.ActivityNode.NodeType() == WorkFlowInstanceNodeType.Normal)
                 {
@@ -1203,13 +1213,13 @@ namespace Laoyoutiao.Service.WF
                          * 注：一个节点下多个连线，则连线必须有SQL判断
                          * **/
 
-                        bool isOk = nextLines.Any(m => m.properties == null || string.IsNullOrEmpty(m.properties.conditional) || m.properties.conditionalValue == null);
-                        if (isOk)
-                        {
-                            throw new Exception("流程线路条件判断设置出错，请检查！");
-                        }
-                        else
-                        {
+                        //bool isOk = nextLines.Any(m => m.properties == null || string.IsNullOrEmpty(m.properties.conditional) || m.properties.conditionalValue == null);
+                        //if (isOk)
+                        //{
+                        //    throw new Exception("流程线路条件判断设置出错，请检查！");
+                        //}
+                        //else
+                        //{
                             //获取确定最终要执行的唯一节点
                             Guid? finalid = await GetFinalNodeId(nextLines, Convert.ToDouble(model.ComValue));
                             WorkFlowNode reallynode = context.WorkFlow.Nodes[finalid.Value];
@@ -1263,7 +1273,7 @@ namespace Laoyoutiao.Service.WF
                             await AddFlowNotice(viewNodes, dbflowinstance.CreateUserId.ToString(), model);
 
                             #endregion
-                        }
+                       // }
                     }
                     else
                     {

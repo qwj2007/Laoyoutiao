@@ -11,6 +11,19 @@ namespace Laoyoutiao.WorkFlow.Core
     /// </summary>
     public class EdgeProperties
     {
+        ///// <summary>
+        ///// 条件
+        ///// </summary>
+        //public string conditional { get; set; }
+        ///// <summary>
+        ///// 条件判断值
+        ///// </summary>
+        //public double conditionalValue { get; set; }
+
+        public List<Conditions> conditions { get; set; }
+    }
+
+    public class Conditions {
         /// <summary>
         /// 条件
         /// </summary>

@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Laoyoutiao.webapi.Controllers
 {
+    /// <summary>
+    /// CAP订阅模式
+    /// </summary>
     public class SubscriberController : ControllerBase
     {
         private readonly IWorkFlowService workFlowService;
@@ -15,7 +18,7 @@ namespace Laoyoutiao.webapi.Controllers
         }
 
         /// <summary>
-        /// CAP 改变OA系统表单流程状态
+        /// CAP 改变OA系统表单流程状态，CapSubscribe是CAP订阅模式
         /// </summary>
         /// <param name="statusChange"></param>
         /// <returns></returns>

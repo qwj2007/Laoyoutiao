@@ -109,12 +109,18 @@ namespace Laoyoutiao.Service.OA
                     if (userInfo.deptDataIds.Count > 0)
                     {
                         string deptIds = string.Join(",", userInfo.deptDataIds.ToArray());
-                        list = list.Where(oa => oa.DeptId.Contains(deptIds) || deptIds.Contains(oa.DeptId)).ToList();
+                        list = list
+     .Where(oa =>
+         (oa.DeptId != null && deptIds.Contains(oa.DeptId))
+         ||
+         (oa.DeptId != null && oa.DeptId.Contains(deptIds))
+     )
+     .ToList();
                     }
                 }
             }
             #endregion
-            var queryList =  list.Skip((leaveReq.PageIndex - 1) * leaveReq.PageSize).Take(leaveReq.PageSize);
+            var queryList = list.Skip((leaveReq.PageIndex - 1) * leaveReq.PageSize).Take(leaveReq.PageSize);
 
             PageInfo pageInfo = new PageInfo();
             pageInfo.data = queryList;// _mapper.Map<List<LeaveRes>>(queryList);
