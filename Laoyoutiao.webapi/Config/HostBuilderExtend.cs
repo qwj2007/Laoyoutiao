@@ -311,8 +311,9 @@ namespace Laoyoutiao.Configuration
              {
                  foreach (var controller in SwaggerUtil.GetControllers())
                  {
+                     //if (controller.Name.ToLower().StartsWith("base")) continue;
                      var groupname = SwaggerUtil.GetSwaggerGroupName(controller);
-
+                    
                      option.SwaggerDoc(groupname, new OpenApiInfo
                      {
                          Version = "v1",

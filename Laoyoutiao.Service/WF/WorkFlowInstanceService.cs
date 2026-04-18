@@ -64,7 +64,12 @@ namespace Laoyoutiao.Service.WF
             {
                 return "";
             }
-
+          
+            
+            if (string.IsNullOrWhiteSpace(node.properties.approveType))
+            {
+                throw new Exception("获取审批人失败，请检查是否配置审批人");
+            }
             switch (node.properties.approveType.ToUpper())
             {
                 case ApproveType.SPECIAL_USER:
@@ -269,43 +274,46 @@ namespace Laoyoutiao.Service.WF
         public async Task<bool> CreateInstanceAsync(WorkFlowProcessTransition model)
         {
             //string instanceId = default(Guid).ToString();
+            var userInfo = await _db.Queryable<SysUser>().FirstAsync(a => a.Id.ToString() == model.UserId && a.IsDeleted == 0);
+            model.UserName = userInfo.UserName;
+            //根据url查找到flowId
+            var menu = await _db.Queryable<Menus>().FirstAsync(a => a.MenuUrl == model.url && a.IsDeleted == 0 && a.IsButton == 0);
+            if (menu == null)
+            {
+                throw new ArgumentException("菜单的URL", "菜单的url未配置");
+            }
+            long fromId = menu.Id;
+            //根据FormId查找到workflow
+            WF_WorkFlow workflow = await _db.Queryable<WF_WorkFlow>().FirstAsync(a => a.FormId == fromId);
+            if (workflow == null || workflow.FlowContent.Length == 0)
+            {
+                throw new ArgumentException("未配置流程", "未配置流程，请联系管理员");
+            }
+
+            //WorkFlowStatusChange StatusChange = new WorkFlowStatusChange
+            //{
+            //    KeyName = "Id",
+            //    KeyValue = model.Id.ToString(),
+            //    TableName = model.,
+            //    // TargetName = SourceTable + "_ChangeStatus"
+            //};
+            //查找是否已经有流程实例
+            var flowInstance = await _db.Queryable<WF_WorkFlow_Instance>().FirstAsync(a => a.FlowId == workflow.FlowId && a.FormId == fromId.ToString()
+            && a.IsDeleted == 0 & a.BusinessId == model.Id.ToString() & a.BusinessFromTable == model.StatusChange.TableName);
+
+            MsWorkFlowContext context = new MsWorkFlowContext(new WorkFlow.Core.WorkFlow
+            {
+                FlowId = Guid.Parse(workflow.FlowId),
+                FlowJson = workflow.FlowContent,
+                ActivityNodeId = default(Guid)
+            });
+
+            //获取流程审批人列表
+            var makerList = await this.GetMakerListAsync(context.WorkFlow.Nodes[context.WorkFlow.NextNodeId], model.UserId.ToString());
             //先删除再添加
             var result = await _db.Ado.UseTranAsync(async () =>
             {
-                var userInfo = await _db.Queryable<SysUser>().FirstAsync(a => a.Id.ToString() == model.UserId && a.IsDeleted == 0);
-                model.UserName = userInfo.UserName;
-                //根据url查找到flowId
-                var menu = await _db.Queryable<Menus>().FirstAsync(a => a.MenuUrl == model.url && a.IsDeleted == 0 && a.IsButton == 0);
-                if (menu == null)
-                {
-                    throw new ArgumentException("菜单的URL", "菜单的url未配置");
-                }
-                long fromId = menu.Id;
-                //根据FormId查找到workflow
-                WF_WorkFlow workflow = await _db.Queryable<WF_WorkFlow>().FirstAsync(a => a.FormId == fromId);
-                if (workflow == null || workflow.FlowContent.Length == 0)
-                {
-                    throw new ArgumentException("未配置流程", "未配置流程，请联系管理员");
-                }
-
-                //WorkFlowStatusChange StatusChange = new WorkFlowStatusChange
-                //{
-                //    KeyName = "Id",
-                //    KeyValue = model.Id.ToString(),
-                //    TableName = model.,
-                //    // TargetName = SourceTable + "_ChangeStatus"
-                //};
-                //查找是否已经有流程实例
-                var flowInstance = await _db.Queryable<WF_WorkFlow_Instance>().FirstAsync(a => a.FlowId == workflow.FlowId && a.FormId == fromId.ToString()
-                && a.IsDeleted == 0 & a.BusinessId == model.Id.ToString() & a.BusinessFromTable == model.StatusChange.TableName);
-
-                MsWorkFlowContext context = new MsWorkFlowContext(new WorkFlow.Core.WorkFlow
-                {
-                    FlowId = Guid.Parse(workflow.FlowId),
-                    FlowJson = workflow.FlowContent,
-                    ActivityNodeId = default(Guid)
-                });
-
+               
                 #region 创建/修改实例               
                 //创建
                 if (flowInstance == null)
@@ -319,7 +327,8 @@ namespace Laoyoutiao.Service.WF
                         ActivityName = context.WorkFlow.NextNode.text.value,
                         ActivityType = (int)context.WorkFlow.NextNodeType,
                         PreviousId = context.WorkFlow.ActivityNodeId.ToString(),
-                        MakerList = await this.GetMakerListAsync(context.WorkFlow.Nodes[context.WorkFlow.NextNodeId], model.UserId.ToString()),
+                        //MakerList = await this.GetMakerListAsync(context.WorkFlow.Nodes[context.WorkFlow.NextNodeId], model.UserId.ToString()),
+                        MakerList=makerList,
                         CreateUserId = long.Parse(model.UserId),
                         CreateUserName = model.UserName,
                         FlowContent = workflow.FlowContent,
@@ -345,7 +354,8 @@ namespace Laoyoutiao.Service.WF
                     flowInstance.ActivityName = context.WorkFlow.NextNode.text.value;
                     flowInstance.ActivityType = (int)context.WorkFlow.NextNodeType;
                     flowInstance.PreviousId = context.WorkFlow.ActivityNodeId.ToString();
-                    flowInstance.MakerList = await this.GetMakerListAsync(context.WorkFlow.Nodes[context.WorkFlow.NextNodeId], model.UserId.ToString());
+                    // flowInstance.MakerList = await this.GetMakerListAsync(context.WorkFlow.Nodes[context.WorkFlow.NextNodeId], model.UserId.ToString());
+                    flowInstance.MakerList = makerList;
                     flowInstance.FlowContent = workflow.FlowContent;
                     flowInstance.IsFinish = context.WorkFlow.NextNodeType.ToIsFinish();
                     flowInstance.FlowStatus = (int)WorkFlowStatus.Running;
