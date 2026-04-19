@@ -358,7 +358,7 @@ namespace Laoyoutiao.Service.WF
                     flowInstance.MakerList = makerList;
                     flowInstance.FlowContent = workflow.FlowContent;
                     flowInstance.IsFinish = context.WorkFlow.NextNodeType.ToIsFinish();
-                    flowInstance.FlowStatus = (int)WorkFlowStatus.Running;
+                    flowInstance.FlowStatus = flowInstance.IsFinish==1?(int)WorkFlowStatus.IsFinish:(int)WorkFlowStatus.Running;
                     flowInstance.ModifyDate = DateTime.Now;
                     flowInstance.BusinessFromTable = model.StatusChange.TableName;
                     flowInstance.BusinessName = model.BusinessName;
@@ -493,6 +493,12 @@ namespace Laoyoutiao.Service.WF
             return nodes;
         }
 
+        /// <summary>
+        /// 获取执行的连线
+        /// </summary>
+        /// <param name="instanceid"></param>
+        /// <param name="currentNodeId"></param>
+        /// <returns></returns>
         public async Task<List<WorkFlowEdge>> GetExcuteEdges(string instanceid, string currentNodeId)
         {
             List<WorkFlowEdge> workFlowEdges = new List<WorkFlowEdge>();
@@ -1303,11 +1309,11 @@ namespace Laoyoutiao.Service.WF
                         dbflowinstance.IsFinish = reallynode.NodeType().ToIsFinish();
                         if (reallynode.NodeType() == WorkFlowInstanceNodeType.End)
                         {
-                            dbflowinstance.Status = (int)WorkFlowStatus.IsFinish;
+                            dbflowinstance.FlowStatus = (int)WorkFlowStatus.IsFinish;
                         }
                         else
                         {
-                            dbflowinstance.Status = (int)WorkFlowStatus.Running;
+                            dbflowinstance.FlowStatus = (int)WorkFlowStatus.Running;
                         }
                         dbflowinstance.ActivityId = reallynode.Id.ToString();
                         dbflowinstance.ActivityName = reallynode.text.value;
@@ -1370,11 +1376,11 @@ namespace Laoyoutiao.Service.WF
 
                             if (context.WorkFlow.NextNodeType == WorkFlowInstanceNodeType.End)
                             {
-                                dbflowinstance.Status = (int)WorkFlowStatus.IsFinish;
+                                dbflowinstance.FlowStatus = (int)WorkFlowStatus.IsFinish;
                             }
                             else
                             {
-                                dbflowinstance.Status = (int)WorkFlowStatus.Running;
+                                dbflowinstance.FlowStatus = (int)WorkFlowStatus.Running;
                             }
                             await _db.Updateable(dbflowinstance).ExecuteCommandAsync();
 
@@ -1543,7 +1549,8 @@ namespace Laoyoutiao.Service.WF
                     //流程不同意节点判断
                     dbflowinstance.MakerList = "";
                     dbflowinstance.IsFinish = 1;
-                    dbflowinstance.Status = (int)WorkFlowStatus.Deprecate;
+                    //dbflowinstance.Status = (int)WorkFlowStatus.Deprecate;
+                    dbflowinstance.FlowStatus= (int)WorkFlowStatus.IsFinish;
                     dbflowinstance.PreviousId = dbflowinstance.ActivityId;
                     dbflowinstance.ActivityId = context.WorkFlow.NextNodeId.ToString();
                     dbflowinstance.ModifyDate = DateTime.Now;
@@ -1639,7 +1646,7 @@ namespace Laoyoutiao.Service.WF
                             : await this.GetMakerListAsync(rejectNode, dbflowinstance.CreateUserId.ToString(), model.OptionParams);
                     }
                     dbflowinstance.IsFinish = rejectNode.NodeType().ToIsFinish();
-                    dbflowinstance.Status = (int)WorkFlowStatus.Back;
+                    dbflowinstance.FlowStatus = (int)WorkFlowStatus.Back;
                     await _db.Updateable(dbflowinstance).ExecuteCommandAsync();
 
 

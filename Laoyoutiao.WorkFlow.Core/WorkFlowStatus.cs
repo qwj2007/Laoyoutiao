@@ -51,6 +51,8 @@ namespace Laoyoutiao.WorkFlow.Core
         // 摘要:
         //     撤回
         [Description("撤回")]
-        Withdraw=6
+        Withdraw=6,
+        [Description("无流程")]
+        NoFlow =99
     }
 }

@@ -42,7 +42,7 @@ namespace Laoyoutiao.Models.Entitys.WF
         public int? IsFinish { get; set; } = 0;
 
         [SugarColumn(IsNullable = true, ColumnDescription = "状态")]
-        public int Status { get; set; }
+        public int Status { get; set; } = 1;
 
         /// <summary>
         /// 业务来源Id
