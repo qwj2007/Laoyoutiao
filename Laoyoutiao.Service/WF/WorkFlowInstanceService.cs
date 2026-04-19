@@ -456,7 +456,7 @@ namespace Laoyoutiao.Service.WF
                 CreateUserName = userInfo.UserName,
                 TransitionState = (int)state,
                 IsFinish = context.WorkFlow.NextNodeType.ToIsFinish(),
-                TransitionType= (int)state,
+                TransitionType= (int)workFlowMenu,
 
             };
             ////如果下一个节点是结束节点，就想操作历史记录中插入一条记录
@@ -497,10 +497,31 @@ namespace Laoyoutiao.Service.WF
 
         #endregion
 
+
         /// <summary>
         /// 获取执行过的节点
         /// </summary>
-        public async Task<List<WorkFlowNode>> GetExcuteNodes(string instanceId, string currentNodeId, int? isFinish = 1)
+        private async Task<Dictionary<string,string>> GetExcuteNodesIds(string instanceId, string currentNodeId, int? isFinish = 1)
+        {
+            IEnumerable<WF_WorkFlow_Transition_History> validOperations = await getValidTransitionHistory(instanceId);
+            Dictionary<string, string> nodes = new Dictionary<string, string>();
+            foreach (var operation in validOperations)
+            {
+                if (!nodes.ContainsKey(operation.FromNodeId) && !string.IsNullOrEmpty(operation.FromNodeId))
+                {
+                    nodes.Add(operation.FromNodeId, operation.ToNodeId);
+                }
+                //如果流程没有完成，遇到回退节点是停止
+                if (operation.IsFinish == 0 && operation.TransitionType == (int)WorkFlowMenu.Back)
+                {
+                    break;
+                }
+            }
+
+            return nodes;
+        }
+
+        private async Task<IEnumerable<WF_WorkFlow_Transition_History>> getValidTransitionHistory(string instanceId)
         {
             var operationHistories = await _db.Queryable<WF_WorkFlow_Transition_History>()
             //var operationHistories = await _db.Queryable<WF_WorkFlow_Operation_History>()
@@ -521,51 +542,73 @@ namespace Laoyoutiao.Service.WF
             var validOperations = types
                 .Select(t => operationHistories.Where(m => m.TransitionType == t /*&& m.NodeId != currentNodeId*/))
                 .Aggregate((a, b) => a.Union(b));
+            return validOperations;
+        }
 
 
-            ////如果审批完成
-            //if (isFinish == 1)
-            //{
-            //    validOperations = validOperations.Where(m => m.TransitionType == (int)WorkFlowMenu.Agree ||
-            //     m.TransitionType == (int)WorkFlowMenu.Submit ||
-            //     m.TransitionType == (int)WorkFlowMenu.ReSubmit ||
-            //     m.TransitionType == (int)WorkFlowMenu.Deprecate);
-            //}
+        /// <summary>
+        /// 获取执行过的节点
+        /// </summary>
+        public async Task<List<WorkFlowNode>> GetExcuteNodes(string instanceId, string currentNodeId, int? isFinish = 1)
+        {
+            IEnumerable<WF_WorkFlow_Transition_History> validOperations = await getValidTransitionHistory(instanceId);
+            Dictionary<string,string> dic = await GetExcuteNodesIds(instanceId, currentNodeId, isFinish);
+
+           
             var nodes = new List<WorkFlowNode>();
-
-            foreach (var operation in validOperations)
-            {
-                if (nodes.Any(m => m.Id.ToString() == operation.FromNodeId))
-                    continue;
-
-                var fromNode = new WorkFlowNode
+            foreach (var item in dic) {
+                var SourceNode= validOperations.Where(a => a.FromNodeId == item.Key).FirstOrDefault();
+                var endNode= validOperations.Where(a => a.ToNodeId == item.Value).FirstOrDefault();
+                if (SourceNode != null)
                 {
-                    Id = Guid.Parse(operation.FromNodeId),
-                    text = { value = operation.FromNodeName },
-                    statu = operation.TransitionType.ToString()
-                };
-                nodes.Add(fromNode);
-                //流程结束了
-                if (operation.IsFinish == 1) {
-                    var endNode = new WorkFlowNode
+                    nodes.Add(new WorkFlowNode
                     {
-                        Id = Guid.Parse(operation.ToNodeId),
-                        text = { value = operation.ToNodeName },
-                        statu = operation.TransitionType.ToString()
-                    };
-                    nodes.Add(endNode);
+                        Id = Guid.Parse(item.Key),
+                        text = { value = SourceNode.FromNodeName },
+                        statu = SourceNode.TransitionType.ToString()
+                    });
                 }
+                if (endNode != null) {
+                    nodes.Add(new WorkFlowNode {
+                        Id = Guid.Parse(item.Value),
+                        text = { value = endNode.FromNodeName },
+                        statu = endNode.TransitionType.ToString()
+                    });
+                }
+                
+            }
+            //foreach (var operation in validOperations)
+            //{
+               
+
+            //    var fromNode = new WorkFlowNode
+            //    {
+            //        Id = Guid.Parse(operation.FromNodeId),
+            //        text = { value = operation.FromNodeName },
+            //        statu = operation.TransitionType.ToString()
+            //    };
+            //    nodes.Add(fromNode);
+            //    //流程结束了
+            //    if (operation.IsFinish == 1) {
+            //        var endNode = new WorkFlowNode
+            //        {
+            //            Id = Guid.Parse(operation.ToNodeId),
+            //            text = { value = operation.ToNodeName },
+            //            statu = operation.TransitionType.ToString()
+            //        };
+            //        nodes.Add(endNode);
+            //    }
               
 
-                //如果流程没有完成，遇到回退节点是停止
-                if (isFinish == 0)
-                {
-                    // 遇到退回节点时停止
-                    if (operation.TransitionType == (int)WorkFlowMenu.Back)
-                        break;
-                }
+            //    //如果流程没有完成，遇到回退节点是停止
+            //    if (isFinish == 0)
+            //    {
+            //        // 遇到退回节点时停止
+            //        if (operation.TransitionType == (int)WorkFlowMenu.Back)
+            //            break;
+            //    }
 
-            }
+            //}
 
             return nodes;
         }
@@ -578,7 +621,7 @@ namespace Laoyoutiao.Service.WF
 
             var flowInstance = await _db.Queryable<WF_WorkFlow_Instance>()
                 .FirstAsync(a => a.InstanceId == instanceId && a.IsDeleted == 0);
-            var executedNodes = await GetExcuteNodes(instanceId, currentNodeId, flowInstance.IsFinish);
+            var executedNodes = await GetExcuteNodesIds(instanceId, currentNodeId, flowInstance.IsFinish);
             if (!executedNodes.Any())
                 return new List<WorkFlowEdge>();
             if (flowInstance == null)
@@ -588,16 +631,15 @@ namespace Laoyoutiao.Service.WF
             var edges = new List<WorkFlowEdge>();
 
             foreach (var node in executedNodes)
-            {
-                edges.AddRange(context.GetLinesForFrom(node.Id.ToString()));
-                edges.AddRange(context.GetLinesForTo(node.Id));
+            {                
+                edges.AddRange(context.GetLinesByIds(node.Key, node.Value));               
             }
 
             // 去重：只保留出现两次的连线（双向）
-            edges = edges.GroupBy(e => e.id)
-               .Where(g => g.Count() == 2)
-               .Select(g => g.First())
-               .ToList();
+            //edges = edges.GroupBy(e => e.id)
+            //   .Where(g => g.Count() == 2)
+            //   .Select(g => g.First())
+            //   .ToList();
             return edges;
         }
 
@@ -1002,15 +1044,16 @@ namespace Laoyoutiao.Service.WF
             MsWorkFlowContext context,
             WF_WorkFlow_Instance instance,
             WorkFlowProcessTransition model,
-            WorkFlowInstanceStatus status)
+            WorkFlowInstanceStatus status,WorkFlowMenu wfm
+            )
         {
             if (context.WorkFlow.ActivityNode.properties.ChatData.ChatType == ChatType.Parallel)
             {
-                await HandleParallelChatAsync(context, instance, model, status);
+                await HandleParallelChatAsync(context, instance, model, status, wfm);
             }
             else
             {
-                await HandleSerialChatAsync(context, instance, model, status);
+                await HandleSerialChatAsync(context, instance, model, status,  wfm);
             }
         }
 
@@ -1021,7 +1064,7 @@ namespace Laoyoutiao.Service.WF
             MsWorkFlowContext context,
             WF_WorkFlow_Instance instance,
             WorkFlowProcessTransition model,
-            WorkFlowInstanceStatus status)
+            WorkFlowInstanceStatus status,WorkFlowMenu wfm)
         {
             var makerUsers = instance.MakerList
                 .Split(',')
@@ -1029,11 +1072,11 @@ namespace Laoyoutiao.Service.WF
                 .ToList();
 
             // 记录当前节点的流转历史
-            await CreateSelfTransitionHistoryAsync(instance, model, context);
+            await CreateSelfTransitionHistoryAsync(instance, model, context, wfm);
 
             if (makerUsers.Count == 1) // 最后一人
             {
-                await CompleteParallelChatAsync(context, instance, model);
+                await CompleteParallelChatAsync(context, instance, model,wfm);
             }
             else
             {
@@ -1050,7 +1093,7 @@ namespace Laoyoutiao.Service.WF
         private async Task CreateSelfTransitionHistoryAsync(
             WF_WorkFlow_Instance instance,
             WorkFlowProcessTransition model,
-            MsWorkFlowContext context)
+            MsWorkFlowContext context,WorkFlowMenu wfm)
         {
             var transitionHistory = new WF_WorkFlow_Transition_History
             {
@@ -1065,7 +1108,8 @@ namespace Laoyoutiao.Service.WF
                 FromNodeType = (int)context.WorkFlow.ActivityNodeType,
                 ToNodeId = context.WorkFlow.ActivityNodeId.ToString(),
                 ToNodeName = context.WorkFlow.ActivityNode.text.value,
-                ToNodeType = (int)context.WorkFlow.ActivityNodeType
+                ToNodeType = (int)context.WorkFlow.ActivityNodeType,
+                TransitionType=(int)wfm
             };
 
             await _db.Insertable(transitionHistory).ExecuteCommandAsync();
@@ -1077,13 +1121,14 @@ namespace Laoyoutiao.Service.WF
         private async Task CompleteParallelChatAsync(
             MsWorkFlowContext context,
             WF_WorkFlow_Instance instance,
-            WorkFlowProcessTransition model)
+            WorkFlowProcessTransition model,
+            WorkFlowMenu wfm)
         {
             var edge = context.WorkFlow.Edges[Guid.Parse(instance.ActivityId)][0];
             var nextNode = context.WorkFlow.Nodes[edge.targetNodeId];
 
             // 记录跳转到下一节点的流转历史
-            await CreateTransitionToNextNodeAsync(instance, model, context, nextNode);
+            await CreateTransitionToNextNodeAsync(instance, model, context, nextNode, wfm);
 
             // 更新实例
             instance.PreviousId = instance.ActivityId;
@@ -1111,18 +1156,19 @@ namespace Laoyoutiao.Service.WF
             MsWorkFlowContext context,
             WF_WorkFlow_Instance instance,
             WorkFlowProcessTransition model,
-            WorkFlowInstanceStatus status)
+            WorkFlowInstanceStatus status,
+            WorkFlowMenu wfm)
         {
             var users = context.WorkFlow.ActivityNode.properties.users.Split(',');
             var currentIndex = Array.IndexOf(users, model.UserId);
             var isLastUser = currentIndex == users.Length - 1;
 
             // 记录当前节点的流转历史
-            await CreateSelfTransitionHistoryAsync(instance, model, context);
+            await CreateSelfTransitionHistoryAsync(instance, model, context,wfm);
 
             if (isLastUser)
             {
-                await CompleteSerialChatAsync(context, instance, model);
+                await CompleteSerialChatAsync(context, instance, model,wfm);
             }
         }
 
@@ -1132,13 +1178,13 @@ namespace Laoyoutiao.Service.WF
         private async Task CompleteSerialChatAsync(
             MsWorkFlowContext context,
             WF_WorkFlow_Instance instance,
-            WorkFlowProcessTransition model)
+            WorkFlowProcessTransition model,WorkFlowMenu wfm)
         {
             var edge = context.WorkFlow.Edges[Guid.Parse(instance.ActivityId)][0];
             var nextNode = context.WorkFlow.Nodes[edge.sourceNodeId];
 
             // 记录跳转到下一节点的流转历史
-            await CreateTransitionToNextNodeAsync(instance, model, context, nextNode);
+            await CreateTransitionToNextNodeAsync(instance, model, context, nextNode, wfm);
 
             // 更新实例
             instance.PreviousId = instance.ActivityId;
@@ -1195,7 +1241,10 @@ namespace Laoyoutiao.Service.WF
             WF_WorkFlow_Instance instance,
             WorkFlowProcessTransition model,
             MsWorkFlowContext context,
-            WorkFlowNode nextNode)
+            WorkFlowNode nextNode,
+            WorkFlowMenu wfm
+            
+            )
         {
             var transitionHistory = new WF_WorkFlow_Transition_History
             {
@@ -1210,7 +1259,8 @@ namespace Laoyoutiao.Service.WF
                 TransitionState = (int)WorkFlowTransitionStateType.Normal,
                 IsFinish = nextNode.NodeType().ToIsFinish(),
                 CreateUserId = long.Parse(model.UserId),
-                CreateUserName = model.UserName
+                CreateUserName = model.UserName,
+                TransitionType=(int)wfm
             };
 
             await _db.Insertable(transitionHistory).ExecuteCommandAsync();
@@ -1244,11 +1294,11 @@ namespace Laoyoutiao.Service.WF
                 {
                     if (context.IsMultipleNextNode())
                     {
-                        publishStatus = await HandleMultiBranchAgreeAsync(context, instance, model);
+                        publishStatus = await HandleMultiBranchAgreeAsync(context, instance, model, WorkFlowMenu.Agree);
                     }
                     else
                     {
-                        publishStatus = await HandleSingleBranchAgreeAsync(context, instance, model);
+                        publishStatus = await HandleSingleBranchAgreeAsync(context, instance, model, WorkFlowMenu.Agree);
                     }
                 }
                 else
@@ -1297,7 +1347,7 @@ namespace Laoyoutiao.Service.WF
         private async Task<WorkFlowStatus> HandleMultiBranchAgreeAsync(
             MsWorkFlowContext context,
             WF_WorkFlow_Instance instance,
-            WorkFlowProcessTransition model)
+            WorkFlowProcessTransition model, WorkFlowMenu wfm)
         {
             var nextLines = context.GetLinesForTo(context.WorkFlow.ActivityNodeId);
             var finalNodeId = await GetFinalNodeId(nextLines, Convert.ToDouble(model.ComValue));
@@ -1321,7 +1371,7 @@ namespace Laoyoutiao.Service.WF
             await _db.Updateable(instance).ExecuteCommandAsync();
 
             // 添加流转记录
-            await CreateTransitionToNodeAsync(instance, model, context, nextNode);
+            await CreateTransitionToNodeAsync(instance, model, context, nextNode, wfm);
 
             // 添加通知
             var viewNodes = context.GetNextNodes(null, WorkFlowInstanceNodeType.ViewNode);
@@ -1336,7 +1386,9 @@ namespace Laoyoutiao.Service.WF
         private async Task<WorkFlowStatus> HandleSingleBranchAgreeAsync(
             MsWorkFlowContext context,
             WF_WorkFlow_Instance instance,
-            WorkFlowProcessTransition model)
+            WorkFlowProcessTransition model,
+            WorkFlowMenu wfm
+            )
         {
             if (context.WorkFlow.NextNode.NodeType() == WorkFlowInstanceNodeType.ChatNode)
             {
@@ -1360,7 +1412,7 @@ namespace Laoyoutiao.Service.WF
             await _db.Updateable(instance).ExecuteCommandAsync();
 
             // 添加流转记录
-            await CreateTransitionToNextNodeAsync(instance, model, context);
+            await CreateTransitionToNextNodeAsync(instance, model, context, wfm);
 
             // 添加通知
             var viewNodes = context.GetNextNodes(null, WorkFlowInstanceNodeType.ViewNode);
@@ -1395,7 +1447,7 @@ namespace Laoyoutiao.Service.WF
             WF_WorkFlow_Instance instance,
             WorkFlowProcessTransition model,
             MsWorkFlowContext context,
-            WorkFlowNode targetNode)
+            WorkFlowNode targetNode, WorkFlowMenu wfm)
         {
             var transitionHistory = new WF_WorkFlow_Transition_History
             {
@@ -1411,26 +1463,8 @@ namespace Laoyoutiao.Service.WF
                 IsFinish = targetNode.NodeType().ToIsFinish(),
                 CreateUserId = long.Parse(model.UserId),
                 CreateUserName = model.UserName,
-                TransitionType=0
+                TransitionType=(int)wfm
             };
-            //如果
-            ////如果下一个节点是结束节点，就想操作历史记录中插入一条记录
-            //if (transitionHistory.IsFinish == 1)
-            //{
-            //    var operationHistory = new WF_WorkFlow_Operation_History
-            //    {
-            //        OperationId = Guid.NewGuid().ToString(),
-            //        InstanceId = instance.InstanceId,
-            //        CreateUserId = long.Parse(model.UserId),
-            //        CreateUserName = model.UserName,
-            //        Content = "结束",
-            //        NodeName = targetNode.text.value,
-            //        NodeId = targetNode.Id.ToString(),
-            //        TransitionType = (int)WorkFlowMenu.Agree
-            //    };
-            //    await _db.Insertable(operationHistory).ExecuteCommandAsync();
-            //}
-
             await _db.Insertable(transitionHistory).ExecuteCommandAsync();
         }
 
@@ -1440,7 +1474,7 @@ namespace Laoyoutiao.Service.WF
         private async Task CreateTransitionToNextNodeAsync(
             WF_WorkFlow_Instance instance,
             WorkFlowProcessTransition model,
-            MsWorkFlowContext context)
+            MsWorkFlowContext context, WorkFlowMenu wfm)
         {
             var transitionHistory = new WF_WorkFlow_Transition_History
             {
@@ -1455,24 +1489,9 @@ namespace Laoyoutiao.Service.WF
                 TransitionState = (int)WorkFlowTransitionStateType.Normal,
                 IsFinish = context.WorkFlow.NextNodeType.ToIsFinish(),
                 CreateUserId = long.Parse(model.UserId),
-                CreateUserName = model.UserName
-            };
-            ////如果下一个节点是结束节点，就想操作历史记录中插入一条记录
-            //if (transitionHistory.IsFinish == 1)
-            //{
-            //    var operationHistory = new WF_WorkFlow_Operation_History
-            //    {
-            //        OperationId = Guid.NewGuid().ToString(),
-            //        InstanceId = instance.InstanceId,
-            //        CreateUserId = long.Parse(model.UserId),
-            //        CreateUserName = model.UserName,
-            //        Content = "结束",
-            //        NodeName = context.WorkFlow.NextNode.text.value,
-            //        NodeId = context.WorkFlow.NextNodeId.ToString(),
-            //        TransitionType = (int)WorkFlowMenu.Agree
-            //    };
-            //    await _db.Insertable(operationHistory).ExecuteCommandAsync();
-            //}
+                CreateUserName = model.UserName,
+                TransitionType = (int)wfm
+            };            
             await _db.Insertable(transitionHistory).ExecuteCommandAsync();
         }
 
@@ -1552,7 +1571,7 @@ namespace Laoyoutiao.Service.WF
                 // 会签节点特殊处理
                 if (context.WorkFlow.ActivityNode.NodeType() == WorkFlowInstanceNodeType.ChatNode)
                 {
-                    await HandleChatNodeLogicAsync(context, instance, model, WorkFlowInstanceStatus.Running);
+                    await HandleChatNodeLogicAsync(context, instance, model, WorkFlowInstanceStatus.Running,WorkFlowMenu.Deprecate);
                 }
                 else
                 {

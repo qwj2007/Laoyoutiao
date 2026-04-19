@@ -193,7 +193,17 @@ namespace Laoyoutiao.Service.WF
             }
             return lines;
         }
-
+        /// <summary>
+        /// 查找连个节点的连线
+        /// </summary>
+        /// <param name="sourceId">源节点</param>
+        /// <param name="targetId">目标节点</param>
+        /// <returns></returns>
+        public List<WorkFlowEdge> GetLinesByIds(string sourceId,string targetId)
+        {
+            var lines = GetAllLines().Where(m => m.targetNodeId == Guid.Parse(targetId)&&m.sourceNodeId== Guid.Parse(sourceId)).ToList();
+            return lines;
+        }
         /// <summary>
         /// 根据节点ID获取From（流入的线条）
         /// </summary>
