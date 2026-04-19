@@ -54,7 +54,10 @@ namespace Laoyoutiao.WorkFlow.Core
         // 摘要:
         //     通知节点
         [Description("通知节点")]
-        ViewNode
+        ViewNode,
+        [Description("没有节点")]
+        NoneNode,
+         
     }
 
     public static class FlowNodeExtension

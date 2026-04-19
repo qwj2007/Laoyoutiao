@@ -155,7 +155,9 @@ namespace Laoyoutiao.webapi.Area.WF.Controllers
         [HttpGet]
         public async Task<ApiResult> GetExcuteNodes(string instanceId,string currentNodeId)
         {
-            var result = await _workFlowInstanceService.GetExcuteNodes(instanceId, currentNodeId);
+            var workFlowInstance = await _workFlowInstanceService.GetWorkFlowInstanceByInstanceId(instanceId);
+            int? isFinish = workFlowInstance.IsFinish;
+            var result = await _workFlowInstanceService.GetExcuteNodes(instanceId, currentNodeId, isFinish);
             return ResultHelper.Success(result);
         }
 

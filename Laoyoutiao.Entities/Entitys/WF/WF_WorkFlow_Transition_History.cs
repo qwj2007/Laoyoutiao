@@ -38,5 +38,8 @@ namespace Laoyoutiao.Models.Entitys.WF
 
         [SugarColumn(IsNullable = false, ColumnDescription = "流程流转的状态")]
         public int TransitionState { get; set; } = 0;
+
+        [SugarColumn(IsNullable = true, ColumnDescription = "操作按钮类型")]
+        public int? TransitionType { get; set; }
     }
 }

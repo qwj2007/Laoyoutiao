@@ -68,9 +68,21 @@ namespace Laoyoutiao.IService.WF
         /// <param name="instanceid"></param>
         /// <param name="currentNodeId"></param>
         /// <returns></returns>
-        Task<List<WorkFlowNode>> GetExcuteNodes(string instanceid, string currentNodeId);
-
+        Task<List<WorkFlowNode>> GetExcuteNodes(string instanceid, string currentNodeId,int? isFinish = 1);
+        /// <summary>
+        /// 获取执行的连线
+        /// </summary>
+        /// <param name="instanceid"></param>
+        /// <param name="currentNodeId"></param>
+        /// <returns></returns>
         Task<List<WorkFlowEdge>> GetExcuteEdges(string instanceid, string currentNodeId);
+
+        /// <summary>
+        /// 根据instanceId找到信息
+        /// </summary>
+        /// <returns></returns>
+        Task<WF_WorkFlow_Instance> GetWorkFlowInstanceByInstanceId(string instanceId);
+
 
     }
 }
