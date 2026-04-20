@@ -1625,7 +1625,7 @@ namespace Laoyoutiao.Service.WF
                 FlowJson = instance.FlowContent,
                 ActivityNodeId = Guid.Parse(instance.ActivityId),
                 PreviousId = Guid.Parse(instance.PreviousId)
-            });
+            }, WorkFlowMenu.Back);
 
             var result = await _db.Ado.UseTranAsync(async () =>
             {
@@ -1637,6 +1637,7 @@ namespace Laoyoutiao.Service.WF
 
                 var rejectNodeId = context.RejectNode(model.NodeRejectType.Value, model.RejectNodeId);
                 var rejectNode = context.WorkFlow.Nodes[rejectNodeId];
+                
 
                 UpdateInstanceForBack(instance, rejectNode, model);
                 await _db.Updateable(instance).ExecuteCommandAsync();
@@ -1665,16 +1666,28 @@ namespace Laoyoutiao.Service.WF
             WF_WorkFlow_Instance instance,
             WorkFlowNode rejectNode,
             WorkFlowProcessTransition model)
-        {
-            instance.PreviousId = instance.ActivityId;
+        {  
+            //查找上一个正常流程审批节点，不包含退回的流程
+            var wthModel = _db.Queryable<WF_WorkFlow_Transition_History>().Where(a => a.InstanceId == instance.InstanceId
+            && a.TransitionType != 7 && a.ToNodeId == instance.ActivityId.ToString() && a.IsDeleted == 0).First();
+            if (wthModel != null)
+            {
+                instance.PreviousId = wthModel.FromNodeId;
+            }
+            else
+            { instance.PreviousId = instance.PreviousId;
+            }
+            
             instance.ActivityId = rejectNode.Id.ToString();
             instance.ActivityName = rejectNode.text.value;
             instance.ActivityType = (int)rejectNode.NodeType();
             instance.ModifyDate = DateTime.Now;
+          
+           
 
             if (rejectNode.NodeType() == WorkFlowInstanceNodeType.Start)
             {
-                instance.MakerList = instance.CreateUserId + COMMA_SUFFIX;
+                instance.MakerList = instance.CreateUserId + COMMA_SUFFIX;               
             }
             else
             {

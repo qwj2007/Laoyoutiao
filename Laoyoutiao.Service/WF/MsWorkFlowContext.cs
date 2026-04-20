@@ -11,7 +11,7 @@ namespace Laoyoutiao.Service.WF
 {
     public class MsWorkFlowContext : WorkFlowContext
     {
-        public MsWorkFlowContext(WorkFlow.Core.WorkFlow workFlow)
+        public MsWorkFlowContext(WorkFlow.Core.WorkFlow workFlow, WorkFlowMenu wfm=WorkFlowMenu.Agree)
         {
             if (workFlow.FlowId == default(Guid))
             {
@@ -51,6 +51,10 @@ namespace Laoyoutiao.Service.WF
             }
             else
             {
+
+                //如果是退回操作，要找流程图的前一个节点
+                
+
                 //查找下一个执行节点
                 var nodeids = this.GetNextNodeIdsNotSpecialNode(this.WorkFlow.ActivityNodeId, WorkFlowInstanceNodeType.ViewNode);
                 if (WorkFlow.NextNodeType != WorkFlowInstanceNodeType.End)
@@ -324,19 +328,19 @@ namespace Laoyoutiao.Service.WF
             switch (rejectType)
             {
                 case NodeRejectType.PreviousStep:
-                    return this.WorkFlow.PreviousId;
-                case NodeRejectType.FirstStep:
+                    return this.WorkFlow.PreviousId;//上一步审批节点
+                case NodeRejectType.FirstStep://第一步审批节点
                     return this.GetNextNodeIds(this.WorkFlow.StartNodeId).First();
-                case NodeRejectType.ForOneStep:
+                case NodeRejectType.ForOneStep://某一步
                     if (rejectNodeid == null || rejectNodeid == default(Guid))
                     {
                         throw new Exception("驳回节点没有值！");
                     }
                     var fornode = this.WorkFlow.Nodes[rejectNodeid.Value];
                     return fornode.Id;
-                case NodeRejectType.UnHandle:
+                case NodeRejectType.UnHandle: //不处理回到起始节点
                 default:
-                    return this.WorkFlow.PreviousId;
+                    return this.WorkFlow.StartNodeId;
             }
         }
     }
