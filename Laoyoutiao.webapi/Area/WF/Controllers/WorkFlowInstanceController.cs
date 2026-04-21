@@ -155,6 +155,9 @@ namespace Laoyoutiao.webapi.Area.WF.Controllers
         [HttpGet]
         public async Task<ApiResult> GetExcuteNodes(string instanceId,string currentNodeId)
         {
+            if (string.IsNullOrEmpty("undefined") || "undefined".Equals(instanceId)) {
+                return ResultHelper.Error()   ;
+            }
             var workFlowInstance = await _workFlowInstanceService.GetWorkFlowInstanceByInstanceId(instanceId);
             int? isFinish = workFlowInstance.IsFinish;
             var result = await _workFlowInstanceService.GetExcuteNodes(instanceId, currentNodeId, isFinish);
@@ -169,6 +172,10 @@ namespace Laoyoutiao.webapi.Area.WF.Controllers
         /// <returns></returns>
         [HttpGet]
         public async Task<ApiResult> GetExcuteEdges(string instanceId, string currentNodeId) {
+            if (string.IsNullOrEmpty("undefined") || "undefined".Equals(instanceId))
+            {
+                return ResultHelper.Error();
+            }
             var result = await _workFlowInstanceService.GetExcuteEdges(instanceId, currentNodeId);
             return ResultHelper.Success(result);
         }
